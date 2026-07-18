@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from 'react';
+import { AD_CLIENT } from './slots';
 
 interface AdUnitProps {
   slot: string;
@@ -68,7 +69,7 @@ export default function AdUnit({
         textAlign: layout === 'in-article' ? 'center' : undefined,
         ...style,
       }}
-      data-ad-client="ca-pub-1119289641389825"
+      data-ad-client={AD_CLIENT}
       data-ad-slot={slot}
       data-ad-format={format}
       {...(layout    ? { 'data-ad-layout':     layout    } : {})}

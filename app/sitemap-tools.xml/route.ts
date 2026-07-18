@@ -7,8 +7,8 @@ import { buildSitemapXml, xmlResponse } from '@/lib/sitemap/xml'
 import { TOOLS } from '@/lib/registry/tools'
 import { createSupabasePublicClient } from '@/lib/supabase/client'
 
-const BASE_URL = 'https://gulftools.jobmeter.app'
-const locales  = ['en', 'ar'] as const
+const BASE_URL = 'https://onlinetoolsng.com'
+const locales = ['en'] as const
 
 async function getTranslatedToolSlugs(): Promise<Set<string>> {
   try {

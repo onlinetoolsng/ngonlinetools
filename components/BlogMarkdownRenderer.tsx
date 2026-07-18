@@ -7,7 +7,7 @@ interface BlogMarkdownRendererProps {
   locale?: string;
 }
 
-const SITE_HOST = 'gulftools.jobmeter.app';
+const SITE_HOST = 'onlinetoolsng.com';
 
 export default function BlogMarkdownRenderer({ content, className = "", locale }: BlogMarkdownRendererProps) {
   const isRtl = locale === 'ar';

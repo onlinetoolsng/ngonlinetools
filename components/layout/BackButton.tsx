@@ -32,7 +32,7 @@ export function BackButton({ fallbackHref, label, className }: BackButtonProps) 
       }}
       className={
         className ??
-        'inline-flex items-center gap-1.5 text-sm font-medium text-gray-500 hover:text-emerald-600 transition-colors'
+        'inline-flex items-center gap-1.5 text-sm font-medium text-gray-500 hover:text-indigo-700 transition-colors'
       }
     >
       <span className={isRTL ? 'rotate-180 inline-block' : 'inline-block'} aria-hidden="true">

@@ -29,13 +29,13 @@ export default async function NotFound() {
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <Link
             href={`/${locale}`}
-            className="inline-flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-6 py-3 rounded-xl transition-colors"
+            className="inline-flex items-center justify-center gap-2 bg-indigo-700 hover:bg-indigo-800 text-white font-semibold px-6 py-3 rounded-xl transition-colors"
           >
             {isAr ? '← العودة للرئيسية' : '← Back to Home'}
           </Link>
           <Link
             href={`/${locale}/tools`}
-            className="inline-flex items-center justify-center gap-2 border border-gray-200 text-gray-700 hover:border-emerald-300 hover:text-emerald-600 font-semibold px-6 py-3 rounded-xl transition-colors"
+            className="inline-flex items-center justify-center gap-2 border border-gray-200 text-gray-700 hover:border-indigo-300 hover:text-indigo-700 font-semibold px-6 py-3 rounded-xl transition-colors"
           >
             {isAr ? 'تصفح الأدوات' : 'Browse Tools'}
           </Link>
@@ -55,10 +55,10 @@ export default async function NotFound() {
               <Link
                 key={tool.slug}
                 href={`/${locale}/tools/${tool.cat}/${tool.slug}`}
-                className="flex items-center gap-3 bg-white border border-gray-100 rounded-xl p-4 hover:border-emerald-200 hover:shadow-sm transition-all group"
+                className="flex items-center gap-3 bg-white border border-gray-100 rounded-xl p-4 hover:border-indigo-200 hover:shadow-sm transition-all group"
               >
                 <span className="text-2xl">{tool.icon}</span>
-                <span className="text-sm font-medium text-gray-700 group-hover:text-emerald-600 transition-colors">
+                <span className="text-sm font-medium text-gray-700 group-hover:text-indigo-700 transition-colors">
                   {tool.name}
                 </span>
               </Link>

@@ -12,7 +12,6 @@ export async function Header({ locale, activePath }: Props) {
 const navLinks = [
   { href: `/${locale}/tools`,      label: tNav('tools') },
   { href: `/${locale}/blog`,       label: tNav('blog') },
-  { href: `/${locale}/location`,   label: tNav('locations') },
 ]
 
   return (
@@ -22,8 +21,9 @@ const navLinks = [
 
           {/* Logo */}
           <Link href={`/${locale}`} className="text-2xl font-black tracking-tight flex-shrink-0">
-            <span className="text-emerald-600">Gulf</span>
+            <span className="text-indigo-700">Online</span>
             <span className="text-gray-900">Tools</span>
+            <span className="text-amber-500">NG</span>
           </Link>
 
           {/* Nav */}
@@ -36,8 +36,8 @@ const navLinks = [
                   href={link.href}
                   className={`transition-colors ${
                     isActive
-                      ? 'text-emerald-600 font-semibold'
-                      : 'text-gray-600 hover:text-emerald-600'
+                      ? 'text-indigo-700 font-semibold'
+                      : 'text-gray-600 hover:text-indigo-700'
                   }`}
                 >
                   {link.label}
@@ -45,14 +45,6 @@ const navLinks = [
               )
             })}
           </nav>
-
-          {/* Language switcher */}
-          <Link
-            href={locale === 'en' ? '/ar' : '/en'}
-            className="text-sm font-medium text-gray-600 hover:text-emerald-600 border border-gray-200 rounded-lg px-3 py-1.5 transition-colors flex-shrink-0"
-          >
-            {locale === 'en' ? 'عربي' : 'English'}
-          </Link>
         </div>
       </div>
     </header>

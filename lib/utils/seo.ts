@@ -1,6 +1,6 @@
 import { getTranslations } from 'next-intl/server'
 
-const BASE_URL = 'https://gulftools.jobmeter.app'
+const BASE_URL = 'https://onlinetoolsng.com'
 
 export async function generateToolMetadata(
   locale: string,
@@ -10,22 +10,17 @@ export async function generateToolMetadata(
   const t = await getTranslations({ locale, namespace: `tools.${toolSlug}` })
 
   return {
-    title: `${t('title')} | Gulf Tools`,
+    title: `${t('title')} | OnlineToolsNG`,
     description: t('metaDescription'),
     alternates: {
-      canonical: `${BASE_URL}/${locale}/tools/${categorySlug}/${toolSlug}`,
-      languages: {
-        en: `${BASE_URL}/en/tools/${categorySlug}/${toolSlug}`,
-        ar: `${BASE_URL}/ar/tools/${categorySlug}/${toolSlug}`,
-        'x-default': `${BASE_URL}/en/tools/${categorySlug}/${toolSlug}`,
-      },
+      canonical: `${BASE_URL}/tools/${categorySlug}/${toolSlug}`,
     },
     openGraph: {
       title: t('title'),
       description: t('metaDescription'),
-      url: `${BASE_URL}/${locale}/tools/${categorySlug}/${toolSlug}`,
-      siteName: 'Gulf Tools',
-      locale: locale === 'ar' ? 'ar_AE' : 'en_AE',
+      url: `${BASE_URL}/tools/${categorySlug}/${toolSlug}`,
+      siteName: 'OnlineToolsNG',
+      locale: 'en_NG',
       type: 'website' as const,
       images: [
         {
@@ -64,22 +59,17 @@ export async function generateCategoryMetadata(
   })
 
   return {
-    title: `${t('name')} Tools | Gulf Tools`,
+    title: `${t('name')} Tools | OnlineToolsNG`,
     description: t('description'),
     alternates: {
-      canonical: `${BASE_URL}/${locale}/tools/${categorySlug}`,
-      languages: {
-        en: `${BASE_URL}/en/tools/${categorySlug}`,
-        ar: `${BASE_URL}/ar/tools/${categorySlug}`,
-        'x-default': `${BASE_URL}/en/tools/${categorySlug}`,
-      },
+      canonical: `${BASE_URL}/tools/${categorySlug}`,
     },
     openGraph: {
       title: `${t('name')} Tools`,
       description: t('description'),
-      url: `${BASE_URL}/${locale}/tools/${categorySlug}`,
-      siteName: 'Gulf Tools',
-      locale: locale === 'ar' ? 'ar_AE' : 'en_AE',
+      url: `${BASE_URL}/tools/${categorySlug}`,
+      siteName: 'OnlineToolsNG',
+      locale: 'en_NG',
       type: 'website' as const,
     },
     robots: { index: true, follow: true },
@@ -93,26 +83,21 @@ export async function generateHomepageMetadata(locale: string) {
     title: t('siteName'),
     description: t('siteDescription'),
     alternates: {
-      canonical: `${BASE_URL}/${locale}`,
-      languages: {
-        en: `${BASE_URL}/en`,
-        ar: `${BASE_URL}/ar`,
-        'x-default': `${BASE_URL}/en`,
-      },
+      canonical: `${BASE_URL}`,
     },
     openGraph: {
       title: t('siteName'),
       description: t('siteDescription'),
-      url: `${BASE_URL}/${locale}`,
-      siteName: 'Gulf Tools',
-      locale: locale === 'ar' ? 'ar_AE' : 'en_AE',
+      url: `${BASE_URL}`,
+      siteName: 'OnlineToolsNG',
+      locale: 'en_NG',
       type: 'website' as const,
       images: [
         {
           url: `${BASE_URL}/og/homepage.png`,
           width: 1200,
           height: 630,
-          alt: 'Gulf Tools',
+          alt: 'OnlineToolsNG',
         },
       ],
     },
@@ -121,29 +106,21 @@ export async function generateHomepageMetadata(locale: string) {
 }
 
 export function generateBlogIndexMetadata(locale: string) {
-  const title = locale === 'ar' ? 'المدونة | Gulf Tools' : 'Blog | Gulf Tools'
-  const description =
-    locale === 'ar'
-      ? 'مقالات وأدلة عملية حول الرواتب والضرائب والقوانين في دول الخليج'
-      : 'Guides and articles on salaries, taxes, labour law and finance across the Gulf'
+  const title = 'Blog | OnlineToolsNG'
+  const description = 'Guides and articles on personal finance, taxes, and money in Nigeria'
 
   return {
     title,
     description,
     alternates: {
-      canonical: `${BASE_URL}/${locale}/blog`,
-      languages: {
-        en: `${BASE_URL}/en/blog`,
-        ar: `${BASE_URL}/ar/blog`,
-        'x-default': `${BASE_URL}/en/blog`,
-      },
+      canonical: `${BASE_URL}/blog`,
     },
     openGraph: {
       title,
       description,
-      url: `${BASE_URL}/${locale}/blog`,
-      siteName: 'Gulf Tools',
-      locale: locale === 'ar' ? 'ar_AE' : 'en_AE',
+      url: `${BASE_URL}/blog`,
+      siteName: 'OnlineToolsNG',
+      locale: 'en_NG',
       type: 'website' as const,
       images: [
         {

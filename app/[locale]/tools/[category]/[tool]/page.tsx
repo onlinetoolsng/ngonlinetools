@@ -1,4 +1,5 @@
 // 📁 app/[locale]/tools/[category]/[tool]/page.tsx
+import type { ComponentType } from 'react'
 import { getTranslations } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import { TOOLS, getToolBySlug, getRelatedTools } from '@/lib/registry/tools'
@@ -23,20 +24,16 @@ import Link from 'next/link'
 // ─── Constants ────────────────────────────────────────────────────────────────
 
 const categoryColorMap: Record<string, string> = {
-  finance:          'bg-emerald-50 text-emerald-700',
-  'hr-payroll':     'bg-teal-50 text-teal-700',
-  'islamic-tools':  'bg-green-50 text-green-700',
-  'tax-vat':        'bg-red-50 text-red-700',
+  finance:          'bg-indigo-50 text-indigo-700',
+  tax:              'bg-amber-50 text-amber-700',
   business:         'bg-blue-50 text-blue-700',
+  'hr-payroll':     'bg-slate-50 text-slate-700',
   'real-estate':    'bg-orange-50 text-orange-700',
+  education:        'bg-rose-50 text-rose-700',
+  health:           'bg-cyan-50 text-cyan-700',
   currency:         'bg-yellow-50 text-yellow-700',
-  education:        'bg-indigo-50 text-indigo-700',
-  health:           'bg-pink-50 text-pink-700',
-  career:           'bg-slate-50 text-slate-700',
-  travel:           'bg-sky-50 text-sky-700',
-  auto:             'bg-zinc-50 text-zinc-700',
-  productivity:     'bg-amber-50 text-amber-700',
-  government:       'bg-stone-50 text-stone-700',
+  'islamic-tools':  'bg-stone-50 text-stone-700',
+  everyday:         'bg-zinc-50 text-zinc-700',
 }
 
 /**
@@ -45,19 +42,7 @@ const categoryColorMap: Record<string, string> = {
  * Extend this list as you add more tools.
  */
 const TOOL_NAMES: Record<string, { en: string; ar: string }> = {
-  'salary-calculator':            { en: 'Salary Calculator',            ar: 'حاسبة الراتب' },
-  'loan-emi-calculator':          { en: 'Loan EMI Calculator',          ar: 'حاسبة القسط الشهري' },
-  'gratuity-calculator':          { en: 'Gratuity Calculator',          ar: 'حاسبة مكافأة نهاية الخدمة' },
-  'zakat-calculator':             { en: 'Zakat Calculator',             ar: 'حاسبة الزكاة' },
-  'hijri-gregorian-converter':    { en: 'Hijri–Gregorian Converter',    ar: 'محول التاريخ الهجري' },
-  'uae-vat-calculator':           { en: 'UAE VAT Calculator',           ar: 'حاسبة ضريبة القيمة المضافة الإمارات' },
-  'ksa-vat-calculator':           { en: 'Saudi VAT Calculator',         ar: 'حاسبة ضريبة القيمة المضافة السعودية' },
-  'invoice-generator':            { en: 'Invoice Generator',            ar: 'مولّد الفواتير' },
-  'compound-interest-calculator': { en: 'Compound Interest Calculator', ar: 'حاسبة الفائدة المركبة' },
-  'savings-goal-calculator':      { en: 'Savings Goal Calculator',      ar: 'حاسبة هدف الادخار' },
-  'leave-encashment-calculator':  { en: 'Leave Encashment Calculator',  ar: 'حاسبة صرف الإجازة' },
-  'notice-period-calculator':     { en: 'Notice Period Calculator',     ar: 'حاسبة فترة الإشعار' },
-  'profit-margin-calculator':     { en: 'Profit Margin Calculator',     ar: 'حاسبة هامش الربح' },
+  // Add fallback display names here as new tools are built.
 }
 
 function getToolName(slug: string, locale: string): string {
@@ -80,7 +65,7 @@ export const revalidate = 86400
 // ─── Static params ────────────────────────────────────────────────────────────
 
 export async function generateStaticParams() {
-  const locales = ['en', 'ar']
+  const locales = ['en']
   return TOOLS.flatMap(tool =>
     locales.map(locale => ({
       locale,
@@ -103,11 +88,11 @@ export async function generateMetadata({ params }: { params: Promise<Params> }) 
   }
   if (!toolContent) return {}
 
-  const BASE_URL = 'https://gulftools.jobmeter.app'
+  const BASE_URL = 'https://onlinetoolsng.com'
   const url      = `${BASE_URL}/${locale}/tools/${category}/${toolSlug}`
 
   return {
-    title:       `${toolContent.title} | Gulf Tools`,
+    title:       `${toolContent.title} | OnlineToolsNG`,
     description: toolContent.meta_description ?? toolContent.description ?? '',
     alternates: {
       canonical: url,
@@ -121,7 +106,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }) 
       title:       toolContent.title,
       description: toolContent.meta_description ?? toolContent.description ?? '',
       url,
-      siteName: 'Gulf Tools',
+      siteName: 'OnlineToolsNG',
       locale:   locale === 'ar' ? 'ar_AE' : 'en_AE',
       type:     'website' as const,
       images:   [{ url: `${BASE_URL}/og/tools/${toolSlug}.png`, width: 1200, height: 630 }],
@@ -135,163 +120,10 @@ export async function generateMetadata({ params }: { params: Promise<Params> }) 
   }
 }
 
-async function loadToolComponent(toolSlug: string) {
+async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ locale: string }> | null> {
   try {
     switch (toolSlug) {
-      // ── FINANCE TOOLS ──
-      case 'salary-calculator':
-        return (await import('@/components/tools/finance/SalaryCalculator')).default;
-      case 'uae-mortgage-calculator':
-        return (await import('@/components/tools/finance/UAEMortgageCalculator')).default;
-      case 'dubai-mortgage-calculator-non-residents':
-        return (await import('@/components/tools/finance/DubaiNonResidentMortgageCalculator')).default;
-      case 'home-loan-calculator-dubai':
-        return (await import('@/components/tools/finance/HomeLoanCalculatorDubai')).default;
-      case 'loan-emi-calculator':
-        return (await import('@/components/tools/finance/LoanEMICalculator')).default;
-      case 'savings-goal-calculator':
-        return (await import('@/components/tools/finance/SavingsGoalCalculator')).default;
-      case 'compound-interest-calculator':
-        return (await import('@/components/tools/finance/CompoundInterestCalculator')).default;
-      case 'uae-salary-calculator':
-        return (await import('@/components/tools/finance/UAESalaryCalculator')).default;
-      case 'dubai-salary-calculator':
-        return (await import('@/components/tools/finance/DubaiSalaryCalculator')).default;
-      case 'fab-loan-calculator':
-        return (await import('@/components/tools/finance/FABLoanCalculator')).default;
-      case 'rakbank-loan-calculator':
-        return (await import('@/components/tools/finance/RakbankLoanCalculator')).default;
-      case 'saudi-salary-calculator':
-        return (await import('@/components/tools/finance/SaudiSalaryCalculator')).default;
-      case 'egypt-salary-calculator':
-        return (await import('@/components/tools/finance/EgyptSalaryCalculator')).default;
-      case 'saudi-vacation-calculator':
-        return (await import('@/components/tools/finance/SaudiVacationCalculator')).default;
-      case 'uae-car-loan-calculator':
-        return (await import('@/components/tools/finance/UAECarLoanCalculator')).default;
-      case 'qatar-salary-calculator':
-        return (await import('@/components/tools/finance/QatarSalaryCalculator')).default;
-      case 'uae-loan-emi-calculator':
-        return (await import('@/components/tools/finance/UAELoanEMICalculator')).default;
-      case 'uae-loan-eligibility-calculator':
-        return (await import('@/components/tools/finance/UAELoanEligibilityCalculator')).default;
-      case 'gcc-emi-calculator':
-        return (await import('@/components/tools/finance/GCCEMICalculator')).default;
-      case 'kuwait-emi-calculator':
-        return (await import('@/components/tools/finance/KuwaitEMICalculator')).default;
-      case 'top-up-loan-calculator-uae':
-        return (await import('@/components/tools/finance/TopUpLoanCalculatorUAE')).default;
-      case 'car-loan-calculator-uae':
-        return (await import('@/components/tools/finance/CarLoanCalculatorUAE')).default;
-      case 'oman-emi-calculator':
-      case 'oman-loan-calculator': // Aliased to the same component
-        return (await import('@/components/tools/finance/OmanEmiCalculator')).default;
-      case 'car-loan-emi-calculator':
-        return (await import('@/components/tools/finance/CarLoanEMICalculator')).default;
-      case 'car-loan-eligibility-calculator':
-        return (await import('@/components/tools/finance/CarLoanEligibilityCalculator')).default;
-      case 'credit-card-emi-calculator-uae':
-        return (await import('@/components/tools/finance/CreditCardEmiCalculatorUAE')).default;
-      case 'uae-end-of-service-calculator':
-        return (await import('@/components/tools/finance/UAEEndOfServiceCalculator')).default;
-      case 'uae-final-settlement-calculator':
-        return (await import('@/components/tools/finance/UAEFinalSettlementCalculator')).default;
-      case 'qatar-gratuity-calculator':
-        return (await import('@/components/tools/finance/QatarGratuityCalculator')).default;
-      case 'kuwait-gratuity-calculator':
-        return (await import('@/components/tools/finance/KuwaitGratuityCalculator')).default;
-      case 'oman-gratuity-calculator':
-        return (await import('@/components/tools/finance/OmanGratuityCalculator')).default;
-      case 'bahrain-gratuity-calculator':
-        return (await import('@/components/tools/finance/BahrainGratuityCalculator')).default;
-      case 'uae-indemnity-calculator':
-        return (await import('@/components/tools/finance/UAEIndemnityCalculator')).default;
-      case 'uae-leave-calculator':
-        return (await import('@/components/tools/finance/UAELeaveCalculator')).default;
-      case 'adcb-loan-calculator':
-        return (await import('@/components/tools/finance/ADCBLoanCalculator')).default;
-      case 'emirates-nbd-loan-calculator':
-        return (await import('@/components/tools/finance/EmiratesNBDLoanCalculator')).default;
-      case 'hsbc-loan-calculator-uae':
-        return (await import('@/components/tools/finance/HSBCLoanCalculator')).default;
-      case 'qatar-emi-calculator':
-        return (await import('@/components/tools/finance/QatarEmiCalculator')).default;
-      case 'uae-personal-loan-calculator':
-        return (await import('@/components/tools/finance/UAEPersonalLoanCalculator')).default;
-      case 'uae-loan-repayment-calculator':
-        return (await import('@/components/tools/finance/UAELoanRepaymentCalculator')).default;
-      case 'uae-loan-amortization-calculator':
-        return (await import('@/components/tools/finance/UAELoanAmortizationCalculator')).default;
-      case 'uae-early-settlement-calculator':
-        return (await import('@/components/tools/finance/UAEEarlySettlementCalculator')).default;
-      case 'oman-salary-calculator':
-        return (await import('@/components/tools/finance/OmanSalaryCalculator')).default;
-      case 'uae-leave-pay-calculator':
-        return (await import('@/components/tools/finance/UAELeavePayCalculator')).default;
-      case 'uae-credit-card-emi-calculator':
-        return (await import('@/components/tools/finance/UAECreditCardEMICalculator')).default;
-      case 'adcb-emi-calculator':
-        return (await import('@/components/tools/finance/ADCBEMICalculator')).default;
-      case 'mashreq-loan-calculator':
-        return (await import('@/components/tools/finance/MashreqLoanCalculator')).default;
-      case 'deem-loan-calculator':
-        return (await import('@/components/tools/finance/DeemLoanCalculator')).default;
-      case 'dbr-calculator-uae':
-        return (await import('@/components/tools/finance/DBRCalculator')).default;
-      case 'flat-interest-rate-calculator-uae':
-        return (await import('@/components/tools/finance/FlatInterestRateCalculator')).default;
-      case 'adcb-mortgage-calculator-dubai':
-        return (await import('@/components/tools/finance/ADCBMortgageCalculator')).default;
-
-      // ── HR & PAYROLL TOOLS ──
-      case 'gratuity-calculator':
-        return (await import('@/components/tools/hr-payroll/GratuityCalculator')).default;
-      case 'notice-period-calculator':
-        return (await import('@/components/tools/hr-payroll/NoticePeriodCalculator')).default;
-      case 'leave-encashment-calculator':
-        return (await import('@/components/tools/hr-payroll/LeaveEncashmentCalculator')).default;
-      case 'uae-leave-settlement-calculator':
-        return (await import('@/components/tools/hr-payroll/UAELeaveSettlementCalculator')).default;
-      case 'uae-sick-leave-calculator':
-        return (await import('@/components/tools/hr-payroll/UAESickLeaveCalculator')).default;
-      case 'holiday-pay-calculator-uae':
-      case 'uae-holiday-pay-calculator': // Consolidated duplicates
-        return (await import('@/components/tools/hr-payroll/UAEHolidayPayCalculator')).default;
-      case 'saudi-annual-leave-calculator':
-        return (await import('@/components/tools/hr-payroll/SaudiAnnualLeaveCalculator')).default;
-      case 'uae-gratuity-calculator':
-        return (await import('@/components/tools/hr-payroll/UAEGratuityCalculator')).default;
-      case 'uae-domestic-worker-gratuity-calculator':
-        return (await import('@/components/tools/hr-payroll/UAEDomesticWorkerGratuityCalculator')).default;
-      case 'uae-free-zone-gratuity-calculator':
-        return (await import('@/components/tools/hr-payroll/UAEFreeZoneGratuityCalculator')).default;
-
-      // ── ISLAMIC TOOLS ──
-      case 'zakat-calculator':
-        return (await import('@/components/tools/islamic-tools/ZakatCalculator')).default;
-      case 'hijri-gregorian-converter':
-        return (await import('@/components/tools/islamic-tools/HijriGregorianConverter')).default;
-      case 'gold-zakat-calculator':
-        return (await import('@/components/tools/islamic-tools/GoldZakatCalculator')).default;
-      case 'cash-zakat-calculator':
-        return (await import('@/components/tools/islamic-tools/CashZakatCalculator')).default;
-      case 'tola-gold-zakat-calculator':
-        return (await import('@/components/tools/islamic-tools/TolaGoldZakatCalculator')).default;
-      case 'salary-zakat-calculator':
-        return (await import('@/components/tools/islamic-tools/SalaryZakatCalculator')).default;
-
-      // ── TAX & VAT TOOLS ──
-      case 'uae-vat-calculator':
-        return (await import('@/components/tools/tax-vat/UAEVatCalculator')).default;
-      case 'ksa-vat-calculator':
-        return (await import('@/components/tools/tax-vat/KSAVatCalculator')).default;
-
-      // ── BUSINESS TOOLS ──
-      case 'profit-margin-calculator':
-        return (await import('@/components/tools/business/ProfitMarginCalculator')).default;
-      case 'invoice-generator':
-        return (await import('@/components/tools/business/InvoiceGenerator')).default;
-
+      // ── Add new tool cases here as they are built ──
       default:
         console.warn(`Tool slug not found: ${toolSlug}`);
         return null;
@@ -328,7 +160,7 @@ export default async function ToolPage({ params }: { params: Promise<Params> }) 
   const tCommon = await getTranslations({ locale, namespace: 'common' })
 
   // ── Data ──
-  const BASE_URL     = 'https://gulftools.jobmeter.app'
+  const BASE_URL     = 'https://onlinetoolsng.com'
   const toolUrl      = `${BASE_URL}/${locale}/tools/${category}/${toolSlug}`
   const ToolComponent = await loadToolComponent(toolSlug)
   const relatedTools  = getRelatedTools(tool)
@@ -444,7 +276,7 @@ export default async function ToolPage({ params }: { params: Promise<Params> }) 
                     className="prose prose-base sm:prose-lg prose-gray max-w-none
                       prose-headings:font-bold prose-headings:text-gray-800
                       prose-p:text-gray-600 prose-p:leading-relaxed
-                      prose-a:text-emerald-600 prose-a:no-underline hover:prose-a:underline
+                      prose-a:text-indigo-700 prose-a:no-underline hover:prose-a:underline
                       prose-strong:text-gray-800 prose-li:text-gray-600"
                     dangerouslySetInnerHTML={{ __html: articleBody }}
                   />
@@ -524,7 +356,7 @@ export default async function ToolPage({ params }: { params: Promise<Params> }) 
                         >
                           {icon}
                         </div>
-                        <span className="text-sm font-medium text-gray-700 group-hover:text-emerald-600 transition-colors leading-snug">
+                        <span className="text-sm font-medium text-gray-700 group-hover:text-indigo-700 transition-colors leading-snug">
                           {getToolName(related.slug, locale)}
                         </span>
                       </Link>

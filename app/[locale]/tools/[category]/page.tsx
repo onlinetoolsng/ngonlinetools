@@ -16,19 +16,7 @@ import { getToolIcon } from '@/lib/utils/toolIcons'
 type Params = { locale: string; category: string }
 
 const TOOL_NAMES: Record<string, { en: string; ar: string }> = {
-  'salary-calculator':           { en: 'Salary Calculator',              ar: 'حاسبة الراتب' },
-  'loan-emi-calculator':         { en: 'Loan EMI Calculator',            ar: 'حاسبة القسط الشهري' },
-  'gratuity-calculator':         { en: 'Gratuity Calculator',            ar: 'حاسبة مكافأة نهاية الخدمة' },
-  'zakat-calculator':            { en: 'Zakat Calculator',               ar: 'حاسبة الزكاة' },
-  'hijri-gregorian-converter':   { en: 'Hijri–Gregorian Converter',      ar: 'محول التاريخ الهجري' },
-  'uae-vat-calculator':          { en: 'UAE VAT Calculator',             ar: 'حاسبة ضريبة القيمة المضافة الإمارات' },
-  'ksa-vat-calculator':          { en: 'Saudi VAT Calculator',           ar: 'حاسبة ضريبة القيمة المضافة السعودية' },
-  'invoice-generator':           { en: 'Invoice Generator',              ar: 'مولّد الفواتير' },
-  'compound-interest-calculator':{ en: 'Compound Interest Calculator',   ar: 'حاسبة الفائدة المركبة' },
-  'savings-goal-calculator':     { en: 'Savings Goal Calculator',        ar: 'حاسبة هدف الادخار' },
-  'leave-encashment-calculator': { en: 'Leave Encashment Calculator',    ar: 'حاسبة صرف الإجازة' },
-  'notice-period-calculator':    { en: 'Notice Period Calculator',       ar: 'حاسبة فترة الإشعار' },
-  'profit-margin-calculator':    { en: 'Profit Margin Calculator',       ar: 'حاسبة هامش الربح' },
+  // Add fallback display names here as new tools are built.
 }
 
 function getToolName(slug: string, locale: string): string {
@@ -53,7 +41,7 @@ export default async function CategoryPage({ params }: { params: Promise<Params>
   const t = await getTranslations({ locale, namespace: `categories.${category}` })
   const tNav = await getTranslations({ locale, namespace: 'nav' })
 
-  const BASE_URL = 'https://gulftools.jobmeter.app'
+  const BASE_URL = 'https://onlinetoolsng.com'
 
   const breadcrumbItems = [
     { label: tNav('home'),  href: `/${locale}` },
@@ -110,12 +98,12 @@ export default async function CategoryPage({ params }: { params: Promise<Params>
               <Link
                 key={tool.slug}
                 href={`/${locale}/tools/${category}/${tool.slug}`}
-                className="group bg-white border border-gray-200 rounded-2xl p-5 hover:border-emerald-200 hover:shadow-md transition-all"
+                className="group bg-white border border-gray-200 rounded-2xl p-5 hover:border-indigo-200 hover:shadow-md transition-all"
               >
                 <div className="text-2xl mb-3">
                   {getToolIcon(tool)}
                 </div>
-                <h2 className="font-bold text-gray-900 group-hover:text-emerald-600 transition-colors mb-1">
+                <h2 className="font-bold text-gray-900 group-hover:text-indigo-700 transition-colors mb-1">
                   {getToolName(tool.slug, locale)}
                 </h2>
                 <div className="flex flex-wrap gap-1 mt-2">

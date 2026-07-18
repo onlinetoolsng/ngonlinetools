@@ -10,11 +10,11 @@ type Params = { locale: string }
 export async function generateMetadata({ params }: { params: Promise<Params> }) {
   const { locale } = await params
   return {
-    title: locale === 'ar' ? 'اتصل بنا | Gulf Tools' : 'Contact Us | Gulf Tools',
+    title: locale === 'ar' ? 'اتصل بنا | OnlineToolsNG' : 'Contact Us | OnlineToolsNG',
     description:
       locale === 'ar'
-        ? 'تواصل مع فريق Gulf Tools — لأي استفسار أو اقتراح أو تقرير عن خطأ'
-        : 'Get in touch with the Gulf Tools team — for questions, suggestions or bug reports',
+        ? 'تواصل مع فريق OnlineToolsNG — لأي استفسار أو اقتراح أو تقرير عن خطأ'
+        : 'Get in touch with the OnlineToolsNG team — for questions, suggestions or bug reports',
     robots: { index: true, follow: true },
   }
 }
@@ -81,24 +81,24 @@ export default async function ContactPage({ params }: { params: Promise<Params> 
             <a
               key={c.value}
               href={c.href}
-              className="bg-white border border-gray-100 rounded-2xl p-6 hover:border-emerald-200 hover:shadow-sm transition-all group"
+              className="bg-white border border-gray-100 rounded-2xl p-6 hover:border-indigo-200 hover:shadow-sm transition-all group"
             >
               <div className="text-2xl mb-3">{c.icon}</div>
               <div className="text-xs font-bold text-gray-400 uppercase tracking-wide mb-1">
                 {c.label}
               </div>
-              <div className="text-emerald-600 font-semibold group-hover:text-emerald-700 transition-colors text-sm">
+              <div className="text-indigo-700 font-semibold group-hover:text-indigo-800 transition-colors text-sm">
                 {c.value}
               </div>
             </a>
           ))}
         </div>
 
-        <div className="bg-emerald-50 border border-emerald-100 rounded-2xl p-6 text-center">
-          <p className="text-emerald-800 font-medium mb-1">
+        <div className="bg-indigo-50 border border-indigo-100 rounded-2xl p-6 text-center">
+          <p className="text-indigo-900 font-medium mb-1">
             {isAr ? 'وقت الاستجابة المعتاد' : 'Typical response time'}
           </p>
-          <p className="text-emerald-600 text-sm">
+          <p className="text-indigo-700 text-sm">
             {isAr ? '1–2 أيام عمل' : '1–2 business days'}
           </p>
         </div>

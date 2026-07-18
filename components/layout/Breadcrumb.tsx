@@ -10,7 +10,7 @@ type BreadcrumbItem = {
   href: string
 }
 
-const BASE_URL = 'https://gulftools.jobmeter.app'
+const BASE_URL = 'https://onlinetoolsng.com'
 
 export function Breadcrumb({ items }: { items: BreadcrumbItem[] }) {
   const locale = useLocale()
@@ -46,7 +46,7 @@ export function Breadcrumb({ items }: { items: BreadcrumbItem[] }) {
             ) : (
               <Link
                 href={item.href}
-                className="hover:text-emerald-600 transition-colors"
+                className="hover:text-indigo-700 transition-colors"
               >
                 {item.label}
               </Link>

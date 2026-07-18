@@ -4,7 +4,7 @@
 
 import { MetadataRoute } from 'next'
 
-const BASE_URL = 'https://gulftools.jobmeter.app'
+const BASE_URL = 'https://onlinetoolsng.com'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [

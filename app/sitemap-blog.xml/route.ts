@@ -6,8 +6,8 @@
 import { buildSitemapXml, xmlResponse } from '@/lib/sitemap/xml'
 import { getAllPublishedArticleSlugs } from '@/lib/supabase/queries'
 
-const BASE_URL = 'https://gulftools.jobmeter.app'
-const locales  = ['en', 'ar'] as const
+const BASE_URL = 'https://onlinetoolsng.com'
+const locales = ['en'] as const
 
 export async function GET() {
   const entries = []

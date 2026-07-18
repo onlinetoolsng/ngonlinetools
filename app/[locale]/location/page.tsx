@@ -25,7 +25,7 @@ const countryMeta: Record<string, { en: string; ar: string; flag: string; desc: 
 export async function generateMetadata({ params }: { params: Promise<Params> }) {
   const { locale } = await params
   return {
-    title: locale === 'ar' ? 'الأدوات حسب الدولة | Gulf Tools' : 'Tools by Country | Gulf Tools',
+    title: locale === 'ar' ? 'الأدوات حسب الدولة | OnlineToolsNG' : 'Tools by Country | OnlineToolsNG',
     description: locale === 'ar'
       ? 'أدوات وحاسبات مصممة لكل دولة خليجية — الإمارات والسعودية وقطر والكويت والبحرين وعُمان ومصر'
       : 'Tools and calculators built for every Gulf country — UAE, Saudi Arabia, Qatar, Kuwait, Bahrain, Oman and Egypt',
@@ -37,7 +37,7 @@ export default async function LocationIndexPage({ params }: { params: Promise<Pa
   const isAr = locale === 'ar'
 
   const tNav = await getTranslations({ locale, namespace: 'nav' })
-  const BASE_URL = 'https://gulftools.jobmeter.app'
+  const BASE_URL = 'https://onlinetoolsng.com'
 
   const breadcrumbItems = [
     { label: tNav('home'),      href: `/${locale}` },
@@ -80,12 +80,12 @@ export default async function LocationIndexPage({ params }: { params: Promise<Pa
               <Link
                 key={loc.slug}
                 href={`/${locale}/location/${loc.slug}`}
-                className="group bg-white border border-gray-100 rounded-2xl p-6 hover:border-emerald-200 hover:shadow-md transition-all"
+                className="group bg-white border border-gray-100 rounded-2xl p-6 hover:border-indigo-200 hover:shadow-md transition-all"
               >
                 <div className="flex items-start gap-4">
                   <span className="text-4xl flex-shrink-0">{meta.flag}</span>
                   <div className="min-w-0">
-                    <h2 className="font-bold text-gray-900 group-hover:text-emerald-600 transition-colors text-lg">
+                    <h2 className="font-bold text-gray-900 group-hover:text-indigo-700 transition-colors text-lg">
                       {isAr ? meta.ar : meta.en}
                     </h2>
                     <p className="text-sm text-gray-500 mt-1 leading-relaxed">
@@ -100,7 +100,7 @@ export default async function LocationIndexPage({ params }: { params: Promise<Pa
                           VAT {loc.vatRate}%
                         </span>
                       )}
-                      <span className="text-xs text-emerald-600 font-semibold">
+                      <span className="text-xs text-indigo-700 font-semibold">
                         {toolCount} {isAr ? 'أداة' : 'tools'}
                       </span>
                     </div>

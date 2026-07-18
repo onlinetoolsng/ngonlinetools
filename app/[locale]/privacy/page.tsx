@@ -10,11 +10,11 @@ type Params = { locale: string }
 export async function generateMetadata({ params }: { params: Promise<Params> }) {
   const { locale } = await params
   return {
-    title: locale === 'ar' ? 'سياسة الخصوصية | Gulf Tools' : 'Privacy Policy | Gulf Tools',
+    title: locale === 'ar' ? 'سياسة الخصوصية | OnlineToolsNG' : 'Privacy Policy | OnlineToolsNG',
     description:
       locale === 'ar'
-        ? 'سياسة الخصوصية لموقع Gulf Tools — كيف نجمع بياناتك ونستخدمها ونحميها'
-        : 'Gulf Tools Privacy Policy — how we collect, use and protect your data',
+        ? 'سياسة الخصوصية لموقع OnlineToolsNG — كيف نجمع بياناتك ونستخدمها ونحميها'
+        : 'OnlineToolsNG Privacy Policy — how we collect, use and protect your data',
     robots: { index: true, follow: true },
   }
 }
@@ -55,7 +55,7 @@ export default async function PrivacyPage({ params }: { params: Promise<Params> 
               <>
                 <h2>1. المعلومات التي نجمعها</h2>
                 <p>
-                  لا يطلب موقع Gulf Tools إنشاء حساب أو تقديم معلومات شخصية لاستخدام أدواتنا. نجمع تلقائياً معلومات غير شخصية تشمل: نوع المتصفح، نظام التشغيل، الصفحات التي تزورها، ومدة زيارتك.
+                  لا يطلب موقع OnlineToolsNG إنشاء حساب أو تقديم معلومات شخصية لاستخدام أدواتنا. نجمع تلقائياً معلومات غير شخصية تشمل: نوع المتصفح، نظام التشغيل، الصفحات التي تزورها، ومدة زيارتك.
                 </p>
 
                 <h2>2. ملفات تعريف الارتباط (Cookies)</h2>
@@ -102,7 +102,7 @@ export default async function PrivacyPage({ params }: { params: Promise<Params> 
               <>
                 <h2>1. Information We Collect</h2>
                 <p>
-                  Gulf Tools does not require account creation or personal information to use our tools. We automatically collect non-personal information including browser type, operating system, pages visited, and session duration via analytics.
+                  OnlineToolsNG does not require account creation or personal information to use our tools. We automatically collect non-personal information including browser type, operating system, pages visited, and session duration via analytics.
                 </p>
 
                 <h2>2. Cookies</h2>

@@ -22,8 +22,8 @@ export function generateToolSchema({
         url,
         name: title,
         description,
-        inLanguage: locale === 'ar' ? 'ar' : 'en',
-        isPartOf: { '@id': 'https://gulftools.jobmeter.app/#website' },
+        inLanguage: 'en',
+        isPartOf: { '@id': 'https://onlinetoolsng.com/#website' },
         breadcrumb: { '@id': `${url}#breadcrumb` },
       },
       {
@@ -92,7 +92,7 @@ export function generateArticleSchema({
   dateModified,
   imageUrl,
   wordCount,
-  authorName = 'Gulf Tools Editorial Team',
+  authorName = 'OnlineToolsNG Editorial Team',
 }: {
   title: string
   description: string
@@ -115,14 +115,14 @@ export function generateArticleSchema({
     author: {
       '@type': 'Person',
       name: authorName,
-      url: 'https://gulftools.jobmeter.app/about',
+      url: 'https://onlinetoolsng.com/about',
     },
     publisher: {
       '@type': 'Organization',
-      name: 'Gulf Tools',
+      name: 'OnlineToolsNG',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://gulftools.jobmeter.app/icons/logo.png',
+        url: 'https://onlinetoolsng.com/icons/logo.png',
       },
     },
     image: {
@@ -160,7 +160,7 @@ export function generateBlogSchema({
     url,
     name,
     description,
-    inLanguage: locale === 'ar' ? 'ar' : 'en',
+    inLanguage: 'en',
     blogPost: articles.map(article => ({
       '@type': 'BlogPosting',
       headline: article.title,
@@ -179,32 +179,32 @@ export function generateOrganizationSchema() {
     '@graph': [
       {
         '@type': 'Organization',
-        '@id': 'https://gulftools.jobmeter.app/#organization',
-        name: 'Gulf Tools',
-        url: 'https://gulftools.jobmeter.app',
+        '@id': 'https://onlinetoolsng.com/#organization',
+        name: 'OnlineToolsNG',
+        url: 'https://onlinetoolsng.com',
         logo: {
           '@type': 'ImageObject',
-          url: 'https://gulftools.jobmeter.app/icons/logo.png',
+          url: 'https://onlinetoolsng.com/icons/logo.png',
         },
         sameAs: [],
       },
       {
         '@type': 'WebSite',
-        '@id': 'https://gulftools.jobmeter.app/#website',
-        url: 'https://gulftools.jobmeter.app',
-        name: 'Gulf Tools',
-        description: '50+ free tools for Gulf countries',
-        publisher: { '@id': 'https://gulftools.jobmeter.app/#organization' },
+        '@id': 'https://onlinetoolsng.com/#website',
+        url: 'https://onlinetoolsng.com',
+        name: 'OnlineToolsNG',
+        description: 'Free calculators and tools for Nigeria',
+        publisher: { '@id': 'https://onlinetoolsng.com/#organization' },
         potentialAction: {
           '@type': 'SearchAction',
           target: {
             '@type': 'EntryPoint',
             urlTemplate:
-              'https://gulftools.jobmeter.app/en/tools?q={search_term_string}',
+              'https://onlinetoolsng.com/en/tools?q={search_term_string}',
           },
           'query-input': 'required name=search_term_string',
         },
-        inLanguage: ['en', 'ar'],
+        inLanguage: ['en'],
       },
     ],
   }
@@ -231,7 +231,7 @@ export function generateCollectionSchema({
     name,
     description,
     url,
-    inLanguage: locale === 'ar' ? 'ar' : 'en',
+    inLanguage: 'en',
     numberOfItems: tools.length,
     hasPart: tools.map(tool => ({
       '@type': 'SoftwareApplication',
@@ -270,12 +270,12 @@ export function generateLocationSchema({
         url,
         name: countryName,
         description,
-        inLanguage: locale === 'ar' ? 'ar' : 'en',
+        inLanguage: 'en',
         about: {
           '@type': 'Country',
           name: countryNameEn,
         },
-        isPartOf: { '@id': 'https://gulftools.jobmeter.app/#website' },
+        isPartOf: { '@id': 'https://onlinetoolsng.com/#website' },
       },
       {
         '@type': 'ItemList',

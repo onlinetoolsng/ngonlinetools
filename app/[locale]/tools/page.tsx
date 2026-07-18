@@ -13,31 +13,25 @@ import { generateBreadcrumbSchema } from '@/lib/schema/schemas'
 type Params = { locale: string }
 
 const colorMap: Record<string, string> = {
-  emerald: 'border-emerald-200 hover:bg-emerald-50',
-  blue:    'border-blue-200 hover:bg-blue-50',
-  purple:  'border-purple-200 hover:bg-purple-50',
-  orange:  'border-orange-200 hover:bg-orange-50',
-  teal:    'border-teal-200 hover:bg-teal-50',
-  red:     'border-red-200 hover:bg-red-50',
-  green:   'border-green-200 hover:bg-green-50',
-  yellow:  'border-yellow-200 hover:bg-yellow-50',
   indigo:  'border-indigo-200 hover:bg-indigo-50',
-  pink:    'border-pink-200 hover:bg-pink-50',
-  slate:   'border-slate-200 hover:bg-slate-50',
-  sky:     'border-sky-200 hover:bg-sky-50',
-  zinc:    'border-zinc-200 hover:bg-zinc-50',
   amber:   'border-amber-200 hover:bg-amber-50',
+  blue:    'border-blue-200 hover:bg-blue-50',
+  slate:   'border-slate-200 hover:bg-slate-50',
+  orange:  'border-orange-200 hover:bg-orange-50',
+  rose:    'border-rose-200 hover:bg-rose-50',
+  cyan:    'border-cyan-200 hover:bg-cyan-50',
+  yellow:  'border-yellow-200 hover:bg-yellow-50',
   stone:   'border-stone-200 hover:bg-stone-50',
-  lime:    'border-lime-200 hover:bg-lime-50',
+  zinc:    'border-zinc-200 hover:bg-zinc-50',
 }
 
 export async function generateMetadata({ params }: { params: Promise<Params> }) {
   const { locale } = await params
   return {
-    title: locale === 'ar' ? 'جميع الأدوات | Gulf Tools' : 'All Tools | Gulf Tools',
+    title: locale === 'ar' ? 'جميع الأدوات | OnlineToolsNG' : 'All Tools | OnlineToolsNG',
     description: locale === 'ar'
       ? 'تصفح أكثر من 50 أداة مجانية مصممة لدول الخليج'
-      : 'Browse 50+ free tools built for UAE, Saudi Arabia, Qatar and the Gulf',
+      : 'Browse free tools built for individuals and businesses in Nigeria',
   }
 }
 
@@ -48,7 +42,7 @@ export default async function ToolsDirectoryPage({ params }: { params: Promise<P
   const tNav = await getTranslations({ locale, namespace: 'nav' })
   const tCat = await getTranslations({ locale, namespace: 'categories' })
 
-  const BASE_URL = 'https://gulftools.jobmeter.app'
+  const BASE_URL = 'https://onlinetoolsng.com'
 
   const breadcrumbItems = [
     { label: tNav('home'),  href: `/${locale}` },
@@ -95,7 +89,7 @@ export default async function ToolsDirectoryPage({ params }: { params: Promise<P
         {/* Categories grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {visibleCategories.map(cat => {
-            const hoverColor = colorMap[cat.color] ?? colorMap.emerald
+            const hoverColor = colorMap[cat.color] ?? colorMap.indigo
             const count = toolCountByCategory[cat.slug] ?? 0
             const catName = tCat(`${cat.slug}.name` as any)
             const catDesc = tCat(`${cat.slug}.description` as any)
@@ -107,7 +101,7 @@ export default async function ToolsDirectoryPage({ params }: { params: Promise<P
                 className={`group bg-white border rounded-2xl p-5 transition-all hover:shadow-md ${hoverColor}`}
               >
                 <div className="text-3xl mb-3">{cat.icon}</div>
-                <h2 className="font-bold text-gray-900 group-hover:text-emerald-700 transition-colors mb-1">
+                <h2 className="font-bold text-gray-900 group-hover:text-indigo-800 transition-colors mb-1">
                   {catName}
                 </h2>
                 <p className="text-xs text-gray-500 leading-relaxed line-clamp-2 mb-3">

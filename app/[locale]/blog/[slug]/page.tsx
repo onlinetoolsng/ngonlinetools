@@ -27,7 +27,7 @@ type Params = { locale: string; slug: string }
 // ISR: rebuild blog pages every hour
 export const revalidate = 3600
 
-const BASE_URL = 'https://gulftools.jobmeter.app'
+const BASE_URL = 'https://onlinetoolsng.com'
 
 // ─── Metadata ─────────────────────────────────────────────────────────────────
 export async function generateMetadata({ params }: { params: Promise<Params> }) {
@@ -44,7 +44,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }) 
   const url = `${BASE_URL}/${locale}/blog/${slug}`
 
   return {
-    title: `${t.title} | Gulf Tools`,
+    title: `${t.title} | OnlineToolsNG`,
     description: t.meta_description ?? t.excerpt ?? '',
     alternates: {
       canonical: url,
@@ -58,7 +58,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }) 
       title: t.title,
       description: t.meta_description ?? t.excerpt ?? '',
       url,
-      siteName: 'Gulf Tools',
+      siteName: 'OnlineToolsNG',
       locale: locale === 'ar' ? 'ar_AE' : 'en_AE',
       type: 'article',
       publishedTime: article.published_at,
@@ -83,9 +83,9 @@ export async function generateStaticParams() {
 
 // ─── Category display helpers ─────────────────────────────────────────────────
 const categoryColors: Record<string, string> = {
-  finance:         'bg-emerald-50 text-emerald-700',
+  finance:         'bg-indigo-50 text-indigo-800',
   'hr-payroll':    'bg-teal-50 text-teal-700',
-  'islamic-tools': 'bg-green-50 text-green-700',
+  'islamic-tools': 'bg-stone-50 text-stone-700',
   'tax-vat':       'bg-red-50 text-red-700',
   business:        'bg-blue-50 text-blue-700',
   'real-estate':   'bg-orange-50 text-orange-700',
@@ -160,7 +160,7 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
     dateModified: article.published_at,
     imageUrl: t.og_image_url ?? `${BASE_URL}/og/blog-default.png`,
     wordCount,
-    authorName: 'Gulf Tools Editorial Team',
+    authorName: 'OnlineToolsNG Editorial Team',
   })
 
   const breadcrumbSchema = generateBreadcrumbSchema(
@@ -216,7 +216,7 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
               <span>·</span>
               <span className="flex items-center gap-1">
                 <span>🌐</span>
-                <span>Gulf Tools</span>
+                <span>OnlineToolsNG</span>
               </span>
             </div>
 
@@ -262,8 +262,8 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
 
             {/* Related tools — inline CTA inside article */}
             {relatedTools.length > 0 && (
-              <div className="mt-10 bg-emerald-50 border border-emerald-100 rounded-2xl p-6">
-                <h3 className="font-bold text-emerald-900 mb-4">
+              <div className="mt-10 bg-indigo-50 border border-indigo-100 rounded-2xl p-6">
+                <h3 className="font-bold text-indigo-900 mb-4">
                   {isAr ? '🔧 الأدوات ذات الصلة' : '🔧 Related Tools'}
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -271,13 +271,13 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
                     <Link
                       key={tool.slug}
                       href={`/${locale}/tools/${tool.category}/${tool.slug}`}
-                      className="flex items-center gap-3 bg-white rounded-xl p-4 border border-emerald-100 hover:border-emerald-300 hover:shadow-sm transition-all group"
+                      className="flex items-center gap-3 bg-white rounded-xl p-4 border border-indigo-100 hover:border-indigo-300 hover:shadow-sm transition-all group"
                     >
                       <span className="text-2xl flex-shrink-0">
                         {getToolIcon(tool)}
                       </span>
                       <div className="min-w-0">
-                        <div className="font-semibold text-sm text-gray-900 group-hover:text-emerald-600 transition-colors">
+                        <div className="font-semibold text-sm text-gray-900 group-hover:text-indigo-700 transition-colors">
                           {tool.slug
                             .split('-')
                             .map(w => w.charAt(0).toUpperCase() + w.slice(1))
@@ -285,7 +285,7 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
                         </div>
                         <div className="text-xs text-gray-400 capitalize">{tool.schema}</div>
                       </div>
-                      <span className="ml-auto text-emerald-500 text-lg">
+                      <span className="ml-auto text-indigo-500 text-lg">
                         {isAr ? '←' : '→'}
                       </span>
                     </Link>
@@ -329,7 +329,7 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
                     target="_blank"
                     rel="noopener noreferrer nofollow"
                     aria-label={s.label}
-                    className="w-9 h-9 flex items-center justify-center rounded-lg border border-gray-200 text-gray-500 hover:border-emerald-300 hover:text-emerald-600 transition-all text-sm font-bold"
+                    className="w-9 h-9 flex items-center justify-center rounded-lg border border-gray-200 text-gray-500 hover:border-indigo-300 hover:text-indigo-700 transition-all text-sm font-bold"
                   >
                     {s.icon}
                   </a>
@@ -354,16 +354,16 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
                       href={`/${locale}/tools/${tool.category}/${tool.slug}`}
                       className="flex items-center gap-3 p-3 rounded-xl hover:bg-gray-50 transition-colors group"
                     >
-                      <div className="w-8 h-8 rounded-lg bg-emerald-50 flex items-center justify-center text-base flex-shrink-0">
+                      <div className="w-8 h-8 rounded-lg bg-indigo-50 flex items-center justify-center text-base flex-shrink-0">
                         {getToolIcon(tool)}
                       </div>
-                      <span className="text-sm font-medium text-gray-700 group-hover:text-emerald-600 transition-colors leading-snug">
+                      <span className="text-sm font-medium text-gray-700 group-hover:text-indigo-700 transition-colors leading-snug">
                         {tool.slug
                           .split('-')
                           .map(w => w.charAt(0).toUpperCase() + w.slice(1))
                           .join(' ')}
                       </span>
-                      <span className="ml-auto text-gray-300 group-hover:text-emerald-400 text-sm">
+                      <span className="ml-auto text-gray-300 group-hover:text-indigo-500 text-sm">
                         {isAr ? '←' : '→'}
                       </span>
                     </Link>
@@ -392,7 +392,7 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
                             {categoryIcons[a.category_slug] ?? '📄'}
                           </span>
                           <div>
-                            <p className="text-sm font-medium text-gray-800 group-hover:text-emerald-600 transition-colors leading-snug line-clamp-2">
+                            <p className="text-sm font-medium text-gray-800 group-hover:text-indigo-700 transition-colors leading-snug line-clamp-2">
                               {a.translation.title}
                             </p>
                             <p className="text-xs text-gray-400 mt-1">
@@ -407,7 +407,7 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
                 </div>
                 <Link
                   href={`/${locale}/blog`}
-                  className="block mt-4 text-xs font-semibold text-emerald-600 hover:text-emerald-700 transition-colors"
+                  className="block mt-4 text-xs font-semibold text-indigo-700 hover:text-indigo-800 transition-colors"
                 >
                   {isAr ? 'جميع المقالات ←' : 'All articles →'}
                 </Link>

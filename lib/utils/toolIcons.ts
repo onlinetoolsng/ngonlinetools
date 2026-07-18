@@ -17,41 +17,12 @@ import { CATEGORIES } from '@/lib/registry/categories'
 import type { Tool } from '@/lib/registry/tools'
 
 export const TOOL_ICON_MAP: Record<string, string> = {
-  'salary-calculator':                       '🇦🇪',
-  'loan-emi-calculator':                     '🏦',
-  'gratuity-calculator':                     '📋',
-  'zakat-calculator':                        '☪️',
-  'hijri-gregorian-converter':               '📅',
-  'uae-vat-calculator':                      '🧾',
-  'ksa-vat-calculator':                      '🧾',
-  'invoice-generator':                       '📄',
-  'compound-interest-calculator':            '📈',
-  'savings-goal-calculator':                 '🎯',
-  'leave-encashment-calculator':             '🏖️',
-  'notice-period-calculator':                '📅',
-  'profit-margin-calculator':                '📊',
-  'uae-salary-calculator':                   '🇦🇪',
-  'dubai-salary-calculator':                 '🏙️',
-  'gcc-emi-calculator':                      '💳',
-  'car-loan-calculator-uae':                 '🚗',
-  'uae-mortgage-calculator':                 '🔑',
-  'dubai-mortgage-calculator-non-residents': '🏗️',
-  'home-loan-calculator-dubai':              '🏡',
-  'gold-zakat-calculator':                   '🪙',
-  'cash-zakat-calculator':                   '💵',
+  // Add tool-specific icon overrides here as new tools are built.
 }
 
-// Fallback flags for tools scoped to a single country, keyed by the
-// country codes used in lib/registry/tools.ts.
+// Fallback flag — single-country site, so this is just Nigeria.
 export const COUNTRY_FLAG_MAP: Record<string, string> = {
-  uae:     '🇦🇪',
-  dubai:   '🇦🇪',
-  saudi:   '🇸🇦',
-  qatar:   '🇶🇦',
-  kuwait:  '🇰🇼',
-  bahrain: '🇧🇭',
-  oman:    '🇴🇲',
-  egypt:   '🇪🇬',
+  nigeria: '🇳🇬',
 }
 
 export const FALLBACK_TOOL_ICON = '🧰'

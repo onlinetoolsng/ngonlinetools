@@ -62,8 +62,8 @@ export async function generateMetadata({ params }: { params: Promise<Params> }) 
   const name = locale === 'ar' ? info.ar : info.en
   return {
     title: locale === 'ar'
-      ? `أدوات ${name} المجانية | Gulf Tools`
-      : `Free Tools for ${name} | Gulf Tools`,
+      ? `أدوات ${name} المجانية | OnlineToolsNG`
+      : `Free Tools for ${name} | OnlineToolsNG`,
     description: locale === 'ar'
       ? `حاسبات وأدوات مصممة خصيصاً لـ ${name} — رواتب، ضرائب، مكافآت، وأكثر`
       : `Calculators and tools built for ${name} — salary, tax, gratuity and more`,
@@ -85,7 +85,7 @@ export default async function LocationPage({ params }: { params: Promise<Params>
 
   const countryName = isAr ? countryInfo.ar : countryInfo.en
   const facts = countryFacts[country]
-  const BASE_URL = 'https://gulftools.jobmeter.app'
+  const BASE_URL = 'https://onlinetoolsng.com'
 
   // Get all tools for this country, grouped by category
   const tools = getToolsByCountry(country)
@@ -152,7 +152,7 @@ export default async function LocationPage({ params }: { params: Promise<Params>
           {/* Country fact chips */}
           {facts && (
             <div className="flex flex-wrap gap-2 mt-4">
-              <span className="inline-flex items-center gap-1.5 bg-emerald-50 text-emerald-700 text-xs font-semibold px-3 py-1.5 rounded-full">
+              <span className="inline-flex items-center gap-1.5 bg-indigo-50 text-indigo-800 text-xs font-semibold px-3 py-1.5 rounded-full">
                 💱 {isAr ? 'العملة:' : 'Currency:'} {facts.currency}
               </span>
               <span className="inline-flex items-center gap-1.5 bg-blue-50 text-blue-700 text-xs font-semibold px-3 py-1.5 rounded-full">
@@ -178,7 +178,7 @@ export default async function LocationPage({ params }: { params: Promise<Params>
                   </h2>
                   <Link
                     href={`/${locale}/tools/${cat.slug}`}
-                    className="text-xs font-medium text-emerald-600 hover:text-emerald-700 transition-colors"
+                    className="text-xs font-medium text-indigo-700 hover:text-indigo-800 transition-colors"
                   >
                     {isAr ? 'عرض الكل ←' : 'View all →'}
                   </Link>
@@ -189,9 +189,9 @@ export default async function LocationPage({ params }: { params: Promise<Params>
                     <Link
                       key={tool.slug}
                       href={`/${locale}/tools/${tool.category}/${tool.slug}`}
-                      className="group bg-white border border-gray-100 rounded-xl p-4 hover:border-emerald-200 hover:shadow-sm transition-all"
+                      className="group bg-white border border-gray-100 rounded-xl p-4 hover:border-indigo-200 hover:shadow-sm transition-all"
                     >
-                      <h3 className="font-semibold text-sm text-gray-800 group-hover:text-emerald-600 transition-colors">
+                      <h3 className="font-semibold text-sm text-gray-800 group-hover:text-indigo-700 transition-colors">
                         {getToolName(tool.slug, locale)}
                       </h3>
                       <p className="text-xs text-gray-400 mt-1 capitalize">
@@ -217,7 +217,7 @@ export default async function LocationPage({ params }: { params: Promise<Params>
                 <Link
                   key={slug}
                   href={`/${locale}/location/${slug}`}
-                  className="flex items-center gap-2 bg-white border border-gray-200 rounded-full px-4 py-2 text-sm font-medium text-gray-600 hover:border-emerald-300 hover:text-emerald-700 transition-all"
+                  className="flex items-center gap-2 bg-white border border-gray-200 rounded-full px-4 py-2 text-sm font-medium text-gray-600 hover:border-indigo-300 hover:text-indigo-800 transition-all"
                 >
                   <span>{info.flag}</span>
                   <span>{isAr ? info.ar : info.en}</span>

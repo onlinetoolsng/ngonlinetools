@@ -49,7 +49,7 @@ export default function CookieConsent() {
               {' '}
               <Link
                 href={`/${locale}/privacy`}
-                className="text-emerald-400 hover:text-emerald-300 underline underline-offset-2 transition-colors"
+                className="text-indigo-300 hover:text-indigo-300 underline underline-offset-2 transition-colors"
               >
                 {isAr ? 'سياسة الخصوصية' : 'Privacy Policy'}
               </Link>
@@ -66,7 +66,7 @@ export default function CookieConsent() {
             </button>
             <button
               onClick={accept}
-              className="px-5 py-2 rounded-lg text-sm font-semibold bg-emerald-600 hover:bg-emerald-500 text-white transition-colors"
+              className="px-5 py-2 rounded-lg text-sm font-semibold bg-indigo-700 hover:bg-indigo-500 text-white transition-colors"
             >
               {isAr ? 'قبول' : 'Accept All'}
             </button>

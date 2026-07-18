@@ -10,11 +10,11 @@ type Params = { locale: string }
 export async function generateMetadata({ params }: { params: Promise<Params> }) {
   const { locale } = await params
   return {
-    title: locale === 'ar' ? 'إخلاء المسؤولية | Gulf Tools' : 'Disclaimer | Gulf Tools',
+    title: locale === 'ar' ? 'إخلاء المسؤولية | OnlineToolsNG' : 'Disclaimer | OnlineToolsNG',
     description:
       locale === 'ar'
-        ? 'إخلاء مسؤولية Gulf Tools — النتائج لأغراض معلوماتية فقط وليست استشارة مهنية'
-        : 'Gulf Tools disclaimer — results are for informational purposes only and do not constitute professional advice',
+        ? 'إخلاء مسؤولية OnlineToolsNG — النتائج لأغراض معلوماتية فقط وليست استشارة مهنية'
+        : 'OnlineToolsNG disclaimer — results are for informational purposes only and do not constitute professional advice',
     robots: { index: true, follow: true },
   }
 }
@@ -62,7 +62,7 @@ export default async function DisclaimerPage({ params }: { params: Promise<Param
             {isAr ? (
               <>
                 <h2>1. للأغراض المعلوماتية فقط</h2>
-                <p>جميع الأدوات والحاسبات والمحتوى على موقع Gulf Tools مقدَّمة للأغراض المعلوماتية العامة فقط. لا ينبغي الاعتماد عليها كبديل عن المشورة المهنية المتخصصة.</p>
+                <p>جميع الأدوات والحاسبات والمحتوى على موقع OnlineToolsNG مقدَّمة للأغراض المعلوماتية العامة فقط. لا ينبغي الاعتماد عليها كبديل عن المشورة المهنية المتخصصة.</p>
 
                 <h2>2. ليست استشارة مالية</h2>
                 <p>لا تُعدّ نتائج حاسبات الرواتب والقروض والمدخرات والاستثمارات استشارة مالية. يرجى استشارة مستشار مالي مرخص قبل اتخاذ أي قرارات استثمارية أو مالية.</p>
@@ -83,12 +83,12 @@ export default async function DisclaimerPage({ params }: { params: Promise<Param
                 <p>يعرض الموقع إعلانات من طرف ثالث. لا نتحمل مسؤولية محتوى هذه الإعلانات أو المنتجات والخدمات التي تروّج لها.</p>
 
                 <h2>7. تحديد المسؤولية</h2>
-                <p>لن تتحمل شبكة JobMeter أو Gulf Tools أي مسؤولية عن أي خسائر أو أضرار مباشرة أو غير مباشرة ناتجة عن استخدامك للموقع أو الاعتماد على معلوماته.</p>
+                <p>لن تتحمل شبكة JobMeter أو OnlineToolsNG أي مسؤولية عن أي خسائر أو أضرار مباشرة أو غير مباشرة ناتجة عن استخدامك للموقع أو الاعتماد على معلوماته.</p>
               </>
             ) : (
               <>
                 <h2>1. For Informational Purposes Only</h2>
-                <p>All tools, calculators, and content on Gulf Tools are provided for general informational purposes only. They should not be relied upon as a substitute for specialised professional advice.</p>
+                <p>All tools, calculators, and content on OnlineToolsNG are provided for general informational purposes only. They should not be relied upon as a substitute for specialised professional advice.</p>
 
                 <h2>2. Not Financial Advice</h2>
                 <p>The results of salary, loan, savings, and investment calculators do not constitute financial advice. Please consult a licensed financial advisor before making any investment or financial decisions.</p>
@@ -109,7 +109,7 @@ export default async function DisclaimerPage({ params }: { params: Promise<Param
                 <p>The site displays third-party advertisements. We are not responsible for the content of these advertisements or the products and services they promote.</p>
 
                 <h2>8. Limitation of Liability</h2>
-                <p>The JobMeter network and Gulf Tools shall not be liable for any direct or indirect losses or damages arising from your use of the site or reliance on its information.</p>
+                <p>The JobMeter network and OnlineToolsNG shall not be liable for any direct or indirect losses or damages arising from your use of the site or reliance on its information.</p>
               </>
             )}
           </div>

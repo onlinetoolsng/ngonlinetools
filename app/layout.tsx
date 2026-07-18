@@ -1,33 +1,28 @@
 // 📁 app/layout.tsx
 import type { Metadata } from 'next'
-import Script from 'next/script'
 import './globals.css'
 
-const siteUrl = 'https://gulftools.jobmeter.app'
+const siteUrl = 'https://onlinetoolsng.com'
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'Gulf Tools — Free Online tools for UAE, Saudi Arabia & the Gulf',
-    template: '%s | Gulf Tools',
+    default: 'OnlineToolsNG — Free Online Calculators & Tools for Nigeria',
+    template: '%s | OnlineToolsNG',
   },
   description:
-    'Free online tools and calculators built for the Gulf — salary, gratuity, VAT, zakat, loan EMI and more for UAE, Saudi Arabia, Qatar, Kuwait, Bahrain, Oman and Egypt.',
+    'Free online tools and calculators built for Nigeria — finance, tax, business, payroll, and more.',
   keywords: [
-    'gulf tools',
-    'uae salary calculator',
-    'gratuity calculator uae',
-    'zakat calculator',
-    'uae vat calculator',
-    'loan emi calculator gulf',
-    'saudi arabia tools',
-    'qatar calculators',
-    'gulf finance tools',
-    'expat tools uae',
+    'online tools nigeria',
+    'naira calculator',
+    'nigeria tax calculator',
+    'paye calculator nigeria',
+    'loan calculator nigeria',
+    'nigeria finance tools',
   ],
-  authors: [{ name: 'Gulf Tools' }],
-  creator: 'Gulf Tools',
-  publisher: 'Gulf Tools', // ✅ FIXED: was 'JobMeter Network'
+  authors: [{ name: 'OnlineToolsNG' }],
+  creator: 'OnlineToolsNG',
+  publisher: 'OnlineToolsNG',
   robots: {
     index: true,
     follow: true,
@@ -40,28 +35,26 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: 'website',
-    locale: 'en_AE',
+    locale: 'en_NG',
     url: siteUrl,
-    siteName: 'Gulf Tools',
-    title: 'Gulf Tools — Free Calculators for UAE, Saudi Arabia & the Gulf',
+    siteName: 'OnlineToolsNG',
+    title: 'OnlineToolsNG — Free Online Calculators & Tools for Nigeria',
     description:
-      'Free online tools and calculators built for the Gulf — salary, gratuity, VAT, zakat, loan EMI and more.',
+      'Free online tools and calculators built for Nigeria — finance, tax, business, payroll, and more.',
     images: [
       {
         url: `${siteUrl}/og/homepage.png`,
         width: 1200,
         height: 630,
-        alt: 'Gulf Tools',
+        alt: 'OnlineToolsNG',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Gulf Tools — Free Calculators for UAE, Saudi Arabia & the Gulf',
-    description: 'Free online tools and calculators built for the Gulf.',
+    title: 'OnlineToolsNG — Free Online Calculators & Tools for Nigeria',
+    description: 'Free online tools and calculators built for Nigeria.',
     images: [`${siteUrl}/og/homepage.png`],
-    creator: '@gulftools', // ✅ FIXED: was '@jobmeterapp'
-    site: '@gulftools',   // ✅ FIXED: was '@jobmeterapp'
   },
   icons: {
     icon: [
@@ -93,43 +86,19 @@ export default function RootLayout({
   return (
     <html suppressHydrationWarning>
       <head>
-        {/* AdSense account verification */}
-        <meta
-          name="google-adsense-account"
-          content="ca-pub-1119289641389825"
-        />
+        {/* TODO: add your own AdSense verification meta tag + script once approved.
+            <meta name="google-adsense-account" content="ca-pub-XXXXXXXXXXXXXXXX" />
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossOrigin="anonymous" />
+        */}
 
-        {/* Admaven */}
-        <meta name="admaven-placement" content="Bqjw8rHw7" />
-
-        {/* Preconnects */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="preconnect"
-          href="https://pagead2.googlesyndication.com"
-        />
-
-        {/* AdSense script */}
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1119289641389825"
-          crossOrigin="anonymous"
-        />
-
-        {/* ✅ ADDED: WebSite structured data — strongest signal to Google for site name */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'WebSite',
-              name: 'Gulf Tools',
-              alternateName: 'Gulf Tools — Free Online Calculators',
+              name: 'OnlineToolsNG',
+              alternateName: 'OnlineToolsNG — Free Online Calculators',
               url: siteUrl,
             }),
           }}
@@ -139,20 +108,15 @@ export default function RootLayout({
       <body suppressHydrationWarning>
         {children}
 
-        {/* Google Analytics */}
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-315B0S5RGE"
-          strategy="afterInteractive"
-        />
-
-        <Script id="ga-init" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-315B0S5RGE');
-          `}
-        </Script>
+        {/* TODO: add your own Google Analytics tracking ID.
+            <Script src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX" strategy="afterInteractive" />
+            <Script id="ga-init" strategy="afterInteractive">
+              {`window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', 'G-XXXXXXXXXX');`}
+            </Script>
+        */}
       </body>
     </html>
   )

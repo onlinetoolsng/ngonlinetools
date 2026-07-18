@@ -20,9 +20,9 @@ export async function generateMetadata({ params }: { params: Promise<Params> }) 
 }
 
 const categoryColors: Record<string, string> = {
-  finance:         'bg-emerald-50 text-emerald-700',
+  finance:         'bg-indigo-50 text-indigo-800',
   'hr-payroll':    'bg-teal-50 text-teal-700',
-  'islamic-tools': 'bg-green-50 text-green-700',
+  'islamic-tools': 'bg-stone-50 text-stone-700',
   'tax-vat':       'bg-red-50 text-red-700',
   business:        'bg-blue-50 text-blue-700',
   'real-estate':   'bg-orange-50 text-orange-700',
@@ -55,7 +55,7 @@ export default async function BlogIndexPage({
   const isAr = locale === 'ar'
 
   const tNav = await getTranslations({ locale, namespace: 'nav' })
-  const BASE_URL = 'https://gulftools.jobmeter.app'
+  const BASE_URL = 'https://onlinetoolsng.com'
 
   const articles = await getPublishedArticles(locale, 24)
 
@@ -73,7 +73,7 @@ export default async function BlogIndexPage({
     name: isAr ? 'المدونة' : 'Blog',
     description: isAr
       ? 'أدلة عملية ومقالات حول الرواتب والضرائب وقانون العمل والمال في دول الخليج'
-      : 'Practical guides and articles on salaries, taxes, labour law and finance across the Gulf',
+      : 'Practical guides and articles on personal finance, tax, and money in Nigeria',
     locale,
     articles: articles
       .filter(a => a.translation)
@@ -103,7 +103,7 @@ export default async function BlogIndexPage({
           <p className="text-gray-500 text-lg max-w-2xl">
             {isAr
               ? 'أدلة عملية ومقالات حول الرواتب والضرائب وقانون العمل والمال في دول الخليج'
-              : 'Practical guides and articles on salaries, taxes, labour law and finance across the Gulf'}
+              : 'Practical guides and articles on personal finance, tax, and money in Nigeria'}
           </p>
         </header>
 
@@ -120,7 +120,7 @@ export default async function BlogIndexPage({
             </p>
             <Link
               href={`/${locale}/tools`}
-              className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-6 py-3 rounded-xl transition-colors"
+              className="inline-flex items-center gap-2 bg-indigo-700 hover:bg-indigo-800 text-white font-semibold px-6 py-3 rounded-xl transition-colors"
             >
               {isAr ? 'تصفح الأدوات ←' : 'Browse Tools →'}
             </Link>
@@ -144,7 +144,7 @@ export default async function BlogIndexPage({
               return (
                 <article
                   key={article.slug}
-                  className="bg-white border border-gray-100 rounded-2xl p-6 flex flex-col hover:border-emerald-200 hover:shadow-sm transition-all"
+                  className="bg-white border border-gray-100 rounded-2xl p-6 flex flex-col hover:border-indigo-200 hover:shadow-sm transition-all"
                 >
                   <div className="flex items-center gap-2 mb-4">
                     <span className="text-2xl">{icon}</span>
@@ -159,7 +159,7 @@ export default async function BlogIndexPage({
                   <h2 className="font-bold text-gray-900 leading-snug mb-2 flex-1">
                     <Link
                       href={`/${locale}/blog/${article.slug}`}
-                      className="hover:text-emerald-600 transition-colors"
+                      className="hover:text-indigo-700 transition-colors"
                     >
                       {t.title}
                     </Link>
@@ -181,7 +181,7 @@ export default async function BlogIndexPage({
                     {primaryToolSlug && (
                       <Link
                         href={`/${locale}/tools/${article.category_slug}/${primaryToolSlug}`}
-                        className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-600 hover:text-emerald-700 transition-colors flex-shrink-0"
+                        className="inline-flex items-center gap-1 text-xs font-semibold text-indigo-700 hover:text-indigo-800 transition-colors flex-shrink-0"
                       >
                         🔧 {isAr ? 'جرّب الأداة ←' : 'Try tool →'}
                       </Link>
@@ -212,7 +212,7 @@ export default async function BlogIndexPage({
                 <Link
                   key={slug}
                   href={`/${locale}/tools/${slug}`}
-                  className="inline-flex items-center gap-1.5 bg-white border border-gray-200 text-gray-600 text-xs font-medium px-3 py-1.5 rounded-full hover:border-emerald-300 hover:text-emerald-700 transition-all"
+                  className="inline-flex items-center gap-1.5 bg-white border border-gray-200 text-gray-600 text-xs font-medium px-3 py-1.5 rounded-full hover:border-indigo-300 hover:text-indigo-800 transition-all"
                 >
                   <span>{icon}</span>
                   <span className="capitalize">{slug.replace(/-/g, ' ')}</span>
