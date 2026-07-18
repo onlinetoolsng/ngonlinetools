@@ -59,7 +59,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }) 
       description: t.meta_description ?? t.excerpt ?? '',
       url,
       siteName: 'OnlineToolsNG',
-      locale: locale === 'ar' ? 'ar_AE' : 'en_AE',
+      locale: 'en_NG',
       type: 'article',
       publishedTime: article.published_at,
       images: t.og_image_url

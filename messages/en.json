@@ -82,40 +82,16 @@
     }
   },
   "locations": {
-    "uae": {
-      "name": "United Arab Emirates",
-      "shortName": "UAE",
-      "description": "Tools and calculators specific to UAE laws, fees, and regulations"
-    },
-    "saudi": {
-      "name": "Saudi Arabia",
-      "shortName": "KSA",
-      "description": "Tools calibrated for KSA Vision 2030, GOSI, and Saudi regulations"
-    },
-    "qatar": {
-      "name": "Qatar",
-      "shortName": "Qatar",
-      "description": "Qatar-specific tools for expats, businesses and residents"
-    },
-    "kuwait": {
-      "name": "Kuwait",
-      "shortName": "Kuwait",
-      "description": "Kuwait tools for finance, payroll, and business"
-    },
-    "bahrain": {
-      "name": "Bahrain",
-      "shortName": "Bahrain",
-      "description": "Bahrain tools for VAT, payroll, and business setup"
-    },
-    "oman": {
-      "name": "Oman",
-      "shortName": "Oman",
-      "description": "Oman-specific financial and payroll tools"
-    },
-    "egypt": {
-      "name": "Egypt",
-      "shortName": "Egypt",
-      "description": "Egypt tools for tax, salary, and business"
+    "nigeria": {
+      "name": "Nigeria",
+      "shortName": "Nigeria",
+      "description": "Tools and calculators built for Nigerian laws, taxes, and regulations"
+    }
+  },
+  "tools": {
+    "salary-calculator": {
+      "title": "Net Salary Calculator Nigeria 2026 (PAYE, Pension, NHF)",
+      "metaDescription": "Calculate your net salary in Nigeria for 2026 under the new Nigeria Tax Act. Get your take-home pay after PAYE tax, pension, and NHF deductions instantly."
     }
   },
   "blog": {

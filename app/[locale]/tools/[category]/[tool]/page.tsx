@@ -96,18 +96,13 @@ export async function generateMetadata({ params }: { params: Promise<Params> }) 
     description: toolContent.meta_description ?? toolContent.description ?? '',
     alternates: {
       canonical: url,
-      languages: {
-        en:          `${BASE_URL}/en/tools/${category}/${toolSlug}`,
-        ar:          `${BASE_URL}/ar/tools/${category}/${toolSlug}`,
-        'x-default': `${BASE_URL}/en/tools/${category}/${toolSlug}`,
-      },
     },
     openGraph: {
       title:       toolContent.title,
       description: toolContent.meta_description ?? toolContent.description ?? '',
       url,
       siteName: 'OnlineToolsNG',
-      locale:   locale === 'ar' ? 'ar_AE' : 'en_AE',
+      locale:   'en_NG',
       type:     'website' as const,
       images:   [{ url: `${BASE_URL}/og/tools/${toolSlug}.png`, width: 1200, height: 630 }],
     },
@@ -124,6 +119,10 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
   try {
     switch (toolSlug) {
       // ── Add new tool cases here as they are built ──
+      case 'salary-calculator': {
+        const { SalaryCalculator } = await import('@/components/tools/SalaryCalculator')
+        return SalaryCalculator
+      }
       default:
         console.warn(`Tool slug not found: ${toolSlug}`);
         return null;

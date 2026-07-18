@@ -20,7 +20,18 @@ export type Tool = {
 }
 
 export const TOOLS: Tool[] = [
-
+  {
+    slug: 'salary-calculator',
+    category: 'hr-payroll',
+    schema: 'calculator',
+    featured: true,
+    countries: ['nigeria'],
+    relatedTools: [],
+    relatedArticles: [],
+    hasCountryVariants: false,
+    requiresApi: false,
+    launchDate: '2026-07-18',
+  },
 ]
 
 // ─── Utility Functions ─────────────────────────────────────────────────────────
