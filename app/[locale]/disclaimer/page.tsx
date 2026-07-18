@@ -94,10 +94,10 @@ export default async function DisclaimerPage({ params }: { params: Promise<Param
                 <p>The results of salary, loan, savings, and investment calculators do not constitute financial advice. Please consult a licensed financial advisor before making any investment or financial decisions.</p>
 
                 <h2>3. Not Legal Advice</h2>
-                <p>Information about labour law, end-of-service gratuity, notice periods, and visas on this site does not constitute legal advice. Laws are subject to change and interpretations may vary. Consult a qualified lawyer or legal advisor for your specific situation.</p>
+                <p>Information about labour law, employment terms, and payroll on this site does not constitute legal advice. Laws are subject to change and interpretations may vary. Consult a qualified lawyer or legal advisor for your specific situation.</p>
 
                 <h2>4. Not Tax Advice</h2>
-                <p>VAT, zakat, and other tax calculators do not constitute tax advice. Consult a licensed accountant or tax advisor to ensure full compliance with tax regulations in your country.</p>
+                <p>Tax, salary, and other financial calculators do not constitute tax or financial advice. Consult a licensed accountant or tax advisor to ensure full compliance with tax regulations in Nigeria.</p>
 
                 <h2>5. Accuracy of Calculations</h2>
                 <p>We make every effort to ensure the accuracy of all calculations, but we cannot guarantee they are error-free. Laws, regulations, and rates are subject to change at any time. Always verify results against official sources.</p>

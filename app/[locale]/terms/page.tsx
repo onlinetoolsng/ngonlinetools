@@ -96,7 +96,7 @@ export default async function TermsPage({ params }: { params: Promise<Params> })
                 <p>By using OnlineToolsNG, you agree to be bound by these Terms of Service. If you do not agree with any part of these terms, please stop using the site.</p>
 
                 <h2>2. Description of Service</h2>
-                <p>OnlineToolsNG provides free calculators and tools for informational purposes. Services include salary, zakat, VAT, gratuity calculators and more.</p>
+                <p>OnlineToolsNG provides free calculators and tools for informational purposes. Services include salary, tax, business, and other calculators.</p>
 
                 <h2>3. Disclaimer</h2>
                 <p>The results provided by our tools are for informational and estimation purposes only. They do not constitute legal, financial, or tax advice. Always consult a qualified professional before making financial decisions.</p>
