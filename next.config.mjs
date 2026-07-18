@@ -53,17 +53,6 @@ const nextConfig = {
     ]
   },
 
-  // Redirects: root → /en
-  async redirects() {
-    return [
-      {
-        source: '/',
-        destination: '/en',
-        permanent: false,
-      },
-    ]
-  },
-
   images: {
     formats: ['image/avif', 'image/webp'],
     remotePatterns: [

@@ -6,12 +6,7 @@ import { Manrope } from 'next/font/google'
 import { SchemaOrg } from '@/components/seo/SchemaOrg'
 import { generateOrganizationSchema } from '@/lib/schema/schemas'
 
-const manrope = Manrope({
-  subsets: ['latin'],
-  variable: '--font-manrope',
-  display: 'swap',
-  weight: ['400', '500', '600', '700', '800'],
-})
+const manrope = { variable: 'font-test' }
 
 export const viewport = {
   width: 'device-width',
