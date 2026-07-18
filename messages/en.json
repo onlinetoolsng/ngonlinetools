@@ -1,0 +1,159 @@
+{
+  "common": {
+    "calculate": "Calculate",
+    "reset": "Reset",
+    "result": "Result",
+    "currency": "Currency",
+    "country": "Country",
+    "allTools": "All Tools",
+    "relatedTools": "Related Tools",
+    "readMore": "Read More",
+    "frequentlyAsked": "Frequently Asked Questions",
+    "sponsored": "Advertisement",
+    "tryNow": "Try Now",
+    "viewAll": "View All",
+    "comingSoon": "Coming Soon"
+  },
+"nav": {
+  "home": "Home",
+  "tools": "Tools",
+  "blog": "Blog",
+  "locations": "Locations",
+  "search": "Search tools...",
+  "about": "About",
+  "contact": "Contact",
+  "disclaimer": "Disclaimer",
+  "privacy": "Privacy",
+  "terms": "Terms"
+  },
+  "homepage": {
+    "hero": "Free Tools for the Gulf",
+    "heroSub": "Calculators, converters, and generators built for UAE, Saudi Arabia, Qatar, Kuwait, Bahrain, Oman, and Egypt",
+    "featuredTools": "Featured Tools",
+    "popularCategories": "Popular Categories",
+    "allCategories": "All Categories",
+    "toolsCount": "50+ free tools",
+    "countriesCount": "7 Gulf countries",
+    "languagesCount": "English & Arabic",
+    "heroCta": "Browse All Tools",
+    "trustedBy": "Built for expats, professionals & businesses across the Gulf"
+  },
+  "categories": {
+    "finance": {
+      "name": "Finance & Money",
+      "description": "Salary calculators, loan EMI, investment returns, and money tools for the Gulf"
+    },
+    "business": {
+      "name": "Business & Trade",
+      "description": "Trade license costs, invoice generators, and business tools"
+    },
+    "legal-visa": {
+      "name": "Legal & Visa",
+      "description": "Visa fee estimators, iqama renewal, NOC generators and more"
+    },
+    "real-estate": {
+      "name": "Real Estate",
+      "description": "Mortgage calculators, rental yield, DLD fees and property tools"
+    },
+    "hr-payroll": {
+      "name": "HR & Payroll",
+      "description": "Gratuity, GOSI, leave encashment, and payroll tools"
+    },
+    "tax-vat": {
+      "name": "Tax & VAT",
+      "description": "UAE VAT, KSA VAT, customs duty and tax calculators"
+    },
+    "islamic-tools": {
+      "name": "Islamic Tools",
+      "description": "Zakat calculator, Hijri converter, prayer times and Islamic tools"
+    },
+    "currency": {
+      "name": "Currency",
+      "description": "Live currency converter, AED to SAR, gold price and exchange tools"
+    },
+    "education": {
+      "name": "Education",
+      "description": "GPA calculator, CGPA converter, scholarship and tuition tools"
+    },
+    "health": {
+      "name": "Health & BMI",
+      "description": "BMI calculator, calorie tracker, Ramadan fasting and health tools"
+    },
+    "career": {
+      "name": "Career",
+      "description": "Salary benchmarking, notice period, probation period tools"
+    },
+    "travel": {
+      "name": "Travel",
+      "description": "Flight cost, hotel tax, per diem and visa cost calculators"
+    },
+    "auto": {
+      "name": "Auto",
+      "description": "Car loan, insurance estimate, fuel cost and depreciation tools"
+    },
+    "productivity": {
+      "name": "Productivity",
+      "description": "Time zone converter, work hours tracker, deadline and word tools"
+    },
+    "government": {
+      "name": "Government",
+      "description": "MOHRE fees, MOI fines, municipality fees and government tools"
+    },
+    "food-nutrition": {
+      "name": "Food & Nutrition",
+      "description": "Halal checker, Arabic food calories, meal cost estimator"
+    }
+  },
+ 
+
+
+  "locations": {
+    "uae": {
+      "name": "United Arab Emirates",
+      "shortName": "UAE",
+      "description": "Tools and calculators specific to UAE laws, fees, and regulations"
+    },
+    "saudi": {
+      "name": "Saudi Arabia",
+      "shortName": "KSA",
+      "description": "Tools calibrated for KSA Vision 2030, GOSI, and Saudi regulations"
+    },
+    "qatar": {
+      "name": "Qatar",
+      "shortName": "Qatar",
+      "description": "Qatar-specific tools for expats, businesses and residents"
+    },
+    "kuwait": {
+      "name": "Kuwait",
+      "shortName": "Kuwait",
+      "description": "Kuwait tools for finance, payroll, and business"
+    },
+    "bahrain": {
+      "name": "Bahrain",
+      "shortName": "Bahrain",
+      "description": "Bahrain tools for VAT, payroll, and business setup"
+    },
+    "oman": {
+      "name": "Oman",
+      "shortName": "Oman",
+      "description": "Oman-specific financial and payroll tools"
+    },
+    "egypt": {
+      "name": "Egypt",
+      "shortName": "Egypt",
+      "description": "Egypt tools for tax, salary, and business"
+    }
+  },
+  "blog": {
+    "readingTime": "{minutes} min read",
+    "publishedOn": "Published on {date}",
+    "relatedArticles": "Related Articles"
+  },
+  "ads": {
+    "sponsored": "Advertisement"
+  },
+  "seo": {
+    "siteName": "Gulf Tools",
+    "siteDescription": "50+ free online tools for UAE, Saudi Arabia, Qatar and the Gulf — salary calculators, VAT tools, gratuity calculators and more"
+  }
+}
