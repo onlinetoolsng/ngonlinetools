@@ -213,11 +213,12 @@ export function SalaryCalculator(_props: { locale: string }) {
       )}
 
       <p className="text-xs text-gray-400 leading-relaxed">
-        Pension and NHF are shown here as a percentage of full gross salary as a standard
-        approximation. Strictly, both are calculated on Basic + Housing + Transport
-        allowances only — check your payslip breakdown for an exact figure. This calculator
-        is for guidance only and isn't a substitute for advice from an accountant or HR
-        professional.
+        Pension (Pension Reform Act 2014) is calculated on Basic + Housing + Transport
+        allowances, and NHF (National Housing Fund Act) is calculated on Basic salary only —
+        both shown here as a percentage of full gross pay as a standard approximation, since
+        most employees only know their total gross figure. Check your payslip for the exact
+        amounts your employer uses. This calculator is for guidance only and isn't a
+        substitute for advice from an accountant or HR professional.
       </p>
     </div>
   )
