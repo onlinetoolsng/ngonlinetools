@@ -1,3 +1,8 @@
+// Single-country site — Nigeria only. Kept as a registry (rather than a
+// hardcoded literal) so the shape matches other sites in the template and
+// any future state-level variants (e.g. Lagos rent law vs. others) can
+// extend this later without a rewrite.
+
 export type Location = {
   slug: string
   currency: string
@@ -7,13 +12,7 @@ export type Location = {
 }
 
 export const LOCATIONS: Location[] = [
-  { slug: 'uae',     currency: 'AED', currencyCode: 'AED', flag: '🇦🇪', vatRate: 5  },
-  { slug: 'saudi',   currency: 'SAR', currencyCode: 'SAR', flag: '🇸🇦', vatRate: 15 },
-  { slug: 'qatar',   currency: 'QAR', currencyCode: 'QAR', flag: '🇶🇦', vatRate: 0  },
-  { slug: 'kuwait',  currency: 'KWD', currencyCode: 'KWD', flag: '🇰🇼', vatRate: 0  },
-  { slug: 'bahrain', currency: 'BHD', currencyCode: 'BHD', flag: '🇧🇭', vatRate: 10 },
-  { slug: 'oman',    currency: 'OMR', currencyCode: 'OMR', flag: '🇴🇲', vatRate: 5  },
-  { slug: 'egypt',   currency: 'EGP', currencyCode: 'EGP', flag: '🇪🇬', vatRate: 14 },
+  { slug: 'nigeria', currency: 'Naira', currencyCode: 'NGN', flag: '🇳🇬', vatRate: 7.5 },
 ]
 
 export function getLocationBySlug(slug: string): Location | undefined {

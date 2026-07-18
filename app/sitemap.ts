@@ -11,7 +11,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE_URL}/sitemap-static.xml`,     lastModified: new Date() },
     { url: `${BASE_URL}/sitemap-categories.xml`, lastModified: new Date() },
     { url: `${BASE_URL}/sitemap-tools.xml`,      lastModified: new Date() },
-    { url: `${BASE_URL}/sitemap-locations.xml`,  lastModified: new Date() },
     { url: `${BASE_URL}/sitemap-blog.xml`,       lastModified: new Date() },
   ]
 }
