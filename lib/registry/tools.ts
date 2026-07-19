@@ -68,19 +68,30 @@ export const TOOLS: Tool[] = [
     requiresApi: false,
     launchDate: '2026-07-19',
   },
-  // Add this object to the TOOLS array in lib/registry/tools.ts
-{
-  slug: 'net-worth-calculator',
-  category: 'finance',
-  schema: 'calculator',
-  featured: false,
-  countries: ['nigeria'],
-  relatedTools: ['savings-calculator', 'compound-interest-calculator'],
-  relatedArticles: [],
-  hasCountryVariants: false,
-  requiresApi: false,
-  launchDate: '2026-07-19',
-},
+  {
+    slug: 'net-worth-calculator',
+    category: 'finance',
+    schema: 'calculator',
+    featured: false,
+    countries: ['nigeria'],
+    relatedTools: ['investment-returns-calculator', 'pension-calculator'],
+    relatedArticles: [],
+    hasCountryVariants: false,
+    requiresApi: false,
+    launchDate: '2026-07-19',
+  },
+  {
+    slug: 'investment-returns-calculator',
+    category: 'finance',
+    schema: 'calculator',
+    featured: true,
+    countries: ['nigeria'],
+    relatedTools: ['vat-calculator', 'company-income-tax-calculator', 'net-worth-calculator'],
+    relatedArticles: [],
+    hasCountryVariants: false,
+    requiresApi: true,
+    launchDate: '2026-07-19',
+  },
 ]
 
 

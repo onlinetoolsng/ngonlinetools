@@ -1,0 +1,46 @@
+-- seed/investment-returns-calculator.sql
+-- Run in the Supabase SQL editor once the project is connected.
+-- Uses dollar-quoting ($body$...$body$ and $faq$...$faq$) throughout so
+-- apostrophes in the copy never need manual escaping.
+
+insert into tool_translations (
+  tool_slug, locale, title, description, meta_description,
+  article_title, article_body, faq, is_translated
+) values (
+  'investment-returns-calculator',
+  'en',
+  'Nigeria Investment Returns Calculator: T-Bills vs FGN Bonds vs Fixed Deposits (2026)',
+  'Compare after-tax, inflation-adjusted returns on Treasury Bills, FGN Bonds, FGN Savings Bonds, Fixed Deposits, and Money Market Funds — with live USD/NGN conversion.',
+  'Free Nigeria investment returns calculator for 2026. Compare Treasury Bills, FGN Bonds, Savings Bonds, Fixed Deposits and Money Market Funds after tax and inflation, with live USD/NGN rates.',
+  'Comparing Nigerian Investments After Tax and Inflation in 2026: What Actually Changed',
+$body$If you last compared Treasury Bills against FGN Bonds a couple of years ago and assumed the numbers still hold, there is a change worth knowing about before you invest again. For most of the last decade, retail investors treated T-bill interest as effectively tax-free, and many blog posts and calculators still online repeat that assumption. It stopped being true on 28 October 2025, when the Federal Inland Revenue Service issued a public notice directing banks, stockbrokers, and other financial institutions to deduct a 10% withholding tax (WHT) on interest earned from short-term securities, treasury bills explicitly included, at the point of payment. That directive carried through into the Nigeria Tax Act (NTA) 2025, one of four tax reform bills President Bola Ahmed Tinubu signed into law on 26 June 2025, which took full effect on 1 January 2026.
+
+The one thing that has not changed is the tax treatment of Federal Government bonds. Under Section 163(1)(n) of the Nigeria Tax Act 2025, interest income from FGN Bonds, FGN Savings Bonds, and State Government Bonds remains completely exempt from tax. The Debt Management Office continues to pay bondholders their full coupon amounts with no deduction at all. This creates a genuinely new dynamic in the Nigerian fixed-income market: a headline T-bill yield that looks higher than a comparable bond yield may not actually deliver a higher after-tax return once that 10% WHT comes off, especially at the shorter tenors where T-bills sit. Whether a T-bill still wins on a real, after-tax basis now depends on the size of the yield gap at the time you are comparing, not on a rule of thumb from before October 2025.
+
+Fixed Deposits and Money Market Funds were not affected by the October 2025 directive in the same headline-making way, because they had already been subject to the standard 10% withholding tax on interest for years under longstanding FIRS rules. What changed for them is more about the competitive landscape: as T-bills lose part of their previous tax advantage, the gap between a bank Fixed Deposit, a Money Market Fund, and a T-bill narrows, and increasingly the deciding factor becomes gross yield and liquidity rather than tax treatment, since all three are now taxed the same way at 10%.
+
+Working out which option actually leaves you better off requires running the same calculation four times: gross interest, tax deducted, net interest, and then a real, inflation-adjusted return using the Fisher relationship, (1 + net yield) ÷ (1 + inflation rate) − 1, rather than simply subtracting inflation from the nominal rate, which understates the effect at higher inflation levels. With Nigeria's inflation running close to 15.9% per the most recent NBS release, and Treasury Bill stop rates around 15.8% to 18.5% across the 91, 182, and 364-day tenors as of the CBN's January 2026 auctions, several of these instruments sit right at the edge of preserving purchasing power once tax and inflation are both accounted for — which is exactly why a side-by-side comparison matters more than looking at any single headline rate in isolation.
+
+It's worth being direct about what this calculator does not do. Rates for Treasury Bills and FGN Bonds move at every CBN and DMO auction, sometimes significantly — the 364-day T-bill stop rate alone moved from 16.04% in November 2025 to 17.66% in December 2025 to 18.47% in January 2026. The default figures here are dated snapshots from CBN and DMO auction results, clearly labelled with an "as of" date, and you should adjust them using the panel above if you have a more current auction result or your own bank or fund manager's quoted rate. Fixed Deposit rates in particular are often individually negotiable with your bank rather than fixed, and Money Market Fund yields vary by fund manager and are published in each fund's factsheet, regulated under Securities and Exchange Commission rules on collective investment schemes.
+
+This tool is built for comparison and illustration, not as a recommendation to buy any specific product, and it deliberately excludes general equity or balanced Mutual Funds from the numeric comparison, since their returns are market-dependent and not fixed or quotable the way T-bills, bonds, deposits, and money market funds are. For the same reason, treat every output here as a starting point for your own research, not a substitute for checking current rates directly with the CBN, the DMO, your bank, or a licensed fund manager before committing any money.
+
+Access to each of these instruments differs in practice, which matters as much as the yield itself if you are choosing between them. Treasury Bills and FGN Bonds can be bought at CBN and DMO primary auctions through a bank or licensed stockbroker, typically with minimums in the hundreds of thousands of naira for T-bills, while the FGN Savings Bond was specifically designed with a much lower entry point, often as little as ₦5,000, to widen retail participation in government securities. Fixed Deposits are opened directly with a commercial bank and are usually negotiable above a bank-set minimum, often ₦100,000 or more, with the rate sometimes improving for larger sums or longer tenors if you ask. Money Market Funds, regulated as collective investment schemes under Securities and Exchange Commission rules, are the most accessible of the group in practice, since several SEC-registered fund managers and licensed fintech savings apps allow entry with as little as a few thousand naira and same-day or next-day liquidity, a meaningful advantage over a fixed-tenor instrument if you might need the money back early.$body$,
+$faq$[
+    {"q": "Are Treasury Bills still tax-free in Nigeria?", "a": "No, not since 28 October 2025. FIRS directed financial institutions to deduct a 10% withholding tax on Treasury Bill interest from that date, continuing under the Nigeria Tax Act 2025 from 1 January 2026. Before that date, T-bill interest was effectively tax-free for individual investors -- that has changed."},
+    {"q": "Are FGN Bonds still completely tax-exempt?", "a": "Yes. Under Section 163(1)(n) of the Nigeria Tax Act 2025, interest income from FGN Bonds, FGN Savings Bonds, and State Government Bonds remains fully exempt from tax, with no withholding deduction at all."},
+    {"q": "Why does a lower headline rate sometimes give a better return?", "a": "Because tax and inflation both eat into different instruments differently. A Treasury Bill with a higher gross yield now loses 10% to withholding tax, while an FGN Bond with a lower gross yield keeps 100% of its interest. Once you compare net, inflation-adjusted returns rather than headline rates, the ranking can flip."},
+    {"q": "How is the real (inflation-adjusted) return calculated?", "a": "This calculator uses the Fisher equation: (1 + net yield) divided by (1 + inflation rate), minus 1. This is more accurate than simply subtracting inflation from the nominal rate, particularly when inflation is high, as it is in Nigeria currently."},
+    {"q": "How often do Treasury Bill and FGN Bond rates change?", "a": "At every CBN Treasury Bill auction (roughly every two weeks) and every DMO FGN Bond auction (monthly). Rates can move meaningfully between auctions -- the 364-day T-bill rate moved from roughly 16% to over 18% across three consecutive months in late 2025 and early 2026 -- so always check the current auction result before relying on a specific number for a real investment decision."},
+    {"q": "Why aren't general Mutual Funds included in the comparison?", "a": "Equity and balanced Mutual Funds have returns that depend on market performance and are not fixed or guaranteed the way Treasury Bills, FGN Bonds, Fixed Deposits, and Money Market Funds are. Showing a single hypothetical yield for them would be misleading, so they're left out of the numeric comparison and mentioned only for context."}
+  ]$faq$::jsonb,
+  true
+)
+on conflict (tool_slug, locale) do update set
+  title = excluded.title,
+  description = excluded.description,
+  meta_description = excluded.meta_description,
+  article_title = excluded.article_title,
+  article_body = excluded.article_body,
+  faq = excluded.faq,
+  is_translated = excluded.is_translated;

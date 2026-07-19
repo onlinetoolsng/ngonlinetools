@@ -21,6 +21,7 @@ export const TOOL_ICON_MAP: Record<string, string> = {
   'vat-calculator':    '🧾',
   'company-income-tax-calculator': '🏢',
   'pension-calculator': '👵',
+  'investment-returns-calculator': '📈',
 }
 
 // Fallback flag — single-country site, so this is just Nigeria.
