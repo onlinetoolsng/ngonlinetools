@@ -122,6 +122,10 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
         const { CITCalculator } = await import('@/components/tools/CITCalculator')
         return CITCalculator
       }
+        case 'net-worth-calculator': {
+       const { NigeriaNetWorthCalculator } = await import('@/components/tools/NigeriaNetWorthCalculator')
+       return NigeriaNetWorthCalculator
+      }
       case 'pension-calculator': {
         const { PensionCalculator } = await import('@/components/tools/PensionCalculator')
         return PensionCalculator
@@ -129,12 +133,12 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
       default:
         console.warn(`Tool slug not found: ${toolSlug}`);
         return null;
-    }
+    } 
   } catch (error) {
     console.error(`Failed to dynamic load component for slug: ${toolSlug}`, error);
     return null;
   }
-}
+} 
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
