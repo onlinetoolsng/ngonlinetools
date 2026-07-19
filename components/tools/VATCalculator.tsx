@@ -1,6 +1,7 @@
 'use client'
 
 import { useMemo, useState } from 'react'
+import { cleanNumberInput, formatNumberInput } from '@/lib/utils/numberInput'
 
 // ─── Nigeria Tax Act 2025 (effective 1 January 2026) ───────────────────────
 // Standard VAT rate: 7.5% (unchanged since the Finance Act 2019 increase).
@@ -75,11 +76,10 @@ export function VATCalculator(_props: { locale: string }) {
             ₦
           </span>
           <input
-            type="number"
+            type="text"
             inputMode="decimal"
-            min={0}
-            value={amount}
-            onChange={e => setAmount(e.target.value)}
+            value={formatNumberInput(amount)}
+            onChange={e => setAmount(cleanNumberInput(e.target.value))}
             className="w-full rounded-xl border border-gray-200 pl-9 pr-4 py-3 text-lg font-semibold text-gray-900 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 outline-none transition"
             placeholder="0.00"
           />

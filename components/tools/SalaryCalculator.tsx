@@ -1,6 +1,7 @@
 'use client'
 
 import { useMemo, useState } from 'react'
+import { cleanNumberInput, formatNumberInput } from '@/lib/utils/numberInput'
 
 // ─── 2026 Nigeria Tax Act (NTA) PAYE bands ─────────────────────────────────
 // Effective 1 January 2026. Progressive bands applied to annual taxable
@@ -106,13 +107,12 @@ export function SalaryCalculator(_props: { locale: string }) {
             Monthly Gross Salary (₦)
           </label>
           <input
-            type="number"
+            type="text"
             inputMode="decimal"
-            min={0}
-            value={monthlyGross}
-            onChange={e => setMonthlyGross(e.target.value)}
+            value={formatNumberInput(monthlyGross)}
+            onChange={e => setMonthlyGross(cleanNumberInput(e.target.value))}
             className="w-full rounded-xl border border-gray-200 px-4 py-3 text-lg font-semibold text-gray-900 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 outline-none transition"
-            placeholder="500000"
+            placeholder="500,000"
           />
         </div>
 
@@ -121,11 +121,10 @@ export function SalaryCalculator(_props: { locale: string }) {
             Annual Rent Paid (₦) <span className="text-gray-400 font-normal">— optional</span>
           </label>
           <input
-            type="number"
+            type="text"
             inputMode="decimal"
-            min={0}
-            value={annualRent}
-            onChange={e => setAnnualRent(e.target.value)}
+            value={formatNumberInput(annualRent)}
+            onChange={e => setAnnualRent(cleanNumberInput(e.target.value))}
             className="w-full rounded-xl border border-gray-200 px-4 py-3 text-lg font-semibold text-gray-900 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 outline-none transition"
             placeholder="0"
           />

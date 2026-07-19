@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
+import { cleanNumberInput, formatNumberInput } from '@/lib/utils/numberInput'
 
 // ─── Nigeria Tax Act 2025 (effective 1 Jan 2026) + FIRS directive (28 Oct 2025) ───
 // FGN Bonds, FGN Savings Bonds, State Government Bonds: 0% WHT — fully tax-exempt
@@ -183,13 +184,12 @@ export function InvestmentReturnsCalculator(_props: { locale: string }) {
           </div>
         </div>
         <input
-          type="number"
+          type="text"
           inputMode="decimal"
-          min={0}
-          value={principal}
-          onChange={e => setPrincipal(e.target.value)}
+          value={formatNumberInput(principal)}
+          onChange={e => setPrincipal(cleanNumberInput(e.target.value))}
           className="w-full rounded-xl border border-gray-200 px-4 py-3 text-lg font-semibold text-gray-900 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 outline-none transition"
-          placeholder="1000000"
+          placeholder="1,000,000"
         />
         <p className="text-xs text-gray-500 mt-1">
           {usdRateIsLive

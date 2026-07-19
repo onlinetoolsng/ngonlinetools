@@ -1,6 +1,7 @@
 'use client'
 
 import { useMemo, useState } from 'react'
+import { cleanNumberInput, formatNumberInput } from '@/lib/utils/numberInput'
 
 // ─── Pension Reform Act 2014 (signed 1 July 2014), regulated by PenCom ─────
 // Minimum combined contribution: 18% of monthly emolument
@@ -56,13 +57,12 @@ export function PensionCalculator(_props: { locale: string }) {
           Monthly Emolument (₦)
         </label>
         <input
-          type="number"
+          type="text"
           inputMode="decimal"
-          min={0}
-          value={emolument}
-          onChange={e => setEmolument(e.target.value)}
+          value={formatNumberInput(emolument)}
+          onChange={e => setEmolument(cleanNumberInput(e.target.value))}
           className="w-full rounded-xl border border-gray-200 px-4 py-3 text-lg font-semibold text-gray-900 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 outline-none transition"
-          placeholder="500000"
+          placeholder="500,000"
         />
         <p className="text-xs text-gray-500 mt-1">
           Defined by the Pension Reform Act 2014 as Basic + Housing + Transport allowances only.

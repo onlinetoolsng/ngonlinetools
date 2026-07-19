@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
+import { cleanNumberInput, formatNumberInput } from '@/lib/utils/numberInput'
 
 type Props = {
   locale: string
@@ -354,11 +355,12 @@ export function NigeriaNetWorthCalculator({ locale }: Props) {
                 className="col-span-4 rounded-lg border border-gray-300 px-2 py-2 text-sm"
               />
               <input
-                type="number"
+                type="text"
+                inputMode="decimal"
                 placeholder="Amount ₦"
-                value={item.amountNaira || ''}
+                value={formatNumberInput(item.amountNaira ? String(item.amountNaira) : '')}
                 onChange={(e) =>
-                  updateAsset(item.id, { amountNaira: parseFloat(e.target.value) || 0 })
+                  updateAsset(item.id, { amountNaira: parseFloat(cleanNumberInput(e.target.value)) || 0 })
                 }
                 className="col-span-3 rounded-lg border border-gray-300 px-2 py-2 text-sm"
               />
@@ -407,11 +409,12 @@ export function NigeriaNetWorthCalculator({ locale }: Props) {
                 className="col-span-4 rounded-lg border border-gray-300 px-2 py-2 text-sm"
               />
               <input
-                type="number"
+                type="text"
+                inputMode="decimal"
                 placeholder="Amount ₦"
-                value={item.amountNaira || ''}
+                value={formatNumberInput(item.amountNaira ? String(item.amountNaira) : '')}
                 onChange={(e) =>
-                  updateLiability(item.id, { amountNaira: parseFloat(e.target.value) || 0 })
+                  updateLiability(item.id, { amountNaira: parseFloat(cleanNumberInput(e.target.value)) || 0 })
                 }
                 className="col-span-3 rounded-lg border border-gray-300 px-2 py-2 text-sm"
               />

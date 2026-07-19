@@ -1,6 +1,7 @@
 'use client'
 
 import { useMemo, useState } from 'react'
+import { cleanNumberInput, formatNumberInput } from '@/lib/utils/numberInput'
 
 // ─── Nigeria Tax Act 2025 (effective 1 January 2026) ───────────────────────
 // Small company: turnover ≤ ₦100,000,000 AND fixed assets ≤ ₦250,000,000
@@ -71,11 +72,10 @@ export function CITCalculator(_props: { locale: string }) {
             Annual Turnover (₦)
           </label>
           <input
-            type="number"
+            type="text"
             inputMode="decimal"
-            min={0}
-            value={turnover}
-            onChange={e => setTurnover(e.target.value)}
+            value={formatNumberInput(turnover)}
+            onChange={e => setTurnover(cleanNumberInput(e.target.value))}
             className="w-full rounded-xl border border-gray-200 px-4 py-3 text-lg font-semibold text-gray-900 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 outline-none transition"
             placeholder="0"
           />
@@ -86,11 +86,10 @@ export function CITCalculator(_props: { locale: string }) {
             Total Fixed Assets (₦)
           </label>
           <input
-            type="number"
+            type="text"
             inputMode="decimal"
-            min={0}
-            value={fixedAssets}
-            onChange={e => setFixedAssets(e.target.value)}
+            value={formatNumberInput(fixedAssets)}
+            onChange={e => setFixedAssets(cleanNumberInput(e.target.value))}
             className="w-full rounded-xl border border-gray-200 px-4 py-3 text-lg font-semibold text-gray-900 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 outline-none transition"
             placeholder="0"
           />
@@ -102,10 +101,10 @@ export function CITCalculator(_props: { locale: string }) {
           Assessable Profit (₦) <span className="text-gray-500 font-normal">— profit before CIT/levy, after allowable deductions</span>
         </label>
         <input
-          type="number"
+          type="text"
           inputMode="decimal"
-          value={assessableProfit}
-          onChange={e => setAssessableProfit(e.target.value)}
+          value={formatNumberInput(assessableProfit)}
+          onChange={e => setAssessableProfit(cleanNumberInput(e.target.value))}
           className="w-full rounded-xl border border-gray-200 px-4 py-3 text-lg font-semibold text-gray-900 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 outline-none transition"
           placeholder="0"
         />

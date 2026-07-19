@@ -1,6 +1,7 @@
 'use client'
 
 import { useMemo, useState } from 'react'
+import { cleanNumberInput, formatNumberInput } from '@/lib/utils/numberInput'
 
 // ─── Regulatory context (informational only — this tool does not give legal advice) ───
 // FCCPC Digital, Electronic, Online or Non-Traditional (DEON) Consumer Lending
@@ -274,13 +275,12 @@ export function NigeriaLoanCalculator(_props: { locale: string }) {
       <div>
         <label className="block text-sm font-semibold text-gray-700 mb-1.5">Loan Amount (₦)</label>
         <input
-          type="number"
+          type="text"
           inputMode="decimal"
-          min={0}
-          value={principal}
-          onChange={e => setPrincipal(e.target.value)}
+          value={formatNumberInput(principal)}
+          onChange={e => setPrincipal(cleanNumberInput(e.target.value))}
           className="w-full rounded-xl border border-gray-200 px-4 py-3 text-lg font-semibold text-gray-900 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 outline-none transition"
-          placeholder="100000"
+          placeholder="100,000"
         />
       </div>
 
@@ -409,12 +409,10 @@ export function NigeriaLoanCalculator(_props: { locale: string }) {
                   <option value="fixed">₦ fixed</option>
                 </select>
                 <input
-                  type="number"
+                  type="text"
                   inputMode="decimal"
-                  min={0}
-                  step="0.01"
-                  value={upfrontFeeValue}
-                  onChange={e => setUpfrontFeeValue(e.target.value)}
+                  value={formatNumberInput(upfrontFeeValue)}
+                  onChange={e => setUpfrontFeeValue(cleanNumberInput(e.target.value))}
                   className="flex-1 rounded-lg border border-gray-200 px-3 py-2 text-sm"
                 />
               </div>
@@ -429,11 +427,10 @@ export function NigeriaLoanCalculator(_props: { locale: string }) {
                 Extra Payment per Period (₦, optional)
               </label>
               <input
-                type="number"
+                type="text"
                 inputMode="decimal"
-                min={0}
-                value={extraPayment}
-                onChange={e => setExtraPayment(e.target.value)}
+                value={formatNumberInput(extraPayment)}
+                onChange={e => setExtraPayment(cleanNumberInput(e.target.value))}
                 className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm"
               />
               {repaymentMode === 'flat' && (
@@ -468,10 +465,11 @@ export function NigeriaLoanCalculator(_props: { locale: string }) {
                       className="col-span-5 rounded-lg border border-gray-200 px-2 py-2 text-xs"
                     />
                     <input
-                      type="number"
+                      type="text"
+                      inputMode="decimal"
                       placeholder="₦ amount"
-                      value={fee.amount}
-                      onChange={e => updateFee(fee.id, { amount: e.target.value })}
+                      value={formatNumberInput(fee.amount)}
+                      onChange={e => updateFee(fee.id, { amount: cleanNumberInput(e.target.value) })}
                       className="col-span-3 rounded-lg border border-gray-200 px-2 py-2 text-xs"
                     />
                     <select
