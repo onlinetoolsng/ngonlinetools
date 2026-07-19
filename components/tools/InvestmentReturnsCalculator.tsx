@@ -16,6 +16,12 @@ import { useEffect, useMemo, useState } from 'react'
 // with your own bank/broker quote via the Advanced panel.
 const RATES_AS_OF = 'January 2026 (CBN/DMO auctions)'
 
+// Fallback USD/NGN rate if the live fetch fails for any reason (network,
+// API downtime, ad-blockers). Approximate mid-market rate, dated — the
+// live fetch overrides this whenever it succeeds.
+const FALLBACK_USD_NGN_RATE = 1378
+const FALLBACK_RATE_DATE = 'as of mid-July 2026'
+
 const DEFAULT_RATES = {
   tbill91: 0.1580,
   tbill182: 0.1650,
@@ -65,7 +71,8 @@ function pickYieldForTenor(key: InstrumentKey, tenorDays: number, rates: typeof 
 export function InvestmentReturnsCalculator(_props: { locale: string }) {
   const [principal, setPrincipal] = useState<string>('1000000')
   const [currency, setCurrency] = useState<'NGN' | 'USD'>('NGN')
-  const [usdRate, setUsdRate] = useState<number | null>(null)
+  const [usdRate, setUsdRate] = useState<number>(FALLBACK_USD_NGN_RATE)
+  const [usdRateIsLive, setUsdRateIsLive] = useState(false)
   const [usdRateUpdated, setUsdRateUpdated] = useState<string | null>(null)
   const [tenorDays, setTenorDays] = useState(364)
   const [inflation, setInflation] = useState(DEFAULT_INFLATION)
@@ -77,17 +84,26 @@ export function InvestmentReturnsCalculator(_props: { locale: string }) {
   // CORS-enabled, no-key endpoint can actually serve to a browser. CBN/DMO/NBS
   // do not expose anything equivalent, so those stay as dated manual defaults.
   useEffect(() => {
-    fetch('https://open.er-api.com/v6/latest/USD')
+    const controller = new AbortController()
+    const timeout = setTimeout(() => controller.abort(), 5000)
+
+    fetch('https://open.er-api.com/v6/latest/USD', { signal: controller.signal })
       .then(res => res.json())
       .then(data => {
         if (data?.rates?.NGN) {
           setUsdRate(data.rates.NGN)
+          setUsdRateIsLive(true)
           setUsdRateUpdated(data.time_last_update_utc || new Date().toUTCString())
         }
       })
       .catch(() => {
-        // Silent fail — USD toggle simply won't be available if this fails.
+        // Live fetch failed (network, API downtime, blocked request) — the
+        // dated FALLBACK_USD_NGN_RATE set above stays in place, so the USD
+        // toggle keeps working either way.
       })
+      .finally(() => clearTimeout(timeout))
+
+    return () => clearTimeout(timeout)
   }, [])
 
   const results = useMemo(() => {
@@ -121,7 +137,7 @@ export function InvestmentReturnsCalculator(_props: { locale: string }) {
   }, [principal, tenorDays, rates, inflation])
 
   const displayAmount = (ngn: number) => {
-    if (currency === 'USD' && usdRate) return `$${Math.round(ngn / usdRate).toLocaleString('en-US')}`
+    if (currency === 'USD') return `$${Math.round(ngn / usdRate).toLocaleString('en-US')}`
     return formatNaira(ngn)
   }
 
@@ -160,8 +176,7 @@ export function InvestmentReturnsCalculator(_props: { locale: string }) {
             <button
               type="button"
               onClick={() => setCurrency('USD')}
-              disabled={!usdRate}
-              className={`px-2.5 py-1 font-medium disabled:opacity-40 ${currency === 'USD' ? 'bg-indigo-700 text-white' : 'bg-white text-gray-600'}`}
+              className={`px-2.5 py-1 font-medium ${currency === 'USD' ? 'bg-indigo-700 text-white' : 'bg-white text-gray-600'}`}
             >
               $ USD
             </button>
@@ -177,9 +192,9 @@ export function InvestmentReturnsCalculator(_props: { locale: string }) {
           placeholder="1000000"
         />
         <p className="text-xs text-gray-500 mt-1">
-          {usdRate
+          {usdRateIsLive
             ? `Live rate: $1 = ₦${usdRate.toLocaleString('en-US', { maximumFractionDigits: 2 })} (updated ${usdRateUpdated})`
-            : 'Fetching live USD/NGN rate…'}
+            : `Rate: $1 = ₦${usdRate.toLocaleString('en-US')} (fallback, ${FALLBACK_RATE_DATE} — live rate unavailable, adjust below if needed)`}
         </p>
       </div>
 
@@ -239,6 +254,19 @@ export function InvestmentReturnsCalculator(_props: { locale: string }) {
                 step="0.01"
                 value={(inflation * 100).toFixed(2)}
                 onChange={e => setInflation((parseFloat(e.target.value) || 0) / 100)}
+                className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm"
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-gray-600 mb-1">USD/NGN Rate (₦ per $1)</label>
+              <input
+                type="number"
+                step="0.01"
+                value={usdRate.toFixed(2)}
+                onChange={e => {
+                  setUsdRate(parseFloat(e.target.value) || FALLBACK_USD_NGN_RATE)
+                  setUsdRateIsLive(false)
+                }}
                 className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm"
               />
             </div>

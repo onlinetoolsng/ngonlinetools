@@ -34,7 +34,7 @@ const securityHeaders = [
       "font-src 'self' https://fonts.gstatic.com https://use.typekit.net",
       "img-src 'self' data: https: blob:",
       "frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://www.google.com https://fundingchoicesmessages.google.com",
-      "connect-src 'self' https://*.supabase.co https://www.google-analytics.com https://analytics.google.com https://pagead2.googlesyndication.com https://fundingchoicesmessages.google.com https://ep1.adtrafficquality.google https://p.typekit.net",
+      "connect-src 'self' https://*.supabase.co https://www.google-analytics.com https://analytics.google.com https://pagead2.googlesyndication.com https://fundingchoicesmessages.google.com https://ep1.adtrafficquality.google https://p.typekit.net https://open.er-api.com",
       "object-src 'none'",
       "base-uri 'self'",
     ].join('; '),
