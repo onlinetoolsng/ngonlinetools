@@ -104,6 +104,19 @@ export const TOOLS: Tool[] = [
   requiresApi: false,
   launchDate: '2026-07-19',
 },
+{
+  slug: 'nigeria-retirement-planner',
+  category: 'finance',
+  schema: 'calculator',
+  featured: false,
+  countries: ['nigeria'],
+  relatedTools: ['savings-goal-planner'],
+  relatedArticles: [],
+  hasCountryVariants: false,
+  requiresApi: false,
+  launchDate: '2026-07-19',
+},
+  
   {
     slug: 'loan-repayment-calculator',
     category: 'finance',
