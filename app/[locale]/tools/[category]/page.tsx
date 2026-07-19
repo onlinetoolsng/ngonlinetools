@@ -16,7 +16,8 @@ import { getToolIcon } from '@/lib/utils/toolIcons'
 type Params = { locale: string; category: string }
 
 const TOOL_NAMES: Record<string, { en: string; ar: string }> = {
-  // Add fallback display names here as new tools are built.
+  'salary-calculator': { en: 'Salary Calculator', ar: '' },
+  'vat-calculator':    { en: 'VAT Calculator',    ar: '' },
 }
 
 function getToolName(slug: string, locale: string): string {

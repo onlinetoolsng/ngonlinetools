@@ -17,7 +17,8 @@ import { CATEGORIES } from '@/lib/registry/categories'
 import type { Tool } from '@/lib/registry/tools'
 
 export const TOOL_ICON_MAP: Record<string, string> = {
-  // Add tool-specific icon overrides here as new tools are built.
+  'salary-calculator': '💰',
+  'vat-calculator':    '🧾',
 }
 
 // Fallback flag — single-country site, so this is just Nigeria.
