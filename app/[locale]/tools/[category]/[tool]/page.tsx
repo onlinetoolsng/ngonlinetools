@@ -37,6 +37,7 @@ const TOOL_NAMES: Record<string, { en: string; ar: string }> = {
   'investment-returns-calculator': { en: 'Investment Returns Calculator', ar: '' },
   'net-worth-calculator': { en: 'Net Worth Calculator', ar: '' },
   'loan-repayment-calculator': { en: 'Loan Repayment & True Cost Calculator', ar: '' },
+  'capital-gains-tax-calculator': { en: 'Capital Gains Tax Calculator', ar: '' },
 }
 
 function getToolName(slug: string, locale: string): string {
@@ -159,6 +160,10 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
       case 'loan-repayment-calculator': {
         const { NigeriaLoanCalculator } = await import('@/components/tools/NigeriaLoanCalculator')
         return NigeriaLoanCalculator
+      }
+      case 'capital-gains-tax-calculator': {
+        const { CapitalGainsTaxCalculator } = await import('@/components/tools/CapitalGainsTaxCalculator')
+        return CapitalGainsTaxCalculator
       }
       default:
         console.warn(`Tool slug not found: ${toolSlug}`);
