@@ -21,6 +21,7 @@ const TOOL_NAMES: Record<string, { en: string; ar: string }> = {
   'company-income-tax-calculator': { en: 'Company Income Tax Calculator', ar: '' },
   'pension-calculator': { en: 'Pension Calculator', ar: '' },
   'investment-returns-calculator': { en: 'Investment Returns Calculator', ar: '' },
+  'net-worth-calculator': { en: 'Net Worth Calculator', ar: '' },
 }
 
 function getToolName(slug: string, locale: string): string {

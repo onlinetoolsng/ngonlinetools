@@ -22,6 +22,7 @@ export const TOOL_ICON_MAP: Record<string, string> = {
   'company-income-tax-calculator': '🏢',
   'pension-calculator': '👵',
   'investment-returns-calculator': '📈',
+  'net-worth-calculator': '📊',
 }
 
 // Fallback flag — single-country site, so this is just Nigeria.

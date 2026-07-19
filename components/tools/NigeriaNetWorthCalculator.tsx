@@ -282,10 +282,10 @@ export function NigeriaNetWorthCalculator({ locale }: Props) {
           <div className="text-sm text-gray-600">
             {rate ? (
               <span>
-                1 USD ≈ {formatNaira(rate)} <span className="text-gray-400">({rateSource})</span>
+                1 USD ≈ {formatNaira(rate)} <span className="text-gray-500">({rateSource})</span>
               </span>
             ) : (
-              <span className="text-gray-400">No exchange rate loaded yet</span>
+              <span className="text-gray-500">No exchange rate loaded yet</span>
             )}
           </div>
           <div className="flex items-center gap-2">
@@ -364,7 +364,7 @@ export function NigeriaNetWorthCalculator({ locale }: Props) {
               />
               <button
                 onClick={() => removeAsset(item.id)}
-                className="col-span-1 text-gray-400 hover:text-red-500"
+                className="col-span-1 text-gray-500 hover:text-red-500"
                 type="button"
                 aria-label="Remove asset"
               >
@@ -417,7 +417,7 @@ export function NigeriaNetWorthCalculator({ locale }: Props) {
               />
               <button
                 onClick={() => removeLiability(item.id)}
-                className="col-span-1 text-gray-400 hover:text-red-500"
+                className="col-span-1 text-gray-500 hover:text-red-500"
                 type="button"
                 aria-label="Remove liability"
               >
@@ -453,7 +453,7 @@ export function NigeriaNetWorthCalculator({ locale }: Props) {
         </button>
       </div>
 
-      <p className="text-xs text-gray-400 leading-relaxed">
+      <p className="text-xs text-gray-500 leading-relaxed">
         For personal estimation only. This is not financial, tax, or legal advice — consult a
         qualified professional for decisions that matter. Asset and liability values are estimates
         you provide; property and vehicle values should reflect realistic current resale value, not
