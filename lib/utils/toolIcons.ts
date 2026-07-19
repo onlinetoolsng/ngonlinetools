@@ -26,6 +26,9 @@ export const TOOL_ICON_MAP: Record<string, string> = {
   'capital-gains-tax-calculator': '💹',
   'nigeria-crypto-vs-traditional-comparator': '🪙',
   'nigeria-stock-portfolio-tracker': '📉',
+  'savings-goal-planner': '🎯',
+  'nigeria-retirement-planner': '🏖️',
+  'loan-repayment-calculator': '🏦',
 }
 
 // Fallback flag — single-country site, so this is just Nigeria.
@@ -33,7 +36,34 @@ export const COUNTRY_FLAG_MAP: Record<string, string> = {
   nigeria: '🇳🇬',
 }
 
-export const FALLBACK_TOOL_ICON = '🧰'
+// Fallback pool — used only when a tool has no explicit icon, no single-
+// country flag match, and no matching category (i.e. last resort). Picking
+// from a pool instead of one static icon avoids a wall of identical wrench
+// icons if several uncategorized tools ever end up on the same page.
+//
+// Selection is deterministic (hashed from the tool slug), not
+// Math.random() — a truly random pick would differ between the server
+// render and the client hydration pass and cause a hydration mismatch, and
+// would also mean a tool's icon changes on every page load, which looks
+// like a bug rather than a feature. Hashing the slug means each tool
+// reliably gets the same "random-looking" icon every time, across
+// requests and across users.
+export const FALLBACK_ICON_POOL: string[] = [
+  '🧰', '🔧', '⚙️', '🧮', '📐', '📎', '🗂️', '📌', '🧭', '🔍',
+  '💡', '⭐', '🎛️', '🧩', '📋', '🔖', '🗒️', '🪄', '🎲', '🛠️',
+]
+
+function hashToIndex(input: string, modulo: number): number {
+  let hash = 0
+  for (let i = 0; i < input.length; i++) {
+    hash = (hash * 31 + input.charCodeAt(i)) >>> 0
+  }
+  return hash % modulo
+}
+
+function fallbackIconFor(slug: string): string {
+  return FALLBACK_ICON_POOL[hashToIndex(slug, FALLBACK_ICON_POOL.length)]
+}
 
 export function getToolIcon(tool: Pick<Tool, 'slug' | 'countries' | 'category'>): string {
   if (TOOL_ICON_MAP[tool.slug]) return TOOL_ICON_MAP[tool.slug]
@@ -46,5 +76,5 @@ export function getToolIcon(tool: Pick<Tool, 'slug' | 'countries' | 'category'>)
   const category = CATEGORIES.find(c => c.slug === tool.category)
   if (category) return category.icon
 
-  return FALLBACK_TOOL_ICON
+  return fallbackIconFor(tool.slug)
 }
