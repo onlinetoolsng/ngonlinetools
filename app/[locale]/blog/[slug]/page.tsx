@@ -18,6 +18,7 @@ import {
 } from '@/lib/schema/schemas'
 import { getArticleBySlug, getPublishedArticles } from '@/lib/supabase/queries'
 import { getToolBySlug } from '@/lib/registry/tools'
+import { getCategoryIcon, getCategoryBadgeClass } from '@/lib/registry/categories'
 import AdUnit from '@/components/ads/AdUnit'
 import { AD_SLOTS } from '@/components/ads/slots'
 import { getToolIcon } from '@/lib/utils/toolIcons'
@@ -82,31 +83,7 @@ export async function generateStaticParams() {
 }
 
 // ─── Category display helpers ─────────────────────────────────────────────────
-const categoryColors: Record<string, string> = {
-  finance:         'bg-indigo-50 text-indigo-800',
-  'hr-payroll':    'bg-teal-50 text-teal-700',
-  'faith': 'bg-stone-50 text-stone-700',
-  'tax-vat':       'bg-red-50 text-red-700',
-  business:        'bg-blue-50 text-blue-700',
-  'real-estate':   'bg-orange-50 text-orange-700',
-}
-
-const categoryIcons: Record<string, string> = {
-  finance:         '💰',
-  'hr-payroll':    '👥',
-  'faith': '🙏',
-  'tax-vat':       '🧾',
-  business:        '🏢',
-  'real-estate':   '🏠',
-  currency:        '💱',
-  education:       '🎓',
-  health:          '🏥',
-  career:          '💼',
-  travel:          '✈️',
-  auto:            '🚗',
-  productivity:    '⚡',
-  government:      '🏛️',
-}
+// (icon/badge styling now comes from lib/registry/categories.ts — see comment there)
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 export default async function ArticlePage({ params }: { params: Promise<Params> }) {
@@ -126,8 +103,8 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
   const tCommon = await getTranslations({ locale, namespace: 'common' })
 
   const articleUrl = `${BASE_URL}/${locale}/blog/${slug}`
-  const categoryIcon = categoryIcons[article.category_slug] ?? '📄'
-  const badgeColor = categoryColors[article.category_slug] ?? 'bg-gray-100 text-gray-600'
+  const categoryIcon = getCategoryIcon(article.category_slug)
+  const badgeColor = getCategoryBadgeClass(article.category_slug)
 
   // Related tools from registry
   const relatedTools = (article.related_tool_slugs ?? [])
@@ -389,7 +366,7 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
                       >
                         <div className="flex items-start gap-2">
                           <span className="text-lg flex-shrink-0 mt-0.5">
-                            {categoryIcons[a.category_slug] ?? '📄'}
+                            {getCategoryIcon(a.category_slug)}
                           </span>
                           <div>
                             <p className="text-sm font-medium text-gray-800 group-hover:text-indigo-700 transition-colors leading-snug line-clamp-2">

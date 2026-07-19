@@ -3,7 +3,7 @@ import type { ComponentType } from 'react'
 import { getTranslations } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import { TOOLS, getToolBySlug, getRelatedTools } from '@/lib/registry/tools'
-import { CATEGORIES } from '@/lib/registry/categories'
+import { CATEGORIES, getCategoryBadgeClass } from '@/lib/registry/categories'
 import {
   generateToolSchema,
   generateFAQSchema,
@@ -22,19 +22,7 @@ import { getToolIcon } from '@/lib/utils/toolIcons'
 import Link from 'next/link'
 
 // ─── Constants ────────────────────────────────────────────────────────────────
-
-const categoryColorMap: Record<string, string> = {
-  finance:          'bg-indigo-50 text-indigo-700',
-  tax:              'bg-amber-50 text-amber-700',
-  business:         'bg-blue-50 text-blue-700',
-  'hr-payroll':     'bg-slate-50 text-slate-700',
-  'real-estate':    'bg-orange-50 text-orange-700',
-  education:        'bg-rose-50 text-rose-700',
-  health:           'bg-cyan-50 text-cyan-700',
-  currency:         'bg-yellow-50 text-yellow-700',
-  'faith':          'bg-stone-50 text-stone-700',
-  everyday:         'bg-zinc-50 text-zinc-700',
-}
+// (category badge styling now comes from lib/registry/categories.ts)
 
 /**
  * Fallback display names for related-tools sidebar.
@@ -208,7 +196,7 @@ export default async function ToolPage({ params }: { params: Promise<Params> }) 
     ),
   ]
 
-  const badgeColor = categoryColorMap[category] ?? 'bg-gray-50 text-gray-700'
+  const badgeColor = getCategoryBadgeClass(category)
 
   // ── Article body: plain text paragraphs or raw HTML ──
   // toolContent.article_body can be plain text with \n\n paragraph breaks,
@@ -357,8 +345,7 @@ export default async function ToolPage({ params }: { params: Promise<Params> }) 
                   {relatedTools.map(related => {
                     // Resolve a specific icon for the related tool
                     const icon = getToolIcon(related)
-                    const relatedBadgeColor =
-                      categoryColorMap[related.category] ?? 'bg-gray-50 text-gray-500'
+                    const relatedBadgeColor = getCategoryBadgeClass(related.category)
                     return (
                       <Link
                         key={related.slug}

@@ -19,32 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }) 
   return generateBlogIndexMetadata(locale)
 }
 
-const categoryColors: Record<string, string> = {
-  finance:         'bg-indigo-50 text-indigo-800',
-  'hr-payroll':    'bg-teal-50 text-teal-700',
-  'faith': 'bg-stone-50 text-stone-700',
-  'tax-vat':       'bg-red-50 text-red-700',
-  business:        'bg-blue-50 text-blue-700',
-  'real-estate':   'bg-orange-50 text-orange-700',
-  currency:        'bg-yellow-50 text-yellow-700',
-}
-
-const categoryIcons: Record<string, string> = {
-  finance:         '💰',
-  'hr-payroll':    '👥',
-  'faith': '🙏',
-  'tax-vat':       '🧾',
-  business:        '🏢',
-  'real-estate':   '🏠',
-  currency:        '💱',
-  education:       '🎓',
-  health:          '🏥',
-  career:          '💼',
-  travel:          '✈️',
-  auto:            '🚗',
-  productivity:    '⚡',
-  government:      '🏛️',
-}
+import { getCategoryIcon, getCategoryBadgeClass, CATEGORIES } from '@/lib/registry/categories'
 
 export default async function BlogIndexPage({
   params,
@@ -137,8 +112,8 @@ export default async function BlogIndexPage({
             {articles.map(article => {
               const t = article.translation
               if (!t) return null
-              const badgeColor = categoryColors[article.category_slug] ?? 'bg-gray-100 text-gray-600'
-              const icon = categoryIcons[article.category_slug] ?? '📄'
+              const badgeColor = getCategoryBadgeClass(article.category_slug)
+              const icon = getCategoryIcon(article.category_slug)
               const primaryToolSlug = article.related_tool_slugs?.[0]
 
               return (
@@ -208,7 +183,7 @@ export default async function BlogIndexPage({
               {isAr ? 'تصفح حسب الفئة' : 'Browse by Category'}
             </p>
             <div className="flex flex-wrap gap-2">
-              {Object.entries(categoryIcons).map(([slug, icon]) => (
+              {CATEGORIES.map(({ slug, icon }) => (
                 <Link
                   key={slug}
                   href={`/${locale}/tools/${slug}`}
