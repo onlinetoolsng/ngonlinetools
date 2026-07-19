@@ -40,6 +40,7 @@ const TOOL_NAMES: Record<string, { en: string; ar: string }> = {
   'capital-gains-tax-calculator': { en: 'Capital Gains Tax Calculator', ar: '' },
   'nigeria-crypto-vs-traditional-comparator': { en: 'Crypto vs Traditional Investments Comparator', ar: '' },
   'nigeria-stock-portfolio-tracker': { en: 'NGX Stock Portfolio Tracker', ar: '' },
+  'nigeria-paye-tax-calculator': { en: 'Nigeria PAYE Tax Calculator', ar: '' },
 }
 
 function getToolName(slug: string, locale: string): string {
@@ -159,6 +160,10 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
       case 'nigeria-stock-portfolio-tracker': {
         const { default: NigeriaStockPortfolioTracker } = await import('@/components/tools/NigeriaStockPortfolioTracker')
         return NigeriaStockPortfolioTracker
+      }
+      case 'nigeria-paye-tax-calculator': {
+        const { NigeriaPAYETaxCalculator } = await import('@/components/tools/NigeriaPAYETaxCalculator')
+        return NigeriaPAYETaxCalculator
       }
       case 'capital-gains-tax-calculator': {
         const { CapitalGainsTaxCalculator } = await import('@/components/tools/CapitalGainsTaxCalculator')

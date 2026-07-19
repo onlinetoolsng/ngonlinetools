@@ -22,6 +22,11 @@ const TOOL_NAMES: Record<string, { en: string; ar: string }> = {
   'pension-calculator': { en: 'Pension Calculator', ar: '' },
   'investment-returns-calculator': { en: 'Investment Returns Calculator', ar: '' },
   'net-worth-calculator': { en: 'Net Worth Calculator', ar: '' },
+  'loan-repayment-calculator': { en: 'Loan Repayment & True Cost Calculator', ar: '' },
+  'capital-gains-tax-calculator': { en: 'Capital Gains Tax Calculator', ar: '' },
+  'nigeria-crypto-vs-traditional-comparator': { en: 'Crypto vs Traditional Investments Comparator', ar: '' },
+  'nigeria-stock-portfolio-tracker': { en: 'NGX Stock Portfolio Tracker', ar: '' },
+  'nigeria-paye-tax-calculator': { en: 'Nigeria PAYE Tax Calculator', ar: '' },
 }
 
 function getToolName(slug: string, locale: string): string {
