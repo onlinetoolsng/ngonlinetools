@@ -32,7 +32,7 @@ const categoryColorMap: Record<string, string> = {
   education:        'bg-rose-50 text-rose-700',
   health:           'bg-cyan-50 text-cyan-700',
   currency:         'bg-yellow-50 text-yellow-700',
-  'islamic-tools':  'bg-stone-50 text-stone-700',
+  'faith':          'bg-stone-50 text-stone-700',
   everyday:         'bg-zinc-50 text-zinc-700',
 }
 

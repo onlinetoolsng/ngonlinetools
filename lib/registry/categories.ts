@@ -15,6 +15,6 @@ export const CATEGORIES: Category[] = [
   { slug: 'education',      icon: '🎓', color: 'rose',    priority: 6 },
   { slug: 'health',         icon: '🏥', color: 'cyan',    priority: 7 },
   { slug: 'currency',       icon: '💱', color: 'yellow',  priority: 8 },
-  { slug: 'islamic-tools',  icon: '☪️', color: 'stone',   priority: 9 },
+  { slug: 'faith',          icon: '🙏', color: 'stone',   priority: 9 },
   { slug: 'everyday',       icon: '⚡', color: 'zinc',    priority: 10 },
 ]

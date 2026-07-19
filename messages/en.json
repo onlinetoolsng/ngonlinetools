@@ -72,9 +72,9 @@
       "name": "Currency",
       "description": "Naira exchange rate and currency conversion tools"
     },
-    "islamic-tools": {
-      "name": "Islamic Tools",
-      "description": "Zakat calculator, Hijri converter, and other Islamic tools"
+    "faith": {
+      "name": "Faith & Giving",
+      "description": "Zakat, tithe, Hijri calendar, and other faith-based calculators"
     },
     "everyday": {
       "name": "Everyday Tools",

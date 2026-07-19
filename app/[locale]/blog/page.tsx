@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }) 
 const categoryColors: Record<string, string> = {
   finance:         'bg-indigo-50 text-indigo-800',
   'hr-payroll':    'bg-teal-50 text-teal-700',
-  'islamic-tools': 'bg-stone-50 text-stone-700',
+  'faith': 'bg-stone-50 text-stone-700',
   'tax-vat':       'bg-red-50 text-red-700',
   business:        'bg-blue-50 text-blue-700',
   'real-estate':   'bg-orange-50 text-orange-700',
@@ -32,7 +32,7 @@ const categoryColors: Record<string, string> = {
 const categoryIcons: Record<string, string> = {
   finance:         '💰',
   'hr-payroll':    '👥',
-  'islamic-tools': '☪️',
+  'faith': '🙏',
   'tax-vat':       '🧾',
   business:        '🏢',
   'real-estate':   '🏠',
