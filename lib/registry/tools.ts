@@ -69,6 +69,18 @@ export const TOOLS: Tool[] = [
     launchDate: '2026-07-19',
   },
   {
+  slug: 'nigeria-stock-portfolio-tracker',
+  category: 'finance',
+  schema: 'calculator',
+  featured: false,
+  countries: ['nigeria'],
+  relatedTools: ['nigeria-crypto-vs-traditional-comparator'], // adjust to real existing slugs in your registry
+  relatedArticles: [],
+  hasCountryVariants: false,
+  requiresApi: false,
+  launchDate: '2026-07-19',
+},
+  {
     slug: 'net-worth-calculator',
     category: 'finance',
     schema: 'calculator',
