@@ -1,6 +1,7 @@
 'use client'
 
 import { useMemo, useState } from 'react'
+import { cleanNumberInput, formatNumberInput } from '@/lib/utils/numberInput'
 
 // ─── Nigeria Tax Act 2025 (NTA), effective 1 January 2026 ──────────────────
 // Progressive PAYE bands applied to annual chargeable income.
@@ -162,11 +163,10 @@ export function NigeriaPAYETaxCalculator(_props: { locale: string }) {
           {period === 'monthly' ? 'Monthly' : 'Annual'} Gross Salary (₦)
         </label>
         <input
-          type="number"
+          type="text"
           inputMode="decimal"
-          min={0}
-          value={salary}
-          onChange={e => setSalary(e.target.value)}
+          value={formatNumberInput(salary)}
+          onChange={e => setSalary(cleanNumberInput(e.target.value))}
           className="w-full rounded-xl border border-gray-200 px-4 py-3 text-lg font-semibold text-gray-900 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 outline-none transition"
         />
         {period === 'monthly' && (
@@ -231,11 +231,10 @@ export function NigeriaPAYETaxCalculator(_props: { locale: string }) {
           Annual Rent Paid (₦) <span className="text-gray-500 font-normal">— optional</span>
         </label>
         <input
-          type="number"
+          type="text"
           inputMode="decimal"
-          min={0}
-          value={annualRent}
-          onChange={e => setAnnualRent(e.target.value)}
+          value={formatNumberInput(annualRent)}
+          onChange={e => setAnnualRent(cleanNumberInput(e.target.value))}
           className="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm text-gray-900 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 outline-none transition"
         />
         <p className="text-xs text-gray-500 mt-1">
@@ -253,30 +252,30 @@ export function NigeriaPAYETaxCalculator(_props: { locale: string }) {
           <div>
             <label className="block text-xs font-medium text-gray-600 mb-1">NHIS Premium (₦/yr)</label>
             <input
-              type="number"
-              min={0}
-              value={nhis}
-              onChange={e => setNhis(e.target.value)}
+              type="text"
+              inputMode="decimal"
+              value={formatNumberInput(nhis)}
+              onChange={e => setNhis(cleanNumberInput(e.target.value))}
               className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm"
             />
           </div>
           <div>
             <label className="block text-xs font-medium text-gray-600 mb-1">Life Insurance (₦/yr)</label>
             <input
-              type="number"
-              min={0}
-              value={lifeInsurance}
-              onChange={e => setLifeInsurance(e.target.value)}
+              type="text"
+              inputMode="decimal"
+              value={formatNumberInput(lifeInsurance)}
+              onChange={e => setLifeInsurance(cleanNumberInput(e.target.value))}
               className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm"
             />
           </div>
           <div>
             <label className="block text-xs font-medium text-gray-600 mb-1">Mortgage Interest (₦/yr)</label>
             <input
-              type="number"
-              min={0}
-              value={mortgageInterest}
-              onChange={e => setMortgageInterest(e.target.value)}
+              type="text"
+              inputMode="decimal"
+              value={formatNumberInput(mortgageInterest)}
+              onChange={e => setMortgageInterest(cleanNumberInput(e.target.value))}
               className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm"
             />
           </div>

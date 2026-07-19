@@ -1,6 +1,7 @@
 'use client'
 
 import { useMemo, useState, type ChangeEvent } from 'react'
+import { cleanNumberInput, formatNumberInput } from '@/lib/utils/numberInput'
 import {
   LineChart,
   Line,
@@ -372,10 +373,10 @@ export function NigeriaRetirementPlanner({ locale }: Props) {
           <label className="block">
             <span className="mb-1 block text-sm font-medium text-gray-700">Monthly basic salary (₦)</span>
             <input
-              type="number"
-              min={0}
-              value={basicSalary}
-              onChange={(e: ChangeEvent<HTMLInputElement>) => setBasicSalary(clamp(Number(e.target.value), 0, 100_000_000))}
+              type="text"
+              inputMode="decimal"
+              value={formatNumberInput(basicSalary ? String(basicSalary) : '')}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => setBasicSalary(clamp(Number(cleanNumberInput(e.target.value)) || 0, 0, 100_000_000))}
               className="w-full rounded-xl border border-gray-300 px-3 py-2 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200"
             />
           </label>
@@ -383,11 +384,11 @@ export function NigeriaRetirementPlanner({ locale }: Props) {
           <label className="block">
             <span className="mb-1 block text-sm font-medium text-gray-700">Monthly housing allowance (₦)</span>
             <input
-              type="number"
-              min={0}
-              value={housingAllowance}
+              type="text"
+              inputMode="decimal"
+              value={formatNumberInput(housingAllowance ? String(housingAllowance) : '')}
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                setHousingAllowance(clamp(Number(e.target.value), 0, 100_000_000))
+                setHousingAllowance(clamp(Number(cleanNumberInput(e.target.value)) || 0, 0, 100_000_000))
               }
               className="w-full rounded-xl border border-gray-300 px-3 py-2 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200"
             />
@@ -396,11 +397,11 @@ export function NigeriaRetirementPlanner({ locale }: Props) {
           <label className="block">
             <span className="mb-1 block text-sm font-medium text-gray-700">Monthly transport allowance (₦)</span>
             <input
-              type="number"
-              min={0}
-              value={transportAllowance}
+              type="text"
+              inputMode="decimal"
+              value={formatNumberInput(transportAllowance ? String(transportAllowance) : '')}
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                setTransportAllowance(clamp(Number(e.target.value), 0, 100_000_000))
+                setTransportAllowance(clamp(Number(cleanNumberInput(e.target.value)) || 0, 0, 100_000_000))
               }
               className="w-full rounded-xl border border-gray-300 px-3 py-2 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200"
             />
@@ -409,11 +410,11 @@ export function NigeriaRetirementPlanner({ locale }: Props) {
           <label className="block">
             <span className="mb-1 block text-sm font-medium text-gray-700">Current RSA balance (₦, optional)</span>
             <input
-              type="number"
-              min={0}
-              value={currentRSABalance}
+              type="text"
+              inputMode="decimal"
+              value={formatNumberInput(currentRSABalance ? String(currentRSABalance) : '')}
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                setCurrentRSABalance(clamp(Number(e.target.value), 0, 1_000_000_000))
+                setCurrentRSABalance(clamp(Number(cleanNumberInput(e.target.value)) || 0, 0, 1_000_000_000))
               }
               className="w-full rounded-xl border border-gray-300 px-3 py-2 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200"
             />
@@ -483,11 +484,11 @@ export function NigeriaRetirementPlanner({ locale }: Props) {
           <label className="block">
             <span className="mb-1 block text-sm font-medium text-gray-700">Voluntary additional monthly contribution (₦)</span>
             <input
-              type="number"
-              min={0}
-              value={voluntaryMonthly}
+              type="text"
+              inputMode="decimal"
+              value={formatNumberInput(voluntaryMonthly ? String(voluntaryMonthly) : '')}
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                setVoluntaryMonthly(clamp(Number(e.target.value), 0, 100_000_000))
+                setVoluntaryMonthly(clamp(Number(cleanNumberInput(e.target.value)) || 0, 0, 100_000_000))
               }
               className="w-full rounded-xl border border-gray-300 px-3 py-2 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200"
             />
@@ -616,11 +617,11 @@ export function NigeriaRetirementPlanner({ locale }: Props) {
               Desired monthly retirement income (₦, optional, in today&apos;s naira)
             </span>
             <input
-              type="number"
-              min={0}
-              value={desiredMonthlyIncome}
+              type="text"
+              inputMode="decimal"
+              value={formatNumberInput(desiredMonthlyIncome ? String(desiredMonthlyIncome) : '')}
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                setDesiredMonthlyIncome(clamp(Number(e.target.value), 0, 100_000_000))
+                setDesiredMonthlyIncome(clamp(Number(cleanNumberInput(e.target.value)) || 0, 0, 100_000_000))
               }
               className="w-full rounded-xl border border-gray-300 px-3 py-2 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200"
             />

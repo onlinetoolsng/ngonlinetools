@@ -1,6 +1,7 @@
 'use client'
 
 import { useMemo, useState } from 'react'
+import { cleanNumberInput, formatNumberInput } from '@/lib/utils/numberInput'
 import {
   BarChart,
   Bar,
@@ -140,8 +141,8 @@ export function NigeriaRentReliefDeductionsOptimizer(_props: { locale: string })
         <div>
           <label className="block text-sm font-semibold text-gray-700 mb-1.5">Annual Gross Income (₦)</label>
           <input
-            type="number" inputMode="decimal" min={0}
-            value={grossIncome} onChange={e => setGrossIncome(e.target.value)}
+            type="text" inputMode="decimal"
+            value={formatNumberInput(grossIncome)} onChange={e => setGrossIncome(cleanNumberInput(e.target.value))}
             className="w-full rounded-xl border border-gray-200 px-4 py-3 text-lg font-semibold text-gray-900 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 outline-none transition"
           />
         </div>
@@ -165,8 +166,8 @@ export function NigeriaRentReliefDeductionsOptimizer(_props: { locale: string })
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-1.5">Annual Rent Paid (₦)</label>
             <input
-              type="number" inputMode="decimal" min={0}
-              value={annualRent} onChange={e => setAnnualRent(e.target.value)}
+              type="text" inputMode="decimal"
+              value={formatNumberInput(annualRent)} onChange={e => setAnnualRent(cleanNumberInput(e.target.value))}
               className="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm text-gray-900 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 outline-none transition"
             />
           </div>
@@ -201,8 +202,8 @@ export function NigeriaRentReliefDeductionsOptimizer(_props: { locale: string })
                   className="flex-1 rounded-lg border border-gray-200 px-3 py-2 text-sm"
                 />
                 <input
-                  type="number" placeholder="Amount (₦)" min={0}
-                  value={receiptAmount} onChange={e => setReceiptAmount(e.target.value)}
+                  type="text" inputMode="decimal" placeholder="Amount (₦)"
+                  value={formatNumberInput(receiptAmount)} onChange={e => setReceiptAmount(cleanNumberInput(e.target.value))}
                   className="w-32 rounded-lg border border-gray-200 px-3 py-2 text-sm"
                 />
                 <button type="button" onClick={addReceipt} className="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-medium rounded-lg">
@@ -261,15 +262,15 @@ export function NigeriaRentReliefDeductionsOptimizer(_props: { locale: string })
           <div className="grid sm:grid-cols-3 gap-3">
             <div>
               <label className="block text-xs font-medium text-gray-600 mb-1">NHIS contributions (₦/yr)</label>
-              <input type="number" min={0} value={nhis} onChange={e => setNhis(e.target.value)} className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm" />
+              <input type="text" inputMode="decimal" value={formatNumberInput(nhis)} onChange={e => setNhis(cleanNumberInput(e.target.value))} className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm" />
             </div>
             <div>
               <label className="block text-xs font-medium text-gray-600 mb-1">Life insurance premium (₦/yr)</label>
-              <input type="number" min={0} value={lifeInsurance} onChange={e => setLifeInsurance(e.target.value)} className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm" />
+              <input type="text" inputMode="decimal" value={formatNumberInput(lifeInsurance)} onChange={e => setLifeInsurance(cleanNumberInput(e.target.value))} className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm" />
             </div>
             <div>
               <label className="block text-xs font-medium text-gray-600 mb-1">Mortgage interest, owner-occupied (₦/yr)</label>
-              <input type="number" min={0} value={mortgageInterest} onChange={e => setMortgageInterest(e.target.value)} className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm" />
+              <input type="text" inputMode="decimal" value={formatNumberInput(mortgageInterest)} onChange={e => setMortgageInterest(cleanNumberInput(e.target.value))} className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm" />
             </div>
           </div>
         </div>

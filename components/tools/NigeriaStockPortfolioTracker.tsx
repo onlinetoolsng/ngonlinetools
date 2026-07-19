@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
+import { cleanNumberInput, formatNumberInput } from '@/lib/utils/numberInput'
 import {
   LineChart,
   Line,
@@ -345,11 +346,10 @@ export default function NigeriaStockPortfolioTracker({ locale }: Props) {
                 Avg cost / share ({market === 'NGX' ? '₦' : '$'})
               </label>
               <input
-                type="number"
-                step="any"
-                min={0}
-                value={costBasis || ''}
-                onChange={(e) => setCostBasis(Number(e.target.value) || 0)}
+                type="text"
+                inputMode="decimal"
+                value={formatNumberInput(costBasis ? String(costBasis) : '')}
+                onChange={(e) => setCostBasis(Number(cleanNumberInput(e.target.value)) || 0)}
                 className="w-full rounded-xl border border-gray-300 px-3 py-2 text-sm"
               />
             </div>
@@ -547,16 +547,17 @@ export default function NigeriaStockPortfolioTracker({ locale }: Props) {
                   <td className="pr-3">{r.market === 'NGX' ? formatNaira(r.costBasis) : formatUsd(r.costBasis)}</td>
                   <td className="pr-3">
                     <input
-                      type="number"
-                      step="any"
-                      value={r.currentPrice ?? ''}
+                      type="text"
+                      inputMode="decimal"
+                      value={formatNumberInput(r.currentPrice != null ? String(r.currentPrice) : '')}
                       placeholder={r.priceStatus === 'unavailable' ? 'enter manually' : ''}
-                      onChange={(e) =>
+                      onChange={(e) => {
+                        const cleaned = cleanNumberInput(e.target.value)
                         updateHolding(r.id, {
-                          currentPrice: e.target.value === '' ? null : Number(e.target.value),
+                          currentPrice: cleaned === '' ? null : Number(cleaned),
                           priceStatus: 'manual',
                         })
-                      }
+                      }}
                       className="w-24 rounded-lg border border-gray-300 px-2 py-1 text-xs"
                     />
                   </td>

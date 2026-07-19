@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
+import { cleanNumberInput, formatNumberInput } from '@/lib/utils/numberInput'
 import {
   LineChart,
   Line,
@@ -250,10 +251,10 @@ export default function NigeriaCryptoVsTraditionalComparator({ locale }: Props) 
             <label className="block text-sm font-medium text-gray-700 mb-1">Initial investment</label>
             <div className="flex gap-2">
               <input
-                type="number"
-                min={0}
-                value={amountInput}
-                onChange={(e) => setAmountInput(Number(e.target.value) || 0)}
+                type="text"
+                inputMode="decimal"
+                value={formatNumberInput(amountInput ? String(amountInput) : '')}
+                onChange={(e) => setAmountInput(Number(cleanNumberInput(e.target.value)) || 0)}
                 className="w-full rounded-xl border border-gray-300 px-3 py-2 text-sm"
               />
               <select

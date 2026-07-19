@@ -1,6 +1,7 @@
 'use client'
 
 import { useMemo, useState, useEffect, type ChangeEvent } from 'react'
+import { cleanNumberInput, formatNumberInput } from '@/lib/utils/numberInput'
 import {
   LineChart,
   Line,
@@ -409,10 +410,10 @@ export function SavingsGoalPlanner({ locale }: Props) {
         <label className="block">
           <span className="mb-1 block text-sm font-medium text-gray-700">Goal amount (₦)</span>
           <input
-            type="number"
-            min={0}
-            value={goal}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => setGoal(clamp(Number(e.target.value), 0, 10_000_000_000))}
+            type="text"
+            inputMode="decimal"
+            value={formatNumberInput(goal ? String(goal) : '')}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => setGoal(clamp(Number(cleanNumberInput(e.target.value)) || 0, 0, 10_000_000_000))}
             className="w-full rounded-xl border border-gray-300 px-3 py-2 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200"
             aria-label="Goal amount in naira"
           />
@@ -421,10 +422,10 @@ export function SavingsGoalPlanner({ locale }: Props) {
         <label className="block">
           <span className="mb-1 block text-sm font-medium text-gray-700">Current savings (₦)</span>
           <input
-            type="number"
-            min={0}
-            value={initial}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => setInitial(clamp(Number(e.target.value), 0, 10_000_000_000))}
+            type="text"
+            inputMode="decimal"
+            value={formatNumberInput(initial ? String(initial) : '')}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => setInitial(clamp(Number(cleanNumberInput(e.target.value)) || 0, 0, 10_000_000_000))}
             className="w-full rounded-xl border border-gray-300 px-3 py-2 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200"
             aria-label="Current savings in naira"
           />
@@ -434,10 +435,10 @@ export function SavingsGoalPlanner({ locale }: Props) {
           <label className="block">
             <span className="mb-1 block text-sm font-medium text-gray-700">Monthly contribution (₦)</span>
             <input
-              type="number"
-              min={0}
-              value={monthly}
-              onChange={(e: ChangeEvent<HTMLInputElement>) => setMonthly(clamp(Number(e.target.value), 0, 100_000_000))}
+              type="text"
+              inputMode="decimal"
+              value={formatNumberInput(monthly ? String(monthly) : '')}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => setMonthly(clamp(Number(cleanNumberInput(e.target.value)) || 0, 0, 100_000_000))}
               className="w-full rounded-xl border border-gray-300 px-3 py-2 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200"
               aria-label="Monthly contribution in naira"
             />

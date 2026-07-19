@@ -1,6 +1,7 @@
 'use client'
 
 import { useMemo, useState } from 'react'
+import { cleanNumberInput, formatNumberInput } from '@/lib/utils/numberInput'
 
 // ─── Nigeria Tax Act 2025 (effective 1 January 2026) ───────────────────────
 // The NTA 2025 repeals the old Capital Gains Tax Act and folds CGT into the
@@ -297,11 +298,10 @@ export function CapitalGainsTaxCalculator(_props: { locale: string }) {
         <div>
           <label className="block text-sm font-semibold text-gray-700 mb-1.5">Disposal Proceeds (₦)</label>
           <input
-            type="number"
+            type="text"
             inputMode="decimal"
-            min={0}
-            value={proceeds}
-            onChange={e => setProceeds(e.target.value)}
+            value={formatNumberInput(proceeds)}
+            onChange={e => setProceeds(cleanNumberInput(e.target.value))}
             className="w-full rounded-xl border border-gray-200 px-4 py-3 text-lg font-semibold text-gray-900 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 outline-none transition"
             placeholder="0.00"
           />
@@ -309,11 +309,10 @@ export function CapitalGainsTaxCalculator(_props: { locale: string }) {
         <div>
           <label className="block text-sm font-semibold text-gray-700 mb-1.5">Acquisition Cost (₦)</label>
           <input
-            type="number"
+            type="text"
             inputMode="decimal"
-            min={0}
-            value={acquisitionCost}
-            onChange={e => setAcquisitionCost(e.target.value)}
+            value={formatNumberInput(acquisitionCost)}
+            onChange={e => setAcquisitionCost(cleanNumberInput(e.target.value))}
             className="w-full rounded-xl border border-gray-200 px-4 py-3 text-lg font-semibold text-gray-900 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 outline-none transition"
             placeholder="0.00"
           />
@@ -334,9 +333,9 @@ export function CapitalGainsTaxCalculator(_props: { locale: string }) {
           <div>
             <label className="block text-xs font-semibold text-gray-600 mb-1.5">Acquisition costs (legal, stamp duty)</label>
             <input
-              type="number" inputMode="decimal" min={0}
-              value={acquisitionIncidental}
-              onChange={e => setAcquisitionIncidental(e.target.value)}
+              type="text" inputMode="decimal"
+              value={formatNumberInput(acquisitionIncidental)}
+              onChange={e => setAcquisitionIncidental(cleanNumberInput(e.target.value))}
               className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 outline-none transition"
               placeholder="0.00"
             />
@@ -344,9 +343,9 @@ export function CapitalGainsTaxCalculator(_props: { locale: string }) {
           <div>
             <label className="block text-xs font-semibold text-gray-600 mb-1.5">Capital improvements</label>
             <input
-              type="number" inputMode="decimal" min={0}
-              value={improvements}
-              onChange={e => setImprovements(e.target.value)}
+              type="text" inputMode="decimal"
+              value={formatNumberInput(improvements)}
+              onChange={e => setImprovements(cleanNumberInput(e.target.value))}
               className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 outline-none transition"
               placeholder="0.00"
             />
@@ -354,9 +353,9 @@ export function CapitalGainsTaxCalculator(_props: { locale: string }) {
           <div>
             <label className="block text-xs font-semibold text-gray-600 mb-1.5">Disposal costs (agent, valuation)</label>
             <input
-              type="number" inputMode="decimal" min={0}
-              value={disposalIncidental}
-              onChange={e => setDisposalIncidental(e.target.value)}
+              type="text" inputMode="decimal"
+              value={formatNumberInput(disposalIncidental)}
+              onChange={e => setDisposalIncidental(cleanNumberInput(e.target.value))}
               className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 outline-none transition"
               placeholder="0.00"
             />
@@ -374,9 +373,9 @@ export function CapitalGainsTaxCalculator(_props: { locale: string }) {
             <div>
               <label className="block text-xs font-semibold text-gray-600 mb-1.5">Prior proceeds (12 months)</label>
               <input
-                type="number" inputMode="decimal" min={0}
-                value={priorProceeds12m}
-                onChange={e => setPriorProceeds12m(e.target.value)}
+                type="text" inputMode="decimal"
+                value={formatNumberInput(priorProceeds12m)}
+                onChange={e => setPriorProceeds12m(cleanNumberInput(e.target.value))}
                 className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 outline-none transition"
                 placeholder="0.00"
               />
@@ -384,9 +383,9 @@ export function CapitalGainsTaxCalculator(_props: { locale: string }) {
             <div>
               <label className="block text-xs font-semibold text-gray-600 mb-1.5">Prior gains (12 months)</label>
               <input
-                type="number" inputMode="decimal" min={0}
-                value={priorGains12m}
-                onChange={e => setPriorGains12m(e.target.value)}
+                type="text" inputMode="decimal"
+                value={formatNumberInput(priorGains12m)}
+                onChange={e => setPriorGains12m(cleanNumberInput(e.target.value))}
                 className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 outline-none transition"
                 placeholder="0.00"
               />
@@ -394,9 +393,9 @@ export function CapitalGainsTaxCalculator(_props: { locale: string }) {
             <div>
               <label className="block text-xs font-semibold text-gray-600 mb-1.5">Reinvested this year</label>
               <input
-                type="number" inputMode="decimal" min={0}
-                value={reinvested}
-                onChange={e => setReinvested(e.target.value)}
+                type="text" inputMode="decimal"
+                value={formatNumberInput(reinvested)}
+                onChange={e => setReinvested(cleanNumberInput(e.target.value))}
                 className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 outline-none transition"
                 placeholder="0.00"
               />
@@ -427,9 +426,9 @@ export function CapitalGainsTaxCalculator(_props: { locale: string }) {
             Other annual income (excluding this gain)
           </label>
           <input
-            type="number" inputMode="decimal" min={0}
-            value={otherIncome}
-            onChange={e => setOtherIncome(e.target.value)}
+            type="text" inputMode="decimal"
+            value={formatNumberInput(otherIncome)}
+            onChange={e => setOtherIncome(cleanNumberInput(e.target.value))}
             className="w-full rounded-xl border border-gray-200 px-4 py-3 text-base font-medium text-gray-900 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 outline-none transition"
             placeholder="0.00"
           />
@@ -442,9 +441,9 @@ export function CapitalGainsTaxCalculator(_props: { locale: string }) {
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-1.5">Annual turnover (₦)</label>
             <input
-              type="number" inputMode="decimal" min={0}
-              value={turnover}
-              onChange={e => setTurnover(e.target.value)}
+              type="text" inputMode="decimal"
+              value={formatNumberInput(turnover)}
+              onChange={e => setTurnover(cleanNumberInput(e.target.value))}
               className="w-full rounded-xl border border-gray-200 px-4 py-3 text-base font-medium text-gray-900 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 outline-none transition"
               placeholder="0.00"
             />
@@ -452,9 +451,9 @@ export function CapitalGainsTaxCalculator(_props: { locale: string }) {
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-1.5">Total fixed assets (₦)</label>
             <input
-              type="number" inputMode="decimal" min={0}
-              value={fixedAssets}
-              onChange={e => setFixedAssets(e.target.value)}
+              type="text" inputMode="decimal"
+              value={formatNumberInput(fixedAssets)}
+              onChange={e => setFixedAssets(cleanNumberInput(e.target.value))}
               className="w-full rounded-xl border border-gray-200 px-4 py-3 text-base font-medium text-gray-900 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 outline-none transition"
               placeholder="0.00"
             />

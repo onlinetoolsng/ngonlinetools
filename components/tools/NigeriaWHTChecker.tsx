@@ -1,6 +1,7 @@
 'use client'
 
 import { useMemo, useState } from 'react'
+import { cleanNumberInput, formatNumberInput } from '@/lib/utils/numberInput'
 import {
   WHT_CATEGORIES,
   getRateForCategory,
@@ -137,11 +138,10 @@ export function NigeriaWHTChecker(_props: { locale: string }) {
             Example: payment amount (₦)
           </label>
           <input
-            type="number"
+            type="text"
             inputMode="decimal"
-            min={0}
-            value={exampleAmount}
-            onChange={e => setExampleAmount(e.target.value)}
+            value={formatNumberInput(exampleAmount)}
+            onChange={e => setExampleAmount(cleanNumberInput(e.target.value))}
             className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm mb-3"
           />
           <div className="grid grid-cols-3 gap-3 text-sm">

@@ -1,6 +1,7 @@
 'use client'
 
 import { useMemo, useState } from 'react'
+import { cleanNumberInput, formatNumberInput } from '@/lib/utils/numberInput'
 import {
   WHT_CATEGORIES,
   getRateForCategory,
@@ -116,11 +117,10 @@ export function NigeriaWHTSimulator(_props: { locale: string }) {
       <div>
         <label className="block text-sm font-semibold text-gray-700 mb-1.5">Gross payment amount (₦)</label>
         <input
-          type="number"
+          type="text"
           inputMode="decimal"
-          min={0}
-          value={amount}
-          onChange={e => setAmount(e.target.value)}
+          value={formatNumberInput(amount)}
+          onChange={e => setAmount(cleanNumberInput(e.target.value))}
           className="w-full rounded-xl border border-gray-200 px-4 py-3 text-lg font-semibold text-gray-900 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 outline-none transition"
         />
       </div>
@@ -167,15 +167,15 @@ export function NigeriaWHTSimulator(_props: { locale: string }) {
             <div className="grid sm:grid-cols-2 gap-3">
               <div>
                 <label className="block text-xs font-medium text-gray-600 mb-1">Annual turnover (₦)</label>
-                <input type="number" min={0} value={annualTurnover} onChange={e => setAnnualTurnover(e.target.value)} className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm" />
+                <input type="text" inputMode="decimal" value={formatNumberInput(annualTurnover)} onChange={e => setAnnualTurnover(cleanNumberInput(e.target.value))} className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm" />
               </div>
               <div>
                 <label className="block text-xs font-medium text-gray-600 mb-1">Total fixed assets (₦)</label>
-                <input type="number" min={0} value={fixedAssets} onChange={e => setFixedAssets(e.target.value)} className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm" />
+                <input type="text" inputMode="decimal" value={formatNumberInput(fixedAssets)} onChange={e => setFixedAssets(cleanNumberInput(e.target.value))} className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm" />
               </div>
               <div>
                 <label className="block text-xs font-medium text-gray-600 mb-1">This month's total transactions with this payer (₦)</label>
-                <input type="number" min={0} value={monthlyTransactionTotal} onChange={e => setMonthlyTransactionTotal(e.target.value)} className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm" />
+                <input type="text" inputMode="decimal" value={formatNumberInput(monthlyTransactionTotal)} onChange={e => setMonthlyTransactionTotal(cleanNumberInput(e.target.value))} className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm" />
               </div>
               <label className="flex items-center gap-2 mt-5">
                 <input type="checkbox" checked={isProfessionalServices} onChange={e => setIsProfessionalServices(e.target.checked)} className="w-4 h-4 rounded border-gray-300 text-indigo-600" />
