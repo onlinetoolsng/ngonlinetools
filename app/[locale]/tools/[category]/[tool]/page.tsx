@@ -137,7 +137,12 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
         const { InvestmentReturnsCalculator } = await import('@/components/tools/InvestmentReturnsCalculator')
         return InvestmentReturnsCalculator
       }
-
+     case 'nigeria-crypto-vs-traditional-comparator': {
+      const { default: NigeriaCryptoVsTraditionalComparator } = await import(
+      '@/components/tools/finance/NigeriaCryptoVsTraditionalComparator'
+      )
+      return NigeriaCryptoVsTraditionalComparator
+     }
       case 'nigeria-retirement-planner': {
        const { NigeriaRetirementPlanner } = await import('@/components/tools/NigeriaRetirementPlanner')
      return NigeriaRetirementPlanner
