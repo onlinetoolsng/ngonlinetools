@@ -69,18 +69,6 @@ export const TOOLS: Tool[] = [
     launchDate: '2026-07-19',
   },
   {
-  slug: 'nigeria-stock-portfolio-tracker',
-  category: 'finance',
-  schema: 'calculator',
-  featured: false,
-  countries: ['nigeria'],
-  relatedTools: ['nigeria-crypto-vs-traditional-comparator'], // adjust to real existing slugs in your registry
-  relatedArticles: [],
-  hasCountryVariants: false,
-  requiresApi: false,
-  launchDate: '2026-07-19',
-},
-  {
     slug: 'net-worth-calculator',
     category: 'finance',
     schema: 'calculator',
@@ -104,18 +92,6 @@ export const TOOLS: Tool[] = [
     requiresApi: true,
     launchDate: '2026-07-19',
   },
-  {
-  slug: 'nigeria-crypto-vs-traditional-comparator',
-  category: 'finance',
-  schema: 'calculator',
-  featured: false,
-  countries: ['nigeria'],
-  relatedTools: ['fixed-deposit-calculator', 'ngx-dividend-calculator'], // adjust to real existing slugs in your registry
-  relatedArticles: [],
-  hasCountryVariants: false,
-  requiresApi: false,
-  launchDate: '2026-07-19',
-},
   {
   slug: 'savings-goal-planner',
   category: 'finance',

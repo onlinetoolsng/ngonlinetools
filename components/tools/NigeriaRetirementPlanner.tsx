@@ -712,7 +712,7 @@ export function NigeriaRetirementPlanner({ locale }: Props) {
                       tickFormatter={(v: number) => `₦${(v / 1_000_000).toFixed(0)}M`}
                       width={60}
                     />
-                    <Tooltip formatter={(value: number) => formatNaira(value)} />
+                    <Tooltip formatter={(value: unknown) => formatNaira(Number(value ?? 0))} />
                     <Line type="monotone" dataKey="Balance" stroke="#4f46e5" strokeWidth={2} dot={false} />
                     <Line type="monotone" dataKey="Real value" stroke="#a5b4fc" strokeWidth={2} dot={false} />
                   </LineChart>
