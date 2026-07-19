@@ -201,6 +201,18 @@ export const TOOLS: Tool[] = [
     requiresApi: false,
     launchDate: '2026-07-20',
   },
+  {
+    slug: 'nigeria-rent-relief-deductions-optimizer',
+    category: 'tax',
+    schema: 'estimator',
+    featured: false,
+    countries: ['nigeria'],
+    relatedTools: ['salary-calculator', 'nigeria-paye-tax-calculator', 'pension-calculator'],
+    relatedArticles: [],
+    hasCountryVariants: false,
+    requiresApi: false,
+    launchDate: '2026-07-20',
+  },
 ]
 
 
