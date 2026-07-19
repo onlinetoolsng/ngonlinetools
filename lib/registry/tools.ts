@@ -177,6 +177,30 @@ export const TOOLS: Tool[] = [
     requiresApi: false,
     launchDate: '2026-07-19',
   },
+  {
+    slug: 'nigeria-wht-rate-checker',
+    category: 'tax',
+    schema: 'checker',
+    featured: false,
+    countries: ['nigeria'],
+    relatedTools: ['nigeria-wht-simulator', 'company-income-tax-calculator', 'vat-calculator'],
+    relatedArticles: [],
+    hasCountryVariants: false,
+    requiresApi: false,
+    launchDate: '2026-07-20',
+  },
+  {
+    slug: 'nigeria-wht-simulator',
+    category: 'tax',
+    schema: 'calculator',
+    featured: false,
+    countries: ['nigeria'],
+    relatedTools: ['nigeria-wht-rate-checker', 'company-income-tax-calculator', 'vat-calculator'],
+    relatedArticles: [],
+    hasCountryVariants: false,
+    requiresApi: false,
+    launchDate: '2026-07-20',
+  },
 ]
 
 

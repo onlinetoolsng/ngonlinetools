@@ -165,6 +165,14 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
         const { NigeriaPAYETaxCalculator } = await import('@/components/tools/NigeriaPAYETaxCalculator')
         return NigeriaPAYETaxCalculator
       }
+      case 'nigeria-wht-rate-checker': {
+        const { NigeriaWHTChecker } = await import('@/components/tools/NigeriaWHTChecker')
+        return NigeriaWHTChecker
+      }
+      case 'nigeria-wht-simulator': {
+        const { NigeriaWHTSimulator } = await import('@/components/tools/NigeriaWHTSimulator')
+        return NigeriaWHTSimulator
+      }
       case 'capital-gains-tax-calculator': {
         const { CapitalGainsTaxCalculator } = await import('@/components/tools/CapitalGainsTaxCalculator')
         return CapitalGainsTaxCalculator
