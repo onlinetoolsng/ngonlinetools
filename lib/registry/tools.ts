@@ -93,6 +93,18 @@ export const TOOLS: Tool[] = [
     launchDate: '2026-07-19',
   },
   {
+  slug: 'nigeria-crypto-vs-traditional-comparator',
+  category: 'finance',
+  schema: 'calculator',
+  featured: false,
+  countries: ['nigeria'],
+  relatedTools: ['fixed-deposit-calculator', 'ngx-dividend-calculator'], // adjust to real existing slugs in your registry
+  relatedArticles: [],
+  hasCountryVariants: false,
+  requiresApi: false,
+  launchDate: '2026-07-19',
+},
+  {
   slug: 'savings-goal-planner',
   category: 'finance',
   schema: 'calculator',
