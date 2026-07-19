@@ -44,6 +44,7 @@ const categoryColorMap: Record<string, string> = {
 const TOOL_NAMES: Record<string, { en: string; ar: string }> = {
   'salary-calculator': { en: 'Salary Calculator', ar: '' },
   'vat-calculator':    { en: 'VAT Calculator',    ar: '' },
+  'company-income-tax-calculator': { en: 'Company Income Tax Calculator', ar: '' },
 }
 
 function getToolName(slug: string, locale: string): string {
@@ -127,6 +128,10 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
       case 'vat-calculator': {
         const { VATCalculator } = await import('@/components/tools/VATCalculator')
         return VATCalculator
+      }
+      case 'company-income-tax-calculator': {
+        const { CITCalculator } = await import('@/components/tools/CITCalculator')
+        return CITCalculator
       }
       default:
         console.warn(`Tool slug not found: ${toolSlug}`);

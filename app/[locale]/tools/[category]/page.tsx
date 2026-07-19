@@ -18,6 +18,7 @@ type Params = { locale: string; category: string }
 const TOOL_NAMES: Record<string, { en: string; ar: string }> = {
   'salary-calculator': { en: 'Salary Calculator', ar: '' },
   'vat-calculator':    { en: 'VAT Calculator',    ar: '' },
+  'company-income-tax-calculator': { en: 'Company Income Tax Calculator', ar: '' },
 }
 
 function getToolName(slug: string, locale: string): string {
