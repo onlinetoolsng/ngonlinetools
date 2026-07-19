@@ -92,6 +92,18 @@ export const TOOLS: Tool[] = [
     requiresApi: true,
     launchDate: '2026-07-19',
   },
+  {
+    slug: 'loan-repayment-calculator',
+    category: 'finance',
+    schema: 'calculator',
+    featured: true,
+    countries: ['nigeria'],
+    relatedTools: ['investment-returns-calculator', 'net-worth-calculator', 'salary-calculator'],
+    relatedArticles: [],
+    hasCountryVariants: false,
+    requiresApi: false,
+    launchDate: '2026-07-19',
+  },
 ]
 
 
