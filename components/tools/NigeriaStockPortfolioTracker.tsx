@@ -448,7 +448,7 @@ export default function NigeriaStockPortfolioTracker({ locale }: Props) {
                         <Cell key={i} fill={PIE_COLORS[i % PIE_COLORS.length]} />
                       ))}
                     </Pie>
-                    <Tooltip formatter={(v: number) => formatNaira(v)} />
+                    <Tooltip formatter={(v: unknown) => formatNaira(Number(v ?? 0))} />
                   </PieChart>
                 </ResponsiveContainer>
               </div>
@@ -484,7 +484,7 @@ export default function NigeriaStockPortfolioTracker({ locale }: Props) {
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="label" tick={{ fontSize: 10 }} />
                   <YAxis tickFormatter={(v) => `₦${(v / 1_000_000).toFixed(1)}m`} width={60} />
-                  <Tooltip formatter={(v: number) => formatNaira(v)} />
+                  <Tooltip formatter={(v: unknown) => formatNaira(Number(v ?? 0))} />
                   <Legend />
                   <Line type="monotone" dataKey="totalValueNGN" name="Portfolio value" stroke="#6366f1" strokeWidth={2} dot />
                 </LineChart>

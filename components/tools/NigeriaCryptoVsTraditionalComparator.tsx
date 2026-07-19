@@ -451,7 +451,7 @@ export default function NigeriaCryptoVsTraditionalComparator({ locale }: Props) 
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="year" label={{ value: 'Years', position: 'insideBottom', offset: -2 }} />
                 <YAxis tickFormatter={(v) => `₦${(v / 1_000_000).toFixed(1)}m`} width={70} />
-                <Tooltip formatter={(v: number) => formatNaira(v)} />
+                <Tooltip formatter={(v: unknown) => formatNaira(Number(v ?? 0))} />
                 <Legend />
                 <Line type="monotone" dataKey="Crypto" stroke="#6366f1" strokeWidth={2} dot={false} />
                 <Line type="monotone" dataKey="Traditional" stroke="#059669" strokeWidth={2} dot={false} />
@@ -469,7 +469,7 @@ export default function NigeriaCryptoVsTraditionalComparator({ locale }: Props) 
                       <Cell key={i} fill={PIE_COLORS[i]} />
                     ))}
                   </Pie>
-                  <Tooltip formatter={(v: number) => `${v}%`} />
+                  <Tooltip formatter={(v: unknown) => `${Number(v ?? 0)}%`} />
                 </PieChart>
               </ResponsiveContainer>
             </div>
