@@ -237,6 +237,18 @@ export const TOOLS: Tool[] = [
     requiresApi: false,
     launchDate: '2026-07-20',
   },
+  {
+    slug: 'nigeria-freelancer-sme-tax-estimator',
+    category: 'tax',
+    schema: 'estimator',
+    featured: true,
+    countries: ['nigeria'],
+    relatedTools: ['company-income-tax-calculator', 'vat-calculator', 'effective-tax-rate-simulator'],
+    relatedArticles: [],
+    hasCountryVariants: false,
+    requiresApi: true,
+    launchDate: '2026-07-20',
+  },
 ]
 
 
