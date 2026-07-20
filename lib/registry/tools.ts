@@ -261,6 +261,18 @@ export const TOOLS: Tool[] = [
     requiresApi: false,
     launchDate: '2026-07-20',
   },
+  {
+    slug: 'startup-cost-break-even-analyzer',
+    category: 'business',
+    schema: 'calculator',
+    featured: true,
+    countries: ['nigeria'],
+    relatedTools: ['nigeria-cac-annual-returns-compliance-checker', 'nigeria-freelancer-sme-tax-estimator', 'loan-repayment-calculator'],
+    relatedArticles: [],
+    hasCountryVariants: false,
+    requiresApi: true,
+    launchDate: '2026-07-20',
+  },
 ]
 
 

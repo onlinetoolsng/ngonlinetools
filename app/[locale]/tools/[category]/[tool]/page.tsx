@@ -49,6 +49,7 @@ const TOOL_NAMES: Record<string, { en: string; ar: string }> = {
   'multi-source-income-tax-calculator': { en: 'Multi-Source Income Tax Calculator', ar: '' },
   'effective-tax-rate-simulator': { en: 'Effective Tax Rate Simulator', ar: '' },
   'nigeria-cac-annual-returns-compliance-checker': { en: 'CAC Annual Returns Compliance Checker', ar: '' },
+  'startup-cost-break-even-analyzer': { en: 'Startup Cost & Break-Even Analyzer', ar: '' },
 }
 
 function getToolName(slug: string, locale: string): string {
@@ -204,6 +205,10 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
       case 'nigeria-cac-annual-returns-compliance-checker': {
         const { CACAnnualReturnsComplianceChecker } = await import('@/components/tools/CACAnnualReturnsComplianceChecker')
         return CACAnnualReturnsComplianceChecker
+      }
+      case 'startup-cost-break-even-analyzer': {
+        const { NigeriaStartupBreakEvenAnalyzer } = await import('@/components/tools/NigeriaStartupBreakEvenAnalyzer')
+        return NigeriaStartupBreakEvenAnalyzer
       }
       default:
         console.warn(`Tool slug not found: ${toolSlug}`);
