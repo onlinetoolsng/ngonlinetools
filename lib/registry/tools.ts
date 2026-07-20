@@ -214,6 +214,18 @@ export const TOOLS: Tool[] = [
     launchDate: '2026-07-20',
   },
   {
+  slug: 'nigeria-budget-creator-tracker',
+  category: 'finance',
+  schema: 'calculator',
+  featured: false,
+  countries: ['nigeria'],
+  relatedTools: ['savings-goal-calculator', 'loan-repayment-calculator'],
+  relatedArticles: [],
+  hasCountryVariants: false,
+  requiresApi: false,
+  launchDate: '2026-07-20',
+},
+  {
     slug: 'multi-source-income-tax-calculator',
     category: 'tax',
     schema: 'calculator',
