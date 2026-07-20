@@ -274,6 +274,18 @@ export const TOOLS: Tool[] = [
     launchDate: '2026-07-20',
   },
   {
+  slug: 'cac-business-name-generator',
+  category: 'business',
+  schema: 'calculator',
+  featured: false,
+  countries: ['nigeria'],
+  relatedTools: ['nigeria-crypto-vs-traditional-comparator', 'nigeria-stock-portfolio-tracker'],
+  relatedArticles: [],
+  hasCountryVariants: false,
+  requiresApi: false,
+  launchDate: '2026-07-20',
+},
+  {
     slug: 'startup-cost-break-even-analyzer',
     category: 'business',
     schema: 'calculator',
