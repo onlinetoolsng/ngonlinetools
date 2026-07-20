@@ -194,6 +194,10 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
         const { EffectiveTaxRateSimulator } = await import('@/components/tools/EffectiveTaxRateSimulator')
         return EffectiveTaxRateSimulator
       }
+      case 'nigeria-budget-creator-tracker': {
+     const { default: NigeriaBudgetTracker } = await import('@/components/tools/NigeriaBudgetTracker')
+     return NigeriaBudgetTracker
+      }
       case 'nigeria-freelancer-sme-tax-estimator': {
         const { NigeriaFreelancerSMETaxEstimator } = await import('@/components/tools/NigeriaFreelancerSMETaxEstimator')
         return NigeriaFreelancerSMETaxEstimator
