@@ -48,6 +48,7 @@ const TOOL_NAMES: Record<string, { en: string; ar: string }> = {
   'nigeria-rent-relief-deductions-optimizer': { en: 'Rent Relief & Deductions Optimizer', ar: '' },
   'multi-source-income-tax-calculator': { en: 'Multi-Source Income Tax Calculator', ar: '' },
   'effective-tax-rate-simulator': { en: 'Effective Tax Rate Simulator', ar: '' },
+  'nigeria-cac-annual-returns-compliance-checker': { en: 'CAC Annual Returns Compliance Checker', ar: '' },
 }
 
 function getToolName(slug: string, locale: string): string {
@@ -199,6 +200,10 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
       case 'capital-gains-tax-calculator': {
         const { CapitalGainsTaxCalculator } = await import('@/components/tools/CapitalGainsTaxCalculator')
         return CapitalGainsTaxCalculator
+      }
+      case 'nigeria-cac-annual-returns-compliance-checker': {
+        const { CACAnnualReturnsComplianceChecker } = await import('@/components/tools/CACAnnualReturnsComplianceChecker')
+        return CACAnnualReturnsComplianceChecker
       }
       default:
         console.warn(`Tool slug not found: ${toolSlug}`);
