@@ -28,7 +28,7 @@ type Params = { locale: string; slug: string }
 // ISR: rebuild blog pages every hour
 export const revalidate = 3600
 
-const BASE_URL = 'https://onlinetoolsng.com'
+const BASE_URL = 'https://toolbase.com.ng'
 
 // ─── Metadata ─────────────────────────────────────────────────────────────────
 export async function generateMetadata({ params }: { params: Promise<Params> }) {
@@ -45,7 +45,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }) 
   const url = `${BASE_URL}/${locale}/blog/${slug}`
 
   return {
-    title: `${t.title} | OnlineToolsNG`,
+    title: `${t.title} | ToolBase`,
     description: t.meta_description ?? t.excerpt ?? '',
     alternates: {
       canonical: url,
@@ -59,7 +59,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }) 
       title: t.title,
       description: t.meta_description ?? t.excerpt ?? '',
       url,
-      siteName: 'OnlineToolsNG',
+      siteName: 'ToolBase',
       locale: 'en_NG',
       type: 'article',
       publishedTime: article.published_at,
@@ -137,7 +137,7 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
     dateModified: article.published_at,
     imageUrl: t.og_image_url ?? `${BASE_URL}/og/blog-default.png`,
     wordCount,
-    authorName: 'OnlineToolsNG Editorial Team',
+    authorName: 'ToolBase Editorial Team',
   })
 
   const breadcrumbSchema = generateBreadcrumbSchema(
@@ -193,7 +193,7 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
               <span>·</span>
               <span className="flex items-center gap-1">
                 <span>🌐</span>
-                <span>OnlineToolsNG</span>
+                <span>ToolBase</span>
               </span>
             </div>
 

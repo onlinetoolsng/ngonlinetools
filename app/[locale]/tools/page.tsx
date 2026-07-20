@@ -28,7 +28,7 @@ const colorMap: Record<string, string> = {
 export async function generateMetadata({ params }: { params: Promise<Params> }) {
   const { locale } = await params
   return {
-    title: locale === 'ar' ? 'جميع الأدوات | OnlineToolsNG' : 'All Tools | OnlineToolsNG',
+    title: locale === 'ar' ? 'جميع الأدوات | ToolBase' : 'All Tools | ToolBase',
     description: locale === 'ar'
       ? 'تصفح أكثر من 50 أداة مجانية مصممة لدول الخليج'
       : 'Browse free tools built for individuals and businesses in Nigeria',
@@ -42,7 +42,7 @@ export default async function ToolsDirectoryPage({ params }: { params: Promise<P
   const tNav = await getTranslations({ locale, namespace: 'nav' })
   const tCat = await getTranslations({ locale, namespace: 'categories' })
 
-  const BASE_URL = 'https://onlinetoolsng.com'
+  const BASE_URL = 'https://toolbase.com.ng'
 
   const breadcrumbItems = [
     { label: tNav('home'),  href: `/${locale}` },

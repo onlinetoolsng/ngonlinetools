@@ -2,13 +2,13 @@
 import type { Metadata } from 'next'
 import './globals.css'
 
-const siteUrl = 'https://onlinetoolsng.com'
+const siteUrl = 'https://toolbase.com.ng'
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'OnlineToolsNG — Free Online Calculators & Tools for Nigeria',
-    template: '%s | OnlineToolsNG',
+    default: 'ToolBase — Free Online Calculators & Tools for Nigeria',
+    template: '%s | ToolBase',
   },
   description:
     'Free online tools and calculators built for Nigeria — finance, tax, business, payroll, and more.',
@@ -20,9 +20,9 @@ export const metadata: Metadata = {
     'loan calculator nigeria',
     'nigeria finance tools',
   ],
-  authors: [{ name: 'OnlineToolsNG' }],
-  creator: 'OnlineToolsNG',
-  publisher: 'OnlineToolsNG',
+  authors: [{ name: 'ToolBase' }],
+  creator: 'ToolBase',
+  publisher: 'ToolBase',
   robots: {
     index: true,
     follow: true,
@@ -37,8 +37,8 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_NG',
     url: siteUrl,
-    siteName: 'OnlineToolsNG',
-    title: 'OnlineToolsNG — Free Online Calculators & Tools for Nigeria',
+    siteName: 'ToolBase',
+    title: 'ToolBase — Free Online Calculators & Tools for Nigeria',
     description:
       'Free online tools and calculators built for Nigeria — finance, tax, business, payroll, and more.',
     images: [
@@ -46,13 +46,13 @@ export const metadata: Metadata = {
         url: `${siteUrl}/og/homepage.png`,
         width: 1200,
         height: 630,
-        alt: 'OnlineToolsNG',
+        alt: 'ToolBase',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'OnlineToolsNG — Free Online Calculators & Tools for Nigeria',
+    title: 'ToolBase — Free Online Calculators & Tools for Nigeria',
     description: 'Free online tools and calculators built for Nigeria.',
     images: [`${siteUrl}/og/homepage.png`],
   },
@@ -97,8 +97,8 @@ export default function RootLayout({
             __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'WebSite',
-              name: 'OnlineToolsNG',
-              alternateName: 'OnlineToolsNG — Free Online Calculators',
+              name: 'ToolBase',
+              alternateName: 'ToolBase — Free Online Calculators',
               url: siteUrl,
             }),
           }}

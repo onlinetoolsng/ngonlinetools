@@ -7,7 +7,7 @@ interface BlogMarkdownRendererProps {
   locale?: string;
 }
 
-const SITE_HOST = 'onlinetoolsng.com';
+const SITE_HOST = 'toolbase.com.ng';
 
 export default function BlogMarkdownRenderer({ content, className = "", locale }: BlogMarkdownRendererProps) {
   const isRtl = locale === 'ar';

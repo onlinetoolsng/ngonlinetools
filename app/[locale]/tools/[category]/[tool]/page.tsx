@@ -95,11 +95,11 @@ export async function generateMetadata({ params }: { params: Promise<Params> }) 
   }
   if (!toolContent) return {}
 
-  const BASE_URL = 'https://onlinetoolsng.com'
+  const BASE_URL = 'https://toolbase.com.ng'
   const url      = `${BASE_URL}/${locale}/tools/${category}/${toolSlug}`
 
   return {
-    title:       `${toolContent.title} | OnlineToolsNG`,
+    title:       `${toolContent.title} | ToolBase`,
     description: toolContent.meta_description ?? toolContent.description ?? '',
     alternates: {
       canonical: url,
@@ -108,7 +108,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }) 
       title:       toolContent.title,
       description: toolContent.meta_description ?? toolContent.description ?? '',
       url,
-      siteName: 'OnlineToolsNG',
+      siteName: 'ToolBase',
       locale:   'en_NG',
       type:     'website' as const,
       images:   [{ url: `${BASE_URL}/og/tools/${toolSlug}.png`, width: 1200, height: 630 }],
@@ -254,7 +254,7 @@ export default async function ToolPage({ params }: { params: Promise<Params> }) 
   const tCommon = await getTranslations({ locale, namespace: 'common' })
 
   // ── Data ──
-  const BASE_URL     = 'https://onlinetoolsng.com'
+  const BASE_URL     = 'https://toolbase.com.ng'
   const toolUrl      = `${BASE_URL}/${locale}/tools/${category}/${toolSlug}`
   const ToolComponent = await loadToolComponent(toolSlug)
   const relatedTools  = getRelatedTools(tool)

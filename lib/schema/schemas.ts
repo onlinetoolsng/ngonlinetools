@@ -92,7 +92,7 @@ export function generateArticleSchema({
   dateModified,
   imageUrl,
   wordCount,
-  authorName = 'OnlineToolsNG Editorial Team',
+  authorName = 'ToolBase Editorial Team',
 }: {
   title: string
   description: string
@@ -119,7 +119,7 @@ export function generateArticleSchema({
     },
     publisher: {
       '@type': 'Organization',
-      name: 'OnlineToolsNG',
+      name: 'ToolBase',
       logo: {
         '@type': 'ImageObject',
         url: 'https://toolbase.com.ng/icons/logo.png',
@@ -180,7 +180,7 @@ export function generateOrganizationSchema() {
       {
         '@type': 'Organization',
         '@id': 'https://toolbase.com.ng/#organization',
-        name: 'OnlineToolsNG',
+        name: 'ToolBase',
         url: 'https://toolbase.com.ng',
         logo: {
           '@type': 'ImageObject',
@@ -192,7 +192,7 @@ export function generateOrganizationSchema() {
         '@type': 'WebSite',
         '@id': 'https://toolbase.com.ng/#website',
         url: 'https://toolbase.com.ng',
-        name: 'OnlineToolsNG',
+        name: 'ToolBase',
         description: 'Free calculators and tools for Nigeria',
         publisher: { '@id': 'https://toolbase.com.ng/#organization' },
         potentialAction: {

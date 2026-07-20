@@ -10,7 +10,7 @@ type BreadcrumbItem = {
   href: string
 }
 
-const BASE_URL = 'https://onlinetoolsng.com'
+const BASE_URL = 'https://toolbase.com.ng'
 
 export function Breadcrumb({ items }: { items: BreadcrumbItem[] }) {
   const locale = useLocale()

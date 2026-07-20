@@ -10,7 +10,7 @@ export async function generateToolMetadata(
   const t = await getTranslations({ locale, namespace: `tools.${toolSlug}` })
 
   return {
-    title: `${t('title')} | OnlineToolsNG`,
+    title: `${t('title')} | ToolBase`,
     description: t('metaDescription'),
     alternates: {
       canonical: `${BASE_URL}/tools/${categorySlug}/${toolSlug}`,
@@ -19,7 +19,7 @@ export async function generateToolMetadata(
       title: t('title'),
       description: t('metaDescription'),
       url: `${BASE_URL}/tools/${categorySlug}/${toolSlug}`,
-      siteName: 'OnlineToolsNG',
+      siteName: 'ToolBase',
       locale: 'en_NG',
       type: 'website' as const,
       images: [
@@ -59,7 +59,7 @@ export async function generateCategoryMetadata(
   })
 
   return {
-    title: `${t('name')} Tools | OnlineToolsNG`,
+    title: `${t('name')} Tools | ToolBase`,
     description: t('description'),
     alternates: {
       canonical: `${BASE_URL}/tools/${categorySlug}`,
@@ -68,7 +68,7 @@ export async function generateCategoryMetadata(
       title: `${t('name')} Tools`,
       description: t('description'),
       url: `${BASE_URL}/tools/${categorySlug}`,
-      siteName: 'OnlineToolsNG',
+      siteName: 'ToolBase',
       locale: 'en_NG',
       type: 'website' as const,
     },
@@ -89,7 +89,7 @@ export async function generateHomepageMetadata(locale: string) {
       title: t('siteName'),
       description: t('siteDescription'),
       url: `${BASE_URL}`,
-      siteName: 'OnlineToolsNG',
+      siteName: 'ToolBase',
       locale: 'en_NG',
       type: 'website' as const,
       images: [
@@ -97,7 +97,7 @@ export async function generateHomepageMetadata(locale: string) {
           url: `${BASE_URL}/og/homepage.png`,
           width: 1200,
           height: 630,
-          alt: 'OnlineToolsNG',
+          alt: 'ToolBase',
         },
       ],
     },
@@ -106,7 +106,7 @@ export async function generateHomepageMetadata(locale: string) {
 }
 
 export function generateBlogIndexMetadata(locale: string) {
-  const title = 'Blog | OnlineToolsNG'
+  const title = 'Blog | ToolBase'
   const description = 'Guides and articles on personal finance, taxes, and money in Nigeria'
 
   return {
@@ -119,7 +119,7 @@ export function generateBlogIndexMetadata(locale: string) {
       title,
       description,
       url: `${BASE_URL}/blog`,
-      siteName: 'OnlineToolsNG',
+      siteName: 'ToolBase',
       locale: 'en_NG',
       type: 'website' as const,
       images: [

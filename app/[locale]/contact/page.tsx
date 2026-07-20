@@ -10,11 +10,11 @@ type Params = { locale: string }
 export async function generateMetadata({ params }: { params: Promise<Params> }) {
   const { locale } = await params
   return {
-    title: locale === 'ar' ? 'اتصل بنا | OnlineToolsNG' : 'Contact Us | OnlineToolsNG',
+    title: locale === 'ar' ? 'اتصل بنا | ToolBase' : 'Contact Us | ToolBase',
     description:
       locale === 'ar'
-        ? 'تواصل مع فريق OnlineToolsNG — لأي استفسار أو اقتراح أو تقرير عن خطأ'
-        : 'Get in touch with the OnlineToolsNG team — for questions, suggestions or bug reports',
+        ? 'تواصل مع فريق ToolBase — لأي استفسار أو اقتراح أو تقرير عن خطأ'
+        : 'Get in touch with the ToolBase team — for questions, suggestions or bug reports',
     robots: { index: true, follow: true },
   }
 }

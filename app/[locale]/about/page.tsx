@@ -10,9 +10,9 @@ type Params = { locale: string }
 
 export async function generateMetadata({ params }: { params: Promise<Params> }) {
   return {
-    title: 'About Us | OnlineToolsNG',
+    title: 'About Us | ToolBase',
     description:
-      'OnlineToolsNG is a free suite of calculators and tools built for individuals and businesses in Nigeria.',
+      'ToolBase is a free suite of calculators and tools built for individuals and businesses in Nigeria.',
     robots: { index: true, follow: true },
   }
 }
@@ -45,7 +45,7 @@ export default async function AboutPage({ params }: { params: Promise<Params> })
         {/* Hero */}
         <div className="text-center py-12">
           <h1 className="text-4xl sm:text-5xl font-black text-gray-900 mb-4">
-            About OnlineToolsNG
+            About ToolBase
           </h1>
           <p className="text-xl text-gray-500 max-w-2xl mx-auto leading-relaxed">
             Free calculators and tools built for individuals and businesses in Nigeria
@@ -66,10 +66,10 @@ export default async function AboutPage({ params }: { params: Promise<Params> })
         <div className="bg-white border border-gray-100 rounded-2xl p-8 sm:p-10 space-y-8 mb-10">
           <section>
             <h2 className="text-2xl font-black text-gray-900 mb-3">
-              What is OnlineToolsNG?
+              What is ToolBase?
             </h2>
             <p className="text-gray-600 leading-relaxed">
-              OnlineToolsNG is a suite of free calculators and tools designed for people
+              ToolBase is a suite of free calculators and tools designed for people
               and businesses in Nigeria — covering everyday finance, tax, payroll, and
               more. Every tool is built with local rules, currency, and context in mind.
             </p>

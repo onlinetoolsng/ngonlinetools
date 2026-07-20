@@ -61,7 +61,7 @@ export async function Footer({ locale }: Props) {
 
         {/* Bottom bar */}
         <div className="mt-10 pt-6 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-gray-400">
-          <p>© {new Date().getFullYear()} OnlineToolsNG. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} ToolBase. All rights reserved.</p>
           <div className="flex items-center gap-4">
 <Link href={`/${locale}/tools`} className="hover:text-gray-600 transition-colors">
   {tNav('tools')}
