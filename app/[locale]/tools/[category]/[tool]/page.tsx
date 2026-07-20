@@ -47,6 +47,7 @@ const TOOL_NAMES: Record<string, { en: string; ar: string }> = {
   'nigeria-wht-simulator': { en: 'WHT Simulator', ar: '' },
   'nigeria-rent-relief-deductions-optimizer': { en: 'Rent Relief & Deductions Optimizer', ar: '' },
   'multi-source-income-tax-calculator': { en: 'Multi-Source Income Tax Calculator', ar: '' },
+  'effective-tax-rate-simulator': { en: 'Effective Tax Rate Simulator', ar: '' },
 }
 
 function getToolName(slug: string, locale: string): string {
@@ -186,6 +187,10 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
       case 'multi-source-income-tax-calculator': {
         const { MultiSourceIncomeTaxCalculator } = await import('@/components/tools/MultiSourceIncomeTaxCalculator')
         return MultiSourceIncomeTaxCalculator
+      }
+      case 'effective-tax-rate-simulator': {
+        const { EffectiveTaxRateSimulator } = await import('@/components/tools/EffectiveTaxRateSimulator')
+        return EffectiveTaxRateSimulator
       }
       case 'capital-gains-tax-calculator': {
         const { CapitalGainsTaxCalculator } = await import('@/components/tools/CapitalGainsTaxCalculator')

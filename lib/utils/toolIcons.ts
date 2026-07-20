@@ -31,6 +31,7 @@ export const TOOL_ICON_MAP: Record<string, string> = {
   'loan-repayment-calculator': '🏦',
   'nigeria-paye-tax-calculator': '📋',
   'multi-source-income-tax-calculator': '🧩',
+  'effective-tax-rate-simulator': '⚖️',
 }
 
 // Fallback flag — single-country site, so this is just Nigeria.

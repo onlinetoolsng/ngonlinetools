@@ -33,6 +33,7 @@ const TOOL_NAMES: Record<string, { en: string; ar: string }> = {
   'nigeria-wht-simulator': { en: 'WHT Simulator', ar: '' },
   'nigeria-rent-relief-deductions-optimizer': { en: 'Rent Relief & Deductions Optimizer', ar: '' },
   'multi-source-income-tax-calculator': { en: 'Multi-Source Income Tax Calculator', ar: '' },
+  'effective-tax-rate-simulator': { en: 'Effective Tax Rate Simulator', ar: '' },
 }
 
 function getToolName(slug: string, locale: string): string {

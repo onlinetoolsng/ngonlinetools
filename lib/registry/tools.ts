@@ -225,6 +225,18 @@ export const TOOLS: Tool[] = [
     requiresApi: false,
     launchDate: '2026-07-20',
   },
+  {
+    slug: 'effective-tax-rate-simulator',
+    category: 'tax',
+    schema: 'estimator',
+    featured: true,
+    countries: ['nigeria'],
+    relatedTools: ['company-income-tax-calculator', 'nigeria-paye-tax-calculator', 'salary-calculator'],
+    relatedArticles: [],
+    hasCountryVariants: false,
+    requiresApi: false,
+    launchDate: '2026-07-20',
+  },
 ]
 
 
