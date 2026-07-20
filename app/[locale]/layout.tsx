@@ -6,7 +6,11 @@ import { Manrope } from 'next/font/google'
 import { SchemaOrg } from '@/components/seo/SchemaOrg'
 import { generateOrganizationSchema } from '@/lib/schema/schemas'
 
-const manrope = { variable: 'font-test' }
+const manrope = Manrope({
+  subsets: ['latin'],
+  variable: '--font-manrope',
+  display: 'swap',
+})
 
 export const viewport = {
   width: 'device-width',
@@ -34,7 +38,7 @@ export default async function LocaleLayout({
   return (
     <html
       lang={locale}
-      dir="ltr"
+      dir={locale === 'ar' ? 'rtl' : 'ltr'}
       className={manrope.variable}
     >
       <head>
