@@ -210,6 +210,10 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
         const { CACAnnualReturnsComplianceChecker } = await import('@/components/tools/CACAnnualReturnsComplianceChecker')
         return CACAnnualReturnsComplianceChecker
       }
+      case 'cac-business-name-generator': {
+       const { default: CACBusinessNameGenerator } = await import('@/components/tools/CACBusinessNameGenerator')
+      return CACBusinessNameGenerator
+     }
       case 'startup-cost-break-even-analyzer': {
         const { NigeriaStartupBreakEvenAnalyzer } = await import('@/components/tools/NigeriaStartupBreakEvenAnalyzer')
         return NigeriaStartupBreakEvenAnalyzer
