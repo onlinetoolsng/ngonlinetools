@@ -208,6 +208,10 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
         const { CapitalGainsTaxCalculator } = await import('@/components/tools/CapitalGainsTaxCalculator')
         return CapitalGainsTaxCalculator
       }
+      case 'import-duty-clearance-estimator': {
+      const { default: NigeriaImportDutyEstimator } = await import('@/components/tools/NigeriaImportDutyEstimator')
+      return NigeriaImportDutyEstimator
+     }
       case 'nigeria-cac-annual-returns-compliance-checker': {
         const { CACAnnualReturnsComplianceChecker } = await import('@/components/tools/CACAnnualReturnsComplianceChecker')
         return CACAnnualReturnsComplianceChecker
