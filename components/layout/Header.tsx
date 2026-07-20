@@ -21,9 +21,8 @@ const navLinks = [
 
           {/* Logo */}
           <Link href={`/${locale}`} className="text-2xl font-black tracking-tight flex-shrink-0">
-            <span className="text-indigo-700">Online</span>
-            <span className="text-gray-900">Tools</span>
-            <span className="text-amber-500">NG</span>
+            <span className="text-indigo-700">Tool</span>
+            <span className="text-gray-900">Base</span>
           </Link>
 
           {/* Nav */}
