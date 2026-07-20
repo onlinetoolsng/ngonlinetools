@@ -178,6 +178,18 @@ export const TOOLS: Tool[] = [
     launchDate: '2026-07-19',
   },
   {
+  slug: 'import-duty-clearance-estimator',
+  category: 'tax',
+  schema: 'calculator',
+  featured: false,
+  countries: ['nigeria'],
+  relatedTools: ['vat-calculator', 'currency-converter'],
+  relatedArticles: [],
+  hasCountryVariants: false,
+  requiresApi: false,
+  launchDate: '2026-07-21',
+},
+  {
     slug: 'nigeria-wht-rate-checker',
     category: 'tax',
     schema: 'checker',
