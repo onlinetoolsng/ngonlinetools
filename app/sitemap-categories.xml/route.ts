@@ -5,7 +5,7 @@
 import { buildSitemapXml, xmlResponse } from '@/lib/sitemap/xml'
 import { CATEGORIES } from '@/lib/registry/categories'
 
-const BASE_URL = 'https://onlinetoolsng.com'
+const BASE_URL = 'https://toolbase.com.ng'
 const locales = ['en'] as const
 
 export async function GET() {

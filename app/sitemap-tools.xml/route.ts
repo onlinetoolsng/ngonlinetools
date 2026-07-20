@@ -7,7 +7,7 @@ import { buildSitemapXml, xmlResponse } from '@/lib/sitemap/xml'
 import { TOOLS } from '@/lib/registry/tools'
 import { createSupabasePublicClient } from '@/lib/supabase/client'
 
-const BASE_URL = 'https://onlinetoolsng.com'
+const BASE_URL = 'https://toolbase.com.ng'
 const locales = ['en'] as const
 
 async function getTranslatedToolSlugs(): Promise<Set<string>> {

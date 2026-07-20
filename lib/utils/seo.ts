@@ -1,6 +1,6 @@
 import { getTranslations } from 'next-intl/server'
 
-const BASE_URL = 'https://onlinetoolsng.com'
+const BASE_URL = 'https://toolbase.com.ng'
 
 export async function generateToolMetadata(
   locale: string,

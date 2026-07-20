@@ -23,7 +23,7 @@ export function generateToolSchema({
         name: title,
         description,
         inLanguage: 'en',
-        isPartOf: { '@id': 'https://onlinetoolsng.com/#website' },
+        isPartOf: { '@id': 'https://toolbase.com.ng/#website' },
         breadcrumb: { '@id': `${url}#breadcrumb` },
       },
       {
@@ -115,14 +115,14 @@ export function generateArticleSchema({
     author: {
       '@type': 'Person',
       name: authorName,
-      url: 'https://onlinetoolsng.com/about',
+      url: 'https://toolbase.com.ng/about',
     },
     publisher: {
       '@type': 'Organization',
       name: 'OnlineToolsNG',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://onlinetoolsng.com/icons/logo.png',
+        url: 'https://toolbase.com.ng/icons/logo.png',
       },
     },
     image: {
@@ -179,28 +179,28 @@ export function generateOrganizationSchema() {
     '@graph': [
       {
         '@type': 'Organization',
-        '@id': 'https://onlinetoolsng.com/#organization',
+        '@id': 'https://toolbase.com.ng/#organization',
         name: 'OnlineToolsNG',
-        url: 'https://onlinetoolsng.com',
+        url: 'https://toolbase.com.ng',
         logo: {
           '@type': 'ImageObject',
-          url: 'https://onlinetoolsng.com/icons/logo.png',
+          url: 'https://toolbase.com.ng/icons/logo.png',
         },
         sameAs: [],
       },
       {
         '@type': 'WebSite',
-        '@id': 'https://onlinetoolsng.com/#website',
-        url: 'https://onlinetoolsng.com',
+        '@id': 'https://toolbase.com.ng/#website',
+        url: 'https://toolbase.com.ng',
         name: 'OnlineToolsNG',
         description: 'Free calculators and tools for Nigeria',
-        publisher: { '@id': 'https://onlinetoolsng.com/#organization' },
+        publisher: { '@id': 'https://toolbase.com.ng/#organization' },
         potentialAction: {
           '@type': 'SearchAction',
           target: {
             '@type': 'EntryPoint',
             urlTemplate:
-              'https://onlinetoolsng.com/en/tools?q={search_term_string}',
+              'https://toolbase.com.ng/en/tools?q={search_term_string}',
           },
           'query-input': 'required name=search_term_string',
         },
@@ -275,7 +275,7 @@ export function generateLocationSchema({
           '@type': 'Country',
           name: countryNameEn,
         },
-        isPartOf: { '@id': 'https://onlinetoolsng.com/#website' },
+        isPartOf: { '@id': 'https://toolbase.com.ng/#website' },
       },
       {
         '@type': 'ItemList',

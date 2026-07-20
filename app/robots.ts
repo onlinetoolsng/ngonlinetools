@@ -9,11 +9,11 @@ export default function robots(): MetadataRoute.Robots {
       disallow: ['/api/', '/_next/'],
     },
     sitemap: [
-      'https://onlinetoolsng.com/sitemap.xml',
-      'https://onlinetoolsng.com/sitemap-static.xml',
-      'https://onlinetoolsng.com/sitemap-categories.xml',
-      'https://onlinetoolsng.com/sitemap-tools.xml',
-      'https://onlinetoolsng.com/sitemap-blog.xml',
+      'https://toolbase.com.ng/sitemap.xml',
+      'https://toolbase.com.ng/sitemap-static.xml',
+      'https://toolbase.com.ng/sitemap-categories.xml',
+      'https://toolbase.com.ng/sitemap-tools.xml',
+      'https://toolbase.com.ng/sitemap-blog.xml',
     ],
   }
 }
