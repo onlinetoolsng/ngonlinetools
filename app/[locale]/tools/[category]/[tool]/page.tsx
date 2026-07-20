@@ -50,6 +50,7 @@ const TOOL_NAMES: Record<string, { en: string; ar: string }> = {
   'effective-tax-rate-simulator': { en: 'Effective Tax Rate Simulator', ar: '' },
   'nigeria-cac-annual-returns-compliance-checker': { en: 'CAC Annual Returns Compliance Checker', ar: '' },
   'startup-cost-break-even-analyzer': { en: 'Startup Cost & Break-Even Analyzer', ar: '' },
+  'nigeria-inflation-impact-simulator': { en: 'Inflation Impact Simulator', ar: '' },
 }
 
 function getToolName(slug: string, locale: string): string {
@@ -217,6 +218,10 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
       case 'startup-cost-break-even-analyzer': {
         const { NigeriaStartupBreakEvenAnalyzer } = await import('@/components/tools/NigeriaStartupBreakEvenAnalyzer')
         return NigeriaStartupBreakEvenAnalyzer
+      }
+      case 'nigeria-inflation-impact-simulator': {
+        const { NigeriaInflationImpactSimulator } = await import('@/components/tools/NigeriaInflationImpactSimulator')
+        return NigeriaInflationImpactSimulator
       }
       default:
         console.warn(`Tool slug not found: ${toolSlug}`);

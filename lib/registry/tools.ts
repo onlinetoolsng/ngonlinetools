@@ -297,6 +297,18 @@ export const TOOLS: Tool[] = [
     requiresApi: true,
     launchDate: '2026-07-20',
   },
+  {
+    slug: 'nigeria-inflation-impact-simulator',
+    category: 'finance',
+    schema: 'calculator',
+    featured: false,
+    countries: ['nigeria'],
+    relatedTools: ['savings-goal-planner', 'nigeria-retirement-planner', 'net-worth-calculator'],
+    relatedArticles: [],
+    hasCountryVariants: false,
+    requiresApi: false,
+    launchDate: '2026-07-20',
+  },
 ]
 
 

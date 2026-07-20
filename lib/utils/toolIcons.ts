@@ -34,6 +34,7 @@ export const TOOL_ICON_MAP: Record<string, string> = {
   'effective-tax-rate-simulator': '⚖️',
   'nigeria-cac-annual-returns-compliance-checker': '🏛️',
   'startup-cost-break-even-analyzer': '🚀',
+  'nigeria-inflation-impact-simulator': '💸',
 }
 
 // Fallback flag — single-country site, so this is just Nigeria.
