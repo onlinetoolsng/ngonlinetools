@@ -35,6 +35,7 @@ export const TOOL_ICON_MAP: Record<string, string> = {
   'nigeria-cac-annual-returns-compliance-checker': '🏛️',
   'startup-cost-break-even-analyzer': '🚀',
   'nigeria-inflation-impact-simulator': '💸',
+  'nigeria-cac-registration-calculator': '📝',
 }
 
 // Fallback flag — single-country site, so this is just Nigeria.
