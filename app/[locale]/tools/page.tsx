@@ -1,5 +1,5 @@
 // 📁 app/[locale]/tools/page.tsx
-import { getTranslations } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 import Link from 'next/link'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
@@ -27,6 +27,7 @@ const colorMap: Record<string, string> = {
 
 export async function generateMetadata({ params }: { params: Promise<Params> }) {
   const { locale } = await params
+  setRequestLocale(locale)
   return {
     title: locale === 'ar' ? 'جميع الأدوات | ToolBase' : 'All Tools | ToolBase',
     description: locale === 'ar'
@@ -38,6 +39,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }) 
 export default async function ToolsDirectoryPage({ params }: { params: Promise<Params> }) {
   const { locale } = await params
   const isAr = locale === 'ar'
+  setRequestLocale(locale)
 
   const tNav = await getTranslations({ locale, namespace: 'nav' })
   const tCat = await getTranslations({ locale, namespace: 'categories' })

@@ -1,6 +1,6 @@
 // 📁 app/[locale]/tools/[category]/[tool]/page.tsx
 import type { ComponentType } from 'react'
-import { getTranslations } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import { TOOLS, getToolBySlug, getRelatedTools } from '@/lib/registry/tools'
 import { CATEGORIES, getCategoryBadgeClass } from '@/lib/registry/categories'
@@ -87,6 +87,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<Params> }) {
   const { locale, category, tool: toolSlug } = await params
+  setRequestLocale(locale)
 
   let toolContent
   try {
@@ -237,6 +238,7 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
 
 export default async function ToolPage({ params }: { params: Promise<Params> }) {
   const { locale, category, tool: toolSlug } = await params
+  setRequestLocale(locale)
 
   // ── Guards ──
   const tool = getToolBySlug(toolSlug)

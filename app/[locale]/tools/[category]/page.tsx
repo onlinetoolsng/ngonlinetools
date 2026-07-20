@@ -1,5 +1,5 @@
 // 📁 app/[locale]/tools/[category]/page.tsx
-import { getTranslations } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { Header } from '@/components/layout/Header'
@@ -44,12 +44,14 @@ function getToolName(slug: string, locale: string): string {
 
 export async function generateMetadata({ params }: { params: Promise<Params> }) {
   const { locale, category } = await params
+  setRequestLocale(locale)
   return generateCategoryMetadata(locale, category)
 }
 
 export default async function CategoryPage({ params }: { params: Promise<Params> }) {
   const { locale, category } = await params
   const isAr = locale === 'ar'
+  setRequestLocale(locale)
 
   const categoryData = CATEGORIES.find(c => c.slug === category)
   if (!categoryData) notFound()

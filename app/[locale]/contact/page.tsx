@@ -1,5 +1,5 @@
 // 📁 app/[locale]/contact/page.tsx
-import { getTranslations } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { Breadcrumb } from '@/components/layout/Breadcrumb'
@@ -9,6 +9,7 @@ type Params = { locale: string }
 
 export async function generateMetadata({ params }: { params: Promise<Params> }) {
   const { locale } = await params
+  setRequestLocale(locale)
   return {
     title: locale === 'ar' ? 'اتصل بنا | ToolBase' : 'Contact Us | ToolBase',
     description:
@@ -22,6 +23,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }) 
 export default async function ContactPage({ params }: { params: Promise<Params> }) {
   const { locale } = await params
   const isAr = locale === 'ar'
+  setRequestLocale(locale)
   const tNav = await getTranslations({ locale, namespace: 'nav' })
 
   const breadcrumbItems = [
