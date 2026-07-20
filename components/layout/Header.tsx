@@ -23,6 +23,7 @@ const navLinks = [
           <Link href={`/${locale}`} className="text-2xl font-black tracking-tight flex-shrink-0">
             <span className="text-indigo-700">Tool</span>
             <span className="text-gray-900">Base</span>
+            <span className="text-amber-500">.com.ng</span>
           </Link>
 
           {/* Nav */}

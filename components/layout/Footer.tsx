@@ -22,6 +22,7 @@ export async function Footer({ locale }: Props) {
               <span className="text-2xl font-black tracking-tight">
                 <span className="text-indigo-700">Tool</span>
                 <span className="text-gray-900">Base</span>
+                <span className="text-amber-500">.com.ng</span>
               </span>
             </Link>
             <p className="text-sm text-gray-400 leading-relaxed max-w-xs">
