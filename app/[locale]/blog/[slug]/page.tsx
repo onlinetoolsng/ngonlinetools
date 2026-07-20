@@ -112,9 +112,14 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
     .filter(Boolean) as NonNullable<ReturnType<typeof getToolBySlug>>[]
 
   // More articles (sidebar)
-  const moreArticles = (await getPublishedArticles(locale, 5)).filter(
-    a => a.slug !== slug
-  ).slice(0, 4)
+  let moreArticles: Awaited<ReturnType<typeof getPublishedArticles>> = []
+  try {
+    moreArticles = (await getPublishedArticles(locale, 5)).filter(
+      a => a.slug !== slug
+    ).slice(0, 4)
+  } catch (err) {
+    console.error('getPublishedArticles (sidebar) error:', err)
+  }
 
   // Breadcrumb
   const breadcrumbItems = [
@@ -167,11 +172,11 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
             {/* Category badge */}
             <div className="mb-4">
               <Link
-                href={`/${locale}/tools/${article.category_slug}`}
+                href={article.category_slug ? `/${locale}/tools/${article.category_slug}` : `/${locale}/tools`}
                 className={`inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full transition-opacity hover:opacity-80 ${badgeColor}`}
               >
                 <span>{categoryIcon}</span>
-                <span className="capitalize">{article.category_slug.replace(/-/g, ' ')}</span>
+                <span className="capitalize">{(article.category_slug ?? '').replace(/-/g, ' ') || 'Uncategorized'}</span>
               </Link>
             </div>
 
