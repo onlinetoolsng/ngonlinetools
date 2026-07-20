@@ -27,6 +27,12 @@ const TOOL_NAMES: Record<string, { en: string; ar: string }> = {
   'nigeria-crypto-vs-traditional-comparator': { en: 'Crypto vs Traditional Investments Comparator', ar: '' },
   'nigeria-stock-portfolio-tracker': { en: 'NGX Stock Portfolio Tracker', ar: '' },
   'nigeria-paye-tax-calculator': { en: 'Nigeria PAYE Tax Calculator', ar: '' },
+  'savings-goal-planner': { en: 'Savings Goal Planner', ar: '' },
+  'nigeria-retirement-planner': { en: 'Retirement Planner', ar: '' },
+  'nigeria-wht-rate-checker': { en: 'WHT Rate Checker', ar: '' },
+  'nigeria-wht-simulator': { en: 'WHT Simulator', ar: '' },
+  'nigeria-rent-relief-deductions-optimizer': { en: 'Rent Relief & Deductions Optimizer', ar: '' },
+  'multi-source-income-tax-calculator': { en: 'Multi-Source Income Tax Calculator', ar: '' },
 }
 
 function getToolName(slug: string, locale: string): string {

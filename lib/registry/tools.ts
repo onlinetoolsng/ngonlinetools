@@ -213,6 +213,18 @@ export const TOOLS: Tool[] = [
     requiresApi: false,
     launchDate: '2026-07-20',
   },
+  {
+    slug: 'multi-source-income-tax-calculator',
+    category: 'tax',
+    schema: 'calculator',
+    featured: true,
+    countries: ['nigeria'],
+    relatedTools: ['nigeria-paye-tax-calculator', 'nigeria-wht-rate-checker', 'company-income-tax-calculator'],
+    relatedArticles: [],
+    hasCountryVariants: false,
+    requiresApi: false,
+    launchDate: '2026-07-20',
+  },
 ]
 
 
