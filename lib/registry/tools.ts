@@ -428,6 +428,18 @@ export const TOOLS: Tool[] = [
     requiresApi: false,
     launchDate: '2026-07-21',
   },
+  {
+    slug: 'mortgage-nhf-affordability-calculator',
+    category: 'real-estate',
+    schema: 'calculator',
+    featured: false,
+    countries: ['nigeria'],
+    relatedTools: ['loan-repayment-calculator', 'nigeria-rental-yield-roi-calculator', 'savings-goal-planner'],
+    relatedArticles: [],
+    hasCountryVariants: false,
+    requiresApi: false,
+    launchDate: '2026-07-21',
+  },
 ]
 
 

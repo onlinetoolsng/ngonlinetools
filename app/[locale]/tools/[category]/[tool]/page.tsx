@@ -53,6 +53,7 @@ const TOOL_NAMES: Record<string, { en: string; ar: string }> = {
   'nigeria-inflation-impact-simulator': { en: 'Inflation Impact Simulator', ar: '' },
   'nigeria-cac-registration-calculator': { en: 'CAC Registration Cost & Structure Calculator', ar: '' },
   'nigeria-rental-yield-roi-calculator': { en: 'Rental Yield & ROI Calculator', ar: '' },
+  'mortgage-nhf-affordability-calculator': { en: 'Mortgage & NHF Affordability Calculator', ar: '' },
 }
 
 function getToolName(slug: string, locale: string): string {
@@ -265,6 +266,10 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
       case 'nigeria-rental-yield-roi-calculator': {
         const { NigeriaRentalYieldROICalculator } = await import('@/components/tools/NigeriaRentalYieldROICalculator')
         return NigeriaRentalYieldROICalculator
+      }
+      case 'mortgage-nhf-affordability-calculator': {
+        const { NigeriaMortgageNHFCalculator } = await import('@/components/tools/NigeriaMortgageNHFCalculator')
+        return NigeriaMortgageNHFCalculator
       }
       default:
         console.warn(`Tool slug not found: ${toolSlug}`);
