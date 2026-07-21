@@ -298,6 +298,18 @@ export const TOOLS: Tool[] = [
     launchDate: '2026-07-20',
   },
   {
+  slug: 'nigeria-invoice-generator',
+  category: 'finance',
+  schema: 'calculator',
+  featured: false,
+  countries: ['nigeria'],
+  relatedTools: [],
+  relatedArticles: [],
+  hasCountryVariants: false,
+  requiresApi: false,
+  launchDate: '2026-07-21',
+},
+  {
     slug: 'nigeria-cac-registration-calculator',
     category: 'business',
     schema: 'calculator',
