@@ -1,33 +1,19 @@
 // lib/documents/document-templates-data.ts
 //
-// Ported from naira.autos's lib/document-templates-data.ts. Adapted to use
-// createSupabasePublicClient() (this repo's convention) instead of a bare
-// `supabase` singleton import.
+// Server-only Supabase data access for document_templates. Ported from
+// naira.autos's lib/document-templates-data.ts, adapted to use
+// createSupabasePublicClient() (this repo's convention).
+//
+// Types and the pure fillTemplate() logic live in
+// ./document-templates-fill.ts instead of here, because that file must be
+// safe to import from a Client Component — this file is not (it imports
+// lib/supabase/client.ts, which pulls in `next/headers`).
 
 import { createSupabasePublicClient } from '@/lib/supabase/client';
+import type { DocumentTemplateRow } from './document-templates-fill';
 
-export interface DocumentTemplateField {
-  id: string;
-  label: string;
-  type: 'text' | 'textarea' | 'date' | 'number';
-  placeholder?: string;
-  required: boolean;
-}
-
-export interface DocumentTemplateRow {
-  id: string;
-  document_type: string;
-  country: string;
-  title: string;
-  intro: string;
-  sections: { heading: string; body: string }[];
-  signatures: { role: string }[];
-  fields: DocumentTemplateField[];
-  legal_note: string;
-  seo_intro: string;
-  status: 'draft' | 'published';
-  updated_at: string;
-}
+export type { DocumentTemplateField, DocumentTemplateRow } from './document-templates-fill';
+export { fillTemplate } from './document-templates-fill';
 
 // ── Fetch a single published template by (document type, country) ──────
 export async function getDocumentTemplate(
@@ -81,31 +67,4 @@ export async function getAllPublishedTemplates(): Promise<DocumentTemplateRow[]>
     return [];
   }
   return (data ?? []) as DocumentTemplateRow[];
-}
-
-// ── Token substitution — the deterministic "fill" step, zero AI calls ──
-export function fillTemplate(
-  template: Pick<DocumentTemplateRow, 'title' | 'intro' | 'sections'>,
-  values: Record<string, string>,
-  fields: DocumentTemplateField[],
-  usePlaceholders: boolean
-) {
-  const resolve = (fieldId: string): string => {
-    const value = values[fieldId]?.trim();
-    if (value) return value;
-    if (usePlaceholders) {
-      const field = fields.find(f => f.id === fieldId);
-      return field ? `[${field.label.toUpperCase()}]` : `[${fieldId.toUpperCase()}]`;
-    }
-    return '';
-  };
-
-  const substitute = (text: string): string =>
-    text.replace(/\{\{(\w+)\}\}/g, (_, fieldId) => resolve(fieldId));
-
-  return {
-    title: substitute(template.title),
-    intro: substitute(template.intro),
-    sections: template.sections.map(s => ({ heading: substitute(s.heading), body: substitute(s.body) })),
-  };
 }

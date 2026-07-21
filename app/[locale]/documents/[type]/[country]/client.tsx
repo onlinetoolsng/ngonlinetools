@@ -6,7 +6,7 @@ import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { Breadcrumb } from '@/components/layout/Breadcrumb';
 import { BackButton } from '@/components/layout/BackButton';
-import { DocumentTemplateRow, fillTemplate } from '@/lib/documents/document-templates-data';
+import { DocumentTemplateRow, fillTemplate } from '@/lib/documents/document-templates-fill';
 import { DocumentTypeDef, DocumentCountryDef, HIGH_RISK_DOCUMENT_TYPES } from '@/lib/documents/document-types';
 import { GeneratedDocument } from '@/lib/documents/document-format';
 import { DocumentHistoryEntry, saveToHistory } from '@/lib/documents/document-history';
