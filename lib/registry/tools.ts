@@ -369,6 +369,18 @@ export const TOOLS: Tool[] = [
     requiresApi: false,
     launchDate: '2026-07-21',
   },
+  {
+    slug: 'nigeria-agro-land-planner',
+    category: 'business',
+    schema: 'planner',
+    featured: false,
+    countries: ['nigeria'],
+    relatedTools: ['nigeria-crop-yield-estimator', 'farm-input-fertilizer-cost-calculator'],
+    relatedArticles: [],
+    hasCountryVariants: false,
+    requiresApi: false,
+    launchDate: '2026-07-21',
+  },
 ]
 
 

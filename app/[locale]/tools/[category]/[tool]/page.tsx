@@ -245,6 +245,10 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
         const { default: NigeriaCropYieldEstimator } = await import('@/components/tools/NigeriaCropYieldEstimator')
         return NigeriaCropYieldEstimator
       }
+      case 'nigeria-agro-land-planner': {
+        const { default: NigeriaAgroLandPlanner } = await import('@/components/tools/NigeriaAgroLandPlanner')
+        return NigeriaAgroLandPlanner
+      }
       default:
         console.warn(`Tool slug not found: ${toolSlug}`);
         return null;
