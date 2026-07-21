@@ -357,6 +357,18 @@ export const TOOLS: Tool[] = [
     requiresApi: false,
     launchDate: '2026-07-20',
   },
+  {
+    slug: 'nigeria-crop-yield-estimator',
+    category: 'business',
+    schema: 'estimator',
+    featured: false,
+    countries: ['nigeria'],
+    relatedTools: ['farm-input-fertilizer-cost-calculator'],
+    relatedArticles: [],
+    hasCountryVariants: false,
+    requiresApi: false,
+    launchDate: '2026-07-21',
+  },
 ]
 
 
