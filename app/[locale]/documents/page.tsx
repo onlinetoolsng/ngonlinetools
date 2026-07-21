@@ -16,6 +16,18 @@ type Params = { locale: string };
 
 const BASE_URL = 'https://toolbase.com.ng';
 
+// Without this, this page can get statically generated once (e.g. during
+// the first build after this feature shipped, possibly before the
+// document_templates table/migrations existed) and then serve that same
+// cached result — including an empty/error state — on every request
+// after, since nothing here calls a dynamic API to trigger a refetch.
+// Same category of bug as the earlier blog dynamic-rendering fix: force
+// this to run fresh on every request so newly published/edited templates
+// show up immediately.
+export const revalidate = 0;
+export const dynamic = 'force-dynamic';
+
+
 export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
   const { locale } = await params;
   setRequestLocale(locale);

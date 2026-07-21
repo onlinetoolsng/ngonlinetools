@@ -9,6 +9,12 @@ import { getAllPublishedTemplates } from '@/lib/documents/document-templates-dat
 const BASE_URL = 'https://toolbase.com.ng'
 const locales = ['en'] as const
 
+// Route Handlers with a GET can be statically cached by default; force
+// this one dynamic so newly published templates appear in the sitemap
+// without waiting on a redeploy.
+export const revalidate = 0
+export const dynamic = 'force-dynamic'
+
 export async function GET() {
   const entries = []
 
