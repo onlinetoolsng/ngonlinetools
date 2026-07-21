@@ -69,6 +69,18 @@ export const TOOLS: Tool[] = [
     launchDate: '2026-07-19',
   },
   {
+    slug: 'nigeria-employee-total-cost-calculator',
+    category: 'hr-payroll',
+    schema: 'calculator',
+    featured: false,
+    countries: ['nigeria'],
+    relatedTools: ['salary-calculator', 'pension-calculator', 'nigeria-paye-tax-calculator'],
+    relatedArticles: [],
+    hasCountryVariants: false,
+    requiresApi: false,
+    launchDate: '2026-07-21',
+  },
+  {
     slug: 'net-worth-calculator',
     category: 'finance',
     schema: 'calculator',
