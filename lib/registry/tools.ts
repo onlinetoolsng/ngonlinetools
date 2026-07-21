@@ -393,6 +393,18 @@ export const TOOLS: Tool[] = [
     launchDate: '2026-07-21',
   },
   {
+  slug: 'land-measurement-converter',
+  category: 'real-estate',
+  schema: 'calculator',
+  featured: false,
+  countries: ['Nigeria'],
+  relatedTools: ['plot-to-acres-converter', 'square-meters-to-hectares-converter'],
+  relatedArticles: [],
+  hasCountryVariants: false,
+  requiresApi: false,
+  launchDate: '2026-07-21',
+  },
+  {
     slug: 'nigeria-agro-land-planner',
     category: 'business',
     schema: 'planner',
