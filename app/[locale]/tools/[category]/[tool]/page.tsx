@@ -169,6 +169,10 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
         const { default: NigeriaCryptoVsTraditionalComparator } = await import('@/components/tools/NigeriaCryptoVsTraditionalComparator')
         return NigeriaCryptoVsTraditionalComparator
       }
+     case 'nigeria-startup-cost-breakeven-analyzer': {
+      const { default: StartupCostBreakEvenAnalyzer } = await import('@/components/tools/StartupCostBreakEvenAnalyzer')
+      return StartupCostBreakEvenAnalyzer
+     }
       case 'nigeria-stock-portfolio-tracker': {
         const { default: NigeriaStockPortfolioTracker } = await import('@/components/tools/NigeriaStockPortfolioTracker')
         return NigeriaStockPortfolioTracker
