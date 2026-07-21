@@ -4,92 +4,105 @@ import { useMemo, useState } from 'react'
 import { cleanNumberInput, formatNumberInput } from '@/lib/utils/numberInput'
 
 // ─── Regulatory context (informational only — this is not legal advice) ───
-// CAMA 2020 (Companies and Allied Matters Act), Section 425 (companies) and
-// Section 692(3)-(4) (strike-off power). Fee/penalty figures below are the
-// CAC's published schedule as of the 2026 filing season — source-checked
-// against multiple compliance-firm summaries (EBC Consults, SmartSMS
-// Solutions, cacannualreturns.com) rather than the CAC portal directly,
-// since the portal has no public machine-readable fee API. CAC updates
-// fees periodically — always confirm the live figure at icrp.cac.gov.ng
-// before paying.
+// Source: CAC's official downloadable fee schedule (cac.gov.ng/api/download-
+// fees), supplied directly by the site owner. This supersedes the earlier
+// version of this file, which relied on third-party compliance-firm guides
+// — several figures below changed materially as a result, most importantly
+// the late-penalty structure, which turned out not to be a flat per-year
+// amount at all. CAMA 2020 (Companies and Allied Matters Act), Section
+// 692(3)-(4) (strike-off power).
 //
-// Filing fee (per year): ₦10,000 — private/public companies. ₦5,000 —
-// business names and (by convention, unconfirmed on the current fee
-// schedule) incorporated trustees.
-// Late penalty (per year of default): ₦5,000 — "small company" under CAMA
-// s.394 (turnover ≤ ₦120,000,000, net assets ≤ ₦60,000,000, directors hold
-// ≥51% equity, no foreign member). ₦10,000 — any other private/public
-// company. Plus ₦1,000 per year for each director/officer. A separate
-// daily penalty (up to ₦1,000/day) exists under the Companies Regulations
-// 2021 but is currently suspended by the CAC.
-// Note: CAMA's "small company" test (₦120m turnover / ₦60m net assets) is
-// a DIFFERENT definition from the Nigeria Tax Act 2025 "small company" tax
-// exemption (₦100m turnover / ₦250m fixed assets) used elsewhere on this
-// site — the two thresholds are not interchangeable.
+// Annual returns filing fee (per filing/year): ₦3,000 — business names.
+// ₦5,000 — small companies, private companies other than small, and
+// companies limited by guarantee. ₦10,000 — public companies. ₦5,000 —
+// incorporated trustees.
+// Late penalty structure is TWO separate components, not a single per-year
+// figure: a daily default penalty that accrues for every day in default,
+// plus a flat one-off penalty. Per the official schedule:
+//   Business names: ₦150/day + ₦5,000 one-off
+//   Small company: ₦250/day + ₦5,000 one-off
+//   Private company (other than small) / company limited by guarantee:
+//     ₦500/day + ₦10,000 one-off
+//   Incorporated trustees: ₦500/day + ₦10,000 one-off
+//   Public company: ₦1,000/day + ₦25,000 one-off
+// There is no per-director/officer penalty on the official schedule — an
+// earlier version of this tool included one based on a secondary source
+// that could not be verified against the primary schedule, and it has been
+// removed rather than left in unconfirmed.
+// Note: CAMA's "small company" test (turnover ≤ ₦120,000,000, net assets
+// ≤ ₦60,000,000, directors hold ≥51% equity, no foreign member, per CAMA
+// s.394) is a DIFFERENT definition from the Nigeria Tax Act 2025 "small
+// company" tax exemption (₦100m turnover / ₦250m fixed assets) used
+// elsewhere on this site — the two thresholds are not interchangeable.
 // Strike-off: CAC may strike a company off the register after 10
-// consecutive years of default (CAMA s.692(3)-(4)). As of July 2026 the
-// CAC is actively running strike-off notices for long-term defaulters
-// ("Batch 6").
+// consecutive years of default (CAMA s.692(3)-(4)) — this is a statutory
+// provision, not part of the fee schedule, so it isn't in the downloaded
+// document above but remains separately confirmed. As of July 2026 the CAC
+// has been actively running strike-off notices for long-term defaulters.
 
 type EntityType = 'business-name' | 'private-company' | 'public-company' | 'clg' | 'incorporated-trustees'
 
 interface EntityConfig {
   label: string
   baseFee: number
+  dailyPenalty: number
+  oneOffPenalty: number
   deadlineText: string
   gracePeriodMonths: number
-  hasDirectorPenalty: boolean
-  feeConfidence: 'confirmed' | 'estimated'
 }
 
 const ENTITY_CONFIG: Record<EntityType, EntityConfig> = {
   'business-name': {
     label: 'Business Name (Sole Proprietorship / Partnership)',
-    baseFee: 5_000,
+    baseFee: 3_000,
+    dailyPenalty: 150,
+    oneOffPenalty: 5_000,
     deadlineText: 'Annually, on or before 30 June',
     gracePeriodMonths: 12,
-    hasDirectorPenalty: false,
-    feeConfidence: 'confirmed',
   },
   'private-company': {
     label: 'Private Company Limited by Shares',
-    baseFee: 10_000,
+    baseFee: 5_000,
+    dailyPenalty: 500,
+    oneOffPenalty: 10_000,
     deadlineText: 'Within 42 days of your AGM — in practice, by 30 June for a 31 December year-end',
     gracePeriodMonths: 18,
-    hasDirectorPenalty: true,
-    feeConfidence: 'confirmed',
   },
   'public-company': {
     label: 'Public Company Limited by Shares',
     baseFee: 10_000,
+    dailyPenalty: 1_000,
+    oneOffPenalty: 25_000,
     deadlineText: 'Within 42 days of your AGM',
     gracePeriodMonths: 18,
-    hasDirectorPenalty: true,
-    feeConfidence: 'estimated',
   },
   'clg': {
     label: 'Company Limited by Guarantee',
-    baseFee: 10_000,
+    baseFee: 5_000,
+    dailyPenalty: 500,
+    oneOffPenalty: 10_000,
     deadlineText: 'Within 42 days of your AGM — in practice, by 30 June for a 31 December year-end',
     gracePeriodMonths: 18,
-    hasDirectorPenalty: true,
-    feeConfidence: 'estimated',
   },
   'incorporated-trustees': {
     label: 'Incorporated Trustees (NGO / Association)',
     baseFee: 5_000,
+    dailyPenalty: 500,
+    oneOffPenalty: 10_000,
     deadlineText: 'Annually, generally within the 30 June – 31 December window',
     gracePeriodMonths: 12,
-    hasDirectorPenalty: false,
-    feeConfidence: 'estimated',
   },
 }
 
-const SMALL_COMPANY_PENALTY_PER_YEAR = 5_000
-const OTHER_COMPANY_PENALTY_PER_YEAR = 10_000
-const BUSINESS_NAME_PENALTY_PER_YEAR = 5_000
-const DIRECTOR_PENALTY_PER_YEAR = 1_000
+// A private company qualifying as "small" under CAMA s.394 pays a lower
+// late penalty than one that doesn't. Registration/annual-return base fees
+// are identical for small vs. non-small private companies, so this only
+// affects the penalty calculation below.
+const SMALL_COMPANY_DAILY_PENALTY = 250
+const SMALL_COMPANY_ONE_OFF_PENALTY = 5_000
+
 const STRIKE_OFF_YEARS = 10
+const DAYS_PER_YEAR = 365
 
 const CURRENT_YEAR = new Date().getFullYear()
 
@@ -106,7 +119,6 @@ export function CACAnnualReturnsComplianceChecker(_props: { locale: string }) {
   const [entityType, setEntityType] = useState<EntityType>('private-company')
   const [incorporationYear, setIncorporationYear] = useState(String(CURRENT_YEAR - 3))
   const [isSmallCompany, setIsSmallCompany] = useState(true)
-  const [directorCount, setDirectorCount] = useState('2')
   const [yearsOverdue, setYearsOverdue] = useState('0')
   const [showWhatIsThis, setShowWhatIsThis] = useState(false)
   const [copied, setCopied] = useState(false)
@@ -122,27 +134,27 @@ export function CACAnnualReturnsComplianceChecker(_props: { locale: string }) {
     // Can't be overdue for more years than the entity has existed.
     const effectiveOverdue = withinGracePeriod ? 0 : Math.min(overdueInput, companyAgeYears)
 
-    const directors = Math.max(0, Math.round(num(directorCount)))
-
-    const penaltyPerYear =
-      entityType === 'business-name' || entityType === 'incorporated-trustees'
-        ? BUSINESS_NAME_PENALTY_PER_YEAR
-        : isSmallCompany
-          ? SMALL_COMPANY_PENALTY_PER_YEAR
-          : OTHER_COMPANY_PENALTY_PER_YEAR
+    // Small companies get a lower daily/one-off penalty than other private
+    // companies — same underlying entity type, different tier.
+    const useSmallCompanyRate = entityType === 'private-company' && isSmallCompany
+    const dailyPenalty = useSmallCompanyRate ? SMALL_COMPANY_DAILY_PENALTY : config.dailyPenalty
+    const oneOffPenalty = useSmallCompanyRate ? SMALL_COMPANY_ONE_OFF_PENALTY : config.oneOffPenalty
 
     // Base fee owed: one year's filing if up to date, or one fee per
     // overdue year (the returns that still need to be filed) if behind.
     const yearsOfFeesOwed = effectiveOverdue > 0 ? effectiveOverdue : 1
     const totalBaseFees = config.baseFee * yearsOfFeesOwed
 
-    const totalLatePenalties = effectiveOverdue > 0 ? penaltyPerYear * effectiveOverdue : 0
-    const totalDirectorPenalties =
-      config.hasDirectorPenalty && effectiveOverdue > 0
-        ? DIRECTOR_PENALTY_PER_YEAR * directors * effectiveOverdue
-        : 0
+    // Per the official schedule, the late penalty is a daily default
+    // penalty (accrues for every day in default) PLUS a single flat
+    // one-off penalty — not a per-year multiplier. Days are approximated
+    // from years overdue since exact due dates aren't captured here.
+    const daysOverdue = effectiveOverdue * DAYS_PER_YEAR
+    const totalDailyPenalty = effectiveOverdue > 0 ? dailyPenalty * daysOverdue : 0
+    const totalOneOffPenalty = effectiveOverdue > 0 ? oneOffPenalty : 0
+    const totalLatePenalties = totalDailyPenalty + totalOneOffPenalty
 
-    const totalEstimate = totalBaseFees + totalLatePenalties + totalDirectorPenalties
+    const totalEstimate = totalBaseFees + totalLatePenalties
 
     let status: 'active' | 'needs-filing' | 'high-risk'
     let statusLabel: string
@@ -161,20 +173,20 @@ export function CACAnnualReturnsComplianceChecker(_props: { locale: string }) {
       withinGracePeriod,
       effectiveOverdue,
       totalBaseFees,
+      totalDailyPenalty,
+      totalOneOffPenalty,
       totalLatePenalties,
-      totalDirectorPenalties,
       totalEstimate,
       status,
       statusLabel,
       yearsUntilStrikeOffRisk: Math.max(0, STRIKE_OFF_YEARS - effectiveOverdue),
     }
-  }, [entityType, incorporationYear, isSmallCompany, directorCount, yearsOverdue, config])
+  }, [entityType, incorporationYear, isSmallCompany, yearsOverdue, config])
 
   const reset = () => {
     setEntityType('private-company')
     setIncorporationYear(String(CURRENT_YEAR - 3))
     setIsSmallCompany(true)
-    setDirectorCount('2')
     setYearsOverdue('0')
   }
 
@@ -208,12 +220,6 @@ export function CACAnnualReturnsComplianceChecker(_props: { locale: string }) {
             <option key={value} value={value}>{cfg.label}</option>
           ))}
         </select>
-        {config.feeConfidence === 'estimated' && (
-          <p className="mt-1.5 text-xs text-gray-500">
-            Fee figures for this entity type are less consistently published than for business names and
-            private companies — treat the estimate below as a starting point and confirm on the CAC portal.
-          </p>
-        )}
       </div>
 
       {/* Incorporation year */}
@@ -242,39 +248,22 @@ export function CACAnnualReturnsComplianceChecker(_props: { locale: string }) {
         </div>
       </div>
 
-      {/* Company-specific inputs */}
-      {(entityType === 'private-company' || entityType === 'public-company' || entityType === 'clg') && (
-        <div className="bg-gray-50 rounded-2xl p-4 border border-gray-200 space-y-4">
-          <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-1.5">Number of Directors / Officers</label>
+      {/* Small company checkbox (private companies only — affects penalty tier) */}
+      {entityType === 'private-company' && (
+        <div className="bg-gray-50 rounded-2xl p-4 border border-gray-200">
+          <label className="flex items-start gap-3 cursor-pointer">
             <input
-              type="text"
-              inputMode="numeric"
-              value={formatNumberInput(directorCount)}
-              onChange={e => setDirectorCount(cleanNumberInput(e.target.value))}
-              className="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm font-medium text-gray-900 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 outline-none transition"
-              placeholder="2"
+              type="checkbox"
+              checked={isSmallCompany}
+              onChange={e => setIsSmallCompany(e.target.checked)}
+              className="mt-1 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
             />
-            <p className="mt-1.5 text-xs text-gray-500">
-              Late penalties add ₦1,000 per year for each director/officer, on top of the company penalty.
-            </p>
-          </div>
-
-          {entityType === 'private-company' && (
-            <label className="flex items-start gap-3 cursor-pointer">
-              <input
-                type="checkbox"
-                checked={isSmallCompany}
-                onChange={e => setIsSmallCompany(e.target.checked)}
-                className="mt-1 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-              />
-              <span className="text-sm text-gray-700">
-                This qualifies as a <strong>&quot;small company&quot;</strong> under CAMA s.394 — turnover ≤ ₦120,000,000,
-                net assets ≤ ₦60,000,000, directors hold at least 51% of shares between them, and no foreign
-                member. (This is a different test from the tax-code &quot;small company&quot; exemption used elsewhere.)
-              </span>
-            </label>
-          )}
+            <span className="text-sm text-gray-700">
+              This qualifies as a <strong>&quot;small company&quot;</strong> under CAMA s.394 — turnover ≤ ₦120,000,000,
+              net assets ≤ ₦60,000,000, directors hold at least 51% of shares between them, and no foreign
+              member. (This is a different test from the tax-code &quot;small company&quot; exemption used elsewhere.)
+            </span>
+          </label>
         </div>
       )}
 
@@ -311,16 +300,16 @@ export function CACAnnualReturnsComplianceChecker(_props: { locale: string }) {
                 <span>Filing fees ({result.effectiveOverdue > 0 ? `${result.effectiveOverdue} year(s)` : 'this year'})</span>
                 <span>{formatNaira(result.totalBaseFees)}</span>
               </div>
-              {result.totalLatePenalties > 0 && (
+              {result.totalDailyPenalty > 0 && (
                 <div className="flex justify-between text-sm text-indigo-800">
-                  <span>Late penalties</span>
-                  <span>{formatNaira(result.totalLatePenalties)}</span>
+                  <span>Daily default penalty (~{result.effectiveOverdue * 365} days)</span>
+                  <span>{formatNaira(result.totalDailyPenalty)}</span>
                 </div>
               )}
-              {result.totalDirectorPenalties > 0 && (
+              {result.totalOneOffPenalty > 0 && (
                 <div className="flex justify-between text-sm text-indigo-800">
-                  <span>Director/officer penalties</span>
-                  <span>{formatNaira(result.totalDirectorPenalties)}</span>
+                  <span>One-off default penalty</span>
+                  <span>{formatNaira(result.totalOneOffPenalty)}</span>
                 </div>
               )}
             </div>
@@ -328,6 +317,13 @@ export function CACAnnualReturnsComplianceChecker(_props: { locale: string }) {
               <span className="font-bold text-indigo-900">Estimated Total to Become Compliant</span>
               <span className="text-2xl font-black text-indigo-900">{formatNaira(result.totalEstimate)}</span>
             </div>
+            {result.totalDailyPenalty > 0 && (
+              <p className="text-xs text-indigo-700">
+                The daily penalty is on CAC&apos;s official fee schedule, but some compliance firms report
+                inconsistent day-to-day enforcement of it in practice. The one-off penalty is more
+                reliably charged. Treat the daily-penalty portion above as an upper-bound estimate.
+              </p>
+            )}
           </>
         )}
 
@@ -342,7 +338,8 @@ export function CACAnnualReturnsComplianceChecker(_props: { locale: string }) {
         {result.status === 'needs-filing' && result.yearsUntilStrikeOffRisk <= 10 && (
           <p className="text-xs text-indigo-700">
             At {result.effectiveOverdue} year(s) overdue, this entity is not yet at strike-off risk (that
-            threshold is 10 consecutive years), but penalties compound every year you wait.
+            threshold is 10 consecutive years), but the daily penalty means the total keeps growing every
+            day you wait, not just every year.
           </p>
         )}
       </div>

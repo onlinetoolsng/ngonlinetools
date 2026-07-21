@@ -4,37 +4,30 @@ import { useMemo, useState } from 'react'
 import { cleanNumberInput, formatNumberInput } from '@/lib/utils/numberInput'
 
 // ─── Regulatory context (informational only — this is not legal advice) ───
-// CAMA 2020, Part B/E/F. Fee figures below are the CAC's fee schedule as
-// most consistently reported across 2026 compliance-firm sources
-// (FastCAC, EBC Consults) — the CAC's own machine-readable fee page
-// (cac.gov.ng/api/download-fees) could not be fetched directly to verify
-// against (bot-blocked). IMPORTANT: publicly available secondary sources
-// disagree substantially on these figures — some cite ₦10,000 for a
-// private company's base registration, others ₦40,000, a 4x spread —
-// most likely reflecting genuine multiple fee revisions (May 2025 gazette,
-// August 2025 revision, April 2026 "AI service charge") that different
-// sites have updated to different degrees. Treat every figure here as a
-// planning estimate, not a quote, and confirm on the CAC portal
-// (pre.cac.gov.ng) immediately before paying.
+// Source: CAC's official downloadable fee schedule (cac.gov.ng/api/download-
+// fees), supplied directly by the site owner — this supersedes the earlier
+// version of this file, which relied on third-party compliance-firm guides
+// that turned out to disagree with the official schedule on several line
+// items (in some cases by 2-4x). CAMA 2020, Part B/E/F.
 //
-// Business Name: ₦1,000 name reservation (₦5,000 if restricted/suffixed)
-// + ₦20,000 registration = ₦21,000.
-// Private Company Limited by Shares (≤₦1,000,000 share capital): ₦1,000
-// name reservation + ₦40,000 registration + 0.75% FIRS stamp duty on
-// share capital (₦7,500 at ₦1M) = ₦48,500. Each additional ₦1,000,000 of
-// share capital adds ~₦10,000 CAC fee + 0.75% stamp duty.
-// Company Limited by Guarantee: no share capital/stamp duty; CAC filing
-// fee estimated at ₦40,000. Requires Attorney General of the Federation
-// approval before incorporation — adds real time, not modeled as a fee.
-// Incorporated Trustees (NGO): ₦5,000 name reservation + ₦40,000
-// registration = ₦45,000, excluding mandatory newspaper publication
-// (~₦20,000–₦30,000, not a CAC fee) and the 28-day objection period.
-// AI Service Charge (CAC, effective 1 April 2026): +₦200 on name
-// reservation, +₦500 on registration, applied here across all structures
-// — CAC's announcement specifically named business names; applying it
-// elsewhere is this tool's extrapolation, not a confirmed figure.
-// Post-registration fee lookup figures are the CAC's own August 2025
-// service-fee revision as reported directly by Punch Newspapers.
+// Name reservation: ₦500 standard, ₦5,000 for restricted words/Ltd/Gte
+// suffixes — applies across all entity types.
+// Business Name: ₦10,000 registration + CTC.
+// Company Limited by Guarantee: ₦20,000 flat (includes CTC of first
+// incorporation documents).
+// Private/Public Company Limited by Shares — tiered by issued share
+// capital, identical for "Small Company" and "Private other than small":
+//   ≤ ₦1,000,000: ₦10,000 (Small/Private) / ₦20,000 (Public)
+//   > ₦1,000,000 up to ₦500,000,000: ₦5,000 per ₦1,000,000 or part thereof
+//     (Small/Private) / ₦10,000 per ₦1,000,000 (Public)
+//   > ₦500,000,000: ₦7,500 per ₦1,000,000 or part thereof (Small/Private) /
+//     ₦15,000 per ₦1,000,000 (Public)
+// Incorporated Trustees: ₦5,000 name reservation + ₦35,000 registration/CTC.
+// FIRS stamp duty (0.75% of share capital) and the Remita/portal transaction
+// fee are NOT CAC fees and do not appear on this schedule — kept here as
+// separately-labeled estimates. A CAC "AI service charge" reported by some
+// 2026 news coverage also does not appear on this official schedule, so it
+// is not included in the total, only mentioned as a footnote.
 
 type StructureType = 'business-name' | 'private-company' | 'clg' | 'incorporated-trustees'
 
@@ -45,28 +38,32 @@ interface StructureConfig {
   nameReservationFee: number
   restrictedNameReservationFee: number
   baseRegistrationFee: number
-  perAdditionalMillionFee: number
   timelineText: string
   liability: string
   bestFor: string
   requirements: string[]
-  feeConfidence: 'higher' | 'lower'
 }
 
-const AI_SERVICE_CHARGE_RESERVATION = 200
-const AI_SERVICE_CHARGE_REGISTRATION = 500
 const REMITA_PORTAL_FEE = 161
 const STAMP_DUTY_RATE = 0.0075
+
+/** Tiered CAC registration fee for private companies, per the official schedule. */
+function privateCompanyRegistrationFee(shareCapital: number): number {
+  if (shareCapital <= 1_000_000) return 10_000
+  if (shareCapital <= 500_000_000) {
+    return Math.ceil(shareCapital / 1_000_000) * 5_000
+  }
+  return Math.ceil(shareCapital / 1_000_000) * 7_500
+}
 
 const STRUCTURE_CONFIG: Record<StructureType, StructureConfig> = {
   'business-name': {
     label: 'Business Name (Sole Proprietorship / Partnership)',
     shortLabel: 'Business Name',
     hasShareCapital: false,
-    nameReservationFee: 1_000,
+    nameReservationFee: 500,
     restrictedNameReservationFee: 5_000,
-    baseRegistrationFee: 20_000,
-    perAdditionalMillionFee: 0,
+    baseRegistrationFee: 10_000,
     timelineText: '1–7 working days (often same-day to 72 hours online)',
     liability: 'Unlimited — you are personally liable for business debts',
     bestFor: 'Sole traders, freelancers, and small local businesses wanting the fastest, cheapest start',
@@ -76,16 +73,14 @@ const STRUCTURE_CONFIG: Record<StructureType, StructureConfig> = {
       'Business/registered address in Nigeria',
       'Nature of business description',
     ],
-    feeConfidence: 'higher',
   },
   'private-company': {
     label: 'Private Company Limited by Shares',
     shortLabel: 'Private Ltd',
     hasShareCapital: true,
-    nameReservationFee: 1_000,
+    nameReservationFee: 500,
     restrictedNameReservationFee: 5_000,
-    baseRegistrationFee: 40_000,
-    perAdditionalMillionFee: 10_000,
+    baseRegistrationFee: 10_000, // overridden by privateCompanyRegistrationFee()
     timelineText: '3–14 working days',
     liability: 'Limited — shareholders only risk the amount they invested in shares',
     bestFor: 'Businesses planning to scale, raise investment, or bring on multiple shareholders',
@@ -96,7 +91,6 @@ const STRUCTURE_CONFIG: Record<StructureType, StructureConfig> = {
       'Registered office address in Nigeria (not a P.O. Box)',
       'Persons with Significant Control (PSC) disclosure — mandatory at incorporation since 2026',
     ],
-    feeConfidence: 'higher',
   },
   'clg': {
     label: 'Company Limited by Guarantee',
@@ -104,8 +98,7 @@ const STRUCTURE_CONFIG: Record<StructureType, StructureConfig> = {
     hasShareCapital: false,
     nameReservationFee: 5_000,
     restrictedNameReservationFee: 5_000,
-    baseRegistrationFee: 40_000,
-    perAdditionalMillionFee: 0,
+    baseRegistrationFee: 20_000,
     timelineText: 'Several weeks — requires Attorney General of the Federation approval before incorporation (typically adds 30–90 days on top of normal processing)',
     liability: 'Limited — no share capital; members\u2019 liability is capped by their guarantee amount',
     bestFor: 'Non-profits, professional bodies, and think tanks needing corporate legal status without shareholders',
@@ -115,7 +108,6 @@ const STRUCTURE_CONFIG: Record<StructureType, StructureConfig> = {
       'Attorney General of the Federation approval (separate step, before CAC filing)',
       'Registered office address in Nigeria',
     ],
-    feeConfidence: 'lower',
   },
   'incorporated-trustees': {
     label: 'Incorporated Trustees (NGO / Association)',
@@ -123,8 +115,7 @@ const STRUCTURE_CONFIG: Record<StructureType, StructureConfig> = {
     hasShareCapital: false,
     nameReservationFee: 5_000,
     restrictedNameReservationFee: 5_000,
-    baseRegistrationFee: 40_000,
-    perAdditionalMillionFee: 0,
+    baseRegistrationFee: 35_000,
     timelineText: '6–8 weeks — includes a mandatory 28-day newspaper publication and public objection period',
     liability: 'N/A — non-profit structure, no shareholders or share capital',
     bestFor: 'NGOs, churches, mosques, foundations, and community or alumni associations',
@@ -134,22 +125,27 @@ const STRUCTURE_CONFIG: Record<StructureType, StructureConfig> = {
       'Two newspaper publications of the proposed registration',
       'Registered office address in Nigeria',
     ],
-    feeConfidence: 'lower',
   },
 }
 
 const FEE_LOOKUP: { id: string; label: string; fee: string }[] = [
-  { id: 'name-standard', label: 'Name reservation (standard)', fee: '₦1,000' },
+  { id: 'name-standard', label: 'Name reservation (standard)', fee: '₦500' },
   { id: 'name-restricted', label: 'Name reservation (restricted word/suffix)', fee: '₦5,000' },
-  { id: 'annual-returns-bn', label: 'Annual returns — Business Name (per year)', fee: '₦5,000' },
-  { id: 'annual-returns-co', label: 'Annual returns — Private Company (per year)', fee: '₦10,000' },
+  { id: 'annual-returns-bn', label: 'Annual returns — Business Name (per filing)', fee: '₦3,000' },
+  { id: 'annual-returns-co', label: 'Annual returns — Small/Private Company (per filing)', fee: '₦5,000' },
+  { id: 'annual-returns-public', label: 'Annual returns — Public Company (per filing)', fee: '₦10,000' },
   { id: 'ctc', label: 'Certified True Copy of documents/extract', fee: '₦5,000 each' },
-  { id: 'striking-off-small', label: 'Voluntary striking-off (small company)', fee: '₦50,000' },
+  { id: 'striking-off-bn', label: 'Voluntary striking-off (business name)', fee: '₦10,000' },
+  { id: 'striking-off-small', label: 'Voluntary striking-off (small company)', fee: '₦25,000' },
+  { id: 'striking-off-other', label: 'Voluntary striking-off (private, other than small / Ltd-Gte)', fee: '₦50,000' },
   { id: 'striking-off-public', label: 'Voluntary striking-off (public company)', fee: '₦100,000' },
-  { id: 'relisting-ltd', label: 'Relisting (LTD/GTE)', fee: '₦50,000' },
+  { id: 'relisting-small', label: 'Relisting (small company)', fee: '₦25,000' },
+  { id: 'relisting-other', label: 'Relisting (private, other than small / Ltd-Gte)', fee: '₦50,000' },
   { id: 'relisting-public', label: 'Relisting (public company)', fee: '₦100,000' },
   { id: 'due-diligence', label: 'Due diligence search (self-service)', fee: '₦50,000' },
-  { id: 'director-address', label: 'Restriction of director\u2019s residential address', fee: '₦25,000' },
+  { id: 'director-address', label: 'Restriction of director\u2019s residential address', fee: '₦25,000 (₦50,000 for public companies)' },
+  { id: 'change-of-name-bn', label: 'Change of name (business name)', fee: '₦10,000' },
+  { id: 'change-of-name-co', label: 'Change of name (private company / Ltd-Gte)', fee: '₦20,000 (₦10,000 for small companies)' },
 ]
 
 function formatNaira(value: number) {
@@ -177,22 +173,19 @@ export function NigeriaCACRegistrationCalculator(_props: { locale: string }) {
       ? config.restrictedNameReservationFee
       : config.nameReservationFee
 
-    let registrationFee = config.baseRegistrationFee
-    let stampDuty = 0
-    if (config.hasShareCapital) {
-      const extraMillions = Math.max(0, Math.ceil((capital - 1_000_000) / 1_000_000))
-      registrationFee += extraMillions * config.perAdditionalMillionFee
-      stampDuty = capital * STAMP_DUTY_RATE
-    }
+    const registrationFee = config.hasShareCapital
+      ? privateCompanyRegistrationFee(capital)
+      : config.baseRegistrationFee
 
-    const aiServiceCharge = AI_SERVICE_CHARGE_RESERVATION + AI_SERVICE_CHARGE_REGISTRATION
-    const total = nameReservationFee + registrationFee + stampDuty + aiServiceCharge + REMITA_PORTAL_FEE
+    const stampDuty = config.hasShareCapital ? capital * STAMP_DUTY_RATE : 0
 
-    return { capital, nameReservationFee, registrationFee, stampDuty, aiServiceCharge, total }
+    const total = nameReservationFee + registrationFee + stampDuty + REMITA_PORTAL_FEE
+
+    return { capital, nameReservationFee, registrationFee, stampDuty, total }
   }, [structure, shareCapital, restrictedName, config])
 
   const copySummary = () => {
-    const text = `${config.label} — Estimated CAC registration cost: ${formatNaira(result.total)} (name reservation ${formatNaira(result.nameReservationFee)} + registration ${formatNaira(result.registrationFee)}${result.stampDuty > 0 ? ` + stamp duty ${formatNaira(result.stampDuty)}` : ''} + AI service charge ${formatNaira(result.aiServiceCharge)} + portal fee ${formatNaira(REMITA_PORTAL_FEE)}). Estimate only — verify on the CAC portal.`
+    const text = `${config.label} — Estimated CAC registration cost: ${formatNaira(result.total)} (name reservation ${formatNaira(result.nameReservationFee)} + registration ${formatNaira(result.registrationFee)}${result.stampDuty > 0 ? ` + stamp duty ${formatNaira(result.stampDuty)}` : ''} + portal fee ${formatNaira(REMITA_PORTAL_FEE)}). Estimate only — verify on the CAC portal.`
     navigator.clipboard.writeText(text)
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
@@ -205,9 +198,11 @@ export function NigeriaCACRegistrationCalculator(_props: { locale: string }) {
       {/* Disclaimer banner — always visible */}
       <div className="bg-amber-50 border border-amber-200 rounded-xl px-4 py-3">
         <p className="text-xs text-amber-900 leading-relaxed">
-          <strong>Estimate only, not official pricing.</strong> Publicly available fee data for CAC
-          registration varies significantly across sources at the time of writing. Confirm the exact,
-          current fee on the official CAC portal (pre.cac.gov.ng) before paying anything.
+          <strong>Estimate only, not official pricing.</strong> Figures are based on the CAC&apos;s
+          published fee schedule, but rates and processes can change. Confirm the exact, current fee on
+          the official CAC portal (pre.cac.gov.ng) before paying anything. A separate CAC &quot;AI service
+          charge&quot; has been reported in the news but does not appear on the current fee schedule, so it
+          is not included in the total below — budget a small buffer for it just in case.
         </p>
       </div>
 
@@ -230,12 +225,6 @@ export function NigeriaCACRegistrationCalculator(_props: { locale: string }) {
             </button>
           ))}
         </div>
-        {config.feeConfidence === 'lower' && (
-          <p className="mt-1.5 text-xs text-gray-500">
-            Fee figures for this structure are less consistently published than for business names and
-            private companies — treat this estimate as a rough starting point only.
-          </p>
-        )}
       </div>
 
       {/* Share capital (private company only) */}
@@ -301,15 +290,11 @@ export function NigeriaCACRegistrationCalculator(_props: { locale: string }) {
           </div>
         )}
         <div className="flex justify-between text-sm text-indigo-900">
-          <span>AI service charge (CAC, since Apr 2026)</span>
-          <span className="font-semibold">{formatNaira(result.aiServiceCharge)}</span>
-        </div>
-        <div className="flex justify-between text-sm text-indigo-900">
           <span>Remita/portal transaction fee (est.)</span>
           <span className="font-semibold">{formatNaira(REMITA_PORTAL_FEE)}</span>
         </div>
         <div className="flex justify-between border-t border-indigo-200 pt-3">
-          <span className="font-bold text-indigo-900">Estimated Total (official fees only)</span>
+          <span className="font-bold text-indigo-900">Estimated Total (official CAC fee schedule + stamp duty)</span>
           <span className="text-2xl font-black text-indigo-900">{formatNaira(result.total)}</span>
         </div>
         <p className="text-xs text-indigo-700">
