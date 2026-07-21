@@ -4,6 +4,10 @@ import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 import { getDocumentTemplate, getAllPublishedTemplateParams } from '@/lib/documents/document-templates-data';
 import { getDocumentType, getDocumentCountry, type DocumentTypeDef, type DocumentCountryDef } from '@/lib/documents/document-types';
+import { Header } from '@/components/layout/Header';
+import { Footer } from '@/components/layout/Footer';
+import { Breadcrumb } from '@/components/layout/Breadcrumb';
+import { BackButton } from '@/components/layout/BackButton';
 import { SchemaOrg } from '@/components/seo/SchemaOrg';
 import { generateBreadcrumbSchema } from '@/lib/schema/schemas';
 import TemplateDocumentClient from './client';
@@ -100,10 +104,29 @@ export default async function TemplateDocumentPage({
     { name: docType.label, url },
   ]);
 
+  const breadcrumbItems = [
+    { label: 'Home', href: `/${locale}` },
+    { label: 'Documents', href: `/${locale}/documents` },
+    { label: docType.label, href: `/${locale}/documents/${docType.slug}/${docCountry.code}` },
+  ];
+
   return (
     <>
       <SchemaOrg schema={breadcrumbSchema} />
-      <TemplateDocumentClient locale={locale} template={template} docType={docType} docCountry={docCountry} />
+      <Header locale={locale} activePath={`/${locale}/documents`} />
+
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+        <div className="no-print">
+          <Breadcrumb items={breadcrumbItems} />
+          <div className="mb-2">
+            <BackButton fallbackHref={`/${locale}/documents`} />
+          </div>
+        </div>
+
+        <TemplateDocumentClient template={template} docType={docType} docCountry={docCountry} />
+      </div>
+
+      <Footer locale={locale} />
     </>
   );
 }
