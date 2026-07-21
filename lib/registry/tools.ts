@@ -416,6 +416,18 @@ export const TOOLS: Tool[] = [
     requiresApi: false,
     launchDate: '2026-07-21',
   },
+  {
+    slug: 'nigeria-rental-yield-roi-calculator',
+    category: 'real-estate',
+    schema: 'calculator',
+    featured: false,
+    countries: ['nigeria'],
+    relatedTools: ['investment-returns-calculator', 'loan-repayment-calculator', 'net-worth-calculator'],
+    relatedArticles: [],
+    hasCountryVariants: false,
+    requiresApi: false,
+    launchDate: '2026-07-21',
+  },
 ]
 
 
