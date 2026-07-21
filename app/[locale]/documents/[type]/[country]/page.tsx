@@ -115,7 +115,7 @@ export default async function TemplateDocumentPage({
       <SchemaOrg schema={breadcrumbSchema} />
       <Header locale={locale} activePath={`/${locale}/documents`} />
 
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
         <div className="no-print">
           <Breadcrumb items={breadcrumbItems} />
           <div className="mb-2">

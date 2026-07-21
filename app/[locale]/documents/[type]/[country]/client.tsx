@@ -79,84 +79,89 @@ export default function TemplateDocumentClient({ template, docType, docCountry }
               <FileCheck2 className="h-4 w-4 text-indigo-600" />
               <span className="text-xs text-gray-500 uppercase tracking-wide font-medium">Free Template · No Sign-Up</span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-black text-gray-900 mb-2">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black text-gray-900 mb-2">
               {docType.label} Template — {docCountry.flag} {docCountry.name}
             </h1>
           </div>
 
           {template.legal_note && (
-            <div className="bg-indigo-50 border border-indigo-200 text-indigo-700 rounded-lg px-4 py-3 text-sm">
+            <div className="bg-indigo-50 border border-indigo-200 text-indigo-700 rounded-lg px-4 py-3 text-sm max-w-3xl">
               {template.legal_note}
             </div>
           )}
 
           <p className="text-xs text-gray-400">{SHORT_DISCLAIMER}</p>
 
-          <DocumentHistoryList filterSource="template" onOpen={handleOpenHistoryEntry} />
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+            {/* Fill-in form — takes 2/3 of the width on desktop */}
+            <div className="lg:col-span-2 bg-white border border-gray-200 rounded-2xl p-5 sm:p-6 space-y-4">
+              <div className="flex items-center justify-between">
+                <h2 className="text-sm font-semibold text-gray-900">Fill in your details</h2>
+                <button
+                  type="button"
+                  onClick={() => { setUsePlaceholders(true); setValues({}); }}
+                  className={`text-xs font-medium px-3 py-1 rounded-full border transition-colors ${
+                    usePlaceholders
+                      ? 'bg-indigo-700 border-indigo-700 text-white'
+                      : 'border-dashed border-gray-300 text-gray-500 hover:border-indigo-400 hover:text-indigo-700'
+                  }`}
+                >
+                  Use placeholder details
+                </button>
+              </div>
 
-          {/* Fill-in form */}
-          <div className="bg-white border border-gray-200 rounded-2xl p-5 space-y-4">
-            <div className="flex items-center justify-between">
-              <h2 className="text-sm font-semibold text-gray-900">Fill in your details</h2>
+              {usePlaceholders ? (
+                <p className="text-sm text-gray-500 bg-gray-50 border border-gray-200 rounded-lg px-3 py-2.5">
+                  Placeholder fields like [TENANT'S FULL NAME] will be used — fill them in after downloading.
+                </p>
+              ) : (
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {template.fields.map(field => (
+                    <div key={field.id} className={field.type === 'textarea' ? 'sm:col-span-2' : ''}>
+                      <label className="text-xs font-medium text-gray-500 mb-1 block">
+                        {field.label}{field.required && <span className="text-red-500 ml-0.5">*</span>}
+                      </label>
+                      {field.type === 'textarea' ? (
+                        <textarea
+                          value={values[field.id] || ''}
+                          onChange={e => handleFieldChange(field.id, e.target.value)}
+                          placeholder={field.placeholder}
+                          rows={3}
+                          className="w-full bg-white border border-gray-200 rounded-lg px-3 py-2.5 text-sm text-gray-900 resize-none focus:outline-none focus:ring-1 focus:ring-indigo-400"
+                        />
+                      ) : (
+                        <input
+                          type={field.type === 'date' ? 'date' : field.type === 'number' ? 'number' : 'text'}
+                          value={values[field.id] || ''}
+                          onChange={e => handleFieldChange(field.id, e.target.value)}
+                          placeholder={field.placeholder}
+                          className="w-full bg-white border border-gray-200 rounded-lg px-3 py-2.5 text-sm text-gray-900 focus:outline-none focus:ring-1 focus:ring-indigo-400"
+                        />
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+
               <button
-                type="button"
-                onClick={() => { setUsePlaceholders(true); setValues({}); }}
-                className={`text-xs font-medium px-3 py-1 rounded-full border transition-colors ${
-                  usePlaceholders
-                    ? 'bg-indigo-700 border-indigo-700 text-white'
-                    : 'border-dashed border-gray-300 text-gray-500 hover:border-indigo-400 hover:text-indigo-700'
-                }`}
+                onClick={handleFill}
+                disabled={missingRequired}
+                className="w-full flex items-center justify-center gap-2 bg-indigo-700 hover:bg-indigo-800 disabled:opacity-40 disabled:cursor-not-allowed text-white font-semibold rounded-lg py-3 transition-colors"
               >
-                Use placeholder details
+                <Wand2 className="h-4 w-4" />
+                Fill Document
               </button>
             </div>
 
-            {usePlaceholders ? (
-              <p className="text-sm text-gray-500 bg-gray-50 border border-gray-200 rounded-lg px-3 py-2.5">
-                Placeholder fields like [TENANT'S FULL NAME] will be used — fill them in after downloading.
-              </p>
-            ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {template.fields.map(field => (
-                  <div key={field.id} className={field.type === 'textarea' ? 'sm:col-span-2' : ''}>
-                    <label className="text-xs font-medium text-gray-500 mb-1 block">
-                      {field.label}{field.required && <span className="text-red-500 ml-0.5">*</span>}
-                    </label>
-                    {field.type === 'textarea' ? (
-                      <textarea
-                        value={values[field.id] || ''}
-                        onChange={e => handleFieldChange(field.id, e.target.value)}
-                        placeholder={field.placeholder}
-                        rows={3}
-                        className="w-full bg-white border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-900 resize-none focus:outline-none focus:ring-1 focus:ring-indigo-400"
-                      />
-                    ) : (
-                      <input
-                        type={field.type === 'date' ? 'date' : field.type === 'number' ? 'number' : 'text'}
-                        value={values[field.id] || ''}
-                        onChange={e => handleFieldChange(field.id, e.target.value)}
-                        placeholder={field.placeholder}
-                        className="w-full bg-white border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-1 focus:ring-indigo-400"
-                      />
-                    )}
-                  </div>
-                ))}
-              </div>
-            )}
-
-            <button
-              onClick={handleFill}
-              disabled={missingRequired}
-              className="w-full flex items-center justify-center gap-2 bg-indigo-700 hover:bg-indigo-800 disabled:opacity-40 disabled:cursor-not-allowed text-white font-semibold rounded-lg py-3 transition-colors"
-            >
-              <Wand2 className="h-4 w-4" />
-              Fill Document
-            </button>
+            {/* History sidebar — sticky alongside the form on desktop, stacks below on mobile */}
+            <div className="lg:col-span-1 lg:sticky lg:top-6">
+              <DocumentHistoryList filterSource="template" onOpen={handleOpenHistoryEntry} />
+            </div>
           </div>
 
-          {/* SEO article content — below the form */}
+          {/* SEO article content — below the form, full width */}
           {template.seo_intro && (
-            <div className="prose-sm text-gray-500 leading-relaxed border-t border-gray-200 pt-6">
+            <div className="prose-sm text-gray-500 leading-relaxed border-t border-gray-200 pt-6 max-w-3xl">
               <p>{template.seo_intro}</p>
             </div>
           )}
