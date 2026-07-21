@@ -249,6 +249,10 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
         const { default: NigeriaAgroLandPlanner } = await import('@/components/tools/NigeriaAgroLandPlanner')
         return NigeriaAgroLandPlanner
       }
+      case 'nigeria-payroll-runner': {
+        const { default: NigeriaFullPayrollRunner } = await import('@/components/tools/NigeriaFullPayrollRunner')
+        return NigeriaFullPayrollRunner
+      }
       default:
         console.warn(`Tool slug not found: ${toolSlug}`);
         return null;

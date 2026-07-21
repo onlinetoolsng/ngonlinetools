@@ -381,6 +381,18 @@ export const TOOLS: Tool[] = [
     requiresApi: false,
     launchDate: '2026-07-21',
   },
+  {
+    slug: 'nigeria-payroll-runner',
+    category: 'hr-payroll',
+    schema: 'calculator',
+    featured: false,
+    countries: ['nigeria'],
+    relatedTools: ['salary-calculator', 'nigeria-paye-tax-calculator', 'pension-calculator'],
+    relatedArticles: [],
+    hasCountryVariants: false,
+    requiresApi: false,
+    launchDate: '2026-07-21',
+  },
 ]
 
 
