@@ -285,6 +285,18 @@ export const TOOLS: Tool[] = [
     launchDate: '2026-07-20',
   },
   {
+  slug: 'nigeria-startup-cost-breakeven-analyzer',
+  category: 'business',
+  schema: 'calculator',
+  featured: false,
+  countries: ['nigeria'],
+  relatedTools: ['cac-business-name-generator', 'nigeria-crypto-vs-traditional-comparator'],
+  relatedArticles: [],
+  hasCountryVariants: false,
+  requiresApi: false,
+  launchDate: '2026-07-21',
+},
+  {
     slug: 'nigeria-freelancer-sme-tax-estimator',
     category: 'tax',
     schema: 'estimator',
