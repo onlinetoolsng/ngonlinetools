@@ -225,6 +225,10 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
        const { default: CACBusinessNameGenerator } = await import('@/components/tools/CACBusinessNameGenerator')
       return CACBusinessNameGenerator
      }
+        case 'nigeria-invoice-generator': {
+       const { default: NigeriaInvoiceGenerator } = await import('@/components/tools/NigeriaInvoiceGenerator')
+       return NigeriaInvoiceGenerator
+      }
       case 'startup-cost-break-even-analyzer': {
         const { NigeriaStartupBreakEvenAnalyzer } = await import('@/components/tools/NigeriaStartupBreakEvenAnalyzer')
         return NigeriaStartupBreakEvenAnalyzer
