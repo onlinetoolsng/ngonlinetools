@@ -238,6 +238,18 @@ export const TOOLS: Tool[] = [
   launchDate: '2026-07-20',
 },
   {
+  slug: 'farm-input-fertilizer-cost-calculator',
+  category: 'business',
+  schema: 'calculator',
+  featured: false,
+  countries: ['nigeria'],
+  relatedTools: [],
+  relatedArticles: [],
+  hasCountryVariants: false,
+  requiresApi: false,
+  launchDate: '2026-07-21',
+},
+  {
     slug: 'multi-source-income-tax-calculator',
     category: 'tax',
     schema: 'calculator',
