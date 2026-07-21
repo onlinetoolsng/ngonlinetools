@@ -67,6 +67,10 @@ export async function Footer({ locale }: Props) {
   {tNav('tools')}
 </Link>
 
+<Link href={`/${locale}/documents`} className="hover:text-gray-600 transition-colors">
+  {tNav('documents')}
+</Link>
+
 <Link href={`/${locale}/blog`} className="hover:text-gray-600 transition-colors">
   {tNav('blog')}
 </Link>
