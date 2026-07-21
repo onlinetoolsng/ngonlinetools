@@ -429,6 +429,18 @@ export const TOOLS: Tool[] = [
     launchDate: '2026-07-21',
   },
   {
+    slug: 'nigeria-payslip-generator',
+    category: 'hr-payroll',
+    schema: 'generator',
+    featured: false,
+    countries: ['nigeria'],
+    relatedTools: ['nigeria-payroll-runner', 'salary-calculator', 'nigeria-paye-tax-calculator', 'pension-calculator'],
+    relatedArticles: [],
+    hasCountryVariants: false,
+    requiresApi: false,
+    launchDate: '2026-07-21',
+  },
+  {
     slug: 'nigeria-rental-yield-roi-calculator',
     category: 'real-estate',
     schema: 'calculator',
