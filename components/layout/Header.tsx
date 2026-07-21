@@ -11,6 +11,7 @@ export async function Header({ locale, activePath }: Props) {
 
 const navLinks = [
   { href: `/${locale}/tools`,      label: tNav('tools') },
+  { href: `/${locale}/documents`,  label: tNav('documents') },
   { href: `/${locale}/blog`,       label: tNav('blog') },
 ]
 
