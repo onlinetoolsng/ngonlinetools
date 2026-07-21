@@ -453,6 +453,18 @@ export const TOOLS: Tool[] = [
     launchDate: '2026-07-21',
   },
   {
+    slug: 'nigeria-scholarship-eligibility-matcher',
+    category: 'education',
+    schema: 'checker',
+    featured: false,
+    countries: ['nigeria'],
+    relatedTools: ['savings-goal-planner'],
+    relatedArticles: [],
+    hasCountryVariants: false,
+    requiresApi: false,
+    launchDate: '2026-07-21',
+  },
+  {
     slug: 'mortgage-nhf-affordability-calculator',
     category: 'real-estate',
     schema: 'calculator',

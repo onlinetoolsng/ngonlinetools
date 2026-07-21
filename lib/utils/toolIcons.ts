@@ -37,6 +37,7 @@ export const TOOL_ICON_MAP: Record<string, string> = {
   'nigeria-inflation-impact-simulator': '💸',
   'nigeria-cac-registration-calculator': '📝',
   'nigeria-payslip-generator': '🧾',
+  'nigeria-scholarship-eligibility-matcher': '🎓',
 }
 
 // Fallback flag — single-country site, so this is just Nigeria.
