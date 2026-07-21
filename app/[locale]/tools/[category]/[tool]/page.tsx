@@ -181,6 +181,10 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
         const { NigeriaWHTChecker } = await import('@/components/tools/NigeriaWHTChecker')
         return NigeriaWHTChecker
       }
+      case 'contractor-vs-employee-classifier': {
+  const { ContractorVsEmployeeClassifier } = await import('@/components/tools/ContractorVsEmployeeClassifier')
+  return ContractorVsEmployeeClassifier
+   }
       case 'nigeria-wht-simulator': {
         const { NigeriaWHTSimulator } = await import('@/components/tools/NigeriaWHTSimulator')
         return NigeriaWHTSimulator
