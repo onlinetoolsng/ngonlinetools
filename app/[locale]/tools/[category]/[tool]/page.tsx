@@ -217,6 +217,10 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
         const { CACAnnualReturnsComplianceChecker } = await import('@/components/tools/CACAnnualReturnsComplianceChecker')
         return CACAnnualReturnsComplianceChecker
       }
+        case 'farm-input-fertilizer-cost-calculator': {
+       const { default: FarmInputFertilizerCalculator } = await import('@/components/tools/FarmInputFertilizerCalculator')
+      return FarmInputFertilizerCalculator
+      }
       case 'cac-business-name-generator': {
        const { default: CACBusinessNameGenerator } = await import('@/components/tools/CACBusinessNameGenerator')
       return CACBusinessNameGenerator
