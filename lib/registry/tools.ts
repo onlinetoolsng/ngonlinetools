@@ -116,7 +116,18 @@ export const TOOLS: Tool[] = [
   requiresApi: false,
   launchDate: '2026-07-19',
 },
-  
+  {
+  slug: 'contractor-vs-employee-classifier',
+  category: 'hr-payroll',
+  schema: 'calculator',
+  featured: false,
+  countries: ['nigeria'],
+  relatedTools: ['paye-calculator', 'withholding-tax-calculator'],
+  relatedArticles: [],
+  hasCountryVariants: false,
+  requiresApi: false,
+  launchDate: '2026-07-21',
+},
   {
     slug: 'loan-repayment-calculator',
     category: 'finance',
