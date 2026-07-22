@@ -57,6 +57,20 @@ const TOOL_NAMES: Record<string, { en: string; ar: string }> = {
   'nigeria-payslip-generator': { en: 'Payslip Generator', ar: '' },
   'nigeria-scholarship-eligibility-matcher': { en: 'Scholarship Eligibility Matcher', ar: '' },
   'islamic-prayer-times-by-lga': { en: 'Islamic Prayer Times by LGA', ar: '' },
+  'land-measurement-converter': { en: 'Land Measurement Converter', ar: '' },
+  'nigeria-property-cost-breakdown': { en: 'Property Cost Breakdown', ar: '' },
+  'jamb-aggregate-calculator': { en: 'JAMB Aggregate Calculator', ar: '' },
+  'university-cgpa-tracker': { en: 'University CGPA Tracker', ar: '' },
+  'waec-neco-grade-calculator': { en: 'WAEC/NECO Grade Calculator', ar: '' },
+  'nigeria-school-fees-true-cost-calculator': { en: 'School Fees True Cost Calculator', ar: '' },
+  'nigeria-student-loan-repayment-estimator': { en: 'Student Loan Repayment Estimator', ar: '' },
+  'bmi-body-fat-calculator': { en: 'BMI & Body Fat Calculator', ar: '' },
+  'daily-calorie-nigerian-food-calculator': { en: 'Daily Calorie Calculator (Nigerian Foods)', ar: '' },
+  'pregnancy-due-date-tracker': { en: 'Pregnancy Due Date Tracker', ar: '' },
+  'hospital-bill-cost-estimator': { en: 'Hospital Bill Cost Estimator', ar: '' },
+  'zakat-calculator': { en: 'Zakat Calculator', ar: '' },
+  'daily-devotional': { en: 'Daily Devotional', ar: '' },
+  'ramadan-hijri-prayer-timetable': { en: 'Ramadan & Hijri Prayer Timetable', ar: '' },
 }
 
 function getToolName(slug: string, locale: string): string {
@@ -293,6 +307,62 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
       case 'nigeria-hajj-umrah-budget-planner': {
         const { PilgrimageBudgetChecklist } = await import('@/components/tools/PilgrimageBudgetChecklist')
         return PilgrimageBudgetChecklist
+      }
+      case 'land-measurement-converter': {
+        const { default: NigeriaLandMeasurementConverter } = await import('@/components/tools/NigeriaLandMeasurementConverter')
+        return NigeriaLandMeasurementConverter
+      }
+      case 'nigeria-property-cost-breakdown': {
+        const { default: NigeriaPropertyCostBreakdown } = await import('@/components/tools/NigeriaPropertyCostBreakdown')
+        return NigeriaPropertyCostBreakdown
+      }
+      case 'jamb-aggregate-calculator': {
+        const { default: JambAggregateCalculator } = await import('@/components/tools/JambAggregateCalculator')
+        return JambAggregateCalculator
+      }
+      case 'university-cgpa-tracker': {
+        const { default: NigeriaCGPATracker } = await import('@/components/tools/NigeriaCGPATracker')
+        return NigeriaCGPATracker
+      }
+      case 'waec-neco-grade-calculator': {
+        const { default: WaecNecoGradeCalculator } = await import('@/components/tools/WaecNecoGradeCalculator')
+        return WaecNecoGradeCalculator
+      }
+      case 'nigeria-school-fees-true-cost-calculator': {
+        const { default: NigeriaSchoolFeesTrueCostCalculator } = await import('@/components/tools/NigeriaSchoolFeesTrueCostCalculator')
+        return NigeriaSchoolFeesTrueCostCalculator
+      }
+      case 'nigeria-student-loan-repayment-estimator': {
+        const { default: NigeriaStudentLoanRepaymentEstimator } = await import('@/components/tools/NigeriaStudentLoanRepaymentEstimator')
+        return NigeriaStudentLoanRepaymentEstimator
+      }
+      case 'bmi-body-fat-calculator': {
+        const { default: BmiBodyFatCalculator } = await import('@/components/tools/BmiBodyFatCalculator')
+        return BmiBodyFatCalculator
+      }
+      case 'daily-calorie-nigerian-food-calculator': {
+        const { default: DailyCalorieNigerianFoodCalculator } = await import('@/components/tools/DailyCalorieNigerianFoodCalculator')
+        return DailyCalorieNigerianFoodCalculator
+      }
+      case 'pregnancy-due-date-tracker': {
+        const { default: PregnancyDueDateTracker } = await import('@/components/tools/PregnancyDueDateTracker')
+        return PregnancyDueDateTracker
+      }
+      case 'hospital-bill-cost-estimator': {
+        const { HospitalBillCostEstimator } = await import('@/components/tools/HospitalBillCostEstimator')
+        return HospitalBillCostEstimator
+      }
+      case 'zakat-calculator': {
+        const { default: ZakatCalculator } = await import('@/components/ZakatCalculator')
+        return ZakatCalculator
+      }
+      case 'daily-devotional': {
+        const { default: DailyDevotional } = await import('@/components/DailyDevotional')
+        return DailyDevotional
+      }
+      case 'ramadan-hijri-prayer-timetable': {
+        const { default: RamadanHijriPrayerTimetable } = await import('@/components/tools/RamadanHijriPrayerTimetable')
+        return RamadanHijriPrayerTimetable
       }
       default:
         console.warn(`Tool slug not found: ${toolSlug}`);
