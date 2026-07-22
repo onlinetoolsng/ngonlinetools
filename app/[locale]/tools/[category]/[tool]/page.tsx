@@ -290,6 +290,10 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
         const { IslamicPrayerTimesByLGA } = await import('@/components/tools/IslamicPrayerTimesByLGA')
         return IslamicPrayerTimesByLGA
       }
+      case 'nigeria-hajj-umrah-budget-planner': {
+        const { PilgrimageBudgetChecklist } = await import('@/components/tools/PilgrimageBudgetChecklist')
+        return PilgrimageBudgetChecklist
+      }
       default:
         console.warn(`Tool slug not found: ${toolSlug}`);
         return null;

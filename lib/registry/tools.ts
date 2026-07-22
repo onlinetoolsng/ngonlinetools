@@ -500,6 +500,18 @@ export const TOOLS: Tool[] = [
     requiresApi: false,
     launchDate: '2026-07-22',
   },
+  {
+    slug: 'nigeria-hajj-umrah-budget-planner',
+    category: 'faith',
+    schema: 'planner',
+    featured: false,
+    countries: ['nigeria'],
+    relatedTools: ['islamic-prayer-times-by-lga', 'savings-goal-planner'],
+    relatedArticles: [],
+    hasCountryVariants: false,
+    requiresApi: true,
+    launchDate: '2026-07-22',
+  },
 ]
 
 
