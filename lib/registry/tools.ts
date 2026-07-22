@@ -274,7 +274,7 @@ export const TOOLS: Tool[] = [
 },
   {
   slug: 'farm-input-fertilizer-cost-calculator',
-  category: 'business',
+  category: 'agriculture',
   schema: 'calculator',
   featured: false,
   countries: ['nigeria'],
@@ -394,7 +394,7 @@ export const TOOLS: Tool[] = [
   },
   {
     slug: 'nigeria-crop-yield-estimator',
-    category: 'business',
+    category: 'agriculture',
     schema: 'estimator',
     featured: false,
     countries: ['nigeria'],
@@ -418,7 +418,7 @@ export const TOOLS: Tool[] = [
   },
   {
     slug: 'nigeria-agro-land-planner',
-    category: 'business',
+    category: 'agriculture',
     schema: 'planner',
     featured: false,
     countries: ['nigeria'],

@@ -15,7 +15,7 @@ export const CATEGORIES: Category[] = [
   { slug: 'real-estate',    icon: '🏠', color: 'orange',  badgeClass: 'bg-orange-50 text-orange-700',  priority: 5 },
   { slug: 'education',      icon: '🎓', color: 'rose',    badgeClass: 'bg-rose-50 text-rose-700',      priority: 6 },
   { slug: 'health',         icon: '🏥', color: 'cyan',    badgeClass: 'bg-cyan-50 text-cyan-700',      priority: 7 },
-  { slug: 'currency',       icon: '💱', color: 'yellow',  badgeClass: 'bg-yellow-50 text-yellow-700',  priority: 8 },
+  { slug: 'agriculture',    icon: '🌾', color: 'lime',    badgeClass: 'bg-lime-50 text-lime-700',      priority: 8 },
   { slug: 'faith',          icon: '🙏', color: 'stone',   badgeClass: 'bg-stone-50 text-stone-700',    priority: 9 },
   { slug: 'everyday',       icon: '⚡', color: 'zinc',    badgeClass: 'bg-zinc-50 text-zinc-700',      priority: 10 },
 ]
