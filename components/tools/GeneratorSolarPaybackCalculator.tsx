@@ -461,7 +461,7 @@ export default function GeneratorSolarPaybackCalculator({ locale }: { locale: st
                     tick={{ fontSize: 11 }}
                     tickFormatter={(v) => `₦${(v / 1000000).toFixed(1)}M`}
                   />
-                  <Tooltip formatter={(value: number) => formatNaira(value)} />
+                  <Tooltip formatter={(value: unknown) => formatNaira(Number(value ?? 0))} />
                   <Legend wrapperStyle={{ fontSize: 11 }} />
                   <Bar dataKey="generatorCost" name="Generator (cumulative)" fill="#f97316" />
                   <Bar dataKey="solarCost" name="Solar path (cumulative)" fill="#4f46e5" />
