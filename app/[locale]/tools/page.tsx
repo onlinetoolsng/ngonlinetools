@@ -9,6 +9,7 @@ import { SchemaOrg } from '@/components/seo/SchemaOrg'
 import { Breadcrumb } from '@/components/layout/Breadcrumb'
 import { BackButton } from '@/components/layout/BackButton'
 import { generateBreadcrumbSchema } from '@/lib/schema/schemas'
+import { localePath } from '@/lib/i18n/paths'
 
 type Params = { locale: string }
 
@@ -47,8 +48,8 @@ export default async function ToolsDirectoryPage({ params }: { params: Promise<P
   const BASE_URL = 'https://toolbase.com.ng'
 
   const breadcrumbItems = [
-    { label: tNav('home'),  href: `/${locale}` },
-    { label: tNav('tools'), href: `/${locale}/tools` },
+    { label: tNav('home'),  href: localePath(locale) },
+    { label: tNav('tools'), href: localePath(locale, `/tools`) },
   ]
 
   const breadcrumbSchema = generateBreadcrumbSchema(
@@ -69,12 +70,12 @@ export default async function ToolsDirectoryPage({ params }: { params: Promise<P
       <SchemaOrg schema={breadcrumbSchema} />
 
       {/* Header */}
-      <Header locale={locale} activePath={`/${locale}/tools`} />
+      <Header locale={locale} activePath={localePath(locale, `/tools`)} />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <Breadcrumb items={breadcrumbItems} />
         <div className="mb-4">
-          <BackButton fallbackHref={`/${locale}`} />
+          <BackButton fallbackHref={localePath(locale)} />
         </div>
 
         <header className="mb-10">
@@ -99,7 +100,7 @@ export default async function ToolsDirectoryPage({ params }: { params: Promise<P
             return (
               <Link
                 key={cat.slug}
-                href={`/${locale}/tools/${cat.slug}`}
+                href={localePath(locale, `/tools/${cat.slug}`)}
                 className={`group bg-white border rounded-2xl p-5 transition-all hover:shadow-md ${hoverColor}`}
               >
                 <div className="text-3xl mb-3">{cat.icon}</div>

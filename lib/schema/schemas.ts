@@ -1,3 +1,5 @@
+import { localizedUrl } from '@/lib/i18n/paths'
+
 // ─── Tool Schema ──────────────────────────────────────────────────────────────
 
 export function generateToolSchema({
@@ -200,7 +202,7 @@ export function generateOrganizationSchema() {
           target: {
             '@type': 'EntryPoint',
             urlTemplate:
-              'https://toolbase.com.ng/en/tools?q={search_term_string}',
+              `${localizedUrl('en', '/tools')}?q={search_term_string}`,
           },
           'query-input': 'required name=search_term_string',
         },

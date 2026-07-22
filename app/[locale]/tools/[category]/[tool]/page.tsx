@@ -20,6 +20,7 @@ import AdUnit from '@/components/ads/AdUnit'
 import { AD_SLOTS } from '@/components/ads/slots'
 import { getToolIcon } from '@/lib/utils/toolIcons'
 import Link from 'next/link'
+import { localePath, localizedUrl } from '@/lib/i18n/paths'
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 // (category badge styling now comes from lib/registry/categories.ts)
@@ -118,7 +119,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }) 
   if (!toolContent) return {}
 
   const BASE_URL = 'https://toolbase.com.ng'
-  const url      = `${BASE_URL}/${locale}/tools/${category}/${toolSlug}`
+  const url      = localizedUrl(locale, `/tools/${category}/${toolSlug}`)
 
   return {
     title:       `${toolContent.title} | ToolBase`,
@@ -402,7 +403,7 @@ export default async function ToolPage({ params }: { params: Promise<Params> }) 
 
   // ── Data ──
   const BASE_URL     = 'https://toolbase.com.ng'
-  const toolUrl      = `${BASE_URL}/${locale}/tools/${category}/${toolSlug}`
+  const toolUrl      = localizedUrl(locale, `/tools/${category}/${toolSlug}`)
   const ToolComponent = await loadToolComponent(toolSlug)
   const relatedTools  = getRelatedTools(tool)
   const isRtl         = locale === 'ar'
@@ -414,10 +415,10 @@ export default async function ToolPage({ params }: { params: Promise<Params> }) 
 
   // ── Breadcrumb ──
   const breadcrumbItems = [
-    { label: tNav('home'),      href: `/${locale}` },
-    { label: tNav('tools'),     href: `/${locale}/tools` },
-    { label: tCat('name'),      href: `/${locale}/tools/${category}` },
-    { label: toolContent.title, href: `/${locale}/tools/${category}/${toolSlug}` },
+    { label: tNav('home'),      href: localePath(locale) },
+    { label: tNav('tools'),     href: localePath(locale, `/tools`) },
+    { label: tCat('name'),      href: localePath(locale, `/tools/${category}`) },
+    { label: toolContent.title, href: localePath(locale, `/tools/${category}/${toolSlug}`) },
   ]
 
   // ── Structured data ──
@@ -447,13 +448,13 @@ export default async function ToolPage({ params }: { params: Promise<Params> }) 
   return (
     <>
       <SchemaOrg schema={schemas} />
-      <Header locale={locale} activePath={`/${locale}/tools`} />
+      <Header locale={locale} activePath={localePath(locale, `/tools`)} />
 
       <div className="bg-gray-50 min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <Breadcrumb items={breadcrumbItems} />
         <div className="mb-4">
-          <BackButton fallbackHref={`/${locale}/tools/${category}`} />
+          <BackButton fallbackHref={localePath(locale, `/tools/${category}`)} />
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-8 mt-2">
@@ -588,7 +589,7 @@ export default async function ToolPage({ params }: { params: Promise<Params> }) 
                     return (
                       <Link
                         key={related.slug}
-                        href={`/${locale}/tools/${related.category}/${related.slug}`}
+                        href={localePath(locale, `/tools/${related.category}/${related.slug}`)}
                         className="flex items-center gap-3 p-3 rounded-xl hover:bg-gray-50 transition-colors group"
                       >
                         <div

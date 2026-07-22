@@ -16,6 +16,7 @@ import { getAllPublishedTemplates } from '@/lib/documents/document-templates-dat
 import { getDocumentType, getDocumentCountry } from '@/lib/documents/document-types'
 import { getPublishedArticles } from '@/lib/supabase/queries'
 import { getCategoryIcon, getCategoryBadgeClass } from '@/lib/registry/categories'
+import { localePath } from '@/lib/i18n/paths'
 
 type Params = { locale: string }
 
@@ -94,7 +95,7 @@ export default async function HomePage({
 
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
                 <Link
-                  href={`/${locale}/tools`}
+                  href={localePath(locale, `/tools`)}
                   className="inline-flex items-center justify-center gap-2 bg-indigo-700 hover:bg-indigo-800 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-base"
                 >
                   {t('heroCta')}
@@ -123,7 +124,7 @@ export default async function HomePage({
             <div className="flex items-center justify-between mb-8">
               <h2 className="text-2xl font-bold text-gray-900">{t('featuredTools')}</h2>
               <Link
-                href={`/${locale}/tools`}
+                href={localePath(locale, `/tools`)}
                 className="text-sm font-medium text-indigo-700 hover:text-indigo-800 transition-colors"
               >
                 View all →
@@ -138,7 +139,7 @@ export default async function HomePage({
                   return (
                     <Link
                       key={tool.slug}
-                      href={`/${locale}/tools/${tool.category}/${tool.slug}`}
+                      href={localePath(locale, `/tools/${tool.category}/${tool.slug}`)}
                       className="group bg-white rounded-2xl border border-gray-100 p-5 hover:border-indigo-200 hover:shadow-md transition-all"
                     >
                       <div className="text-2xl mb-3">{emoji}</div>
@@ -173,7 +174,7 @@ export default async function HomePage({
             <div className="flex items-center justify-between mb-8">
               <h2 className="text-2xl font-bold text-gray-900">{t('popularCategories')}</h2>
               <Link
-                href={`/${locale}/tools`}
+                href={localePath(locale, `/tools`)}
                 className="text-sm font-medium text-indigo-700 hover:text-indigo-800 transition-colors"
               >
                 All categories →
@@ -189,7 +190,7 @@ export default async function HomePage({
                 return (
                   <Link
                     key={cat.slug}
-                    href={`/${locale}/tools/${cat.slug}`}
+                    href={localePath(locale, `/tools/${cat.slug}`)}
                     className={`group rounded-2xl border p-4 transition-all ${colors}`}
                   >
                     <div className="text-2xl mb-2">{cat.icon}</div>
@@ -218,7 +219,7 @@ export default async function HomePage({
                 <h2 className="text-2xl font-bold text-gray-900">{t('documentTemplates')}</h2>
               </div>
               <Link
-                href={`/${locale}/documents`}
+                href={localePath(locale, `/documents`)}
                 className="text-sm font-medium text-indigo-700 hover:text-indigo-800 transition-colors whitespace-nowrap"
               >
                 {t('viewAllDocuments')}
@@ -237,7 +238,7 @@ export default async function HomePage({
                   return (
                     <Link
                       key={doc.id}
-                      href={`/${locale}/documents/${doc.document_type}/${doc.country}`}
+                      href={localePath(locale, `/documents/${doc.document_type}/${doc.country}`)}
                       className="group bg-white rounded-2xl border border-gray-100 p-5 hover:border-indigo-200 hover:shadow-md transition-all"
                     >
                       <div className="text-2xl mb-3">📄</div>
@@ -265,7 +266,7 @@ export default async function HomePage({
             <div className="flex items-center justify-between mb-8">
               <h2 className="text-2xl font-bold text-gray-900">{t('fromTheBlog')}</h2>
               <Link
-                href={`/${locale}/blog`}
+                href={localePath(locale, `/blog`)}
                 className="text-sm font-medium text-indigo-700 hover:text-indigo-800 transition-colors whitespace-nowrap"
               >
                 {t('viewAllArticles')}
@@ -294,7 +295,7 @@ export default async function HomePage({
 
                       <h3 className="font-bold text-gray-900 leading-snug mb-2 flex-1">
                         <Link
-                          href={`/${locale}/blog/${article.slug}`}
+                          href={localePath(locale, `/blog/${article.slug}`)}
                           className="hover:text-indigo-700 transition-colors"
                         >
                           {at.title}

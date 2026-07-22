@@ -5,8 +5,8 @@
 
 import { buildSitemapXml, xmlResponse } from '@/lib/sitemap/xml'
 import { getAllPublishedTemplates } from '@/lib/documents/document-templates-data'
+import { localizedUrl } from '@/lib/i18n/paths'
 
-const BASE_URL = 'https://toolbase.com.ng'
 const locales = ['en'] as const
 
 // Route Handlers with a GET can be statically cached by default; force
@@ -21,14 +21,11 @@ export async function GET() {
   // Documents index page
   for (const locale of locales) {
     entries.push({
-      url: `${BASE_URL}/${locale}/documents`,
+      url: localizedUrl(locale, `/documents`),
       lastModified: new Date(),
       changeFrequency: 'weekly' as const,
       priority: 0.8,
-      alternates: {
-        en: `${BASE_URL}/en/documents`,
-        ar: `${BASE_URL}/ar/documents`,
-      },
+      alternates: { en: localizedUrl(locale, `/documents`) },
     })
   }
 
@@ -39,14 +36,11 @@ export async function GET() {
     for (const t of templates) {
       for (const locale of locales) {
         entries.push({
-          url: `${BASE_URL}/${locale}/documents/${t.document_type}/${t.country}`,
+          url: localizedUrl(locale, `/documents/${t.document_type}/${t.country}`),
           lastModified: new Date(t.updated_at),
           changeFrequency: 'monthly' as const,
           priority: 0.75,
-          alternates: {
-            en: `${BASE_URL}/en/documents/${t.document_type}/${t.country}`,
-            ar: `${BASE_URL}/ar/documents/${t.document_type}/${t.country}`,
-          },
+          alternates: { en: localizedUrl(locale, `/documents/${t.document_type}/${t.country}`) },
         })
       }
     }

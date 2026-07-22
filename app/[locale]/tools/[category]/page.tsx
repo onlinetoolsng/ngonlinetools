@@ -12,6 +12,7 @@ import { SchemaOrg } from '@/components/seo/SchemaOrg'
 import { Breadcrumb } from '@/components/layout/Breadcrumb'
 import { BackButton } from '@/components/layout/BackButton'
 import { getToolIcon } from '@/lib/utils/toolIcons'
+import { localePath, localizedUrl } from '@/lib/i18n/paths'
 
 type Params = { locale: string; category: string }
 
@@ -63,21 +64,21 @@ export default async function CategoryPage({ params }: { params: Promise<Params>
   const BASE_URL = 'https://toolbase.com.ng'
 
   const breadcrumbItems = [
-    { label: tNav('home'),  href: `/${locale}` },
-    { label: tNav('tools'), href: `/${locale}/tools` },
-    { label: t('name'),     href: `/${locale}/tools/${category}` },
+    { label: tNav('home'),  href: localePath(locale) },
+    { label: tNav('tools'), href: localePath(locale, `/tools`) },
+    { label: t('name'),     href: localePath(locale, `/tools/${category}`) },
   ]
 
   // Resolve real tool names from translations (fall back to slug if not found)
   const toolsForSchema = tools.map(tool => ({
     name: getToolName(tool.slug, locale),
-    url: `${BASE_URL}/${locale}/tools/${category}/${tool.slug}`,
+    url: localizedUrl(locale, `/tools/${category}/${tool.slug}`),
   }))
 
   const collectionSchema = generateCollectionSchema({
     name: t('name'),
     description: t('description'),
-    url: `${BASE_URL}/${locale}/tools/${category}`,
+    url: localizedUrl(locale, `/tools/${category}`),
     tools: toolsForSchema,
   })
 
@@ -90,12 +91,12 @@ export default async function CategoryPage({ params }: { params: Promise<Params>
       <SchemaOrg schema={[collectionSchema, breadcrumbSchema]} />
 
       {/* Header */}
-      <Header locale={locale} activePath={`/${locale}/tools`} />
+      <Header locale={locale} activePath={localePath(locale, `/tools`)} />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <Breadcrumb items={breadcrumbItems} />
         <div className="mb-4">
-          <BackButton fallbackHref={`/${locale}/tools`} />
+          <BackButton fallbackHref={localePath(locale, `/tools`)} />
         </div>
 
         {/* Category header */}
@@ -116,7 +117,7 @@ export default async function CategoryPage({ params }: { params: Promise<Params>
             {tools.map(tool => (
               <Link
                 key={tool.slug}
-                href={`/${locale}/tools/${category}/${tool.slug}`}
+                href={localePath(locale, `/tools/${category}/${tool.slug}`)}
                 className="group bg-white border border-gray-200 rounded-2xl p-5 hover:border-indigo-200 hover:shadow-md transition-all"
               >
                 <div className="text-2xl mb-3">

@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { getTranslations } from 'next-intl/server'
 import { CATEGORIES } from '@/lib/registry/categories'
+import { localePath } from '@/lib/i18n/paths'
 
 type Props = {
   locale: string
@@ -18,7 +19,7 @@ export async function Footer({ locale }: Props) {
 
           {/* Brand */}
           <div>
-            <Link href={`/${locale}`} className="inline-block mb-3">
+            <Link href={localePath(locale)} className="inline-block mb-3">
               <span className="text-2xl font-black tracking-tight">
                 <span className="text-indigo-700">Tool</span>
                 <span className="text-gray-900">Base</span>
@@ -39,7 +40,7 @@ export async function Footer({ locale }: Props) {
               {categories.map(cat => (
                 <li key={cat.slug}>
                   <Link
-                    href={`/${locale}/tools/${cat.slug}`}
+                    href={localePath(locale, `/tools/${cat.slug}`)}
                     className="text-sm text-gray-500 hover:text-indigo-700 transition-colors flex items-center gap-2"
                   >
                     <span>{cat.icon}</span>
@@ -49,7 +50,7 @@ export async function Footer({ locale }: Props) {
               ))}
               <li>
                 <Link
-                  href={`/${locale}/tools`}
+                  href={localePath(locale, `/tools`)}
                   className="text-sm text-indigo-700 hover:text-indigo-800 font-medium transition-colors"
                 >
                   All categories →
@@ -64,37 +65,37 @@ export async function Footer({ locale }: Props) {
           <p>© {new Date().getFullYear()} ToolBase. All rights reserved.</p>
           <div className="flex flex-col items-center gap-2">
             <div className="flex flex-wrap items-center justify-center gap-4">
-              <Link href={`/${locale}/tools`} className="hover:text-gray-600 transition-colors">
+              <Link href={localePath(locale, `/tools`)} className="hover:text-gray-600 transition-colors">
                 {tNav('tools')}
               </Link>
 
-              <Link href={`/${locale}/documents`} className="hover:text-gray-600 transition-colors">
+              <Link href={localePath(locale, `/documents`)} className="hover:text-gray-600 transition-colors">
                 {tNav('documents')}
               </Link>
 
-              <Link href={`/${locale}/blog`} className="hover:text-gray-600 transition-colors">
+              <Link href={localePath(locale, `/blog`)} className="hover:text-gray-600 transition-colors">
                 {tNav('blog')}
               </Link>
 
-              <Link href={`/${locale}/about`} className="hover:text-gray-600 transition-colors">
+              <Link href={localePath(locale, `/about`)} className="hover:text-gray-600 transition-colors">
                 {tNav('about')}
               </Link>
             </div>
 
             <div className="flex flex-wrap items-center justify-center gap-4">
-              <Link href={`/${locale}/contact`} className="hover:text-gray-600 transition-colors">
+              <Link href={localePath(locale, `/contact`)} className="hover:text-gray-600 transition-colors">
                 {tNav('contact')}
               </Link>
 
-              <Link href={`/${locale}/disclaimer`} className="hover:text-gray-600 transition-colors">
+              <Link href={localePath(locale, `/disclaimer`)} className="hover:text-gray-600 transition-colors">
                 {tNav('disclaimer')}
               </Link>
 
-              <Link href={`/${locale}/privacy`} className="hover:text-gray-600 transition-colors">
+              <Link href={localePath(locale, `/privacy`)} className="hover:text-gray-600 transition-colors">
                 {tNav('privacy')}
               </Link>
 
-              <Link href={`/${locale}/terms`} className="hover:text-gray-600 transition-colors">
+              <Link href={localePath(locale, `/terms`)} className="hover:text-gray-600 transition-colors">
                 {tNav('terms')}
               </Link>
             </div>

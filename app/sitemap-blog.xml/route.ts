@@ -5,8 +5,8 @@
 
 import { buildSitemapXml, xmlResponse } from '@/lib/sitemap/xml'
 import { getAllPublishedArticleSlugs } from '@/lib/supabase/queries'
+import { localizedUrl } from '@/lib/i18n/paths'
 
-const BASE_URL = 'https://toolbase.com.ng'
 const locales = ['en'] as const
 
 export async function GET() {
@@ -15,14 +15,11 @@ export async function GET() {
   // Blog index pages
   for (const locale of locales) {
     entries.push({
-      url: `${BASE_URL}/${locale}/blog`,
+      url: localizedUrl(locale, `/blog`),
       lastModified: new Date(),
       changeFrequency: 'daily' as const,
       priority: 0.9,
-      alternates: {
-        en: `${BASE_URL}/en/blog`,
-        ar: `${BASE_URL}/ar/blog`,
-      },
+      alternates: { en: localizedUrl(locale, `/blog`) },
     })
   }
 
@@ -33,14 +30,11 @@ export async function GET() {
     for (const { slug, published_at } of slugs) {
       for (const locale of locales) {
         entries.push({
-          url: `${BASE_URL}/${locale}/blog/${slug}`,
+          url: localizedUrl(locale, `/blog/${slug}`),
           lastModified: new Date(published_at),
           changeFrequency: 'monthly' as const,
           priority: 0.7,
-          alternates: {
-            en: `${BASE_URL}/en/blog/${slug}`,
-            ar: `${BASE_URL}/ar/blog/${slug}`,
-          },
+          alternates: { en: localizedUrl(locale, `/blog/${slug}`) },
         })
       }
     }

@@ -11,6 +11,7 @@ import { BackButton } from '@/components/layout/BackButton';
 import { SchemaOrg } from '@/components/seo/SchemaOrg';
 import { generateBreadcrumbSchema } from '@/lib/schema/schemas';
 import TemplateDocumentClient from './client';
+import { localePath, localizedUrl } from '@/lib/i18n/paths'
 
 const BASE_URL = 'https://toolbase.com.ng';
 
@@ -71,7 +72,7 @@ export async function generateMetadata({
 
   const title = `${docType.label} Template (Free) | ToolBase`;
   const description = `Free, ready-to-use ${docType.label} for ${docCountry.name}. Fill in your details, edit inline, then download as PDF or Word — no sign-up required.`;
-  const url = `${BASE_URL}/${locale}/documents/${type}/${country}`;
+  const url = localizedUrl(locale, `/documents/${type}/${country}`);
 
   return {
     title,
@@ -96,30 +97,30 @@ export default async function TemplateDocumentPage({
 
   const docType = resolveDocType(type, template.title);
   const docCountry = resolveDocCountry(country);
-  const url = `${BASE_URL}/${locale}/documents/${type}/${country}`;
+  const url = localizedUrl(locale, `/documents/${type}/${country}`);
 
   const breadcrumbSchema = generateBreadcrumbSchema([
-    { name: 'Home', url: `${BASE_URL}/${locale}` },
-    { name: 'Documents', url: `${BASE_URL}/${locale}/documents` },
+    { name: 'Home', url: localizedUrl(locale) },
+    { name: 'Documents', url: localizedUrl(locale, `/documents`) },
     { name: docType.label, url },
   ]);
 
   const breadcrumbItems = [
-    { label: 'Home', href: `/${locale}` },
-    { label: 'Documents', href: `/${locale}/documents` },
-    { label: docType.label, href: `/${locale}/documents/${docType.slug}/${docCountry.code}` },
+    { label: 'Home', href: localePath(locale) },
+    { label: 'Documents', href: localePath(locale, `/documents`) },
+    { label: docType.label, href: localePath(locale, `/documents/${docType.slug}/${docCountry.code}`) },
   ];
 
   return (
     <>
       <SchemaOrg schema={breadcrumbSchema} />
-      <Header locale={locale} activePath={`/${locale}/documents`} />
+      <Header locale={locale} activePath={localePath(locale, `/documents`)} />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
         <div className="no-print">
           <Breadcrumb items={breadcrumbItems} />
           <div className="mb-2">
-            <BackButton fallbackHref={`/${locale}/documents`} />
+            <BackButton fallbackHref={localePath(locale, `/documents`)} />
           </div>
         </div>
 

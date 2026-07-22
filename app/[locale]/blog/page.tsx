@@ -21,6 +21,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }) 
 }
 
 import { getCategoryIcon, getCategoryBadgeClass, CATEGORIES } from '@/lib/registry/categories'
+import { localePath, localizedUrl } from '@/lib/i18n/paths'
 
 export default async function BlogIndexPage({
   params,
@@ -37,8 +38,8 @@ export default async function BlogIndexPage({
   const articles = await getPublishedArticles(locale, 24)
 
   const breadcrumbItems = [
-    { label: tNav('home'), href: `/${locale}` },
-    { label: tNav('blog'), href: `/${locale}/blog` },
+    { label: tNav('home'), href: localePath(locale) },
+    { label: tNav('blog'), href: localePath(locale, `/blog`) },
   ]
 
   const breadcrumbSchema = generateBreadcrumbSchema(
@@ -46,7 +47,7 @@ export default async function BlogIndexPage({
   )
 
   const blogSchema = generateBlogSchema({
-    url: `${BASE_URL}/${locale}/blog`,
+    url: localizedUrl(locale, `/blog`),
     name: isAr ? 'المدونة' : 'Blog',
     description: isAr
       ? 'أدلة عملية ومقالات حول الرواتب والضرائب وقانون العمل والمال في دول الخليج'
@@ -56,7 +57,7 @@ export default async function BlogIndexPage({
       .filter(a => a.translation)
       .map(a => ({
         title: a.translation!.title,
-        url: `${BASE_URL}/${locale}/blog/${a.slug}`,
+        url: localizedUrl(locale, `/blog/${a.slug}`),
         datePublished: a.published_at,
         description: a.translation!.excerpt ?? undefined,
       })),
@@ -65,12 +66,12 @@ export default async function BlogIndexPage({
   return (
     <>
       <SchemaOrg schema={[breadcrumbSchema, blogSchema]} />
-      <Header locale={locale} activePath={`/${locale}/blog`} />
+      <Header locale={locale} activePath={localePath(locale, `/blog`)} />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <Breadcrumb items={breadcrumbItems} />
         <div className="mb-4">
-          <BackButton fallbackHref={`/${locale}`} />
+          <BackButton fallbackHref={localePath(locale)} />
         </div>
 
         <header className="mb-10">
@@ -96,7 +97,7 @@ export default async function BlogIndexPage({
                 : 'In the meantime, try our free tools'}
             </p>
             <Link
-              href={`/${locale}/tools`}
+              href={localePath(locale, `/tools`)}
               className="inline-flex items-center gap-2 bg-indigo-700 hover:bg-indigo-800 text-white font-semibold px-6 py-3 rounded-xl transition-colors"
             >
               {isAr ? 'تصفح الأدوات ←' : 'Browse Tools →'}
@@ -135,7 +136,7 @@ export default async function BlogIndexPage({
 
                   <h2 className="font-bold text-gray-900 leading-snug mb-2 flex-1">
                     <Link
-                      href={`/${locale}/blog/${article.slug}`}
+                      href={localePath(locale, `/blog/${article.slug}`)}
                       className="hover:text-indigo-700 transition-colors"
                     >
                       {t.title}
@@ -157,7 +158,7 @@ export default async function BlogIndexPage({
                     </time>
                     {primaryToolSlug && (
                       <Link
-                        href={`/${locale}/tools/${article.category_slug}/${primaryToolSlug}`}
+                        href={localePath(locale, `/tools/${article.category_slug}/${primaryToolSlug}`)}
                         className="inline-flex items-center gap-1 text-xs font-semibold text-indigo-700 hover:text-indigo-800 transition-colors flex-shrink-0"
                       >
                         🔧 {isAr ? 'جرّب الأداة ←' : 'Try tool →'}
@@ -188,7 +189,7 @@ export default async function BlogIndexPage({
               {CATEGORIES.map(({ slug, icon }) => (
                 <Link
                   key={slug}
-                  href={`/${locale}/tools/${slug}`}
+                  href={localePath(locale, `/tools/${slug}`)}
                   className="inline-flex items-center gap-1.5 bg-white border border-gray-200 text-gray-600 text-xs font-medium px-3 py-1.5 rounded-full hover:border-indigo-300 hover:text-indigo-800 transition-all"
                 >
                   <span>{icon}</span>

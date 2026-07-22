@@ -4,6 +4,7 @@ import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { Breadcrumb } from '@/components/layout/Breadcrumb'
 import { BackButton } from '@/components/layout/BackButton'
+import { localePath } from '@/lib/i18n/paths'
 
 type Params = { locale: string }
 
@@ -27,8 +28,8 @@ export default async function ContactPage({ params }: { params: Promise<Params> 
   const tNav = await getTranslations({ locale, namespace: 'nav' })
 
   const breadcrumbItems = [
-    { label: tNav('home'), href: `/${locale}` },
-    { label: isAr ? 'اتصل بنا' : 'Contact Us', href: `/${locale}/contact` },
+    { label: tNav('home'), href: localePath(locale) },
+    { label: isAr ? 'اتصل بنا' : 'Contact Us', href: localePath(locale, `/contact`) },
   ]
 
   const contacts = [
@@ -64,7 +65,7 @@ export default async function ContactPage({ params }: { params: Promise<Params> 
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <Breadcrumb items={breadcrumbItems} />
         <div className="mb-4">
-          <BackButton fallbackHref={`/${locale}`} />
+          <BackButton fallbackHref={localePath(locale)} />
         </div>
 
         <div className="text-center py-10">

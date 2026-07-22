@@ -22,6 +22,7 @@ import { getCategoryIcon, getCategoryBadgeClass } from '@/lib/registry/categorie
 import AdUnit from '@/components/ads/AdUnit'
 import { AD_SLOTS } from '@/components/ads/slots'
 import { getToolIcon } from '@/lib/utils/toolIcons'
+import { localePath, localizedUrl } from '@/lib/i18n/paths'
 
 type Params = { locale: string; slug: string }
 
@@ -43,7 +44,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }) 
   if (!article?.translation) return {}
 
   const t = article.translation
-  const url = `${BASE_URL}/${locale}/blog/${slug}`
+  const url = localizedUrl(locale, `/blog/${slug}`)
 
   return {
     title: `${t.title} | ToolBase`,
@@ -104,7 +105,7 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
   const tNav = await getTranslations({ locale, namespace: 'nav' })
   const tCommon = await getTranslations({ locale, namespace: 'common' })
 
-  const articleUrl = `${BASE_URL}/${locale}/blog/${slug}`
+  const articleUrl = localizedUrl(locale, `/blog/${slug}`)
   const categoryIcon = getCategoryIcon(article.category_slug)
   const badgeColor = getCategoryBadgeClass(article.category_slug)
 
@@ -125,9 +126,9 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
 
   // Breadcrumb
   const breadcrumbItems = [
-    { label: tNav('home'), href: `/${locale}` },
-    { label: tNav('blog'), href: `/${locale}/blog` },
-    { label: t.title,      href: `/${locale}/blog/${slug}` },
+    { label: tNav('home'), href: localePath(locale) },
+    { label: tNav('blog'), href: localePath(locale, `/blog`) },
+    { label: t.title,      href: localePath(locale, `/blog/${slug}`) },
   ]
 
   // Schemas
@@ -158,12 +159,12 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
   return (
     <>
       <SchemaOrg schema={[articleSchema, breadcrumbSchema]} />
-      <Header locale={locale} activePath={`/${locale}/blog`} />
+      <Header locale={locale} activePath={localePath(locale, `/blog`)} />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <Breadcrumb items={breadcrumbItems} />
         <div className="mb-4">
-          <BackButton fallbackHref={`/${locale}/blog`} />
+          <BackButton fallbackHref={localePath(locale, `/blog`)} />
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-10 mt-2">
@@ -174,7 +175,7 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
             {/* Category badge */}
             <div className="mb-4">
               <Link
-                href={article.category_slug ? `/${locale}/tools/${article.category_slug}` : `/${locale}/tools`}
+                href={article.category_slug ? localePath(locale, `/tools/${article.category_slug}`) : localePath(locale, `/tools`)}
                 className={`inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full transition-opacity hover:opacity-80 ${badgeColor}`}
               >
                 <span>{categoryIcon}</span>
@@ -254,7 +255,7 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
                   {relatedTools.map(tool => (
                     <Link
                       key={tool.slug}
-                      href={`/${locale}/tools/${tool.category}/${tool.slug}`}
+                      href={localePath(locale, `/tools/${tool.category}/${tool.slug}`)}
                       className="flex items-center gap-3 bg-white rounded-xl p-4 border border-indigo-100 hover:border-indigo-300 hover:shadow-sm transition-all group"
                     >
                       <span className="text-2xl flex-shrink-0">
@@ -335,7 +336,7 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
                   {relatedTools.map(tool => (
                     <Link
                       key={tool.slug}
-                      href={`/${locale}/tools/${tool.category}/${tool.slug}`}
+                      href={localePath(locale, `/tools/${tool.category}/${tool.slug}`)}
                       className="flex items-center gap-3 p-3 rounded-xl hover:bg-gray-50 transition-colors group"
                     >
                       <div className="w-8 h-8 rounded-lg bg-indigo-50 flex items-center justify-center text-base flex-shrink-0">
@@ -368,7 +369,7 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
                     return (
                       <Link
                         key={a.slug}
-                        href={`/${locale}/blog/${a.slug}`}
+                        href={localePath(locale, `/blog/${a.slug}`)}
                         className="block group"
                       >
                         <div className="flex items-start gap-2">
@@ -390,7 +391,7 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
                   })}
                 </div>
                 <Link
-                  href={`/${locale}/blog`}
+                  href={localePath(locale, `/blog`)}
                   className="block mt-4 text-xs font-semibold text-indigo-700 hover:text-indigo-800 transition-colors"
                 >
                   {isAr ? 'جميع المقالات ←' : 'All articles →'}

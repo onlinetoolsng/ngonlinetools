@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { getTranslations } from 'next-intl/server'
+import { localePath } from '@/lib/i18n/paths'
 
 type Props = {
   locale: string
@@ -9,11 +10,11 @@ type Props = {
 export async function Header({ locale, activePath }: Props) {
   const tNav = await getTranslations({ locale, namespace: 'nav' })
 
-const navLinks = [
-  { href: `/${locale}/tools`,      label: tNav('tools') },
-  { href: `/${locale}/documents`,  label: tNav('documents') },
-  { href: `/${locale}/blog`,       label: tNav('blog') },
-]
+  const navLinks = [
+    { href: localePath(locale, `/tools`),      label: tNav('tools') },
+    { href: localePath(locale, `/documents`),  label: tNav('documents') },
+    { href: localePath(locale, `/blog`),       label: tNav('blog') },
+  ]
 
   return (
     <header className="bg-white border-b border-gray-100 sticky top-0 z-50">
@@ -21,7 +22,7 @@ const navLinks = [
         <div className="flex items-center justify-between h-16">
 
           {/* Logo */}
-          <Link href={`/${locale}`} className="text-2xl font-black tracking-tight flex-shrink-0">
+          <Link href={localePath(locale)} className="text-2xl font-black tracking-tight flex-shrink-0">
             <span className="text-indigo-700">Tool</span>
             <span className="text-gray-900">Base</span>
             <span className="text-amber-500">.com.ng</span>

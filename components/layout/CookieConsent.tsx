@@ -4,6 +4,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useLocale } from 'next-intl'
+import { localePath } from '@/lib/i18n/paths'
 
 export default function CookieConsent() {
   const [isVisible, setIsVisible] = useState(false)
@@ -48,7 +49,7 @@ export default function CookieConsent() {
                 : 'We use cookies to improve your experience and serve relevant ads. By continuing to use this site, you agree to our use of cookies.'}
               {' '}
               <Link
-                href={`/${locale}/privacy`}
+                href={localePath(locale, `/privacy`)}
                 className="text-indigo-300 hover:text-indigo-300 underline underline-offset-2 transition-colors"
               >
                 {isAr ? 'سياسة الخصوصية' : 'Privacy Policy'}

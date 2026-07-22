@@ -6,8 +6,8 @@
 import { buildSitemapXml, xmlResponse } from '@/lib/sitemap/xml'
 import { TOOLS } from '@/lib/registry/tools'
 import { createSupabasePublicClient } from '@/lib/supabase/client'
+import { localizedUrl } from '@/lib/i18n/paths'
 
-const BASE_URL = 'https://toolbase.com.ng'
 const locales = ['en'] as const
 
 async function getTranslatedToolSlugs(): Promise<Set<string>> {
@@ -33,14 +33,11 @@ export async function GET() {
     .filter(tool => translatedSlugs.has(tool.slug))
     .flatMap(tool =>
       locales.map(locale => ({
-        url: `${BASE_URL}/${locale}/tools/${tool.category}/${tool.slug}`,
+        url: localizedUrl(locale, `/tools/${tool.category}/${tool.slug}`),
         lastModified: new Date(tool.launchDate),
         changeFrequency: 'monthly' as const,
         priority: tool.featured ? 0.85 : 0.75,
-        alternates: {
-          en: `${BASE_URL}/en/tools/${tool.category}/${tool.slug}`,
-          ar: `${BASE_URL}/ar/tools/${tool.category}/${tool.slug}`,
-        },
+        alternates: { en: localizedUrl(locale, `/tools/${tool.category}/${tool.slug}`) },
       }))
     )
 

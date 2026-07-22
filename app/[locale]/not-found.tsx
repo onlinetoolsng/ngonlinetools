@@ -7,6 +7,7 @@ import { getToolIcon } from '@/lib/utils/toolIcons'
 
 // next-intl provides locale via this in not-found pages
 import { getLocale } from 'next-intl/server'
+import { localePath } from '@/lib/i18n/paths'
 
 export default async function NotFound() {
   const locale = await getLocale()
@@ -27,13 +28,13 @@ export default async function NotFound() {
 
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <Link
-            href={`/${locale}`}
+            href={localePath(locale)}
             className="inline-flex items-center justify-center gap-2 bg-indigo-700 hover:bg-indigo-800 text-white font-semibold px-6 py-3 rounded-xl transition-colors"
           >
             ← Back to Home
           </Link>
           <Link
-            href={`/${locale}/tools`}
+            href={localePath(locale, `/tools`)}
             className="inline-flex items-center justify-center gap-2 border border-gray-200 text-gray-700 hover:border-indigo-300 hover:text-indigo-700 font-semibold px-6 py-3 rounded-xl transition-colors"
           >
             Browse Tools
@@ -50,7 +51,7 @@ export default async function NotFound() {
               {popularTools.map(tool => (
                 <Link
                   key={tool.slug}
-                  href={`/${locale}/tools/${tool.category}/${tool.slug}`}
+                  href={localePath(locale, `/tools/${tool.category}/${tool.slug}`)}
                   className="flex items-center gap-3 bg-white border border-gray-100 rounded-xl p-4 hover:border-indigo-200 hover:shadow-sm transition-all group"
                 >
                   <span className="text-2xl">{getToolIcon(tool)}</span>

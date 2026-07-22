@@ -11,6 +11,7 @@ import { SchemaOrg } from '@/components/seo/SchemaOrg';
 import { generateBreadcrumbSchema } from '@/lib/schema/schemas';
 import { getAllPublishedTemplates } from '@/lib/documents/document-templates-data';
 import { getDocumentType, getDocumentCountry } from '@/lib/documents/document-types';
+import { localePath, localizedUrl } from '@/lib/i18n/paths'
 
 type Params = { locale: string };
 
@@ -34,7 +35,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   return {
     title: 'Free Document Templates | ToolBase',
     description: 'Free, ready-to-use document templates for Nigeria — tenancy agreements, employment contracts, loan agreements, affidavits, and more. Fill in your details and download as PDF or Word.',
-    alternates: { canonical: `${BASE_URL}/${locale}/documents` },
+    alternates: { canonical: localizedUrl(locale, `/documents`) },
   };
 }
 
@@ -54,8 +55,8 @@ export default async function DocumentsIndexPage({ params }: { params: Promise<P
   }
 
   const breadcrumbItems = [
-    { label: tNav('home'), href: `/${locale}` },
-    { label: 'Documents', href: `/${locale}/documents` },
+    { label: tNav('home'), href: localePath(locale) },
+    { label: 'Documents', href: localePath(locale, `/documents`) },
   ];
   const breadcrumbSchema = generateBreadcrumbSchema(
     breadcrumbItems.map(b => ({ name: b.label, url: `${BASE_URL}${b.href}` }))
@@ -64,12 +65,12 @@ export default async function DocumentsIndexPage({ params }: { params: Promise<P
   return (
     <>
       <SchemaOrg schema={breadcrumbSchema} />
-      <Header locale={locale} activePath={`/${locale}/documents`} />
+      <Header locale={locale} activePath={localePath(locale, `/documents`)} />
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <Breadcrumb items={breadcrumbItems} />
         <div className="mb-4">
-          <BackButton fallbackHref={`/${locale}`} />
+          <BackButton fallbackHref={localePath(locale)} />
         </div>
 
         <div className="mb-8">
@@ -101,7 +102,7 @@ export default async function DocumentsIndexPage({ params }: { params: Promise<P
                   return (
                     <Link
                       key={t.id}
-                      href={`/${locale}/documents/${t.document_type}/${t.country}`}
+                      href={localePath(locale, `/documents/${t.document_type}/${t.country}`)}
                       className="group bg-white border border-gray-200 hover:border-indigo-300 hover:shadow-md rounded-2xl p-4 transition-all"
                     >
                       <p className="font-bold text-gray-900 text-sm group-hover:text-indigo-800 transition-colors">{label}</p>

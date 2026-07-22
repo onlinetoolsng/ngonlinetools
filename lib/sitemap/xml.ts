@@ -6,7 +6,7 @@ export type SitemapEntry = {
   lastModified?: Date | string
   changeFrequency?: 'always' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly' | 'never'
   priority?: number
-  alternates?: { en: string; ar: string }
+  alternates?: { en: string }
 }
 
 function formatDate(date: Date | string | undefined): string {
@@ -28,7 +28,6 @@ function buildUrl(entry: SitemapEntry): string {
   }
   if (entry.alternates) {
     lines.push(`    <xhtml:link rel="alternate" hreflang="en" href="${entry.alternates.en}"/>`)
-    lines.push(`    <xhtml:link rel="alternate" hreflang="ar" href="${entry.alternates.ar}"/>`)
     lines.push(`    <xhtml:link rel="alternate" hreflang="x-default" href="${entry.alternates.en}"/>`)
   }
   lines.push('  </url>')

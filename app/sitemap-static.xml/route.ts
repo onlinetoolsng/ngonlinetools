@@ -3,8 +3,8 @@
 // and all static legal/info pages.
 
 import { buildSitemapXml, xmlResponse } from '@/lib/sitemap/xml'
+import { localizedUrl } from '@/lib/i18n/paths'
 
-const BASE_URL = 'https://toolbase.com.ng'
 const locales = ['en'] as const
 
 // All static page paths (relative, without locale prefix)
@@ -22,14 +22,11 @@ const STATIC_PATHS = [
 export async function GET() {
   const entries = STATIC_PATHS.flatMap(({ path, changeFrequency, priority }) =>
     locales.map(locale => ({
-      url: `${BASE_URL}/${locale}${path}`,
+      url: localizedUrl(locale, path),
       lastModified: new Date(),
       changeFrequency,
       priority,
-      alternates: {
-        en: `${BASE_URL}/en${path}`,
-        ar: `${BASE_URL}/ar${path}`,
-      },
+      alternates: { en: localizedUrl(locale, path) },
     }))
   )
 
