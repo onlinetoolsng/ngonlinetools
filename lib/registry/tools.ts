@@ -634,7 +634,7 @@ export const TOOLS: Tool[] = [
   },
   {
     slug: 'zakat-calculator',
-    category: 'finance',
+    category: 'faith',
     schema: 'calculator',
     featured: false,
     countries: ['nigeria'],
