@@ -545,7 +545,7 @@ export default function PoultryFarmStartupCalculator({ locale }: CalculatorProps
                       <Cell key={i} fill={PIE_COLORS[i % PIE_COLORS.length]} />
                     ))}
                   </Pie>
-                  <Tooltip formatter={(v: number) => formatNaira(v)} />
+                  <Tooltip formatter={(v: unknown) => formatNaira(Number(v ?? 0))} />
                   <Legend wrapperStyle={{ fontSize: '11px' }} />
                 </PieChart>
               </ResponsiveContainer>
@@ -559,7 +559,7 @@ export default function PoultryFarmStartupCalculator({ locale }: CalculatorProps
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="week" tick={{ fontSize: 10 }} label={{ value: t.week, position: 'insideBottom', fontSize: 10, dy: 10 }} />
                   <YAxis tick={{ fontSize: 10 }} />
-                  <Tooltip formatter={(v: number) => formatNaira(v)} />
+                  <Tooltip formatter={(v: unknown) => formatNaira(Number(v ?? 0))} />
                   <Legend wrapperStyle={{ fontSize: '11px' }} />
                   <Line type="monotone" dataKey="cost" name="Cost" stroke="#4f46e5" strokeWidth={2} dot={false} />
                   <Line type="monotone" dataKey="revenue" name="Revenue" stroke="#22c55e" strokeWidth={2} dot={false} />

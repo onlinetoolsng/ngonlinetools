@@ -161,6 +161,18 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
         const { CITCalculator } = await import('@/components/tools/CITCalculator')
         return CITCalculator
       }
+      case 'nigeria-emergency-fund-insurance-calculator': {
+        const { default: NigeriaEmergencyFundInsuranceCalculator } = await import('@/components/tools/NigeriaEmergencyFundInsuranceCalculator')
+        return NigeriaEmergencyFundInsuranceCalculator
+      }
+      case 'poultry-farm-startup-break-even-calculator': {
+        const { default: PoultryFarmStartupCalculator } = await import('@/components/tools/PoultryFarmStartupCalculator')
+        return PoultryFarmStartupCalculator
+      }
+      case 'tithe-calculator': {
+        const { TitheCalculator } = await import('@/components/tools/TitheCalculator')
+        return TitheCalculator
+      }
       case 'net-worth-calculator': {
         const { NigeriaNetWorthCalculator } = await import('@/components/tools/NigeriaNetWorthCalculator')
         return NigeriaNetWorthCalculator
