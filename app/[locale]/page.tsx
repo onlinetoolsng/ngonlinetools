@@ -11,6 +11,11 @@ import AdUnit from '@/components/ads/AdUnit'
 import { AD_SLOTS } from '@/components/ads/slots'
 import { generateHomepageMetadata } from '@/lib/utils/seo'
 import { getToolIcon } from '@/lib/utils/toolIcons'
+import { FileCheck2 } from 'lucide-react'
+import { getAllPublishedTemplates } from '@/lib/documents/document-templates-data'
+import { getDocumentType, getDocumentCountry } from '@/lib/documents/document-types'
+import { getPublishedArticles } from '@/lib/supabase/queries'
+import { getCategoryIcon, getCategoryBadgeClass } from '@/lib/registry/categories'
 
 type Params = { locale: string }
 
@@ -48,8 +53,15 @@ export default async function HomePage({
 
   const t = await getTranslations({ locale, namespace: 'homepage' })
   const tCat = await getTranslations({ locale, namespace: 'categories' })
+  const isAr = locale === 'ar'
 
   const featuredTools = getFeaturedTools()
+
+  const [allTemplates, latestArticles] = await Promise.all([
+    getAllPublishedTemplates(),
+    getPublishedArticles(locale, 3),
+  ])
+  const featuredDocuments = allTemplates.slice(0, 4)
 
   const stats = [
     { value: '10',   label: t('toolsCount') },
@@ -189,6 +201,132 @@ export default async function HomePage({
                 )
               })}
             </div>
+          </div>
+        </section>
+
+        {/* ─── DOCUMENT TEMPLATES ──────────────────────────────────────────────── */}
+        <section className="py-16 bg-gray-50 border-t border-gray-100">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-between mb-8">
+              <div>
+                <div className="flex items-center gap-2 mb-2">
+                  <FileCheck2 className="h-4 w-4 text-indigo-600" />
+                  <span className="text-xs text-gray-500 uppercase tracking-wide font-medium">
+                    {t('freeNoSignUp')}
+                  </span>
+                </div>
+                <h2 className="text-2xl font-bold text-gray-900">{t('documentTemplates')}</h2>
+              </div>
+              <Link
+                href={`/${locale}/documents`}
+                className="text-sm font-medium text-indigo-700 hover:text-indigo-800 transition-colors whitespace-nowrap"
+              >
+                {t('viewAllDocuments')}
+              </Link>
+            </div>
+
+            {featuredDocuments.length > 0 ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                {featuredDocuments.map(doc => {
+                  const docType = getDocumentType(doc.document_type)
+                  const docCountry = getDocumentCountry(doc.country)
+                  const label = docType?.label || doc.title
+                  const countryFlag = docCountry?.flag || '🌍'
+                  const countryName = docCountry?.name || doc.country.toUpperCase()
+
+                  return (
+                    <Link
+                      key={doc.id}
+                      href={`/${locale}/documents/${doc.document_type}/${doc.country}`}
+                      className="group bg-white rounded-2xl border border-gray-100 p-5 hover:border-indigo-200 hover:shadow-md transition-all"
+                    >
+                      <div className="text-2xl mb-3">📄</div>
+                      <h3 className="font-semibold text-gray-900 group-hover:text-indigo-700 transition-colors text-sm leading-snug mb-1">
+                        {label}
+                      </h3>
+                      <p className="text-xs text-gray-500">{countryFlag} {countryName}</p>
+                    </Link>
+                  )
+                })}
+              </div>
+            ) : (
+              <div className="bg-white rounded-2xl border border-dashed border-gray-200 p-10 text-center">
+                <div className="text-3xl mb-3">📄</div>
+                <p className="font-semibold text-gray-700 mb-1">{t('documentsComingSoon')}</p>
+                <p className="text-sm text-gray-500 max-w-md mx-auto">{t('documentsComingSoonSub')}</p>
+              </div>
+            )}
+          </div>
+        </section>
+
+        {/* ─── FROM THE BLOG ───────────────────────────────────────────────────── */}
+        <section className="py-16 bg-white border-t border-gray-100">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-between mb-8">
+              <h2 className="text-2xl font-bold text-gray-900">{t('fromTheBlog')}</h2>
+              <Link
+                href={`/${locale}/blog`}
+                className="text-sm font-medium text-indigo-700 hover:text-indigo-800 transition-colors whitespace-nowrap"
+              >
+                {t('viewAllArticles')}
+              </Link>
+            </div>
+
+            {latestArticles.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {latestArticles.map(article => {
+                  const at = article.translation
+                  if (!at) return null
+                  const badgeColor = getCategoryBadgeClass(article.category_slug)
+                  const icon = getCategoryIcon(article.category_slug)
+
+                  return (
+                    <article
+                      key={article.slug}
+                      className="bg-white border border-gray-100 rounded-2xl p-6 flex flex-col hover:border-indigo-200 hover:shadow-sm transition-all"
+                    >
+                      <div className="flex items-center gap-2 mb-4">
+                        <span className="text-2xl">{icon}</span>
+                        <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${badgeColor}`}>
+                          {article.category_slug.replace(/-/g, ' ')}
+                        </span>
+                      </div>
+
+                      <h3 className="font-bold text-gray-900 leading-snug mb-2 flex-1">
+                        <Link
+                          href={`/${locale}/blog/${article.slug}`}
+                          className="hover:text-indigo-700 transition-colors"
+                        >
+                          {at.title}
+                        </Link>
+                      </h3>
+
+                      {at.excerpt && (
+                        <p className="text-sm text-gray-500 leading-relaxed line-clamp-3 mb-4">
+                          {at.excerpt}
+                        </p>
+                      )}
+
+                      <time
+                        dateTime={article.published_at}
+                        className="text-xs text-gray-400 mt-auto pt-4 border-t border-gray-50"
+                      >
+                        {new Date(article.published_at).toLocaleDateString(
+                          isAr ? 'ar-AE' : 'en-NG',
+                          { year: 'numeric', month: 'short', day: 'numeric' }
+                        )}
+                      </time>
+                    </article>
+                  )
+                })}
+              </div>
+            ) : (
+              <div className="bg-gray-50 rounded-2xl border border-dashed border-gray-200 p-10 text-center">
+                <div className="text-3xl mb-3">✍️</div>
+                <p className="font-semibold text-gray-700 mb-1">{t('articlesComingSoon')}</p>
+                <p className="text-sm text-gray-500 max-w-md mx-auto">{t('articlesComingSoonSub')}</p>
+              </div>
+            )}
           </div>
         </section>
       </main>

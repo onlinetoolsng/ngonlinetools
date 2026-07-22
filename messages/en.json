@@ -38,7 +38,16 @@
     "heroCta": "Browse All Tools",
     "trustedBy": "Built for individuals, professionals & businesses across Nigeria",
     "comingSoon": "New tools launching soon",
-    "comingSoonSub": "We're building out calculators and generators for every category below. Check back often, or explore what's already live."
+    "comingSoonSub": "We're building out calculators and generators for every category below. Check back often, or explore what's already live.",
+    "freeNoSignUp": "Free · No Sign-Up",
+    "documentTemplates": "Document Templates",
+    "viewAllDocuments": "View all →",
+    "documentsComingSoon": "Templates launching soon",
+    "documentsComingSoonSub": "We're adding ready-to-fill Nigerian document templates. Check back soon.",
+    "fromTheBlog": "From the Blog",
+    "viewAllArticles": "View all →",
+    "articlesComingSoon": "Articles coming soon",
+    "articlesComingSoonSub": "In the meantime, try our free tools or document templates."
   },
   "categories": {
     "finance": {

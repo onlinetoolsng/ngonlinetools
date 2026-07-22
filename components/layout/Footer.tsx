@@ -60,40 +60,44 @@ export async function Footer({ locale }: Props) {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-10 pt-6 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-gray-400">
+        <div className="mt-10 pt-6 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-400">
           <p>© {new Date().getFullYear()} ToolBase. All rights reserved.</p>
-          <div className="flex items-center gap-4">
-<Link href={`/${locale}/tools`} className="hover:text-gray-600 transition-colors">
-  {tNav('tools')}
-</Link>
+          <div className="flex flex-col items-center gap-2">
+            <div className="flex flex-wrap items-center justify-center gap-4">
+              <Link href={`/${locale}/tools`} className="hover:text-gray-600 transition-colors">
+                {tNav('tools')}
+              </Link>
 
-<Link href={`/${locale}/documents`} className="hover:text-gray-600 transition-colors">
-  {tNav('documents')}
-</Link>
+              <Link href={`/${locale}/documents`} className="hover:text-gray-600 transition-colors">
+                {tNav('documents')}
+              </Link>
 
-<Link href={`/${locale}/blog`} className="hover:text-gray-600 transition-colors">
-  {tNav('blog')}
-</Link>
+              <Link href={`/${locale}/blog`} className="hover:text-gray-600 transition-colors">
+                {tNav('blog')}
+              </Link>
 
-<Link href={`/${locale}/about`} className="hover:text-gray-600 transition-colors">
-  {tNav('about')}
-</Link>
+              <Link href={`/${locale}/about`} className="hover:text-gray-600 transition-colors">
+                {tNav('about')}
+              </Link>
+            </div>
 
-<Link href={`/${locale}/contact`} className="hover:text-gray-600 transition-colors">
-  {tNav('contact')}
-</Link>
+            <div className="flex flex-wrap items-center justify-center gap-4">
+              <Link href={`/${locale}/contact`} className="hover:text-gray-600 transition-colors">
+                {tNav('contact')}
+              </Link>
 
-<Link href={`/${locale}/disclaimer`} className="hover:text-gray-600 transition-colors">
-  {tNav('disclaimer')}
-</Link>
+              <Link href={`/${locale}/disclaimer`} className="hover:text-gray-600 transition-colors">
+                {tNav('disclaimer')}
+              </Link>
 
-<Link href={`/${locale}/privacy`} className="hover:text-gray-600 transition-colors">
-  {tNav('privacy')}
-</Link>
+              <Link href={`/${locale}/privacy`} className="hover:text-gray-600 transition-colors">
+                {tNav('privacy')}
+              </Link>
 
-<Link href={`/${locale}/terms`} className="hover:text-gray-600 transition-colors">
-  {tNav('terms')}
-</Link>
+              <Link href={`/${locale}/terms`} className="hover:text-gray-600 transition-colors">
+                {tNav('terms')}
+              </Link>
+            </div>
           </div>
         </div>
       </div>

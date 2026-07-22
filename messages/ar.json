@@ -17,6 +17,7 @@
 "nav": {
   "home": "الرئيسية",
   "tools": "الأدوات",
+  "documents": "المستندات",
   "blog": "المدونة",
   "locations": "الدول",
   "search": "ابحث عن أداة...",
@@ -36,7 +37,16 @@
     "countriesCount": "7 دول خليجية",
     "languagesCount": "عربي وإنجليزي",
     "heroCta": "تصفح جميع الأدوات",
-    "trustedBy": "مصممة للمقيمين والمهنيين والشركات في منطقة الخليج"
+    "trustedBy": "مصممة للمقيمين والمهنيين والشركات في منطقة الخليج",
+    "freeNoSignUp": "مجاني · بدون تسجيل",
+    "documentTemplates": "نماذج المستندات",
+    "viewAllDocuments": "عرض الكل ←",
+    "documentsComingSoon": "النماذج قادمة قريباً",
+    "documentsComingSoonSub": "نعمل على إضافة نماذج مستندات جاهزة للتعبئة. تفقّد الصفحة قريباً.",
+    "fromTheBlog": "من المدونة",
+    "viewAllArticles": "عرض الكل ←",
+    "articlesComingSoon": "المقالات قادمة قريباً",
+    "articlesComingSoonSub": "في انتظار ذلك، جرّب أدواتنا المجانية أو نماذج المستندات."
   },
   "categories": {
     "finance": {
