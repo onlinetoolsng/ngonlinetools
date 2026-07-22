@@ -81,6 +81,18 @@ export const TOOLS: Tool[] = [
     launchDate: '2026-07-21',
   },
   {
+    slug: 'nigeria-construction-cost-estimator',
+    category: 'real-estate',
+    schema: 'calculator',
+    featured: false,
+    countries: ['nigeria'],
+    relatedTools: ['nigeria-employee-total-cost-calculator', 'net-worth-calculator'],
+    relatedArticles: [],
+    hasCountryVariants: false,
+    requiresApi: false,
+    launchDate: '2026-07-22',
+  },
+  {
     slug: 'net-worth-calculator',
     category: 'finance',
     schema: 'calculator',

@@ -158,6 +158,10 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
         const { NigeriaEmployeeTotalCostCalculator } = await import('@/components/tools/NigeriaEmployeeTotalCostCalculator')
         return NigeriaEmployeeTotalCostCalculator
       }
+      case 'nigeria-construction-cost-estimator': {
+        const { NigeriaConstructionCostEstimator } = await import('@/components/tools/NigeriaConstructionCostEstimator')
+        return NigeriaConstructionCostEstimator
+      }
       case 'investment-returns-calculator': {
         const { InvestmentReturnsCalculator } = await import('@/components/tools/InvestmentReturnsCalculator')
         return InvestmentReturnsCalculator
