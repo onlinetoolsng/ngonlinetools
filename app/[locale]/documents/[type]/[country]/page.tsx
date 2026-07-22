@@ -124,7 +124,7 @@ export default async function TemplateDocumentPage({
           </div>
         </div>
 
-        <TemplateDocumentClient template={template} docType={docType} docCountry={docCountry} />
+        <TemplateDocumentClient template={template} docType={docType} docCountry={docCountry} locale={locale} />
       </div>
 
       <Footer locale={locale} />

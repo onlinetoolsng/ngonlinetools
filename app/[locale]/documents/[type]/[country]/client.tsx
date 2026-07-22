@@ -1,13 +1,14 @@
 'use client';
 
 import { useState } from 'react';
-import { FileCheck2, Wand2 } from 'lucide-react';
+import Link from 'next/link';
+import { FileCheck2, Wand2, History } from 'lucide-react';
 import { DocumentTemplateRow, fillTemplate } from '@/lib/documents/document-templates-fill';
 import { DocumentTypeDef, DocumentCountryDef, HIGH_RISK_DOCUMENT_TYPES } from '@/lib/documents/document-types';
 import { GeneratedDocument } from '@/lib/documents/document-format';
-import { DocumentHistoryEntry, saveToHistory } from '@/lib/documents/document-history';
+import { saveToHistory } from '@/lib/documents/document-history';
+import { localePath } from '@/lib/i18n/paths';
 import DocumentEditor from '@/components/documents/DocumentEditor';
-import DocumentHistoryList from '@/components/documents/DocumentHistoryList';
 
 // This is a Client Component scoped to ONLY the interactive fill-in-form /
 // document-editor slice. Header/Footer/Breadcrumb/BackButton are rendered
@@ -24,9 +25,10 @@ interface TemplateDocumentClientProps {
   template: DocumentTemplateRow;
   docType: DocumentTypeDef;
   docCountry: DocumentCountryDef;
+  locale: string;
 }
 
-export default function TemplateDocumentClient({ template, docType, docCountry }: TemplateDocumentClientProps) {
+export default function TemplateDocumentClient({ template, docType, docCountry, locale }: TemplateDocumentClientProps) {
   const [values, setValues] = useState<Record<string, string>>({});
   const [usePlaceholders, setUsePlaceholders] = useState(false);
   const [generatedDocument, setGeneratedDocument] = useState<GeneratedDocument | null>(null);
@@ -60,10 +62,6 @@ export default function TemplateDocumentClient({ template, docType, docCountry }
     });
   };
 
-  const handleOpenHistoryEntry = (entry: DocumentHistoryEntry) => {
-    setGeneratedDocument(entry.document);
-  };
-
   const handleReset = () => {
     setGeneratedDocument(null);
     setValues({});
@@ -74,14 +72,24 @@ export default function TemplateDocumentClient({ template, docType, docCountry }
     <>
       {!generatedDocument && (
         <>
-          <div>
-            <div className="flex items-center gap-2 mb-2">
-              <FileCheck2 className="h-4 w-4 text-indigo-600" />
-              <span className="text-xs text-gray-500 uppercase tracking-wide font-medium">Free Template · No Sign-Up</span>
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <div>
+              <div className="flex items-center gap-2 mb-2">
+                <FileCheck2 className="h-4 w-4 text-indigo-600" />
+                <span className="text-xs text-gray-500 uppercase tracking-wide font-medium">Free Template · No Sign-Up</span>
+              </div>
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black text-gray-900 mb-2">
+                {docType.label} Template — {docCountry.flag} {docCountry.name}
+              </h1>
             </div>
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black text-gray-900 mb-2">
-              {docType.label} Template — {docCountry.flag} {docCountry.name}
-            </h1>
+
+            <Link
+              href={localePath(locale, `/documents/history`)}
+              className="flex items-center gap-2 bg-white border border-gray-200 hover:border-indigo-300 text-gray-700 hover:text-indigo-700 text-sm font-semibold rounded-full px-4 py-2.5 transition-colors flex-shrink-0 no-print"
+            >
+              <History className="h-4 w-4" />
+              My Saved Documents
+            </Link>
           </div>
 
           {template.legal_note && (
@@ -92,9 +100,9 @@ export default function TemplateDocumentClient({ template, docType, docCountry }
 
           <p className="text-xs text-gray-400">{SHORT_DISCLAIMER}</p>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
-            {/* Fill-in form — takes 2/3 of the width on desktop */}
-            <div className="lg:col-span-2 bg-white border border-gray-200 rounded-2xl p-5 sm:p-6 space-y-4">
+          <div className="max-w-2xl">
+            {/* Fill-in form */}
+            <div className="bg-white border border-gray-200 rounded-2xl p-5 sm:p-6 space-y-4">
               <div className="flex items-center justify-between">
                 <h2 className="text-sm font-semibold text-gray-900">Fill in your details</h2>
                 <button
@@ -151,11 +159,6 @@ export default function TemplateDocumentClient({ template, docType, docCountry }
                 <Wand2 className="h-4 w-4" />
                 Fill Document
               </button>
-            </div>
-
-            {/* History sidebar — sticky alongside the form on desktop, stacks below on mobile */}
-            <div className="lg:col-span-1 lg:sticky lg:top-6">
-              <DocumentHistoryList filterSource="template" onOpen={handleOpenHistoryEntry} />
             </div>
           </div>
 

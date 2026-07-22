@@ -1,7 +1,7 @@
 // 📁 app/[locale]/documents/page.tsx
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { FileCheck2 } from 'lucide-react';
+import { FileCheck2, History } from 'lucide-react';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
@@ -73,15 +73,25 @@ export default async function DocumentsIndexPage({ params }: { params: Promise<P
           <BackButton fallbackHref={localePath(locale)} />
         </div>
 
-        <div className="mb-8">
-          <div className="flex items-center gap-2 mb-2">
-            <FileCheck2 className="h-4 w-4 text-indigo-600" />
-            <span className="text-xs text-gray-500 uppercase tracking-wide font-medium">Free · No Sign-Up</span>
+        <div className="mb-8 flex flex-wrap items-start justify-between gap-4">
+          <div>
+            <div className="flex items-center gap-2 mb-2">
+              <FileCheck2 className="h-4 w-4 text-indigo-600" />
+              <span className="text-xs text-gray-500 uppercase tracking-wide font-medium">Free · No Sign-Up</span>
+            </div>
+            <h1 className="text-3xl sm:text-4xl font-black text-gray-900 mb-2">Document Templates</h1>
+            <p className="text-gray-500 text-lg leading-relaxed max-w-2xl">
+              Ready-made Nigerian document templates. Fill in your details and download as PDF or Word — instantly, no waiting.
+            </p>
           </div>
-          <h1 className="text-3xl sm:text-4xl font-black text-gray-900 mb-2">Document Templates</h1>
-          <p className="text-gray-500 text-lg leading-relaxed max-w-2xl">
-            Ready-made Nigerian document templates. Fill in your details and download as PDF or Word — instantly, no waiting.
-          </p>
+
+          <Link
+            href={localePath(locale, `/documents/history`)}
+            className="flex items-center gap-2 bg-white border border-gray-200 hover:border-indigo-300 text-gray-700 hover:text-indigo-700 text-sm font-semibold rounded-full px-4 py-2.5 transition-colors flex-shrink-0"
+          >
+            <History className="h-4 w-4" />
+            My Saved Documents
+          </Link>
         </div>
 
         {templates.length === 0 && (
