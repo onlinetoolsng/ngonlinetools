@@ -56,6 +56,7 @@ const TOOL_NAMES: Record<string, { en: string; ar: string }> = {
   'mortgage-nhf-affordability-calculator': { en: 'Mortgage & NHF Affordability Calculator', ar: '' },
   'nigeria-payslip-generator': { en: 'Payslip Generator', ar: '' },
   'nigeria-scholarship-eligibility-matcher': { en: 'Scholarship Eligibility Matcher', ar: '' },
+  'islamic-prayer-times-by-lga': { en: 'Islamic Prayer Times by LGA', ar: '' },
 }
 
 function getToolName(slug: string, locale: string): string {
@@ -280,6 +281,10 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
       case 'nigeria-scholarship-eligibility-matcher': {
         const { default: NigeriaScholarshipEligibilityMatcher } = await import('@/components/tools/NigeriaScholarshipEligibilityMatcher')
         return NigeriaScholarshipEligibilityMatcher
+      }
+      case 'islamic-prayer-times-by-lga': {
+        const { IslamicPrayerTimesByLGA } = await import('@/components/tools/IslamicPrayerTimesByLGA')
+        return IslamicPrayerTimesByLGA
       }
       default:
         console.warn(`Tool slug not found: ${toolSlug}`);
