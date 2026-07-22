@@ -8,7 +8,8 @@
 //   - every read/write is wrapped in try/catch (private/incognito browsing,
 //     full storage, or a disabled localStorage should never break the app)
 //   - a visible "Clear all" control is always shown alongside history —
-//     see components/documents/DocumentHistoryList.tsx
+//     see app/[locale]/documents/history/client.tsx (the "My Saved
+//     Documents" hub, linked to from /documents and every template page)
 //
 // Ported from naira.autos's lib/document-history.ts. `source` is kept as
 // 'ai' | 'template' for schema parity even though this site only ever
