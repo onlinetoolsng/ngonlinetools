@@ -85,7 +85,7 @@ export default function TemplateDocumentClient({ template, docType, docCountry, 
 
             <Link
               href={localePath(locale, `/documents/history`)}
-              className="flex items-center gap-2 bg-white border border-gray-200 hover:border-indigo-300 text-gray-700 hover:text-indigo-700 text-sm font-semibold rounded-full px-4 py-2.5 transition-colors flex-shrink-0 no-print"
+              className="flex items-center gap-2 bg-indigo-700 hover:bg-indigo-800 text-white text-sm font-semibold rounded-full px-4 py-2.5 transition-colors flex-shrink-0 self-end ml-auto no-print"
             >
               <History className="h-4 w-4" />
               My Saved Documents
