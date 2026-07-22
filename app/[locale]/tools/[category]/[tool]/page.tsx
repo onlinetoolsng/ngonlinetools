@@ -72,6 +72,13 @@ const TOOL_NAMES: Record<string, { en: string; ar: string }> = {
   'zakat-calculator': { en: 'Zakat Calculator', ar: '' },
   'daily-devotional': { en: 'Daily Devotional', ar: '' },
   'ramadan-hijri-prayer-timetable': { en: 'Ramadan & Hijri Prayer Timetable', ar: '' },
+  'farm-loan-repayment-calculator': { en: 'Farm Loan Repayment Calculator', ar: '' },
+  'nigeria-ajo-esusu-tracker': { en: 'Ajo/Esusu Contribution Tracker', ar: '' },
+  'grocery-meal-cost-estimator': { en: 'Grocery & Meal Cost Estimator', ar: '' },
+  'nigeria-trip-fuel-cost-calculator': { en: 'Trip Fuel Cost Calculator', ar: '' },
+  'generator-fuel-vs-solar-payback-calculator': { en: 'Generator Fuel vs Solar Payback Calculator', ar: '' },
+  'recipe-meal-cost-calculator': { en: 'Recipe Meal Cost Calculator', ar: '' },
+  'electricity-bill-units-calculator': { en: 'Electricity Bill Units Calculator', ar: '' },
 }
 
 function getToolName(slug: string, locale: string): string {
@@ -376,6 +383,34 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
       case 'ramadan-hijri-prayer-timetable': {
         const { default: RamadanHijriPrayerTimetable } = await import('@/components/tools/RamadanHijriPrayerTimetable')
         return RamadanHijriPrayerTimetable
+      }
+      case 'farm-loan-repayment-calculator': {
+        const { default: NigeriaFarmLoanRepaymentCalculator } = await import('@/components/tools/NigeriaFarmLoanRepaymentCalculator')
+        return NigeriaFarmLoanRepaymentCalculator
+      }
+      case 'nigeria-ajo-esusu-tracker': {
+        const { default: NigeriaAjoEsusuTracker } = await import('@/components/tools/NigeriaAjoEsusuTracker')
+        return NigeriaAjoEsusuTracker
+      }
+      case 'grocery-meal-cost-estimator': {
+        const { default: GroceryMealCostEstimator } = await import('@/components/tools/GroceryMealCostEstimator')
+        return GroceryMealCostEstimator
+      }
+      case 'nigeria-trip-fuel-cost-calculator': {
+        const { default: NigeriaTripFuelCalculator } = await import('@/components/tools/NigeriaTripFuelCalculator')
+        return NigeriaTripFuelCalculator
+      }
+      case 'generator-fuel-vs-solar-payback-calculator': {
+        const { default: GeneratorSolarPaybackCalculator } = await import('@/components/tools/GeneratorSolarPaybackCalculator')
+        return GeneratorSolarPaybackCalculator
+      }
+      case 'recipe-meal-cost-calculator': {
+        const { default: RecipeMealCostCalculator } = await import('@/components/tools/RecipeMealCostCalculator')
+        return RecipeMealCostCalculator
+      }
+      case 'electricity-bill-units-calculator': {
+        const { default: ElectricityBillUnitsCalculator } = await import('@/components/tools/ElectricityBillUnitsCalculator')
+        return ElectricityBillUnitsCalculator
       }
       default:
         console.warn(`Tool slug not found: ${toolSlug}`);

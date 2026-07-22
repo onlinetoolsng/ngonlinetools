@@ -38,6 +38,13 @@ export const TOOL_ICON_MAP: Record<string, string> = {
   'nigeria-cac-registration-calculator': '📝',
   'nigeria-payslip-generator': '🧾',
   'nigeria-scholarship-eligibility-matcher': '🎓',
+  'farm-loan-repayment-calculator': '🚜',
+  'nigeria-ajo-esusu-tracker': '🤝',
+  'grocery-meal-cost-estimator': '🛒',
+  'nigeria-trip-fuel-cost-calculator': '⛽',
+  'generator-fuel-vs-solar-payback-calculator': '☀️',
+  'recipe-meal-cost-calculator': '🍲',
+  'electricity-bill-units-calculator': '💡',
 }
 
 // Fallback flag — single-country site, so this is just Nigeria.
