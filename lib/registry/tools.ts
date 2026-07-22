@@ -706,7 +706,6 @@ export const TOOLS: Tool[] = [
   },
 ]
 
-
 // ─── Utility Functions ─────────────────────────────────────────────────────────
 
 export function getToolBySlug(slug: string): Tool | undefined {
