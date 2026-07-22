@@ -11,6 +11,7 @@ import AdUnit from '@/components/ads/AdUnit'
 import { AD_SLOTS } from '@/components/ads/slots'
 import { generateHomepageMetadata } from '@/lib/utils/seo'
 import { getToolIcon } from '@/lib/utils/toolIcons'
+import { getToolName } from '@/lib/utils/toolNames'
 import { FileCheck2 } from 'lucide-react'
 import { getAllPublishedTemplates } from '@/lib/documents/document-templates-data'
 import { getDocumentType, getDocumentCountry } from '@/lib/documents/document-types'
@@ -54,6 +55,7 @@ export default async function HomePage({
 
   const t = await getTranslations({ locale, namespace: 'homepage' })
   const tCat = await getTranslations({ locale, namespace: 'categories' })
+  const tNav = await getTranslations({ locale, namespace: 'nav' })
   const isAr = locale === 'ar'
 
   const featuredTools = getFeaturedTools()
@@ -103,6 +105,22 @@ export default async function HomePage({
                 </Link>
               </div>
 
+              <div className="mt-3 flex flex-col sm:flex-row gap-3 justify-center">
+                <Link
+                  href={localePath(locale, `/documents`)}
+                  className="inline-flex items-center justify-center gap-2 bg-white border border-gray-200 hover:border-indigo-300 hover:bg-indigo-50 text-gray-700 hover:text-indigo-700 font-semibold px-8 py-3 rounded-xl transition-colors text-sm"
+                >
+                  <FileCheck2 className="w-4 h-4" aria-hidden />
+                  {tNav('documents')}
+                </Link>
+                <Link
+                  href={localePath(locale, `/blog`)}
+                  className="inline-flex items-center justify-center gap-2 bg-white border border-gray-200 hover:border-indigo-300 hover:bg-indigo-50 text-gray-700 hover:text-indigo-700 font-semibold px-8 py-3 rounded-xl transition-colors text-sm"
+                >
+                  📰 {tNav('blog')}
+                </Link>
+              </div>
+
               <p className="mt-6 text-sm text-gray-400">{t('trustedBy')}</p>
             </div>
 
@@ -144,7 +162,7 @@ export default async function HomePage({
                     >
                       <div className="text-2xl mb-3">{emoji}</div>
                       <h3 className="font-semibold text-gray-900 group-hover:text-indigo-700 transition-colors text-sm leading-snug mb-1">
-                        {tool.slug}
+                        {getToolName(tool.slug, locale)}
                       </h3>
                     </Link>
                   )

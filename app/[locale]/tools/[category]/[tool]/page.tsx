@@ -19,76 +19,13 @@ import { Footer } from '@/components/layout/Footer'
 import AdUnit from '@/components/ads/AdUnit'
 import { AD_SLOTS } from '@/components/ads/slots'
 import { getToolIcon } from '@/lib/utils/toolIcons'
+import { getToolName } from '@/lib/utils/toolNames'
 import Link from 'next/link'
 import { localePath, localizedUrl } from '@/lib/i18n/paths'
 
 // ─── Constants ────────────────────────────────────────────────────────────────
-// (category badge styling now comes from lib/registry/categories.ts)
-
-/**
- * Fallback display names for related-tools sidebar.
- * Used only when a related tool's DB title isn't available in this render.
- * Extend this list as you add more tools.
- */
-const TOOL_NAMES: Record<string, { en: string; ar: string }> = {
-  'salary-calculator': { en: 'Salary Calculator', ar: '' },
-  'vat-calculator':    { en: 'VAT Calculator',    ar: '' },
-  'company-income-tax-calculator': { en: 'Company Income Tax Calculator', ar: '' },
-  'pension-calculator': { en: 'Pension Calculator', ar: '' },
-  'investment-returns-calculator': { en: 'Investment Returns Calculator', ar: '' },
-  'net-worth-calculator': { en: 'Net Worth Calculator', ar: '' },
-  'loan-repayment-calculator': { en: 'Loan Repayment & True Cost Calculator', ar: '' },
-  'capital-gains-tax-calculator': { en: 'Capital Gains Tax Calculator', ar: '' },
-  'nigeria-crypto-vs-traditional-comparator': { en: 'Crypto vs Traditional Investments Comparator', ar: '' },
-  'nigeria-stock-portfolio-tracker': { en: 'NGX Stock Portfolio Tracker', ar: '' },
-  'nigeria-paye-tax-calculator': { en: 'Nigeria PAYE Tax Calculator', ar: '' },
-  'savings-goal-planner': { en: 'Savings Goal Planner', ar: '' },
-  'nigeria-retirement-planner': { en: 'Retirement Planner', ar: '' },
-  'nigeria-wht-rate-checker': { en: 'WHT Rate Checker', ar: '' },
-  'nigeria-wht-simulator': { en: 'WHT Simulator', ar: '' },
-  'nigeria-rent-relief-deductions-optimizer': { en: 'Rent Relief & Deductions Optimizer', ar: '' },
-  'multi-source-income-tax-calculator': { en: 'Multi-Source Income Tax Calculator', ar: '' },
-  'effective-tax-rate-simulator': { en: 'Effective Tax Rate Simulator', ar: '' },
-  'nigeria-cac-annual-returns-compliance-checker': { en: 'CAC Annual Returns Compliance Checker', ar: '' },
-  'startup-cost-break-even-analyzer': { en: 'Startup Cost & Break-Even Analyzer', ar: '' },
-  'nigeria-inflation-impact-simulator': { en: 'Inflation Impact Simulator', ar: '' },
-  'nigeria-cac-registration-calculator': { en: 'CAC Registration Cost & Structure Calculator', ar: '' },
-  'nigeria-rental-yield-roi-calculator': { en: 'Rental Yield & ROI Calculator', ar: '' },
-  'mortgage-nhf-affordability-calculator': { en: 'Mortgage & NHF Affordability Calculator', ar: '' },
-  'nigeria-payslip-generator': { en: 'Payslip Generator', ar: '' },
-  'nigeria-scholarship-eligibility-matcher': { en: 'Scholarship Eligibility Matcher', ar: '' },
-  'islamic-prayer-times-by-lga': { en: 'Islamic Prayer Times by LGA', ar: '' },
-  'land-measurement-converter': { en: 'Land Measurement Converter', ar: '' },
-  'nigeria-property-cost-breakdown': { en: 'Property Cost Breakdown', ar: '' },
-  'jamb-aggregate-calculator': { en: 'JAMB Aggregate Calculator', ar: '' },
-  'university-cgpa-tracker': { en: 'University CGPA Tracker', ar: '' },
-  'waec-neco-grade-calculator': { en: 'WAEC/NECO Grade Calculator', ar: '' },
-  'nigeria-school-fees-true-cost-calculator': { en: 'School Fees True Cost Calculator', ar: '' },
-  'nigeria-student-loan-repayment-estimator': { en: 'Student Loan Repayment Estimator', ar: '' },
-  'bmi-body-fat-calculator': { en: 'BMI & Body Fat Calculator', ar: '' },
-  'daily-calorie-nigerian-food-calculator': { en: 'Daily Calorie Calculator (Nigerian Foods)', ar: '' },
-  'pregnancy-due-date-tracker': { en: 'Pregnancy Due Date Tracker', ar: '' },
-  'hospital-bill-cost-estimator': { en: 'Hospital Bill Cost Estimator', ar: '' },
-  'zakat-calculator': { en: 'Zakat Calculator', ar: '' },
-  'daily-devotional': { en: 'Daily Devotional', ar: '' },
-  'ramadan-hijri-prayer-timetable': { en: 'Ramadan & Hijri Prayer Timetable', ar: '' },
-  'farm-loan-repayment-calculator': { en: 'Farm Loan Repayment Calculator', ar: '' },
-  'nigeria-ajo-esusu-tracker': { en: 'Ajo/Esusu Contribution Tracker', ar: '' },
-  'grocery-meal-cost-estimator': { en: 'Grocery & Meal Cost Estimator', ar: '' },
-  'nigeria-trip-fuel-cost-calculator': { en: 'Trip Fuel Cost Calculator', ar: '' },
-  'generator-fuel-vs-solar-payback-calculator': { en: 'Generator Fuel vs Solar Payback Calculator', ar: '' },
-  'recipe-meal-cost-calculator': { en: 'Recipe Meal Cost Calculator', ar: '' },
-  'electricity-bill-units-calculator': { en: 'Electricity Bill Units Calculator', ar: '' },
-}
-
-function getToolName(slug: string, locale: string): string {
-  const entry = TOOL_NAMES[slug]
-  if (entry) return locale === 'ar' ? entry.ar : entry.en
-  return slug
-    .split('-')
-    .map((w: string) => w.charAt(0).toUpperCase() + w.slice(1))
-    .join(' ')
-}
+// (category badge styling now comes from lib/registry/categories.ts,
+// tool display names now come from lib/utils/toolNames.ts)
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
