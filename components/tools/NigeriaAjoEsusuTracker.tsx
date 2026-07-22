@@ -1,7 +1,56 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
-import { addDays, addWeeks, addMonths, format, parseISO, isBefore, isSameDay } from 'date-fns';
+
+// ---------------------------------------------------------------------------
+// Date helpers (vanilla — no date-fns dependency in this project)
+// ---------------------------------------------------------------------------
+
+const MONTH_ABBR = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+function parseISO(iso: string): Date {
+  return new Date(iso);
+}
+
+function addDays(date: Date, amount: number): Date {
+  const result = new Date(date);
+  result.setDate(result.getDate() + amount);
+  return result;
+}
+
+function addWeeks(date: Date, amount: number): Date {
+  return addDays(date, amount * 7);
+}
+
+function addMonths(date: Date, amount: number): Date {
+  const result = new Date(date);
+  result.setMonth(result.getMonth() + amount);
+  return result;
+}
+
+function isSameDay(a: Date, b: Date): boolean {
+  return (
+    a.getFullYear() === b.getFullYear() &&
+    a.getMonth() === b.getMonth() &&
+    a.getDate() === b.getDate()
+  );
+}
+
+function isBefore(a: Date, b: Date): boolean {
+  return a.getTime() < b.getTime();
+}
+
+function pad2(n: number): string {
+  return n < 10 ? `0${n}` : `${n}`;
+}
+
+/** Supports the two patterns this file uses: 'yyyy-MM-dd' and 'dd MMM yyyy'. */
+function format(date: Date, pattern: 'yyyy-MM-dd' | 'dd MMM yyyy'): string {
+  if (pattern === 'yyyy-MM-dd') {
+    return `${date.getFullYear()}-${pad2(date.getMonth() + 1)}-${pad2(date.getDate())}`;
+  }
+  return `${pad2(date.getDate())} ${MONTH_ABBR[date.getMonth()]} ${date.getFullYear()}`;
+}
 
 // ---------------------------------------------------------------------------
 // Types
