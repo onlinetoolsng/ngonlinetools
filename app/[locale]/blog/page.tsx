@@ -117,7 +117,6 @@ export default async function BlogIndexPage({
               if (!t) return null
               const badgeColor = getCategoryBadgeClass(article.category_slug)
               const icon = getCategoryIcon(article.category_slug)
-              const primaryToolSlug = article.related_tool_slugs?.[0]
 
               return (
                 <article
@@ -156,12 +155,12 @@ export default async function BlogIndexPage({
                         { year: 'numeric', month: 'short', day: 'numeric' }
                       )}
                     </time>
-                    {primaryToolSlug && (
+                    {article.category_slug && (
                       <Link
-                        href={localePath(locale, `/tools/${article.category_slug}/${primaryToolSlug}`)}
+                        href={localePath(locale, `/tools/${article.category_slug}`)}
                         className="inline-flex items-center gap-1 text-xs font-semibold text-indigo-700 hover:text-indigo-800 transition-colors flex-shrink-0"
                       >
-                        🔧 {isAr ? 'جرّب الأداة ←' : 'Try tool →'}
+                        🔧 {isAr ? 'استكشف الأدوات ←' : 'Explore tools →'}
                       </Link>
                     )}
                   </div>
