@@ -89,7 +89,7 @@ export default async function TermsPage({ params }: { params: Promise<Params> })
             </ol>
           </nav>
 
-          <div className="prose prose-gray max-w-none prose-headings:font-bold prose-headings:text-gray-900 prose-headings:scroll-mt-24 prose-p:text-gray-600 prose-p:leading-relaxed prose-li:text-gray-600">
+          <div className="prose prose-gray max-w-none prose-headings:font-bold prose-headings:text-gray-900 prose-headings:scroll-mt-24 prose-h2:mt-10 prose-h2:mb-4 first:prose-h2:mt-0 prose-p:text-gray-600 prose-p:leading-relaxed prose-ul:my-4 prose-li:text-gray-600 prose-li:my-2">
             <h2 id="acceptance">1. Acceptance of Terms</h2>
             <p>By accessing or using ToolBase, you agree to be bound by these Terms of Service. If you do not agree with any part of these terms, please stop using the site.</p>
 

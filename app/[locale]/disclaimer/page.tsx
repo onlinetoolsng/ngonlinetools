@@ -87,7 +87,7 @@ export default async function DisclaimerPage({ params }: { params: Promise<Param
             </ol>
           </nav>
 
-          <div className="prose prose-gray max-w-none prose-headings:font-bold prose-headings:text-gray-900 prose-headings:scroll-mt-24 prose-p:text-gray-600 prose-p:leading-relaxed prose-li:text-gray-600">
+          <div className="prose prose-gray max-w-none prose-headings:font-bold prose-headings:text-gray-900 prose-headings:scroll-mt-24 prose-h2:mt-10 prose-h2:mb-4 first:prose-h2:mt-0 prose-p:text-gray-600 prose-p:leading-relaxed prose-ul:my-4 prose-li:text-gray-600 prose-li:my-2">
             <h2 id="informational">1. For Informational Purposes Only</h2>
             <p>All tools, calculators, document templates, and content on ToolBase are provided for general informational purposes only. They should not be relied upon as a substitute for specialised professional advice tailored to your specific circumstances.</p>
 
