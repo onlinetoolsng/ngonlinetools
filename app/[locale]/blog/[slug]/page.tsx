@@ -145,7 +145,7 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
     dateModified: article.published_at,
     imageUrl: t.og_image_url ?? `${BASE_URL}/og/blog-default.png`,
     wordCount,
-    authorName: 'ToolBase Editorial Team',
+    authorName: 'Henry Agwu',
   })
 
   const breadcrumbSchema = generateBreadcrumbSchema(

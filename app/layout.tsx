@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     'loan calculator nigeria',
     'nigeria finance tools',
   ],
-  authors: [{ name: 'ToolBase' }],
+  authors: [{ name: 'Henry Agwu' }],
   creator: 'ToolBase',
   publisher: 'ToolBase',
   robots: {

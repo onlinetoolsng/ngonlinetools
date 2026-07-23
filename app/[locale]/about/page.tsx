@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }) 
   return {
     title: 'About Us | ToolBase',
     description:
-      'ToolBase is a free suite of calculators and tools built for individuals and businesses in Nigeria.',
+      'ToolBase is a free suite of calculators and tools built for individuals and businesses in Nigeria, reviewed by Henry Agwu, a Chartered Accountant with over 10 years of experience.',
     robots: { index: true, follow: true },
   }
 }
@@ -75,7 +75,8 @@ export default async function AboutPage({ params }: { params: Promise<Params> })
             <p className="text-gray-600 leading-relaxed">
               ToolBase is a suite of free calculators and tools designed for people
               and businesses in Nigeria — covering everyday finance, tax, payroll, and
-              more. Every tool is built with local rules, currency, and context in mind.
+              more. Every tool is built with local rules, currency, and context in mind,
+              and kept up to date as Nigerian tax law and regulation change.
             </p>
           </section>
 
@@ -84,10 +85,10 @@ export default async function AboutPage({ params }: { params: Promise<Params> })
               Why We Built This
             </h2>
             <p className="text-gray-600 leading-relaxed">
-              Many financial tools online aren't built with Nigeria in mind — they don't
+              Many financial tools online aren&apos;t built with Nigeria in mind — they don&apos;t
               account for local tax rules, salary structures, or the naira. We wanted to
               build the tools we wished existed: free, accurate, and designed for
-              Nigerian reality.
+              Nigerian reality, from PAYE and pension to invoicing and business registration.
             </p>
           </section>
 
@@ -101,6 +102,33 @@ export default async function AboutPage({ params }: { params: Promise<Params> })
               data or collect personal information.
             </p>
           </section>
+        </div>
+
+        {/* Author / editorial credibility */}
+        <div className="bg-white border border-gray-100 rounded-2xl p-8 sm:p-10 mb-10">
+          <h2 className="text-2xl font-black text-gray-900 mb-6">
+            Who&apos;s Behind the Numbers
+          </h2>
+          <div className="flex flex-col sm:flex-row gap-6 items-start">
+            <div className="w-16 h-16 rounded-full bg-indigo-100 flex items-center justify-center text-2xl font-black text-indigo-700 flex-shrink-0">
+              HA
+            </div>
+            <div>
+              <h3 className="text-lg font-bold text-gray-900 mb-1">Henry Agwu</h3>
+              <p className="text-sm font-semibold text-indigo-700 mb-3">
+                Chartered Accountant, 10+ Years of Professional Experience
+              </p>
+              <p className="text-gray-600 leading-relaxed">
+                The tax, payroll, and financial logic behind ToolBase&apos;s calculators is
+                reviewed by Henry Agwu, a Chartered Accountant with over a decade of
+                professional experience in Nigerian tax compliance, payroll, and financial
+                reporting. Henry&apos;s work ensures every calculator — from PAYE and pension
+                to VAT and company income tax — reflects current Nigerian statutory rates
+                and regulations, so the numbers you see are ones you can rely on for real
+                decisions.
+              </p>
+            </div>
+          </div>
         </div>
 
         {/* CTA */}

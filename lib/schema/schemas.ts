@@ -94,7 +94,7 @@ export function generateArticleSchema({
   dateModified,
   imageUrl,
   wordCount,
-  authorName = 'ToolBase Editorial Team',
+  authorName = 'Henry Agwu',
 }: {
   title: string
   description: string
