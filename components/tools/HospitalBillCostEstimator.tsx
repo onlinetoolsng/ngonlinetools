@@ -404,7 +404,7 @@ export function HospitalBillCostEstimator({ locale }: Props) {
 
       <div className="text-center">
         <a
-          href={`mailto:feedback@toolbase.com.ng?subject=Outdated%20hospital%20cost%20data&body=Procedure:%20${encodeURIComponent(
+          href={`mailto:onlinetoolsng@gmail.com?subject=Outdated%20hospital%20cost%20data&body=Procedure:%20${encodeURIComponent(
             procedure.name
           )}%0AState:%20${encodeURIComponent(STATE_LABELS[state])}%0AWhat%20I%20saw%20instead:%20`}
           className="text-xs text-gray-500 underline"
