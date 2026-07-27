@@ -11,6 +11,7 @@ import { BackButton } from '@/components/layout/BackButton';
 import { SchemaOrg } from '@/components/seo/SchemaOrg';
 import { generateBreadcrumbSchema } from '@/lib/schema/schemas';
 import TemplateDocumentClient from './client';
+import { RelatedContent } from '@/components/layout/RelatedContent';
 import { localePath, localizedUrl } from '@/lib/i18n/paths'
 
 const BASE_URL = 'https://toolbase.com.ng';
@@ -44,6 +45,7 @@ function resolveDocType(slug: string, templateTitle: string): DocumentTypeDef {
     description: '',
     tier: 'template',
     category: 'Other',
+    categorySlug: 'everyday',
     popular: false,
   };
 }
@@ -125,6 +127,12 @@ export default async function TemplateDocumentPage({
         </div>
 
         <TemplateDocumentClient template={template} docType={docType} docCountry={docCountry} locale={locale} />
+
+        <RelatedContent
+          locale={locale}
+          categorySlug={docType.categorySlug}
+          excludeTemplateSlug={docType.slug}
+        />
       </div>
 
       <Footer locale={locale} />

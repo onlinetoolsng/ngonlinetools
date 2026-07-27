@@ -17,11 +17,10 @@ import {
   generateFAQSchema,
 } from '@/lib/schema/schemas'
 import { getArticleBySlug, getPublishedArticles } from '@/lib/supabase/queries'
-import { getToolBySlug } from '@/lib/registry/tools'
 import { getCategoryIcon, getCategoryBadgeClass } from '@/lib/registry/categories'
 import AdUnit from '@/components/ads/AdUnit'
 import { AD_SLOTS } from '@/components/ads/slots'
-import { getToolIcon } from '@/lib/utils/toolIcons'
+import { RelatedContent } from '@/components/layout/RelatedContent'
 import { localePath, localizedUrl } from '@/lib/i18n/paths'
 
 type Params = { locale: string; slug: string }
@@ -103,16 +102,10 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
 
   const t = article.translation
   const tNav = await getTranslations({ locale, namespace: 'nav' })
-  const tCommon = await getTranslations({ locale, namespace: 'common' })
 
   const articleUrl = localizedUrl(locale, `/blog/${slug}`)
   const categoryIcon = getCategoryIcon(article.category_slug)
   const badgeColor = getCategoryBadgeClass(article.category_slug)
-
-  // Related tools from registry
-  const relatedTools = (article.related_tool_slugs ?? [])
-    .map(s => getToolBySlug(s))
-    .filter(Boolean) as NonNullable<ReturnType<typeof getToolBySlug>>[]
 
   // More articles (sidebar)
   let moreArticles: Awaited<ReturnType<typeof getPublishedArticles>> = []
@@ -245,40 +238,6 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
               />
             </div>
 
-            {/* Related tools — inline CTA inside article */}
-            {relatedTools.length > 0 && (
-              <div className="mt-10 bg-indigo-50 border border-indigo-100 rounded-2xl p-6">
-                <h3 className="font-bold text-indigo-900 mb-4">
-                  {isAr ? '🔧 الأدوات ذات الصلة' : '🔧 Related Tools'}
-                </h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {relatedTools.map(tool => (
-                    <Link
-                      key={tool.slug}
-                      href={localePath(locale, `/tools/${tool.category}/${tool.slug}`)}
-                      className="flex items-center gap-3 bg-white rounded-xl p-4 border border-indigo-100 hover:border-indigo-300 hover:shadow-sm transition-all group"
-                    >
-                      <span className="text-2xl flex-shrink-0">
-                        {getToolIcon(tool)}
-                      </span>
-                      <div className="min-w-0">
-                        <div className="font-semibold text-sm text-gray-900 group-hover:text-indigo-700 transition-colors">
-                          {tool.slug
-                            .split('-')
-                            .map(w => w.charAt(0).toUpperCase() + w.slice(1))
-                            .join(' ')}
-                        </div>
-                        <div className="text-xs text-gray-400 capitalize">{tool.schema}</div>
-                      </div>
-                      <span className="ml-auto text-indigo-500 text-lg">
-                        {isAr ? '←' : '→'}
-                      </span>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            )}
-
             {/* Ad: bottom of article */}
             <div className="my-8">
               <p className="text-xs text-gray-400 text-center mb-1">Advertisement</p>
@@ -325,37 +284,6 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
 
           {/* ─── SIDEBAR ──────────────────────────────────────────────────── */}
           <aside className="space-y-6">
-
-            {/* Related tools card */}
-            {relatedTools.length > 0 && (
-              <div className="bg-white border border-gray-100 rounded-2xl p-5 sticky top-20">
-                <h3 className="font-bold text-gray-900 mb-4 text-sm uppercase tracking-wide">
-                  {tCommon('relatedTools')}
-                </h3>
-                <div className="space-y-2">
-                  {relatedTools.map(tool => (
-                    <Link
-                      key={tool.slug}
-                      href={localePath(locale, `/tools/${tool.category}/${tool.slug}`)}
-                      className="flex items-center gap-3 p-3 rounded-xl hover:bg-gray-50 transition-colors group"
-                    >
-                      <div className="w-8 h-8 rounded-lg bg-indigo-50 flex items-center justify-center text-base flex-shrink-0">
-                        {getToolIcon(tool)}
-                      </div>
-                      <span className="text-sm font-medium text-gray-700 group-hover:text-indigo-700 transition-colors leading-snug">
-                        {tool.slug
-                          .split('-')
-                          .map(w => w.charAt(0).toUpperCase() + w.slice(1))
-                          .join(' ')}
-                      </span>
-                      <span className="ml-auto text-gray-300 group-hover:text-indigo-500 text-sm">
-                        {isAr ? '←' : '→'}
-                      </span>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            )}
 
             {/* More articles */}
             {moreArticles.length > 0 && (
@@ -406,6 +334,13 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
             </div>
           </aside>
         </div>
+
+        {/* ─── RELATED CONTENT (tools / templates / blog posts) ──────────── */}
+        <RelatedContent
+          locale={locale}
+          categorySlug={article.category_slug}
+          excludeArticleSlug={slug}
+        />
       </div>
 
       <Footer locale={locale} />

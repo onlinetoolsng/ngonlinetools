@@ -2,7 +2,7 @@
 import type { ComponentType } from 'react'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { notFound } from 'next/navigation'
-import { TOOLS, getToolBySlug, getRelatedTools } from '@/lib/registry/tools'
+import { TOOLS, getToolBySlug } from '@/lib/registry/tools'
 import { CATEGORIES, getCategoryBadgeClass } from '@/lib/registry/categories'
 import {
   generateToolSchema,
@@ -18,9 +18,8 @@ import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import AdUnit from '@/components/ads/AdUnit'
 import { AD_SLOTS } from '@/components/ads/slots'
+import { RelatedContent } from '@/components/layout/RelatedContent'
 import { getToolIcon } from '@/lib/utils/toolIcons'
-import { getToolName } from '@/lib/utils/toolNames'
-import Link from 'next/link'
 import { localePath, localizedUrl } from '@/lib/i18n/paths'
 
 // ─── Constants ────────────────────────────────────────────────────────────────
@@ -389,7 +388,6 @@ export default async function ToolPage({ params }: { params: Promise<Params> }) 
   const BASE_URL     = 'https://toolbase.com.ng'
   const toolUrl      = localizedUrl(locale, `/tools/${category}/${toolSlug}`)
   const ToolComponent = await loadToolComponent(toolSlug)
-  const relatedTools  = getRelatedTools(tool)
   const isRtl         = locale === 'ar'
 
   const faqs = (toolContent.faq ?? []).map((item: { q: string; a: string }) => ({
@@ -559,38 +557,6 @@ export default async function ToolPage({ params }: { params: Promise<Params> }) 
           {/* ── Sidebar ── */}
           <aside className="space-y-6" dir={isRtl ? 'rtl' : 'ltr'}>
 
-            {/* Related tools */}
-            {relatedTools.length > 0 && (
-              <div className="bg-white border border-gray-200 rounded-2xl p-5 sticky top-6">
-                <h3 className="font-bold text-gray-900 mb-4 text-sm uppercase tracking-wide">
-                  {tCommon('relatedTools')}
-                </h3>
-                <div className="space-y-1">
-                  {relatedTools.map(related => {
-                    // Resolve a specific icon for the related tool
-                    const icon = getToolIcon(related)
-                    const relatedBadgeColor = getCategoryBadgeClass(related.category)
-                    return (
-                      <Link
-                        key={related.slug}
-                        href={localePath(locale, `/tools/${related.category}/${related.slug}`)}
-                        className="flex items-center gap-3 p-3 rounded-xl hover:bg-gray-50 transition-colors group"
-                      >
-                        <div
-                          className={`w-8 h-8 rounded-lg flex items-center justify-center text-sm flex-shrink-0 ${relatedBadgeColor}`}
-                        >
-                          {icon}
-                        </div>
-                        <span className="text-sm font-medium text-gray-700 group-hover:text-indigo-700 transition-colors leading-snug">
-                          {getToolName(related.slug, locale)}
-                        </span>
-                      </Link>
-                    )
-                  })}
-                </div>
-              </div>
-            )}
-
             {/* Sidebar ad */}
             <div>
               <p className="text-xs text-gray-500 text-center mb-1">Advertisement</p>
@@ -599,6 +565,13 @@ export default async function ToolPage({ params }: { params: Promise<Params> }) 
           </aside>
 
         </div>
+
+        {/* ── Related content (tools / templates / blog posts) ── */}
+        <RelatedContent
+          locale={locale}
+          categorySlug={category}
+          excludeToolSlug={toolSlug}
+        />
       </div>
       </div>
 
