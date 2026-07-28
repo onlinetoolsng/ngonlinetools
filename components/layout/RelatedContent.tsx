@@ -28,6 +28,8 @@ type Props = {
   locale: string
   /** Shared category slug (finance, tax, hr-payroll, ...) to match related content against. */
   categorySlug: string
+  /** Which page type this is being rendered on — controls the order of the sections below. */
+  pageType: 'tool' | 'document' | 'blog'
   /** Exclude the tool currently being viewed, if this is a tool page. */
   excludeToolSlug?: string
   /** Exclude the document type currently being viewed, if this is a template page. */
@@ -41,6 +43,7 @@ const COUNT = 5
 export async function RelatedContent({
   locale,
   categorySlug,
+  pageType,
   excludeToolSlug,
   excludeTemplateSlug,
   excludeArticleSlug,
@@ -88,88 +91,99 @@ export async function RelatedContent({
     return null
   }
 
+  const toolsSection = relatedTools.length > 0 && (
+    <div key="tools">
+      <h2 className="font-bold text-gray-900 mb-4 text-sm uppercase tracking-wide">
+        {tCommon('relatedTools')}
+      </h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        {relatedTools.map(tool => (
+          <Link
+            key={tool.slug}
+            href={localePath(locale, `/tools/${tool.category}/${tool.slug}`)}
+            className="flex items-center gap-3 bg-white rounded-xl p-4 border border-gray-200 hover:border-indigo-300 hover:shadow-sm transition-all group"
+          >
+            <span className="text-2xl flex-shrink-0">{getToolIcon(tool)}</span>
+            <div className="min-w-0">
+              <div className="font-semibold text-sm text-gray-900 group-hover:text-indigo-700 transition-colors">
+                {getToolName(tool.slug, locale)}
+              </div>
+              <div className="text-xs text-gray-400 capitalize">{tool.schema}</div>
+            </div>
+            <span className="ml-auto text-indigo-500 text-lg flex-shrink-0">{isAr ? '←' : '→'}</span>
+          </Link>
+        ))}
+      </div>
+    </div>
+  )
+
+  const templatesSection = relatedTemplates.length > 0 && (
+    <div key="templates">
+      <h2 className="font-bold text-gray-900 mb-4 text-sm uppercase tracking-wide">
+        {tCommon('relatedTemplates')}
+      </h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        {relatedTemplates.map(template => {
+          const docCountry = getDocumentCountry(template.country)
+          return (
+            <Link
+              key={template.slug}
+              href={localePath(locale, `/documents/${template.slug}/${template.country}`)}
+              className="flex items-center gap-3 bg-white rounded-xl p-4 border border-gray-200 hover:border-indigo-300 hover:shadow-sm transition-all group"
+            >
+              <span className="text-2xl flex-shrink-0">📄</span>
+              <div className="min-w-0">
+                <div className="font-semibold text-sm text-gray-900 group-hover:text-indigo-700 transition-colors leading-snug">
+                  {template.label}
+                </div>
+                <div className="text-xs text-gray-400">{docCountry?.flag ?? '🌍'} {docCountry?.name ?? template.country.toUpperCase()}</div>
+              </div>
+              <span className="ml-auto text-indigo-500 text-lg flex-shrink-0">{isAr ? '←' : '→'}</span>
+            </Link>
+          )
+        })}
+      </div>
+    </div>
+  )
+
+  const articlesSection = relatedArticles.length > 0 && (
+    <div key="articles">
+      <h2 className="font-bold text-gray-900 mb-4 text-sm uppercase tracking-wide">
+        {tCommon('relatedBlogPosts')}
+      </h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        {relatedArticles.map(article => (
+          <Link
+            key={article.slug}
+            href={localePath(locale, `/blog/${article.slug}`)}
+            className="flex items-center gap-3 bg-white rounded-xl p-4 border border-gray-200 hover:border-indigo-300 hover:shadow-sm transition-all group"
+          >
+            <span className="text-2xl flex-shrink-0">{getCategoryIcon(categorySlug)}</span>
+            <div className="min-w-0">
+              <div className="font-semibold text-sm text-gray-900 group-hover:text-indigo-700 transition-colors leading-snug line-clamp-2">
+                {article.title}
+              </div>
+              <div className="text-xs text-gray-400">{tBlog('readingTime', { minutes: article.readingTime })}</div>
+            </div>
+            <span className="ml-auto text-indigo-500 text-lg flex-shrink-0">{isAr ? '←' : '→'}</span>
+          </Link>
+        ))}
+      </div>
+    </div>
+  )
+
+  // Order sections so the current page's own type leads, matching user intent:
+  // a tool page leads with related tools, a document page with related documents,
+  // a blog page with related blog posts — the other two types follow.
+  const orderByPageType: Record<Props['pageType'], React.ReactNode[]> = {
+    tool: [toolsSection, templatesSection, articlesSection],
+    document: [templatesSection, toolsSection, articlesSection],
+    blog: [articlesSection, toolsSection, templatesSection],
+  }
+
   return (
     <section className="mt-10 space-y-8 no-print" dir={isAr ? 'rtl' : 'ltr'}>
-      {relatedTools.length > 0 && (
-        <div>
-          <h2 className="font-bold text-gray-900 mb-4 text-sm uppercase tracking-wide">
-            {tCommon('relatedTools')}
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-            {relatedTools.map(tool => (
-              <Link
-                key={tool.slug}
-                href={localePath(locale, `/tools/${tool.category}/${tool.slug}`)}
-                className="flex items-center gap-3 bg-white rounded-xl p-4 border border-gray-200 hover:border-indigo-300 hover:shadow-sm transition-all group"
-              >
-                <span className="text-2xl flex-shrink-0">{getToolIcon(tool)}</span>
-                <div className="min-w-0">
-                  <div className="font-semibold text-sm text-gray-900 group-hover:text-indigo-700 transition-colors">
-                    {getToolName(tool.slug, locale)}
-                  </div>
-                  <div className="text-xs text-gray-400 capitalize">{tool.schema}</div>
-                </div>
-                <span className="ml-auto text-indigo-500 text-lg flex-shrink-0">{isAr ? '←' : '→'}</span>
-              </Link>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {relatedTemplates.length > 0 && (
-        <div>
-          <h2 className="font-bold text-gray-900 mb-4 text-sm uppercase tracking-wide">
-            {tCommon('relatedTemplates')}
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-            {relatedTemplates.map(template => {
-              const docCountry = getDocumentCountry(template.country)
-              return (
-                <Link
-                  key={template.slug}
-                  href={localePath(locale, `/documents/${template.slug}/${template.country}`)}
-                  className="flex items-center gap-3 bg-white rounded-xl p-4 border border-gray-200 hover:border-indigo-300 hover:shadow-sm transition-all group"
-                >
-                  <span className="text-2xl flex-shrink-0">📄</span>
-                  <div className="min-w-0">
-                    <div className="font-semibold text-sm text-gray-900 group-hover:text-indigo-700 transition-colors leading-snug">
-                      {template.label}
-                    </div>
-                    <div className="text-xs text-gray-400">{docCountry?.flag ?? '🌍'} {docCountry?.name ?? template.country.toUpperCase()}</div>
-                  </div>
-                  <span className="ml-auto text-indigo-500 text-lg flex-shrink-0">{isAr ? '←' : '→'}</span>
-                </Link>
-              )
-            })}
-          </div>
-        </div>
-      )}
-
-      {relatedArticles.length > 0 && (
-        <div>
-          <h2 className="font-bold text-gray-900 mb-4 text-sm uppercase tracking-wide">
-            {tCommon('relatedBlogPosts')}
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-            {relatedArticles.map(article => (
-              <Link
-                key={article.slug}
-                href={localePath(locale, `/blog/${article.slug}`)}
-                className="flex items-center gap-3 bg-white rounded-xl p-4 border border-gray-200 hover:border-indigo-300 hover:shadow-sm transition-all group"
-              >
-                <span className="text-2xl flex-shrink-0">{getCategoryIcon(categorySlug)}</span>
-                <div className="min-w-0">
-                  <div className="font-semibold text-sm text-gray-900 group-hover:text-indigo-700 transition-colors leading-snug line-clamp-2">
-                    {article.title}
-                  </div>
-                  <div className="text-xs text-gray-400">{tBlog('readingTime', { minutes: article.readingTime })}</div>
-                </div>
-                <span className="ml-auto text-indigo-500 text-lg flex-shrink-0">{isAr ? '←' : '→'}</span>
-              </Link>
-            ))}
-          </div>
-        </div>
-      )}
+      {orderByPageType[pageType]}
     </section>
   )
 }

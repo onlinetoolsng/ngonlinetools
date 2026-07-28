@@ -131,6 +131,7 @@ export default async function TemplateDocumentPage({
         <RelatedContent
           locale={locale}
           categorySlug={docType.categorySlug}
+          pageType="document"
           excludeTemplateSlug={docType.slug}
         />
       </div>

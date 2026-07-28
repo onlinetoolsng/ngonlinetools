@@ -334,6 +334,7 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
         <RelatedContent
           locale={locale}
           categorySlug={article.category_slug}
+          pageType="blog"
           excludeArticleSlug={slug}
         />
       </div>
