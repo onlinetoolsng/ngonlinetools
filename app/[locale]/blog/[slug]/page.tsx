@@ -50,11 +50,6 @@ export async function generateMetadata({ params }: { params: Promise<Params> }) 
     description: t.meta_description ?? t.excerpt ?? '',
     alternates: {
       canonical: url,
-      languages: {
-        en: `${BASE_URL}/en/blog/${slug}`,
-        ar: `${BASE_URL}/ar/blog/${slug}`,
-        'x-default': `${BASE_URL}/en/blog/${slug}`,
-      },
     },
     openGraph: {
       title: t.title,
