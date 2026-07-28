@@ -27,7 +27,7 @@ export async function Footer({ locale }: Props) {
               </span>
             </Link>
             <p className="text-sm text-gray-400 leading-relaxed max-w-xs">
-              Free calculators and tools built for individuals and businesses in Nigeria.
+              Free calculators and tools built for individuals and businesses across Nigeria and Africa.
             </p>
           </div>
 

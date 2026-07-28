@@ -69,7 +69,7 @@ export default async function HomePage({
   const stats = [
     { value: '10',   label: t('toolsCount') },
     { value: '100%', label: t('countriesCount') },
-    { value: '🇳🇬',   label: t('languagesCount') },
+    { value: '🌍',   label: t('languagesCount') },
   ]
 
   return (
@@ -84,8 +84,8 @@ export default async function HomePage({
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
             <div className="text-center max-w-4xl mx-auto">
               <div className="inline-flex items-center gap-2 bg-amber-50 text-amber-800 border border-amber-200 rounded-full px-4 py-1.5 text-sm font-medium mb-6">
-                <span>🇳🇬</span>
-                <span>Made for Nigeria</span>
+                <span>🌍</span>
+                <span>Made for Nigeria & Africa</span>
               </div>
 
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-gray-900 leading-tight tracking-tight mb-6">

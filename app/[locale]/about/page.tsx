@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }) 
   return {
     title: 'About Us | ToolBase',
     description:
-      'ToolBase is a free suite of calculators and tools built for individuals and businesses in Nigeria, reviewed by Henry Agwu, a Chartered Accountant with over 10 years of experience.',
+      'ToolBase is a free suite of calculators and tools built for individuals and businesses in Nigeria and Africa, reviewed by Henry Agwu, a Chartered Accountant with over 10 years of experience.',
     robots: { index: true, follow: true },
   }
 }
@@ -33,7 +33,7 @@ export default async function AboutPage({ params }: { params: Promise<Params> })
   const stats = [
     { value: '10',   label: 'Categories' },
     { value: '100%', label: 'Free' },
-    { value: '🇳🇬',   label: 'Made for Nigeria' },
+    { value: '🌍',   label: 'Made for Nigeria & Africa' },
     { value: '0',    label: 'Sign-ups Required' },
   ]
 
@@ -71,7 +71,7 @@ export default async function AboutPage({ params }: { params: Promise<Params> })
             About ToolBase
           </h1>
           <p className="text-xl text-gray-500 max-w-2xl mx-auto leading-relaxed">
-            Free calculators and tools built for individuals and businesses in Nigeria
+            Free calculators and tools built for individuals and businesses in Nigeria and Africa
           </p>
         </div>
 
@@ -93,10 +93,10 @@ export default async function AboutPage({ params }: { params: Promise<Params> })
             </h2>
             <p className="text-gray-600 leading-relaxed mb-3">
               ToolBase is a suite of free calculators and tools designed for people
-              and businesses in Nigeria — covering everyday finance, tax, payroll, business
-              registration, and personal planning. Every tool is built with local rules,
-              currency, and context in mind, and kept up to date as Nigerian tax law and
-              regulation change.
+              and businesses across Nigeria and Africa — covering everyday finance, tax, payroll,
+              business registration, and personal planning. Every tool is built with the specific
+              country's laws, currency, and context in mind, and kept up to date as local tax law
+              and regulation change.
             </p>
             <p className="text-gray-600 leading-relaxed">
               Our tools fall into a handful of everyday categories: salary and PAYE

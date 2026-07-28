@@ -7,18 +7,20 @@ const siteUrl = 'https://toolbase.com.ng'
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'ToolBase — Free Online Calculators & Tools for Nigeria',
+    default: 'ToolBase — Free Online Calculators & Tools for Nigeria & Africa',
     template: '%s | ToolBase',
   },
   description:
-    'Free online tools and calculators built for Nigeria — finance, tax, business, payroll, and more.',
+    'Free online tools and calculators built for Nigeria and Africa — finance, tax, business, payroll, and more.',
   keywords: [
     'online tools nigeria',
+    'online tools africa',
     'naira calculator',
     'nigeria tax calculator',
     'paye calculator nigeria',
     'loan calculator nigeria',
     'nigeria finance tools',
+    'africa finance tools',
   ],
   authors: [{ name: 'Henry Agwu' }],
   creator: 'ToolBase',
@@ -38,9 +40,9 @@ export const metadata: Metadata = {
     locale: 'en_NG',
     url: siteUrl,
     siteName: 'ToolBase',
-    title: 'ToolBase — Free Online Calculators & Tools for Nigeria',
+    title: 'ToolBase — Free Online Calculators & Tools for Nigeria & Africa',
     description:
-      'Free online tools and calculators built for Nigeria — finance, tax, business, payroll, and more.',
+      'Free online tools and calculators built for Nigeria and Africa — finance, tax, business, payroll, and more.',
     images: [
       {
         url: `${siteUrl}/og/homepage.png`,
@@ -52,8 +54,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'ToolBase — Free Online Calculators & Tools for Nigeria',
-    description: 'Free online tools and calculators built for Nigeria.',
+    title: 'ToolBase — Free Online Calculators & Tools for Nigeria & Africa',
+    description: 'Free online tools and calculators built for Nigeria and Africa.',
     images: [`${siteUrl}/og/homepage.png`],
   },
   icons: {

@@ -29,16 +29,16 @@
     "terms": "Terms"
   },
   "homepage": {
-    "hero": "Free Online Tools for Nigeria",
-    "heroSub": "Calculators, converters, and generators built for individuals, businesses, and professionals across Nigeria",
+    "hero": "Free Online Tools for Nigeria & Africa",
+    "heroSub": "Calculators, converters, and generators built for individuals, businesses, and professionals across Nigeria and Africa",
     "featuredTools": "Featured Tools",
     "popularCategories": "Browse by Category",
     "allCategories": "All Categories",
     "toolsCount": "Categories",
     "countriesCount": "Free to use",
-    "languagesCount": "Built for Nigeria",
+    "languagesCount": "Built for Africa",
     "heroCta": "Browse All Tools",
-    "trustedBy": "Built for individuals, professionals & businesses across Nigeria",
+    "trustedBy": "Built for individuals, professionals & businesses across Nigeria and Africa",
     "comingSoon": "New tools launching soon",
     "comingSoonSub": "We're building out calculators and generators for every category below. Check back often, or explore what's already live.",
     "freeNoSignUp": "Free · No Sign-Up",
@@ -116,6 +116,6 @@
   },
   "seo": {
     "siteName": "ToolBase",
-    "siteDescription": "Free online calculators and tools for Nigeria — salary, tax, loan, and business tools and more"
+    "siteDescription": "Free online calculators and tools for Nigeria and Africa — salary, tax, loan, and business tools and more"
   }
 }
