@@ -105,17 +105,17 @@ export default async function HomePage({
                 </Link>
               </div>
 
-              <div className="mt-3 flex flex-col sm:flex-row gap-3 justify-center">
+              <div className="mt-3 flex flex-row gap-3 justify-center">
                 <Link
                   href={localePath(locale, `/documents`)}
-                  className="inline-flex items-center justify-center gap-2 bg-white border border-gray-200 hover:border-indigo-300 hover:bg-indigo-50 text-gray-700 hover:text-indigo-700 font-semibold px-8 py-3 rounded-xl transition-colors text-sm"
+                  className="inline-flex items-center justify-center gap-2 bg-gray-100 border border-gray-200 hover:border-gray-300 hover:bg-gray-200 text-gray-700 font-semibold px-4 sm:px-8 py-3 rounded-xl transition-colors text-sm"
                 >
                   <FileCheck2 className="w-4 h-4" aria-hidden />
                   {tNav('documents')}
                 </Link>
                 <Link
                   href={localePath(locale, `/blog`)}
-                  className="inline-flex items-center justify-center gap-2 bg-white border border-gray-200 hover:border-indigo-300 hover:bg-indigo-50 text-gray-700 hover:text-indigo-700 font-semibold px-8 py-3 rounded-xl transition-colors text-sm"
+                  className="inline-flex items-center justify-center gap-2 bg-white border border-gray-200 hover:border-indigo-300 hover:bg-indigo-50 text-gray-700 hover:text-indigo-700 font-semibold px-4 sm:px-8 py-3 rounded-xl transition-colors text-sm"
                 >
                   📰 {tNav('blog')}
                 </Link>
