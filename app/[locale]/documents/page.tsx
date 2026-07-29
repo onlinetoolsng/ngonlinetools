@@ -11,6 +11,7 @@ import { SchemaOrg } from '@/components/seo/SchemaOrg';
 import { generateBreadcrumbSchema } from '@/lib/schema/schemas';
 import { getAllPublishedTemplates } from '@/lib/documents/document-templates-data';
 import { getDocumentType, getDocumentCountry } from '@/lib/documents/document-types';
+import { DocumentsBrowser, type DocBrowserItem } from '@/components/documents/DocumentsBrowser';
 import { localePath, localizedUrl } from '@/lib/i18n/paths'
 
 type Params = { locale: string };
@@ -46,13 +47,20 @@ export default async function DocumentsIndexPage({ params }: { params: Promise<P
 
   const templates = await getAllPublishedTemplates();
 
-  const grouped = new Map<string, typeof templates>();
-  for (const t of templates) {
+  const items: DocBrowserItem[] = templates.map(t => {
     const docType = getDocumentType(t.document_type);
-    const category = docType?.category || 'Other';
-    if (!grouped.has(category)) grouped.set(category, []);
-    grouped.get(category)!.push(t);
-  }
+    const docCountry = getDocumentCountry(t.country);
+    return {
+      id: t.id,
+      href: localePath(locale, `/documents/${t.document_type}/${t.country}`),
+      label: docType?.label || t.title,
+      category: docType?.category || 'Other',
+      countryCode: t.country,
+      countryFlag: docCountry?.flag || '\u{1F30D}',
+      countryName: docCountry?.name || t.country.toUpperCase(),
+      updatedAt: t.updated_at,
+    };
+  });
 
   const breadcrumbItems = [
     { label: tNav('home'), href: localePath(locale) },
@@ -98,32 +106,7 @@ export default async function DocumentsIndexPage({ params }: { params: Promise<P
           <p className="text-sm text-gray-500">No templates published yet — check back soon.</p>
         )}
 
-        <div className="space-y-10">
-          {Array.from(grouped.entries()).map(([category, items]) => (
-            <section key={category}>
-              <h2 className="text-xs font-bold tracking-widest uppercase text-indigo-700 mb-3">{category}</h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                {items.map(t => {
-                  const docType = getDocumentType(t.document_type);
-                  const docCountry = getDocumentCountry(t.country);
-                  const label = docType?.label || t.title;
-                  const countryFlag = docCountry?.flag || '\u{1F30D}';
-                  const countryName = docCountry?.name || t.country.toUpperCase();
-                  return (
-                    <Link
-                      key={t.id}
-                      href={localePath(locale, `/documents/${t.document_type}/${t.country}`)}
-                      className="group bg-white border border-gray-200 hover:border-indigo-300 hover:shadow-md rounded-2xl p-4 transition-all"
-                    >
-                      <p className="font-bold text-gray-900 text-sm group-hover:text-indigo-800 transition-colors">{label}</p>
-                      <p className="text-xs text-gray-500 mt-1">{countryFlag} {countryName}</p>
-                    </Link>
-                  );
-                })}
-              </div>
-            </section>
-          ))}
-        </div>
+        {templates.length > 0 && <DocumentsBrowser items={items} />}
       </div>
 
       <Footer locale={locale} />
