@@ -2,14 +2,18 @@
 //
 // Single shared "related content" block for tool, template, and blog
 // pages: 5 random same-category tools + 5 random same-category
-// templates + 5 random same-category blog posts, for internal linking.
+// templates + (on tool/template pages only) 5 random same-category blog
+// posts, for internal linking.
 //
 // This replaces what used to be two separate, separately-maintained
 // related-tools blocks on the blog article page (an inline one inside
 // the article body, and a near-identical one in the sidebar) with one
 // section, and extends the same pattern — random picks from the shared
 // category taxonomy in lib/registry/categories.ts — to templates and
-// blog posts, and to the tool and template detail pages too.
+// blog posts, and to the tool and template detail pages too. The
+// related-blog-posts section is skipped on blog pages themselves,
+// since the sidebar "More articles" list already covers that ground —
+// showing both was duplicate.
 //
 // Rendered once, at the bottom of the page, on all three page types.
 
@@ -71,20 +75,23 @@ export async function RelatedContent({
     console.error('RelatedContent: templates lookup error:', err)
   }
 
-  // ── Blog posts: random, same category ───────────────────────────────
+  // ── Blog posts: random, same category — skipped on blog pages, which
+  //    already have a "More articles" sidebar list covering this ground ──
   let relatedArticles: { slug: string; title: string; readingTime: number }[] = []
-  try {
-    const articles = await getArticlesByCategory(categorySlug, locale, 20)
-    const candidates = articles
-      .filter(a => a.slug !== excludeArticleSlug && a.translation)
-      .map(a => ({
-        slug: a.slug,
-        title: a.translation!.title,
-        readingTime: a.translation!.reading_time_minutes,
-      }))
-    relatedArticles = pickRandom(candidates, COUNT)
-  } catch (err) {
-    console.error('RelatedContent: articles lookup error:', err)
+  if (pageType !== 'blog') {
+    try {
+      const articles = await getArticlesByCategory(categorySlug, locale, 20)
+      const candidates = articles
+        .filter(a => a.slug !== excludeArticleSlug && a.translation)
+        .map(a => ({
+          slug: a.slug,
+          title: a.translation!.title,
+          readingTime: a.translation!.reading_time_minutes,
+        }))
+      relatedArticles = pickRandom(candidates, COUNT)
+    } catch (err) {
+      console.error('RelatedContent: articles lookup error:', err)
+    }
   }
 
   if (relatedTools.length === 0 && relatedTemplates.length === 0 && relatedArticles.length === 0) {
@@ -173,12 +180,13 @@ export async function RelatedContent({
   )
 
   // Order sections so the current page's own type leads, matching user intent:
-  // a tool page leads with related tools, a document page with related documents,
-  // a blog page with related blog posts — the other two types follow.
+  // a tool page leads with related tools, a document page with related documents.
+  // Blog pages never show a related-blog-posts section here — the sidebar
+  // "More articles" list already covers that, so showing both was duplicate.
   const orderByPageType: Record<Props['pageType'], React.ReactNode[]> = {
     tool: [toolsSection, templatesSection, articlesSection],
     document: [templatesSection, toolsSection, articlesSection],
-    blog: [articlesSection, toolsSection, templatesSection],
+    blog: [toolsSection, templatesSection],
   }
 
   return (
