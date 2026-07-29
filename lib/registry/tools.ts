@@ -788,6 +788,18 @@ export const TOOLS: Tool[] = [
     requiresApi: false,
     launchDate: '2026-07-22',
   },
+  {
+    slug: 'south-africa-bond-repayment-calculator',
+    category: 'real-estate',
+    schema: 'calculator',
+    featured: false,
+    countries: ['south-africa'],
+    relatedTools: [],
+    relatedArticles: [],
+    hasCountryVariants: false,
+    requiresApi: false,
+    launchDate: '2026-07-29',
+  },
 ]
 
 // ─── Utility Functions ─────────────────────────────────────────────────────────

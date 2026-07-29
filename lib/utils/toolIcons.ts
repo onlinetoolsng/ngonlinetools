@@ -86,6 +86,7 @@ export const TOOL_ICON_MAP: Record<string, string> = {
 // Fallback flag — single-country site, so this is just Nigeria.
 export const COUNTRY_FLAG_MAP: Record<string, string> = {
   nigeria: '🇳🇬',
+  'south-africa': '🇿🇦',
 }
 
 // Fallback pool — used only when a tool has no explicit icon, no single-
