@@ -800,6 +800,18 @@ export const TOOLS: Tool[] = [
     requiresApi: false,
     launchDate: '2026-07-29',
   },
+  {
+    slug: 'uae-car-import-duty-calculator',
+    category: 'tax',
+    schema: 'calculator',
+    featured: false,
+    countries: ['uae'],
+    relatedTools: [],
+    relatedArticles: [],
+    hasCountryVariants: false,
+    requiresApi: true,
+    launchDate: '2026-07-29',
+  },
 ]
 
 // ─── Utility Functions ─────────────────────────────────────────────────────────
