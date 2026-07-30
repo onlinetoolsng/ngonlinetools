@@ -812,6 +812,18 @@ export const TOOLS: Tool[] = [
     requiresApi: true,
     launchDate: '2026-07-29',
   },
+  {
+    slug: 'kenya-bride-price-calculator',
+    category: 'everyday',
+    schema: 'calculator',
+    featured: false,
+    countries: ['kenya'],
+    relatedTools: [],
+    relatedArticles: [],
+    hasCountryVariants: false,
+    requiresApi: false,
+    launchDate: '2026-07-29',
+  },
 ]
 
 // ─── Utility Functions ─────────────────────────────────────────────────────────

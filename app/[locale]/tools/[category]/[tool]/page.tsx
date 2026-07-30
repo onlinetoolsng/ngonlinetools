@@ -100,6 +100,10 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
         const { KenyaRentDepositBudgetCalculator } = await import('@/components/tools/KenyaRentDepositBudgetCalculator')
         return KenyaRentDepositBudgetCalculator
       }
+      case 'kenya-bride-price-calculator': {
+        const { KenyaBridePriceCalculator } = await import('@/components/tools/KenyaBridePriceCalculator')
+        return KenyaBridePriceCalculator
+      }
       case 'salary-calculator': {
         const { SalaryCalculator } = await import('@/components/tools/SalaryCalculator')
         return SalaryCalculator

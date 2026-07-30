@@ -82,6 +82,7 @@ export const TOOL_ICON_MAP: Record<string, string> = {
   'daily-devotional': '📖',
   'ramadan-hijri-prayer-timetable': '🌙',
   'kenya-rent-deposit-house-hunting-budget-calculator': '🏠',
+  'kenya-bride-price-calculator': '💍',
 }
 
 // Fallback flag — single-country site, so this is just Nigeria.
