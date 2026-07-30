@@ -83,6 +83,7 @@ export const TOOL_ICON_MAP: Record<string, string> = {
   'ramadan-hijri-prayer-timetable': '🌙',
   'kenya-rent-deposit-house-hunting-budget-calculator': '🏠',
   'kenya-bride-price-calculator': '💍',
+  'ghana-fuel-cost-calculator': '⛽',
 }
 
 // Fallback flag — single-country site, so this is just Nigeria.
@@ -90,6 +91,7 @@ export const COUNTRY_FLAG_MAP: Record<string, string> = {
   nigeria: '🇳🇬',
   'south-africa': '🇿🇦',
   kenya: '🇰🇪',
+  ghana: '🇬🇭',
 }
 
 // Fallback pool — used only when a tool has no explicit icon, no single-
