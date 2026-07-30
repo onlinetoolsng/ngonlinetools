@@ -824,6 +824,18 @@ export const TOOLS: Tool[] = [
     requiresApi: false,
     launchDate: '2026-07-29',
   },
+  {
+    slug: 'south-africa-pregnancy-due-date-calculator',
+    category: 'health',
+    schema: 'calculator',
+    featured: false,
+    countries: ['south-africa'],
+    relatedTools: [],
+    relatedArticles: [],
+    hasCountryVariants: false,
+    requiresApi: false,
+    launchDate: '2026-07-30',
+  },
 ]
 
 // ─── Utility Functions ─────────────────────────────────────────────────────────
