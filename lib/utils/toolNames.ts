@@ -75,6 +75,7 @@ export const TOOL_NAMES: Record<string, { en: string; ar: string }> = {
   'kenya-rent-deposit-house-hunting-budget-calculator': { en: 'Kenya Rent Deposit & House-Hunting Budget Calculator', ar: '' },
   'kenya-bride-price-calculator': { en: 'Kenya Bride Price & Dowry Planning Calculator', ar: '' },
   'ghana-fuel-cost-calculator': { en: 'Ghana Fuel Cost & Trotro Fare Calculator', ar: '' },
+  'ghana-land-size-converter': { en: 'Ghana Land Size Converter (Plots, Acres & More)', ar: '' },
 }
 
 /**

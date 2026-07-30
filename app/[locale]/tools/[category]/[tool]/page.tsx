@@ -92,6 +92,10 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
   try {
     switch (toolSlug) {
       // ── Add new tool cases here as they are built ──
+      case 'ghana-land-size-converter': {
+        const { default: GhanaLandSizeConverter } = await import('@/components/tools/GhanaLandSizeConverter')
+        return GhanaLandSizeConverter
+      }
       case 'ghana-fuel-cost-calculator': {
         const { default: GhanaFuelCostCalculator } = await import('@/components/tools/GhanaFuelCostCalculator')
         return GhanaFuelCostCalculator

@@ -848,6 +848,18 @@ export const TOOLS: Tool[] = [
     requiresApi: false,
     launchDate: '2026-07-30',
   },
+  {
+    slug: 'ghana-land-size-converter',
+    category: 'real-estate',
+    schema: 'converter',
+    featured: false,
+    countries: ['ghana'],
+    relatedTools: [],
+    relatedArticles: [],
+    hasCountryVariants: false,
+    requiresApi: false,
+    launchDate: '2026-07-30',
+  },
 ]
 
 // ─── Utility Functions ─────────────────────────────────────────────────────────

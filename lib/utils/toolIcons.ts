@@ -84,6 +84,7 @@ export const TOOL_ICON_MAP: Record<string, string> = {
   'kenya-rent-deposit-house-hunting-budget-calculator': '🏠',
   'kenya-bride-price-calculator': '💍',
   'ghana-fuel-cost-calculator': '⛽',
+  'ghana-land-size-converter': '📐',
 }
 
 // Fallback flag — single-country site, so this is just Nigeria.
