@@ -800,6 +800,18 @@ export const TOOLS: Tool[] = [
     requiresApi: false,
     launchDate: '2026-07-29',
   },
+  {
+    slug: 'kenya-rent-deposit-house-hunting-budget-calculator',
+    category: 'real-estate',
+    schema: 'calculator',
+    featured: false,
+    countries: ['kenya'],
+    relatedTools: [],
+    relatedArticles: [],
+    hasCountryVariants: false,
+    requiresApi: true,
+    launchDate: '2026-07-29',
+  },
 ]
 
 // ─── Utility Functions ─────────────────────────────────────────────────────────

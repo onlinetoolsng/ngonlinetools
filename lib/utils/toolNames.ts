@@ -72,6 +72,7 @@ export const TOOL_NAMES: Record<string, { en: string; ar: string }> = {
   'generator-fuel-vs-solar-payback-calculator': { en: 'Generator Fuel vs Solar Payback Calculator', ar: '' },
   'recipe-meal-cost-calculator': { en: 'Recipe Meal Cost Calculator', ar: '' },
   'electricity-bill-units-calculator': { en: 'Electricity Bill Units Calculator', ar: '' },
+  'kenya-rent-deposit-house-hunting-budget-calculator': { en: 'Kenya Rent Deposit & House-Hunting Budget Calculator', ar: '' },
 }
 
 /**
