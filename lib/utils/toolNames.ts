@@ -81,6 +81,7 @@ export const TOOL_NAMES: Record<string, { en: string; ar: string }> = {
   'ghana-land-size-converter': { en: 'Ghana Land Size Converter (Plots, Acres & More)', ar: '' },
   'ghana-bride-price-calculator': { en: 'Ghana Bride Price & Traditional Marriage List Calculator', ar: '' },
   'ghana-susu-savings-calculator': { en: 'Ghana Susu Savings & Loan Calculator', ar: '' },
+  'ghana-bece-grade-calculator': { en: 'Ghana BECE Aggregate & Grade Calculator', ar: '' },
 }
 
 /**
