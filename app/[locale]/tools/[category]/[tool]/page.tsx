@@ -92,6 +92,14 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
   try {
     switch (toolSlug) {
       // ── Add new tool cases here as they are built ──
+      case 'ghana-land-size-converter': {
+        const { default: GhanaLandSizeConverter } = await import('@/components/tools/GhanaLandSizeConverter')
+        return GhanaLandSizeConverter
+      }
+      case 'ghana-fuel-cost-calculator': {
+        const { default: GhanaFuelCostCalculator } = await import('@/components/tools/GhanaFuelCostCalculator')
+        return GhanaFuelCostCalculator
+      }
       case 'south-africa-bond-repayment-calculator': {
         const { SouthAfricaBondRepaymentCalculator } = await import('@/components/tools/SouthAfricaBondRepaymentCalculator')
         return SouthAfricaBondRepaymentCalculator
@@ -115,6 +123,10 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
       case 'kenya-land-size-converter': {
         const { KenyaLandSizeConverter } = await import('@/components/tools/KenyaLandSizeConverter')
         return KenyaLandSizeConverter
+      }
+      case 'south-africa-pregnancy-due-date-calculator': {
+        const mod = await import('@/components/tools/SouthAfricaPregnancyDueDateCalculator')
+        return mod.default
       }
       case 'salary-calculator': {
         const { SalaryCalculator } = await import('@/components/tools/SalaryCalculator')

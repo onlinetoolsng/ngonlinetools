@@ -77,6 +77,8 @@ export const TOOL_NAMES: Record<string, { en: string; ar: string }> = {
   'kenya-mpesa-transaction-cost-calculator': { en: 'M-Pesa Charges Calculator', ar: '' },
   'kenya-kcse-mean-grade-calculator': { en: 'KCSE Mean Grade Calculator', ar: '' },
   'kenya-land-size-converter': { en: 'Kenya Land Size & Plot Converter', ar: '' },
+  'ghana-fuel-cost-calculator': { en: 'Ghana Fuel Cost & Trotro Fare Calculator', ar: '' },
+  'ghana-land-size-converter': { en: 'Ghana Land Size Converter (Plots, Acres & More)', ar: '' },
 }
 
 /**
