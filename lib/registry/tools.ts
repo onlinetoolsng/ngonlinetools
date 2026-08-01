@@ -445,7 +445,7 @@ export const TOOLS: Tool[] = [
   category: 'real-estate',
   schema: 'calculator',
   featured: false,
-  countries: ['Nigeria'],
+  countries: ['nigeria'],
   relatedTools: ['plot-to-acres-converter', 'square-meters-to-hectares-converter'],
   relatedArticles: [],
   hasCountryVariants: false,
