@@ -932,6 +932,18 @@ export const TOOLS: Tool[] = [
     requiresApi: false,
     launchDate: '2026-07-30',
   },
+  {
+    slug: 'ghana-susu-savings-calculator',
+    category: 'finance',
+    schema: 'calculator',
+    featured: false,
+    countries: ['ghana'],
+    relatedTools: [],
+    relatedArticles: [],
+    hasCountryVariants: false,
+    requiresApi: false,
+    launchDate: '2026-07-30',
+  },
 ]
 
 // ─── Utility Functions ─────────────────────────────────────────────────────────
