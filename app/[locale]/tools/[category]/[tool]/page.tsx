@@ -104,6 +104,18 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
         const { KenyaBridePriceCalculator } = await import('@/components/tools/KenyaBridePriceCalculator')
         return KenyaBridePriceCalculator
       }
+      case 'kenya-mpesa-transaction-cost-calculator': {
+        const { KenyaMpesaChargesCalculator } = await import('@/components/tools/KenyaMpesaChargesCalculator')
+        return KenyaMpesaChargesCalculator
+      }
+      case 'kenya-kcse-mean-grade-calculator': {
+        const { KCSEMeanGradeCalculator } = await import('@/components/tools/KCSEMeanGradeCalculator')
+        return KCSEMeanGradeCalculator
+      }
+      case 'kenya-land-size-converter': {
+        const { KenyaLandSizeConverter } = await import('@/components/tools/KenyaLandSizeConverter')
+        return KenyaLandSizeConverter
+      }
       case 'salary-calculator': {
         const { SalaryCalculator } = await import('@/components/tools/SalaryCalculator')
         return SalaryCalculator

@@ -74,6 +74,9 @@ export const TOOL_NAMES: Record<string, { en: string; ar: string }> = {
   'electricity-bill-units-calculator': { en: 'Electricity Bill Units Calculator', ar: '' },
   'kenya-rent-deposit-house-hunting-budget-calculator': { en: 'Kenya Rent Deposit & House-Hunting Budget Calculator', ar: '' },
   'kenya-bride-price-calculator': { en: 'Kenya Bride Price & Dowry Planning Calculator', ar: '' },
+  'kenya-mpesa-transaction-cost-calculator': { en: 'M-Pesa Charges Calculator', ar: '' },
+  'kenya-kcse-mean-grade-calculator': { en: 'KCSE Mean Grade Calculator', ar: '' },
+  'kenya-land-size-converter': { en: 'Kenya Land Size & Plot Converter', ar: '' },
 }
 
 /**
