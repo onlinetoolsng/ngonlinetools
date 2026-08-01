@@ -79,6 +79,7 @@ export const TOOL_NAMES: Record<string, { en: string; ar: string }> = {
   'kenya-land-size-converter': { en: 'Kenya Land Size & Plot Converter', ar: '' },
   'ghana-fuel-cost-calculator': { en: 'Ghana Fuel Cost & Trotro Fare Calculator', ar: '' },
   'ghana-land-size-converter': { en: 'Ghana Land Size Converter (Plots, Acres & More)', ar: '' },
+  'ghana-bride-price-calculator': { en: 'Ghana Bride Price & Traditional Marriage List Calculator', ar: '' },
 }
 
 /**

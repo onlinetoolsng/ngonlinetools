@@ -920,6 +920,18 @@ export const TOOLS: Tool[] = [
     requiresApi: false,
     launchDate: '2026-07-30',
   },
+  {
+    slug: 'ghana-bride-price-calculator',
+    category: 'everyday',
+    schema: 'calculator',
+    featured: false,
+    countries: ['ghana'],
+    relatedTools: [],
+    relatedArticles: [],
+    hasCountryVariants: false,
+    requiresApi: false,
+    launchDate: '2026-07-30',
+  },
 ]
 
 // ─── Utility Functions ─────────────────────────────────────────────────────────
