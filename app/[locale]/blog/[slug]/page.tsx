@@ -189,7 +189,7 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
               <span>·</span>
               <span className="flex items-center gap-1">
                 <span>🌐</span>
-                <span>ToolBase</span>
+                <span>Henry Agwu</span>
               </span>
             </div>
 
