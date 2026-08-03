@@ -980,6 +980,18 @@ export const TOOLS: Tool[] = [
     requiresApi: false,
     launchDate: '2026-07-30',
   },
+  {
+    slug: 'south-africa-ovulation-calculator',
+    category: 'health',
+    schema: 'calculator',
+    featured: false,
+    countries: ['south-africa'],
+    relatedTools: [],
+    relatedArticles: [],
+    hasCountryVariants: false,
+    requiresApi: false,
+    launchDate: '2026-08-03',
+  },
 ]
 
 // ─── Utility Functions ─────────────────────────────────────────────────────────
