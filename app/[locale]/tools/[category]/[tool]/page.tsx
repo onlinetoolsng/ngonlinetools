@@ -148,6 +148,10 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
         const mod = await import('@/components/tools/SouthAfricaLobolaBudgetPlanner')
         return mod.default
       }
+      case 'south-africa-matric-aps-calculator': {
+        const mod = await import('@/components/tools/SouthAfricaMatricApsCalculator')
+        return mod.default
+      }
       case 'salary-calculator': {
         const { SalaryCalculator } = await import('@/components/tools/SalaryCalculator')
         return SalaryCalculator

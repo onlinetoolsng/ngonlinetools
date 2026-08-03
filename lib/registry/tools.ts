@@ -968,6 +968,18 @@ export const TOOLS: Tool[] = [
     requiresApi: false,
     launchDate: '2026-07-30',
   },
+  {
+    slug: 'south-africa-matric-aps-calculator',
+    category: 'education',
+    schema: 'calculator',
+    featured: false,
+    countries: ['south-africa'],
+    relatedTools: [],
+    relatedArticles: [],
+    hasCountryVariants: false,
+    requiresApi: false,
+    launchDate: '2026-07-30',
+  },
 ]
 
 // ─── Utility Functions ─────────────────────────────────────────────────────────
