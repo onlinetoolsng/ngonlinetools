@@ -285,6 +285,18 @@ export const TOOLS: Tool[] = [
     launchDate: '2026-08-03',
   },
   {
+    slug: 'south-africa-provident-fund-retirement-withdrawal-tax-calculator',
+    category: 'finance',
+    schema: 'calculator',
+    featured: false,
+    countries: ['south-africa'],
+    relatedTools: ['south-africa-paye-tax-calculator', 'south-africa-uif-calculator'],
+    relatedArticles: [],
+    hasCountryVariants: false,
+    requiresApi: false,
+    launchDate: '2026-08-03',
+  },
+  {
     slug: 'import-duty-clearance-estimator',
   category: 'tax',
   schema: 'calculator',

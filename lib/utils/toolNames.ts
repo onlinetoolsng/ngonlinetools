@@ -84,6 +84,7 @@ export const TOOL_NAMES: Record<string, { en: string; ar: string }> = {
   'ghana-bece-grade-calculator': { en: 'Ghana BECE Aggregate & Grade Calculator', ar: '' },
   'south-africa-uif-calculator': { en: 'South Africa UIF Calculator', ar: '' },
   'south-africa-13th-cheque-bonus-tax-calculator': { en: 'South Africa 13th Cheque & Bonus Tax Calculator', ar: '' },
+  'south-africa-provident-fund-retirement-withdrawal-tax-calculator': { en: 'South Africa Provident Fund & Two-Pot Withdrawal Tax Calculator', ar: '' },
 }
 
 /**

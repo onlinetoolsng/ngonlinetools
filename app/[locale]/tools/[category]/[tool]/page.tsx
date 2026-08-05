@@ -164,6 +164,10 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
         const { SouthAfrica13thChequeBonusTaxCalculator } = await import('@/components/tools/SouthAfrica13thChequeBonusTaxCalculator')
         return SouthAfrica13thChequeBonusTaxCalculator
       }
+      case 'south-africa-provident-fund-retirement-withdrawal-tax-calculator': {
+        const { SouthAfricaProvidentFundRetirementWithdrawalTaxCalculator } = await import('@/components/tools/SouthAfricaProvidentFundRetirementWithdrawalTaxCalculator')
+        return SouthAfricaProvidentFundRetirementWithdrawalTaxCalculator
+      }
       case 'salary-calculator': {
         const { SalaryCalculator } = await import('@/components/tools/SalaryCalculator')
         return SalaryCalculator
