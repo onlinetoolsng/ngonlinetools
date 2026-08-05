@@ -273,6 +273,18 @@ export const TOOLS: Tool[] = [
     launchDate: '2026-08-03',
   },
   {
+    slug: 'south-africa-13th-cheque-bonus-tax-calculator',
+    category: 'tax',
+    schema: 'calculator',
+    featured: false,
+    countries: ['south-africa'],
+    relatedTools: ['south-africa-paye-tax-calculator', 'south-africa-uif-calculator'],
+    relatedArticles: [],
+    hasCountryVariants: false,
+    requiresApi: false,
+    launchDate: '2026-08-03',
+  },
+  {
     slug: 'import-duty-clearance-estimator',
   category: 'tax',
   schema: 'calculator',
