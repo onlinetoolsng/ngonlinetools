@@ -261,6 +261,18 @@ export const TOOLS: Tool[] = [
     launchDate: '2026-08-02',
   },
   {
+    slug: 'south-africa-uif-calculator',
+    category: 'tax',
+    schema: 'calculator',
+    featured: false,
+    countries: ['south-africa'],
+    relatedTools: ['south-africa-paye-tax-calculator'],
+    relatedArticles: [],
+    hasCountryVariants: false,
+    requiresApi: false,
+    launchDate: '2026-08-03',
+  },
+  {
     slug: 'import-duty-clearance-estimator',
   category: 'tax',
   schema: 'calculator',
