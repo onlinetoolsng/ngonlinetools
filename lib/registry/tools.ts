@@ -1040,6 +1040,18 @@ export const TOOLS: Tool[] = [
     requiresApi: false,
     launchDate: '2026-08-03',
   },
+  {
+    slug: 'egypt-net-salary-tax-calculator',
+    category: 'tax',
+    schema: 'calculator',
+    featured: false,
+    countries: ['egypt'],
+    relatedTools: [],
+    relatedArticles: [],
+    hasCountryVariants: false,
+    requiresApi: false,
+    launchDate: '2026-08-06',
+  },
 ]
 
 // ─── Utility Functions ─────────────────────────────────────────────────────────
