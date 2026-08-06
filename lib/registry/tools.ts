@@ -1028,6 +1028,18 @@ export const TOOLS: Tool[] = [
     requiresApi: false,
     launchDate: '2026-08-03',
   },
+  {
+    slug: 'ghana-paye-income-tax-calculator',
+    category: 'tax',
+    schema: 'calculator',
+    featured: false,
+    countries: ['ghana'],
+    relatedTools: ['ghana-susu-savings-calculator'],
+    relatedArticles: [],
+    hasCountryVariants: false,
+    requiresApi: false,
+    launchDate: '2026-08-03',
+  },
 ]
 
 // ─── Utility Functions ─────────────────────────────────────────────────────────
