@@ -671,6 +671,7 @@ export default async function ToolPage({ params }: { params: Promise<Params> }) 
           locale={locale}
           categorySlug={category}
           pageType="tool"
+          countries={tool.countries}
           excludeToolSlug={toolSlug}
         />
       </div>

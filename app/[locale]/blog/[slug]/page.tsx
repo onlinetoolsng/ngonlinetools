@@ -335,6 +335,7 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
           locale={locale}
           categorySlug={article.category_slug}
           pageType="blog"
+          countries={article.countries}
           excludeArticleSlug={slug}
         />
       </div>

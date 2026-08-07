@@ -132,6 +132,7 @@ export default async function TemplateDocumentPage({
           locale={locale}
           categorySlug={docType.categorySlug}
           pageType="document"
+          countries={[country]}
           excludeTemplateSlug={docType.slug}
         />
       </div>

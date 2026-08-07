@@ -23,6 +23,7 @@ import { getRandomToolsForCategory, getRandomTemplateTypesForCategory, pickRando
 import { getAllPublishedTemplates } from '@/lib/documents/document-templates-data'
 import { getArticlesByCategory } from '@/lib/supabase/queries'
 import { getDocumentCountry } from '@/lib/documents/document-types'
+import { includesCountry } from '@/lib/registry/countries'
 import { getToolIcon } from '@/lib/utils/toolIcons'
 import { getToolName } from '@/lib/utils/toolNames'
 import { getCategoryIcon } from '@/lib/registry/categories'
@@ -34,6 +35,12 @@ type Props = {
   categorySlug: string
   /** Which page type this is being rendered on — controls the order of the sections below. */
   pageType: 'tool' | 'document' | 'blog'
+  /** Country/countries the current page is about, e.g. a tool's `countries`
+   *  array or a single document's `country`. When given, related tools,
+   *  templates, and blog posts sharing at least one country are preferred
+   *  — falling back to the rest of the category if there aren't enough
+   *  same-country matches, so the section is never empty or under-filled. */
+  countries?: string[]
   /** Exclude the tool currently being viewed, if this is a tool page. */
   excludeToolSlug?: string
   /** Exclude the document type currently being viewed, if this is a template page. */
@@ -48,6 +55,7 @@ export async function RelatedContent({
   locale,
   categorySlug,
   pageType,
+  countries,
   excludeToolSlug,
   excludeTemplateSlug,
   excludeArticleSlug,
@@ -56,39 +64,61 @@ export async function RelatedContent({
   const tCommon = await getTranslations({ locale, namespace: 'common' })
   const tBlog = await getTranslations({ locale, namespace: 'blog' })
 
-  // ── Tools: random, same category ──────────────────────────────────────
-  const relatedTools = getRandomToolsForCategory(categorySlug, excludeToolSlug, COUNT)
+  // ── Tools: same category, same country preferred ───────────────────────
+  const relatedTools = getRandomToolsForCategory(categorySlug, excludeToolSlug, COUNT, countries)
 
-  // ── Templates: random, same category, cross-checked against what's
-  //    actually published in Supabase so we never link to a 404 ────────
+  // ── Templates: same category, same country preferred, cross-checked
+  //    against what's actually published in Supabase so we never link to
+  //    a 404 ─────────────────────────────────────────────────────────────
   let relatedTemplates: { slug: string; country: string; label: string }[] = []
   try {
     const published = await getAllPublishedTemplates()
     const publishedByType = new Map(published.map(p => [p.document_type, p]))
-    const candidates = getRandomTemplateTypesForCategory(categorySlug, excludeTemplateSlug, published.length)
+    const candidateDefs = getRandomTemplateTypesForCategory(categorySlug, excludeTemplateSlug, published.length)
       .filter(d => publishedByType.has(d.slug))
-    relatedTemplates = pickRandom(candidates, COUNT).map(d => {
+    const candidates = candidateDefs.map(d => {
       const row = publishedByType.get(d.slug)!
       return { slug: d.slug, country: row.country, label: d.label }
     })
+    if (countries && countries.length > 0) {
+      const priority = candidates.filter(c => countries.some(country => includesCountry([c.country], country)))
+      const rest = candidates.filter(c => !countries.some(country => includesCountry([c.country], country)))
+      relatedTemplates = pickRandom(priority, COUNT)
+      if (relatedTemplates.length < COUNT) {
+        relatedTemplates.push(...pickRandom(rest, COUNT - relatedTemplates.length))
+      }
+    } else {
+      relatedTemplates = pickRandom(candidates, COUNT)
+    }
   } catch (err) {
     console.error('RelatedContent: templates lookup error:', err)
   }
 
-  // ── Blog posts: random, same category — skipped on blog pages, which
-  //    already have a "More articles" sidebar list covering this ground ──
+  // ── Blog posts: same category, same country preferred — skipped on blog
+  //    pages, which already have a "More articles" sidebar list covering
+  //    this ground ─────────────────────────────────────────────────────
   let relatedArticles: { slug: string; title: string; readingTime: number }[] = []
   if (pageType !== 'blog') {
     try {
-      const articles = await getArticlesByCategory(categorySlug, locale, 20)
+      const articles = await getArticlesByCategory(categorySlug, locale, 30)
       const candidates = articles
         .filter(a => a.slug !== excludeArticleSlug && a.translation)
         .map(a => ({
           slug: a.slug,
           title: a.translation!.title,
           readingTime: a.translation!.reading_time_minutes,
+          countries: a.countries,
         }))
-      relatedArticles = pickRandom(candidates, COUNT)
+      if (countries && countries.length > 0) {
+        const priority = candidates.filter(a => countries.some(country => includesCountry(a.countries, country)))
+        const rest = candidates.filter(a => !countries.some(country => includesCountry(a.countries, country)))
+        relatedArticles = pickRandom(priority, COUNT)
+        if (relatedArticles.length < COUNT) {
+          relatedArticles.push(...pickRandom(rest, COUNT - relatedArticles.length))
+        }
+      } else {
+        relatedArticles = pickRandom(candidates, COUNT)
+      }
     } catch (err) {
       console.error('RelatedContent: articles lookup error:', err)
     }

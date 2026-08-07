@@ -19,6 +19,7 @@
 // instead of only linking within their own content type.
 
 import type { Category } from '@/lib/registry/categories';
+import { normalizeCountry, getCountryFlag, getCountryName } from '@/lib/registry/countries';
 
 export interface DocumentTypeDef {
   slug: string;
@@ -89,8 +90,10 @@ export const DOCUMENT_TYPES_SORTED: DocumentTypeDef[] = [
 ];
 
 // ── Country/jurisdiction dimension ──────────────────────────────────────
-// Kept (rather than dropped) so the schema and routing stay identical to
-// naira.autos's /documents/[type]/[country] shape.
+// Delegates to the master country registry (lib/registry/countries.ts) so
+// documents, blog articles, and tools all resolve country code/name/flag
+// the same way, regardless of which format (ISO code, full name, or
+// hyphenated slug) a given row happens to be stored as.
 
 export interface DocumentCountryDef {
   code: string;
@@ -99,18 +102,15 @@ export interface DocumentCountryDef {
   popular: boolean;
 }
 
-export const DOCUMENT_COUNTRIES: DocumentCountryDef[] = [
-  { code: 'ng', name: 'Nigeria', flag: '\u{1F1F3}\u{1F1EC}', popular: true },
-  { code: 'gh', name: 'Ghana', flag: '\u{1F1EC}\u{1F1ED}', popular: true },
-  { code: 'ke', name: 'Kenya', flag: '\u{1F1F0}\u{1F1EA}', popular: true },
-  { code: 'sa', name: 'South Africa', flag: '\u{1F1FF}\u{1F1E6}', popular: true },
-  { code: 'bw', name: 'Botswana', flag: '\u{1F1E7}\u{1F1FC}', popular: false },
-  { code: 'rw', name: 'Rwanda', flag: '\u{1F1F7}\u{1F1FC}', popular: false },
-  { code: 'ug', name: 'Uganda', flag: '\u{1F1FA}\u{1F1EC}', popular: false },
-];
-
 export function getDocumentCountry(code: string): DocumentCountryDef | undefined {
-  return DOCUMENT_COUNTRIES.find(c => c.code === code);
+  const country = normalizeCountry(code);
+  if (!country) return undefined;
+  return {
+    code: country.code,
+    name: getCountryName(code),
+    flag: getCountryFlag(code),
+    popular: country.code === 'ng',
+  };
 }
 
 // Document types flagged as higher legal risk — shown with a stronger
