@@ -3,7 +3,9 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 import { getDocumentTemplate, getAllPublishedTemplateParams } from '@/lib/documents/document-templates-data';
-import { getDocumentType, getDocumentCountry, type DocumentTypeDef, type DocumentCountryDef } from '@/lib/documents/document-types';
+import { getDocumentType, getDocumentCountry, HIGH_RISK_DOCUMENT_TYPES, type DocumentTypeDef, type DocumentCountryDef } from '@/lib/documents/document-types';
+import { fillTemplate } from '@/lib/documents/document-templates-fill';
+import DocumentPreview from '@/components/documents/DocumentPreview';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { Breadcrumb } from '@/components/layout/Breadcrumb';
@@ -99,6 +101,15 @@ export default async function TemplateDocumentPage({
 
   const docType = resolveDocType(type, template.title);
   const docCountry = resolveDocCountry(country);
+  const isHighRisk = HIGH_RISK_DOCUMENT_TYPES.has(docType.slug);
+
+  // Placeholder document is pure/deterministic — no client state needed —
+  // so it renders server-side as part of the initial HTML. See
+  // components/documents/DocumentPreview.tsx for why this is a separate,
+  // read-only component rather than reusing the interactive DocumentEditor.
+  const filled = fillTemplate(template, {}, template.fields, true);
+  const placeholderDocument = { ...filled, signatures: template.signatures };
+
   const url = localizedUrl(locale, `/documents/${type}/${country}`);
 
   const breadcrumbSchema = generateBreadcrumbSchema([
@@ -126,7 +137,9 @@ export default async function TemplateDocumentPage({
           </div>
         </div>
 
-        <TemplateDocumentClient template={template} docType={docType} docCountry={docCountry} locale={locale} />
+        <TemplateDocumentClient template={template} docType={docType} docCountry={docCountry} locale={locale} isHighRisk={isHighRisk}>
+          <DocumentPreview document={placeholderDocument} isHighRisk={isHighRisk} />
+        </TemplateDocumentClient>
 
         <RelatedContent
           locale={locale}

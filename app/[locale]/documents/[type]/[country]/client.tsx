@@ -2,38 +2,60 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { FileCheck2, Wand2, History } from 'lucide-react';
+import { FileCheck2, Wand2, History, PenSquare, ArrowLeft } from 'lucide-react';
 import { DocumentTemplateRow, fillTemplate } from '@/lib/documents/document-templates-fill';
-import { DocumentTypeDef, DocumentCountryDef, HIGH_RISK_DOCUMENT_TYPES } from '@/lib/documents/document-types';
+import { DocumentTypeDef, DocumentCountryDef } from '@/lib/documents/document-types';
 import { GeneratedDocument } from '@/lib/documents/document-format';
 import { saveToHistory } from '@/lib/documents/document-history';
 import { localePath } from '@/lib/i18n/paths';
 import DocumentEditor from '@/components/documents/DocumentEditor';
 
-// This is a Client Component scoped to ONLY the interactive fill-in-form /
-// document-editor slice. Header/Footer/Breadcrumb/BackButton are rendered
-// by the parent Server Component (page.tsx) instead — Header and Footer
-// are async Server Components that call next-intl's getTranslations(),
-// which throws at runtime if it ends up bundled into a Client Component's
-// module graph. Keep this file free of any import that isn't itself
-// marked 'use client' or a plain browser-safe utility.
+// This is a Client Component scoped to ONLY the interactive slice: the
+// sticky Edit bar, the fill-in form, and the generated-document editor.
+// Header/Footer/Breadcrumb/BackButton, and now the placeholder document
+// preview itself, are rendered by the parent Server Component (page.tsx)
+// and passed in as `children` — Header and Footer are async Server
+// Components that call next-intl's getTranslations(), which throws at
+// runtime if it ends up bundled into a Client Component's module graph.
+// Keep this file free of any import that isn't itself marked 'use client'
+// or a plain browser-safe utility.
+//
+// FLOW: page loads showing `children` (the server-rendered placeholder
+// preview) with a sticky, always-visible "Edit" bar pinned to the bottom
+// of the viewport. Tapping it reveals the fill-in form. Submitting the
+// form generates the real, downloadable, contentEditable document via
+// DocumentEditor — unchanged from before this restructure.
 
 const SHORT_DISCLAIMER =
   'Informational only, not legal advice. Have high-value or high-risk agreements reviewed by a licensed Nigerian lawyer.';
+
+type Mode = 'preview' | 'form' | 'generated';
 
 interface TemplateDocumentClientProps {
   template: DocumentTemplateRow;
   docType: DocumentTypeDef;
   docCountry: DocumentCountryDef;
   locale: string;
+  isHighRisk: boolean;
+  /** Server-rendered placeholder document preview (DocumentPreview),
+   *  shown in 'preview' mode. Passed in rather than rendered here so it
+   *  stays a Server Component — the actual document text ships in the
+   *  initial HTML instead of only appearing after client JS runs. */
+  children: React.ReactNode;
 }
 
-export default function TemplateDocumentClient({ template, docType, docCountry, locale }: TemplateDocumentClientProps) {
+export default function TemplateDocumentClient({
+  template,
+  docType,
+  docCountry,
+  locale,
+  isHighRisk,
+  children,
+}: TemplateDocumentClientProps) {
+  const [mode, setMode] = useState<Mode>('preview');
   const [values, setValues] = useState<Record<string, string>>({});
   const [usePlaceholders, setUsePlaceholders] = useState(false);
   const [generatedDocument, setGeneratedDocument] = useState<GeneratedDocument | null>(null);
-
-  const isHighRisk = HIGH_RISK_DOCUMENT_TYPES.has(docType.slug);
 
   const handleFieldChange = (id: string, value: string) => {
     setValues(v => ({ ...v, [id]: value }));
@@ -51,6 +73,7 @@ export default function TemplateDocumentClient({ template, docType, docCountry, 
       signatures: template.signatures,
     };
     setGeneratedDocument(doc);
+    setMode('generated');
     saveToHistory({
       source: 'template',
       documentTypeSlug: docType.slug,
@@ -62,18 +85,84 @@ export default function TemplateDocumentClient({ template, docType, docCountry, 
     });
   };
 
-  const handleReset = () => {
+  const handleEditAgain = () => {
     setGeneratedDocument(null);
-    setValues({});
-    setUsePlaceholders(false);
+    setMode('form');
   };
 
   return (
     <>
-      {!generatedDocument && (
+      {mode === 'preview' && (
         <>
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div>
+              <div className="flex items-center gap-2 mb-2">
+                <FileCheck2 className="h-4 w-4 text-indigo-600" />
+                <span className="text-xs text-gray-500 uppercase tracking-wide font-medium">Free Template · No Sign-Up</span>
+              </div>
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black text-gray-900 mb-2">
+                {docType.label} Template — {docCountry.flag} {docCountry.name}
+              </h1>
+            </div>
+
+            <Link
+              href={localePath(locale, `/documents/history`)}
+              className="flex items-center gap-2 bg-indigo-700 hover:bg-indigo-800 text-white text-sm font-semibold rounded-full px-4 py-2.5 transition-colors flex-shrink-0 self-end ml-auto no-print"
+            >
+              <History className="h-4 w-4" />
+              My Saved Documents
+            </Link>
+          </div>
+
+          {template.legal_note && (
+            <div className="bg-indigo-50 border border-indigo-200 text-indigo-700 rounded-lg px-4 py-3 text-sm max-w-3xl">
+              {template.legal_note}
+            </div>
+          )}
+
+          <p className="text-xs text-gray-400">{SHORT_DISCLAIMER}</p>
+
+          {/* Server-rendered placeholder document preview */}
+          {children}
+
+          {/* SEO article content — below the preview, full width */}
+          {template.seo_intro && (
+            <div className="prose-sm text-gray-500 leading-relaxed border-t border-gray-200 pt-6 max-w-3xl">
+              <p>{template.seo_intro}</p>
+            </div>
+          )}
+
+          {/* Static, non-scrolling Edit bar pinned to the bottom of the
+              viewport. Bottom padding on the wrapper below keeps the last
+              bit of SEO content from being covered by it. */}
+          <div className="h-24 no-print" aria-hidden="true" />
+          <div className="fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-gray-200 shadow-[0_-4px_12px_rgba(0,0,0,0.06)] no-print">
+            <div className="max-w-3xl mx-auto px-4 py-3" style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}>
+              <button
+                type="button"
+                onClick={() => setMode('form')}
+                className="w-full flex items-center justify-center gap-2 bg-indigo-700 hover:bg-indigo-800 text-white font-semibold rounded-xl py-3.5 transition-colors"
+              >
+                <PenSquare className="h-4 w-4" />
+                Edit This Document
+              </button>
+            </div>
+          </div>
+        </>
+      )}
+
+      {mode === 'form' && (
+        <>
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <div>
+              <button
+                type="button"
+                onClick={() => setMode('preview')}
+                className="flex items-center gap-1.5 text-xs font-medium text-gray-500 hover:text-indigo-700 transition-colors mb-3"
+              >
+                <ArrowLeft className="h-3.5 w-3.5" />
+                Back to preview
+              </button>
               <div className="flex items-center gap-2 mb-2">
                 <FileCheck2 className="h-4 w-4 text-indigo-600" />
                 <span className="text-xs text-gray-500 uppercase tracking-wide font-medium">Free Template · No Sign-Up</span>
@@ -120,7 +209,7 @@ export default function TemplateDocumentClient({ template, docType, docCountry, 
 
               {usePlaceholders ? (
                 <p className="text-sm text-gray-500 bg-gray-50 border border-gray-200 rounded-lg px-3 py-2.5">
-                  Placeholder fields like [TENANT'S FULL NAME] will be used — fill them in after downloading.
+                  Placeholder fields like [TENANT&apos;S FULL NAME] will be used — fill them in after downloading.
                 </p>
               ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -161,23 +250,16 @@ export default function TemplateDocumentClient({ template, docType, docCountry, 
               </button>
             </div>
           </div>
-
-          {/* SEO article content — below the form, full width */}
-          {template.seo_intro && (
-            <div className="prose-sm text-gray-500 leading-relaxed border-t border-gray-200 pt-6 max-w-3xl">
-              <p>{template.seo_intro}</p>
-            </div>
-          )}
         </>
       )}
 
-      {generatedDocument && (
+      {mode === 'generated' && generatedDocument && (
         <DocumentEditor
           document={generatedDocument}
           onChange={setGeneratedDocument}
           isHighRisk={isHighRisk}
           fileNamePrefix={docType.label}
-          onReset={handleReset}
+          onReset={handleEditAgain}
           resetLabel="Edit Details Again"
         />
       )}
