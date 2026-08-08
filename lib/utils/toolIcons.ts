@@ -21,6 +21,7 @@ export const TOOL_ICON_MAP: Record<string, string> = {
   'vat-calculator':    '🧾',
   'company-income-tax-calculator': '🏢',
   'pension-calculator': '👵',
+  'ghana-ssnit-contribution-pension-calculator': '🧓',
   'investment-returns-calculator': '📈',
   'net-worth-calculator': '📊',
   'capital-gains-tax-calculator': '💹',

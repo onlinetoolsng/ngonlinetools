@@ -180,6 +180,10 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
         const { GhanaPayeIncomeTaxCalculator } = await import('@/components/tools/GhanaPayeIncomeTaxCalculator')
         return GhanaPayeIncomeTaxCalculator
       }
+      case 'ghana-ssnit-contribution-pension-calculator': {
+        const mod = await import('@/components/tools/GhanaSSNITCalculator')
+        return mod.default
+      }
       case 'salary-calculator': {
         const { SalaryCalculator } = await import('@/components/tools/SalaryCalculator')
         return SalaryCalculator
