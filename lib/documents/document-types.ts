@@ -90,9 +90,7 @@ export const DOCUMENT_TYPES_SORTED: DocumentTypeDef[] = [
 
 // ── Country/jurisdiction dimension ──────────────────────────────────────
 // Kept (rather than dropped) so the schema and routing stay identical to
-// naira.autos's /documents/[type]/[country] shape. toolbase.com.ng is
-// Nigeria-only today, so this list has one entry — add more later if the
-// document library expands beyond Nigeria.
+// naira.autos's /documents/[type]/[country] shape.
 
 export interface DocumentCountryDef {
   code: string;
@@ -103,6 +101,12 @@ export interface DocumentCountryDef {
 
 export const DOCUMENT_COUNTRIES: DocumentCountryDef[] = [
   { code: 'ng', name: 'Nigeria', flag: '\u{1F1F3}\u{1F1EC}', popular: true },
+  { code: 'gh', name: 'Ghana', flag: '\u{1F1EC}\u{1F1ED}', popular: true },
+  { code: 'ke', name: 'Kenya', flag: '\u{1F1F0}\u{1F1EA}', popular: true },
+  { code: 'sa', name: 'South Africa', flag: '\u{1F1FF}\u{1F1E6}', popular: true },
+  { code: 'bw', name: 'Botswana', flag: '\u{1F1E7}\u{1F1FC}', popular: false },
+  { code: 'rw', name: 'Rwanda', flag: '\u{1F1F7}\u{1F1FC}', popular: false },
+  { code: 'ug', name: 'Uganda', flag: '\u{1F1FA}\u{1F1EC}', popular: false },
 ];
 
 export function getDocumentCountry(code: string): DocumentCountryDef | undefined {
