@@ -136,6 +136,10 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
         const { KenyaLandSizeConverter } = await import('@/components/tools/KenyaLandSizeConverter')
         return KenyaLandSizeConverter
       }
+      case 'kenya-payroll-net-pay-payslip-calculator': {
+        const { KenyaPayrollNetPayCalculator } = await import('@/components/tools/KenyaPayrollNetPayCalculator')
+        return KenyaPayrollNetPayCalculator
+      }
       case 'south-africa-pregnancy-due-date-calculator': {
         const mod = await import('@/components/tools/SouthAfricaPregnancyDueDateCalculator')
         return mod.default

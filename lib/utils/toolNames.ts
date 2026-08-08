@@ -86,6 +86,7 @@ export const TOOL_NAMES: Record<string, { en: string; ar: string }> = {
   'south-africa-13th-cheque-bonus-tax-calculator': { en: 'South Africa 13th Cheque & Bonus Tax Calculator', ar: '' },
   'south-africa-provident-fund-retirement-withdrawal-tax-calculator': { en: 'South Africa Provident Fund & Two-Pot Withdrawal Tax Calculator', ar: '' },
   'ghana-paye-income-tax-calculator': { en: 'Ghana PAYE & Income Tax Calculator', ar: '' },
+  'kenya-payroll-net-pay-payslip-calculator': { en: 'Kenya Payroll, Net Pay & Payslip Calculator', ar: '' },
 }
 
 /**

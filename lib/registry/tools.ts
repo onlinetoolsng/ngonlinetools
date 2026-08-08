@@ -909,6 +909,18 @@ export const TOOLS: Tool[] = [
     launchDate: '2026-07-29',
   },
   {
+    slug: 'kenya-payroll-net-pay-payslip-calculator',
+    category: 'hr-payroll',
+    schema: 'calculator',
+    featured: false,
+    countries: ['kenya'],
+    relatedTools: [],
+    relatedArticles: [],
+    hasCountryVariants: false,
+    requiresApi: false,
+    launchDate: '2026-08-03',
+  },
+  {
     slug: 'south-africa-pregnancy-due-date-calculator',
     category: 'health',
     schema: 'calculator',
