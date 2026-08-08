@@ -441,6 +441,18 @@ export const TOOLS: Tool[] = [
     launchDate: '2026-07-20',
   },
   {
+    slug: 'ghana-business-registration-cost-calculator',
+    category: 'business',
+    schema: 'calculator',
+    featured: false,
+    countries: ['ghana'],
+    relatedTools: ['ghana-paye-income-tax-calculator', 'ghana-ssnit-contribution-pension-calculator'],
+    relatedArticles: [],
+    hasCountryVariants: false,
+    requiresApi: false,
+    launchDate: '2026-08-08',
+  },
+  {
   slug: 'cac-business-name-generator',
   category: 'business',
   schema: 'calculator',

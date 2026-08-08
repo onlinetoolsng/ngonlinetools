@@ -37,6 +37,7 @@ export const TOOL_ICON_MAP: Record<string, string> = {
   'startup-cost-break-even-analyzer': '🚀',
   'nigeria-inflation-impact-simulator': '💸',
   'nigeria-cac-registration-calculator': '📝',
+  'ghana-business-registration-cost-calculator': '🏢',
   'nigeria-payslip-generator': '🧾',
   'nigeria-scholarship-eligibility-matcher': '🎓',
   'farm-loan-repayment-calculator': '🚜',
