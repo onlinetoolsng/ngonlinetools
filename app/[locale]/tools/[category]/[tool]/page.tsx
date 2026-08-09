@@ -561,11 +561,16 @@ export default async function ToolPage({ params }: { params: Promise<Params> }) 
               </p>
             </div>
 
-            {/* Ad — above tool */}
-            <div className="mb-6">
-              <p className="text-xs text-gray-500 text-center mb-1">Advertisement</p>
-              <AdUnit slot={AD_SLOTS.TOOL_BANNER_1} />
-            </div>
+            {/* Ad — above tool. TEMPORARILY DISABLED ahead of AdSense
+                reapplication: this placement ran before the actual
+                calculator, which is worth avoiding while under review.
+                Flip the `false` below to re-enable. */}
+            {false && (
+              <div className="mb-6">
+                <p className="text-xs text-gray-500 text-center mb-1">Advertisement</p>
+                <AdUnit slot={AD_SLOTS.TOOL_BANNER_1} />
+              </div>
+            )}
 
             {/* Interactive tool */}
             <ToolWrapper>
@@ -579,11 +584,13 @@ export default async function ToolPage({ params }: { params: Promise<Params> }) 
               )}
             </ToolWrapper>
 
-            {/* Ad — below tool */}
-            <div className="my-6">
-              <p className="text-xs text-gray-500 text-center mb-1">Advertisement</p>
-              <AdUnit slot={AD_SLOTS.TOOL_BANNER_2} />
-            </div>
+            {/* Ad — below tool. TEMPORARILY DISABLED, see note above. */}
+            {false && (
+              <div className="my-6">
+                <p className="text-xs text-gray-500 text-center mb-1">Advertisement</p>
+                <AdUnit slot={AD_SLOTS.TOOL_BANNER_2} />
+              </div>
+            )}
 
             {/* ── Article / SEO content section ── */}
             {toolContent.article_title && articleBody && (
@@ -661,11 +668,13 @@ export default async function ToolPage({ params }: { params: Promise<Params> }) 
           {/* ── Sidebar ── */}
           <aside className="space-y-6" dir={isRtl ? 'rtl' : 'ltr'}>
 
-            {/* Sidebar ad */}
-            <div>
-              <p className="text-xs text-gray-500 text-center mb-1">Advertisement</p>
-              <AdUnit slot={AD_SLOTS.BANNER} format="autorelaxed" />
-            </div>
+            {/* Sidebar ad. TEMPORARILY DISABLED, see note above. */}
+            {false && (
+              <div>
+                <p className="text-xs text-gray-500 text-center mb-1">Advertisement</p>
+                <AdUnit slot={AD_SLOTS.BANNER} format="autorelaxed" />
+              </div>
+            )}
           </aside>
 
         </div>

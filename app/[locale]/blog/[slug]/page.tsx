@@ -200,11 +200,15 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
               </p>
             )}
 
-            {/* Ad: top of article */}
-            <div className="mb-8">
-              <p className="text-xs text-gray-400 text-center mb-1">Advertisement</p>
-              <AdUnit slot={AD_SLOTS.DISPLAY_TOP} />
-            </div>
+            {/* Ad: top of article. TEMPORARILY DISABLED ahead of AdSense
+                reapplication — this ran before the article body even
+                loaded. Flip `false` below to re-enable. */}
+            {false && (
+              <div className="mb-8">
+                <p className="text-xs text-gray-400 text-center mb-1">Advertisement</p>
+                <AdUnit slot={AD_SLOTS.DISPLAY_TOP} />
+              </div>
+            )}
 
 {/* Article body */}
 {hasContent ? (
@@ -223,21 +227,25 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
   </div>
 )}
 
-            {/* Ad: mid-article */}
-            <div className="my-8">
-              <p className="text-xs text-gray-400 text-center mb-1">Advertisement</p>
-              <AdUnit
-                slot={AD_SLOTS.IN_ARTICLE_1}
-                format="fluid"
-                layout="in-article"
-              />
-            </div>
+            {/* Ad: mid-article. TEMPORARILY DISABLED, see note above. */}
+            {false && (
+              <div className="my-8">
+                <p className="text-xs text-gray-400 text-center mb-1">Advertisement</p>
+                <AdUnit
+                  slot={AD_SLOTS.IN_ARTICLE_1}
+                  format="fluid"
+                  layout="in-article"
+                />
+              </div>
+            )}
 
-            {/* Ad: bottom of article */}
-            <div className="my-8">
-              <p className="text-xs text-gray-400 text-center mb-1">Advertisement</p>
-              <AdUnit slot={AD_SLOTS.DISPLAY_BOTTOM} />
-            </div>
+            {/* Ad: bottom of article. TEMPORARILY DISABLED, see note above. */}
+            {false && (
+              <div className="my-8">
+                <p className="text-xs text-gray-400 text-center mb-1">Advertisement</p>
+                <AdUnit slot={AD_SLOTS.DISPLAY_BOTTOM} />
+              </div>
+            )}
 
             {/* Share strip */}
             <div className="mt-10 pt-6 border-t border-gray-100 flex items-center justify-between gap-4 flex-wrap">
@@ -322,11 +330,13 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
               </div>
             )}
 
-            {/* Sidebar ad */}
-            <div>
-              <p className="text-xs text-gray-400 text-center mb-1">Advertisement</p>
-              <AdUnit slot={AD_SLOTS.BANNER} format="autorelaxed" />
-            </div>
+            {/* Sidebar ad. TEMPORARILY DISABLED, see note above. */}
+            {false && (
+              <div>
+                <p className="text-xs text-gray-400 text-center mb-1">Advertisement</p>
+                <AdUnit slot={AD_SLOTS.BANNER} format="autorelaxed" />
+              </div>
+            )}
           </aside>
         </div>
 

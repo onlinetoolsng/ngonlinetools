@@ -178,13 +178,16 @@ export default async function HomePage({
           </div>
         </section>
 
-        {/* Ad: between sections */}
-        <section className="py-4 bg-gray-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <p className="text-xs text-gray-400 text-center mb-1">Advertisement</p>
-            <AdUnit slot={AD_SLOTS.MIDDLE_DISPLAY} />
-          </div>
-        </section>
+        {/* Ad: between sections. TEMPORARILY DISABLED ahead of AdSense
+            reapplication. Flip `false` below to re-enable. */}
+        {false && (
+          <section className="py-4 bg-gray-50">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <p className="text-xs text-gray-400 text-center mb-1">Advertisement</p>
+              <AdUnit slot={AD_SLOTS.MIDDLE_DISPLAY} />
+            </div>
+          </section>
+        )}
 
         {/* ─── CATEGORIES ──────────────────────────────────────────────────────── */}
         <section className="py-16 bg-white border-t border-gray-100">

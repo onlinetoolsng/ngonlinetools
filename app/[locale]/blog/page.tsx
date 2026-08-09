@@ -105,11 +105,14 @@ export default async function BlogIndexPage({
           </div>
         ) : (
           <>
-            {/* Ad: above blog grid */}
-            <div className="mb-6">
-              <p className="text-xs text-gray-400 text-center mb-1">Advertisement</p>
-              <AdUnit slot={AD_SLOTS.DISPLAY_TOP} />
-            </div>
+            {/* Ad: above blog grid. TEMPORARILY DISABLED ahead of AdSense
+                reapplication. Flip `false` below to re-enable. */}
+            {false && (
+              <div className="mb-6">
+                <p className="text-xs text-gray-400 text-center mb-1">Advertisement</p>
+                <AdUnit slot={AD_SLOTS.DISPLAY_TOP} />
+              </div>
+            )}
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {articles.map(article => {
@@ -171,8 +174,8 @@ export default async function BlogIndexPage({
           </>
         )}
 
-        {/* Ad: below blog grid */}
-        {articles.length > 0 && (
+        {/* Ad: below blog grid. TEMPORARILY DISABLED, see note above. */}
+        {false && articles.length > 0 && (
           <div className="my-8">
             <p className="text-xs text-gray-400 text-center mb-1">Advertisement</p>
             <AdUnit slot={AD_SLOTS.DISPLAY_BOTTOM} />
