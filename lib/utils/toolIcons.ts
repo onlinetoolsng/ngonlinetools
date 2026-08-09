@@ -51,6 +51,7 @@ export const TOOL_ICON_MAP: Record<string, string> = {
   'nigeria-construction-cost-estimator': '🏗️',
   'nigeria-emergency-fund-insurance-calculator': '🛡️',
   'poultry-farm-startup-break-even-calculator': '🐔',
+  'nigeria-catfish-farming-break-even-calculator': '🐟',
   'tithe-calculator': '🙌',
   'contractor-vs-employee-classifier': '🧑‍💼',
   'import-duty-clearance-estimator': '🚢',

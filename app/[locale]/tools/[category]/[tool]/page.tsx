@@ -208,6 +208,10 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
         const { default: PoultryFarmStartupCalculator } = await import('@/components/tools/PoultryFarmStartupCalculator')
         return PoultryFarmStartupCalculator
       }
+      case 'nigeria-catfish-farming-break-even-calculator': {
+        const { default: NigeriaCatfishFarmingBreakEvenCalculator } = await import('@/components/tools/agriculture/NigeriaCatfishFarmingBreakEvenCalculator')
+        return NigeriaCatfishFarmingBreakEvenCalculator
+      }
       case 'tithe-calculator': {
         const { TitheCalculator } = await import('@/components/tools/TitheCalculator')
         return TitheCalculator
