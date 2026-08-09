@@ -43,6 +43,40 @@ const securityHeaders = [
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Canonical host redirect: www -> apex.
+  //
+  // Every canonical tag, sitemap URL, OG URL, and JSON-LD URL across the
+  // app is built from BASE_URL = 'https://toolbase.com.ng' (see
+  // lib/i18n/paths.ts, lib/schema/schemas.ts, all sitemap-*.xml routes).
+  // But nothing was actually redirecting the www host to it, so both
+  // https://toolbase.com.ng/... and https://www.toolbase.com.ng/...
+  // served the exact same content as two independent, fully-crawlable
+  // URLs. Google Search Console confirms this isn't stale: 39+ paths are
+  // indexed under BOTH hosts as of Aug 2026, most recrawled within the
+  // last few days on each host, and 171 of 210 total indexed pages are
+  // actually sitting on www — the opposite host from what every
+  // canonical tag on the site claims. That's the same
+  // "canonical points at a URL that isn't what actually got indexed"
+  // contradiction that be0e916 already fixed for the /en/ locale prefix,
+  // just at the host level instead. A `<link rel="canonical">` alone
+  // does not merge/redirect anything on its own — it's a hint, and
+  // Google is evidently not resolving it here — so this needs an actual
+  // 301, not just correct canonical tags.
+  //
+  // Redirecting www -> apex (rather than the other way) matches the
+  // existing BASE_URL convention everywhere else in the codebase, so
+  // this is the only file that needs to change.
+  async redirects() {
+    return [
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'www.toolbase.com.ng' }],
+        destination: 'https://toolbase.com.ng/:path*',
+        permanent: true,
+      },
+    ]
+  },
+
   // Security headers on all routes
   async headers() {
     return [
