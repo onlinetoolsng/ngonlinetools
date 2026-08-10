@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     'nigeria finance tools',
     'africa finance tools',
   ],
-  authors: [{ name: 'Henry Agwu' }],
+  authors: [{ name: 'Henry Agwu' }, { name: 'Victor Joshua' }],
   creator: 'ToolBase',
   publisher: 'ToolBase',
   robots: {

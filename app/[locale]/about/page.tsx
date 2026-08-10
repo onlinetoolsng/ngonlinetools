@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }) 
   return {
     title: 'About Us | ToolBase',
     description:
-      'ToolBase is a free suite of calculators and tools built for individuals and businesses in Nigeria and Africa, reviewed by Henry Agwu, a Chartered Accountant with over 10 years of experience.',
+      'ToolBase is a free suite of calculators and tools built for individuals and businesses in Nigeria and Africa. Built by software engineer Victor Joshua and reviewed by Henry Agwu, a Chartered Accountant with over 10 years of experience.',
     robots: { index: true, follow: true },
   }
 }
@@ -178,8 +178,9 @@ export default async function AboutPage({ params }: { params: Promise<Params> })
         {/* Author / editorial credibility */}
         <div className="bg-white border border-gray-100 rounded-2xl p-8 sm:p-10 mb-10">
           <h2 className="text-2xl font-black text-gray-900 mb-6">
-            Who&apos;s Behind the Numbers
+            Who&apos;s Behind ToolBase
           </h2>
+
           <div className="flex flex-col sm:flex-row gap-6 items-start">
             <div className="w-16 h-16 rounded-full bg-indigo-100 flex items-center justify-center text-2xl font-black text-indigo-700 flex-shrink-0">
               HA
@@ -203,6 +204,35 @@ export default async function AboutPage({ params }: { params: Promise<Params> })
                 band or pension rate matches what&apos;s actually in force — and the plain-language
                 explanations that accompany each tool, so the &quot;why&quot; behind a number is as
                 accurate as the number itself.
+              </p>
+            </div>
+          </div>
+
+          <div className="border-t border-gray-100 my-8" />
+
+          <div className="flex flex-col sm:flex-row gap-6 items-start">
+            <div className="w-16 h-16 rounded-full bg-indigo-100 flex items-center justify-center text-2xl font-black text-indigo-700 flex-shrink-0">
+              VJ
+            </div>
+            <div>
+              <h3 className="text-lg font-bold text-gray-900 mb-1">Victor Joshua</h3>
+              <p className="text-sm font-semibold text-indigo-700 mb-3">
+                Software Engineer, BSc Computer Science (Rivers State University, Port Harcourt)
+              </p>
+              <p className="text-gray-600 leading-relaxed mb-3">
+                The calculators, converters, and generators on ToolBase are built and
+                maintained by Victor Joshua, a software engineer with a BSc in Computer
+                Science from Rivers State University, Port Harcourt. Victor turns the tax
+                rules, statutory rates, and formulas that Henry verifies into the actual
+                tools you use — writing the calculation logic, building the interfaces, and
+                testing each one across devices so it works reliably whether you&apos;re on a
+                laptop or a phone on patchy data.
+              </p>
+              <p className="text-gray-600 leading-relaxed">
+                Victor also maintains the technical side of the site — keeping pages fast,
+                fixing tools promptly as Nigerian and African tax rules change, and shipping
+                new calculators as ToolBase&apos;s coverage grows across categories and
+                countries.
               </p>
             </div>
           </div>

@@ -134,7 +134,8 @@ export default async function ContactPage({ params }: { params: Promise<Params> 
           <h2 className="text-xl font-black text-gray-900 mb-3">Who You&apos;ll Reach</h2>
           <p className="text-gray-600 leading-relaxed">
             ToolBase is built and maintained by a small Nigeria-based team. Messages
-            submitted here are read directly by that team — accuracy and bug reports are
+            submitted here are read directly by that team — technical and calculation bugs
+            are fixed by Victor Joshua, our software engineer, and accuracy reports are
             checked against current Nigerian tax and financial regulation by our reviewer,
             Henry Agwu, a Chartered Accountant with over 10 years of professional
             experience. You can read more about our editorial process on the{' '}
