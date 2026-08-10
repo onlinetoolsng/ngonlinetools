@@ -12,9 +12,6 @@ import { AD_SLOTS } from '@/components/ads/slots'
 import { generateHomepageMetadata } from '@/lib/utils/seo'
 import { getToolIcon } from '@/lib/utils/toolIcons'
 import { getToolName } from '@/lib/utils/toolNames'
-import { FileCheck2 } from 'lucide-react'
-import { getAllPublishedTemplates } from '@/lib/documents/document-templates-data'
-import { getDocumentType, getDocumentCountry } from '@/lib/documents/document-types'
 import { getPublishedArticles } from '@/lib/supabase/queries'
 import { getCategoryIcon, getCategoryBadgeClass } from '@/lib/registry/categories'
 import { localePath } from '@/lib/i18n/paths'
@@ -60,11 +57,10 @@ export default async function HomePage({
 
   const featuredTools = getFeaturedTools()
 
-  const [allTemplates, latestArticles] = await Promise.all([
-    getAllPublishedTemplates(),
-    getPublishedArticles(locale, 3),
-  ])
-  const featuredDocuments = allTemplates.slice(0, 4)
+  // Documents intentionally not queried/rendered here — see Header.tsx
+  // and Footer.tsx for the rationale. Still live at /documents, just no
+  // longer given homepage prominence.
+  const latestArticles = await getPublishedArticles(locale, 3)
 
   const stats = [
     { value: '10',   label: t('toolsCount') },
@@ -106,13 +102,6 @@ export default async function HomePage({
               </div>
 
               <div className="mt-3 flex flex-row gap-3 justify-center">
-                <Link
-                  href={localePath(locale, `/documents`)}
-                  className="inline-flex items-center justify-center gap-2 bg-gray-100 border border-gray-200 hover:border-gray-300 hover:bg-gray-200 text-gray-700 font-semibold px-4 sm:px-8 py-3 rounded-xl transition-colors text-sm"
-                >
-                  <FileCheck2 className="w-4 h-4" aria-hidden />
-                  {tNav('documents')}
-                </Link>
                 <Link
                   href={localePath(locale, `/blog`)}
                   className="inline-flex items-center justify-center gap-2 bg-white border border-gray-200 hover:border-indigo-300 hover:bg-indigo-50 text-gray-700 hover:text-indigo-700 font-semibold px-4 sm:px-8 py-3 rounded-xl transition-colors text-sm"
@@ -226,60 +215,9 @@ export default async function HomePage({
           </div>
         </section>
 
-        {/* ─── DOCUMENT TEMPLATES ──────────────────────────────────────────────── */}
-        <section className="py-16 bg-gray-50 border-t border-gray-100">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-between mb-8">
-              <div>
-                <div className="flex items-center gap-2 mb-2">
-                  <FileCheck2 className="h-4 w-4 text-indigo-600" />
-                  <span className="text-xs text-gray-500 uppercase tracking-wide font-medium">
-                    {t('freeNoSignUp')}
-                  </span>
-                </div>
-                <h2 className="text-2xl font-bold text-gray-900">{t('documentTemplates')}</h2>
-              </div>
-              <Link
-                href={localePath(locale, `/documents`)}
-                className="text-sm font-medium text-indigo-700 hover:text-indigo-800 transition-colors whitespace-nowrap"
-              >
-                {t('viewAllDocuments')}
-              </Link>
-            </div>
-
-            {featuredDocuments.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                {featuredDocuments.map(doc => {
-                  const docType = getDocumentType(doc.document_type)
-                  const docCountry = getDocumentCountry(doc.country)
-                  const label = docType?.label || doc.title
-                  const countryFlag = docCountry?.flag || '🌍'
-                  const countryName = docCountry?.name || doc.country.toUpperCase()
-
-                  return (
-                    <Link
-                      key={doc.id}
-                      href={localePath(locale, `/documents/${doc.document_type}/${doc.country}`)}
-                      className="group bg-white rounded-2xl border border-gray-100 p-5 hover:border-indigo-200 hover:shadow-md transition-all"
-                    >
-                      <div className="text-2xl mb-3">📄</div>
-                      <h3 className="font-semibold text-gray-900 group-hover:text-indigo-700 transition-colors text-sm leading-snug mb-1">
-                        {label}
-                      </h3>
-                      <p className="text-xs text-gray-500">{countryFlag} {countryName}</p>
-                    </Link>
-                  )
-                })}
-              </div>
-            ) : (
-              <div className="bg-white rounded-2xl border border-dashed border-gray-200 p-10 text-center">
-                <div className="text-3xl mb-3">📄</div>
-                <p className="font-semibold text-gray-700 mb-1">{t('documentsComingSoon')}</p>
-                <p className="text-sm text-gray-500 max-w-md mx-auto">{t('documentsComingSoonSub')}</p>
-              </div>
-            )}
-          </div>
-        </section>
+        {/* Document Templates section intentionally removed from the
+            homepage — kept live at /documents, just no longer given
+            homepage prominence. See Header.tsx / Footer.tsx. */}
 
         {/* ─── FROM THE BLOG ───────────────────────────────────────────────────── */}
         <section className="py-16 bg-white border-t border-gray-100">

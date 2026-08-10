@@ -37,6 +37,13 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
     title: 'Free Document Templates | ToolBase',
     description: 'Free, ready-to-use document templates for Nigeria — tenancy agreements, employment contracts, loan agreements, affidavits, and more. Fill in your details and download as PDF or Word.',
     alternates: { canonical: localizedUrl(locale, `/documents`) },
+    // Documents section shelved temporarily (unlinked from main nav/
+    // homepage/internal linking) while the site works through an AdSense
+    // content-quality review — kept live for direct/returning visitors,
+    // but noindexed so it stops competing with tools/blog for crawl
+    // priority and index share. Also dropped from sitemap.ts. Revisit
+    // once the core site is approved and stable — see repo notes.
+    robots: { index: false, follow: true },
   };
 }
 

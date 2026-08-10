@@ -64,13 +64,13 @@ export async function Footer({ locale }: Props) {
         <div className="mt-10 pt-6 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-400">
           <p>© {new Date().getFullYear()} ToolBase. All rights reserved.</p>
           <div className="flex flex-col items-center gap-2">
+            {/* Documents intentionally excluded here — kept live and
+                crawlable, just unlinked from primary navigation/footer/
+                homepage so it stops diluting the site's main tools+blog
+                crawl signal. See AdSense remediation notes. */}
             <div className="flex flex-wrap items-center justify-center gap-4">
               <Link href={localePath(locale, `/tools`)} className="hover:text-gray-600 transition-colors">
                 {tNav('tools')}
-              </Link>
-
-              <Link href={localePath(locale, `/documents`)} className="hover:text-gray-600 transition-colors">
-                {tNav('documents')}
               </Link>
 
               <Link href={localePath(locale, `/blog`)} className="hover:text-gray-600 transition-colors">

@@ -11,7 +11,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE_URL}/sitemap-static.xml`,     lastModified: new Date() },
     { url: `${BASE_URL}/sitemap-categories.xml`, lastModified: new Date() },
     { url: `${BASE_URL}/sitemap-tools.xml`,      lastModified: new Date() },
-    { url: `${BASE_URL}/sitemap-documents.xml`,  lastModified: new Date() },
+    // sitemap-documents.xml intentionally excluded — documents are
+    // noindexed while shelved (see app/[locale]/documents/page.tsx),
+    // so submitting them here would just contradict the noindex tag
+    // and waste crawl budget. The route itself is untouched — this
+    // only stops it from being actively pushed to Google.
     { url: `${BASE_URL}/sitemap-blog.xml`,       lastModified: new Date() },
   ]
 }

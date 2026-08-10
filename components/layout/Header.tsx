@@ -11,10 +11,12 @@ type Props = {
 export async function Header({ locale, activePath }: Props) {
   const tNav = await getTranslations({ locale, namespace: 'nav' })
 
+  // Documents intentionally excluded from main nav — see Footer.tsx for
+  // the rationale (kept live and crawlable, just unlinked from primary
+  // navigation and homepage prominence).
   const navLinks = [
-    { href: localePath(locale, `/tools`),      label: tNav('tools') },
-    { href: localePath(locale, `/documents`),  label: tNav('documents') },
-    { href: localePath(locale, `/blog`),       label: tNav('blog') },
+    { href: localePath(locale, `/tools`), label: tNav('tools') },
+    { href: localePath(locale, `/blog`),  label: tNav('blog') },
   ]
 
   return (

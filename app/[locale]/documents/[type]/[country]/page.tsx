@@ -69,7 +69,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale, type, country } = await params;
   const template = await getDocumentTemplate(type, country);
-  if (!template) return { title: 'Document Not Found | ToolBase' };
+  if (!template) return { title: 'Document Not Found | ToolBase', robots: { index: false, follow: true } };
 
   const docType = resolveDocType(type, template.title);
   const docCountry = resolveDocCountry(country);
@@ -84,6 +84,9 @@ export async function generateMetadata({
     alternates: { canonical: url },
     openGraph: { title, description, url, type: 'article' },
     twitter: { card: 'summary_large_image', title, description },
+    // Documents section shelved temporarily — see /documents/page.tsx
+    // for the full rationale. Kept live, noindexed while unlinked.
+    robots: { index: false, follow: true },
   };
 }
 
@@ -146,7 +149,6 @@ export default async function TemplateDocumentPage({
           categorySlug={docType.categorySlug}
           pageType="document"
           countries={[country]}
-          excludeTemplateSlug={docType.slug}
         />
       </div>
 
