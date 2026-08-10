@@ -164,6 +164,46 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
         const { EgyptNetSalaryTaxCalculator } = await import('@/components/tools/EgyptNetSalaryTaxCalculator')
         return EgyptNetSalaryTaxCalculator
       }
+      case 'south-africa-vat-calculator': {
+        const mod = await import('@/components/tools/SouthAfricaVatCalculator')
+        return mod.default
+      }
+      case 'kenya-vat-calculator': {
+        const mod = await import('@/components/tools/KenyaVatCalculator')
+        return mod.default
+      }
+      case 'ghana-vat-calculator': {
+        const mod = await import('@/components/tools/GhanaVatCalculator')
+        return mod.default
+      }
+      case 'egypt-vat-calculator': {
+        const mod = await import('@/components/tools/EgyptVatCalculator')
+        return mod.default
+      }
+      case 'rwanda-vat-calculator': {
+        const mod = await import('@/components/tools/RwandaVatCalculator')
+        return mod.default
+      }
+      case 'uganda-vat-calculator': {
+        const mod = await import('@/components/tools/UgandaVatCalculator')
+        return mod.default
+      }
+      case 'ethiopia-vat-calculator': {
+        const mod = await import('@/components/tools/EthiopiaVatCalculator')
+        return mod.default
+      }
+      case 'tanzania-vat-calculator': {
+        const mod = await import('@/components/tools/TanzaniaVatCalculator')
+        return mod.default
+      }
+      case 'zambia-vat-calculator': {
+        const mod = await import('@/components/tools/ZambiaVatCalculator')
+        return mod.default
+      }
+      case 'morocco-vat-calculator': {
+        const mod = await import('@/components/tools/MoroccoVatCalculator')
+        return mod.default
+      }
       case 'south-africa-uif-calculator': {
         const { SouthAfricaUIFCalculator } = await import('@/components/tools/SouthAfricaUIFCalculator')
         return SouthAfricaUIFCalculator

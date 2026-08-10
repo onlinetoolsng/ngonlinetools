@@ -103,6 +103,12 @@ export const COUNTRY_FLAG_MAP: Record<string, string> = {
   kenya: '🇰🇪',
   ghana: '🇬🇭',
   egypt: '🇪🇬',
+  rwanda: '🇷🇼',
+  uganda: '🇺🇬',
+  ethiopia: '🇪🇹',
+  tanzania: '🇹🇿',
+  zambia: '🇿🇲',
+  morocco: '🇲🇦',
 }
 
 // Fallback pool — used only when a tool has no explicit icon, no single-
