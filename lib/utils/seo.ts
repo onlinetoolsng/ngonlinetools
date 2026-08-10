@@ -59,13 +59,13 @@ export async function generateCategoryMetadata(
   })
 
   return {
-    title: `${t('name')} Tools | ToolBase`,
+    title: `${t('name')} Calculators & Guides | ToolBase`,
     description: t('description'),
     alternates: {
       canonical: `${BASE_URL}/tools/${categorySlug}`,
     },
     openGraph: {
-      title: `${t('name')} Tools`,
+      title: `${t('name')} Calculators & Guides`,
       description: t('description'),
       url: `${BASE_URL}/tools/${categorySlug}`,
       siteName: 'ToolBase',

@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }) 
   return {
     title: 'About Us | ToolBase',
     description:
-      'ToolBase is a free suite of calculators and tools built for individuals and businesses in Nigeria and Africa. Built by software engineer Victor Joshua and reviewed by Henry Agwu, a Chartered Accountant with over 10 years of experience.',
+      'ToolBase offers practical resources, calculators and guides for everyday finance, tax and business decisions across Nigeria and Africa. Built by software engineer Victor Joshua and reviewed by Henry Agwu, a Chartered Accountant with over 10 years of experience.',
     robots: { index: true, follow: true },
   }
 }
@@ -71,7 +71,7 @@ export default async function AboutPage({ params }: { params: Promise<Params> })
             About ToolBase
           </h1>
           <p className="text-xl text-gray-500 max-w-2xl mx-auto leading-relaxed">
-            Free calculators and tools built for individuals and businesses in Nigeria and Africa
+            Practical resources, calculators and guides for everyday finance, tax and business decisions across Nigeria and Africa
           </p>
         </div>
 
