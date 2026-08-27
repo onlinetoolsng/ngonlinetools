@@ -36,11 +36,20 @@ export type ToolTranslation = {
   description: string | null
   meta_description: string | null
   article_title: string | null
-  /** Plain text (paragraphs separated by \n\n) or an HTML string from a rich-text editor. */
+  /** Markdown (preferred going forward). Legacy rows may be plain text with \n\n paragraphs or raw HTML — the renderer handles all three. */
   article_body: string | null
   faq: { q: string; a: string }[]
   is_translated: boolean
   created_at: string
+  /** Featured/explainer image for the article. */
+  image_url: string | null
+  image_alt: string | null
+  /** Date the content was last verified against current law/data. */
+  last_updated: string | null
+  /** e.g. "Reviewed by Tolu Adebayo, Tax Analyst in Lagos". */
+  reviewer_name: string | null
+  /** Primary authoritative source (FIRS, CAC, SARS, PenCom, etc). */
+  source_url: string | null
 }
 
 // ─── Article queries ──────────────────────────────────────────────────────────

@@ -21,6 +21,7 @@ import { AD_SLOTS } from '@/components/ads/slots'
 import { RelatedContent } from '@/components/layout/RelatedContent'
 import { getToolIcon } from '@/lib/utils/toolIcons'
 import { localePath, localizedUrl } from '@/lib/i18n/paths'
+import BlogMarkdownRenderer from '@/components/BlogMarkdownRenderer'
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 // (category badge styling now comes from lib/registry/categories.ts,
@@ -564,12 +565,23 @@ export default async function ToolPage({ params }: { params: Promise<Params> }) 
 
   const badgeColor = getCategoryBadgeClass(category)
 
-  // ── Article body: plain text paragraphs or raw HTML ──
-  // toolContent.article_body can be plain text with \n\n paragraph breaks,
-  // or an HTML string (e.g. from a rich-text editor).
-  // We check for HTML tags; if none, split on double newlines and render as <p>.
-  const articleBody: string | null = (toolContent as any).article_body ?? null
+  // ── Article body: markdown (current standard) or legacy raw HTML ──
+  // New/rewritten rows store markdown (tables, headings, bold, etc — same
+  // as the blog) and render through BlogMarkdownRenderer. A handful of
+  // older rows may still hold a raw HTML string from before this change;
+  // those keep rendering via dangerouslySetInnerHTML so nothing breaks
+  // until they're migrated. Plain text with \n\n breaks (the old default)
+  // renders fine as markdown too — no separate branch needed for it.
+  const articleBody: string | null = toolContent.article_body ?? null
   const articleIsHtml = articleBody ? /<[a-z][\s\S]*>/i.test(articleBody) : false
+  const imageUrl: string | null = toolContent.image_url ?? null
+  const imageAlt: string | null = toolContent.image_alt ?? toolContent.title
+  const lastUpdated: string | null = toolContent.last_updated ?? null
+  const reviewerName: string | null = toolContent.reviewer_name ?? null
+  const sourceUrl: string | null = toolContent.source_url ?? null
+  const lastUpdatedLabel = lastUpdated
+    ? new Date(lastUpdated).toLocaleDateString('en-NG', { year: 'numeric', month: 'long' })
+    : null
 
   return (
     <>
@@ -640,13 +652,39 @@ export default async function ToolPage({ params }: { params: Promise<Params> }) 
               >
                 <h2
                   id="article-heading"
-                  className="text-xl sm:text-2xl font-bold text-gray-900 mb-5 leading-snug"
+                  className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 leading-snug"
                 >
                   {toolContent.article_title}
                 </h2>
 
+                {(lastUpdatedLabel || reviewerName) && (
+                  <p className="text-sm text-gray-500 mb-5 pb-4 border-b border-gray-100">
+                    {lastUpdatedLabel && <span>Last updated: {lastUpdatedLabel}</span>}
+                    {lastUpdatedLabel && reviewerName && <span className="mx-2">·</span>}
+                    {reviewerName && <span>{reviewerName}</span>}
+                    {sourceUrl && (
+                      <>
+                        <span className="mx-2">·</span>
+                        <a href={sourceUrl} target="_blank" rel="noopener noreferrer nofollow" className="text-indigo-700 hover:underline">
+                          Source
+                        </a>
+                      </>
+                    )}
+                  </p>
+                )}
+
+                {imageUrl && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={imageUrl}
+                    alt={imageAlt ?? ''}
+                    loading="lazy"
+                    className="rounded-xl w-full h-auto mb-6"
+                  />
+                )}
+
                 {articleIsHtml ? (
-                  // Rich-text / HTML content from a CMS or editor
+                  // Legacy rich-text / HTML rows from before the markdown switch
                   <div
                     className="prose prose-base sm:prose-lg prose-gray max-w-none
                       prose-headings:font-bold prose-headings:text-gray-800
@@ -656,17 +694,9 @@ export default async function ToolPage({ params }: { params: Promise<Params> }) 
                     dangerouslySetInnerHTML={{ __html: articleBody }}
                   />
                 ) : (
-                  // Plain text: split on double newlines → paragraphs
-                  <div className="space-y-5">
-                    {articleBody
-                      .split(/\n\n+/)
-                      .filter(Boolean)
-                      .map((para, i) => (
-                        <p key={i} className="text-gray-600 leading-relaxed text-base sm:text-lg">
-                          {para.trim()}
-                        </p>
-                      ))}
-                  </div>
+                  // Markdown (current standard) — same renderer as the blog,
+                  // so tables, bold, lists, and headings all work here too.
+                  <BlogMarkdownRenderer content={articleBody} locale={locale} />
                 )}
               </section>
             )}
