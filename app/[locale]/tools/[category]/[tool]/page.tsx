@@ -574,6 +574,10 @@ export default async function ToolPage({ params }: { params: Promise<Params> }) 
   // renders fine as markdown too — no separate branch needed for it.
   const articleBody: string | null = toolContent.article_body ?? null
   const articleIsHtml = articleBody ? /<[a-z][\s\S]*>/i.test(articleBody) : false
+  // Supplementary markdown (worked example, rates table, freshness/trust
+  // context) — always rendered above the original article_body, in its
+  // own column, never merged into or replacing the original copy.
+  const contentAddition: string | null = toolContent.content_addition ?? null
   const imageUrl: string | null = toolContent.image_url ?? null
   const imageAlt: string | null = toolContent.image_alt ?? toolContent.title
   const lastUpdated: string | null = toolContent.last_updated ?? null
@@ -645,7 +649,7 @@ export default async function ToolPage({ params }: { params: Promise<Params> }) 
             )}
 
             {/* ── Article / SEO content section ── */}
-            {toolContent.article_title && articleBody && (
+            {toolContent.article_title && (articleBody || contentAddition) && (
               <section
                 className="mt-10 border border-gray-200 rounded-2xl p-6 sm:p-8 bg-white"
                 aria-labelledby="article-heading"
@@ -683,20 +687,31 @@ export default async function ToolPage({ params }: { params: Promise<Params> }) 
                   />
                 )}
 
-                {articleIsHtml ? (
-                  // Legacy rich-text / HTML rows from before the markdown switch
-                  <div
-                    className="prose prose-base sm:prose-lg prose-gray max-w-none
-                      prose-headings:font-bold prose-headings:text-gray-800
-                      prose-p:text-gray-600 prose-p:leading-relaxed
-                      prose-a:text-indigo-700 prose-a:no-underline hover:prose-a:underline
-                      prose-strong:text-gray-800 prose-li:text-gray-600"
-                    dangerouslySetInnerHTML={{ __html: articleBody }}
-                  />
-                ) : (
-                  // Markdown (current standard) — same renderer as the blog,
-                  // so tables, bold, lists, and headings all work here too.
-                  <BlogMarkdownRenderer content={articleBody} locale={locale} />
+                {/* Supplementary addition — always on top, own column,
+                    never touches the original article_body below it. */}
+                {contentAddition && (
+                  <div className="mb-8">
+                    <BlogMarkdownRenderer content={contentAddition} locale={locale} />
+                  </div>
+                )}
+
+                {/* Original article body — untouched */}
+                {articleBody && (
+                  articleIsHtml ? (
+                    // Legacy rich-text / HTML rows from before the markdown switch
+                    <div
+                      className="prose prose-base sm:prose-lg prose-gray max-w-none
+                        prose-headings:font-bold prose-headings:text-gray-800
+                        prose-p:text-gray-600 prose-p:leading-relaxed
+                        prose-a:text-indigo-700 prose-a:no-underline hover:prose-a:underline
+                        prose-strong:text-gray-800 prose-li:text-gray-600"
+                      dangerouslySetInnerHTML={{ __html: articleBody }}
+                    />
+                  ) : (
+                    // Markdown (current standard) — same renderer as the blog,
+                    // so tables, bold, lists, and headings all work here too.
+                    <BlogMarkdownRenderer content={articleBody} locale={locale} />
+                  )
                 )}
               </section>
             )}

@@ -38,6 +38,8 @@ export type ToolTranslation = {
   article_title: string | null
   /** Markdown (preferred going forward). Legacy rows may be plain text with \n\n paragraphs or raw HTML — the renderer handles all three. */
   article_body: string | null
+  /** Supplementary markdown (worked example, table, trust context) rendered above article_body. Separate column — never overwrites the original. */
+  content_addition: string | null
   faq: { q: string; a: string }[]
   is_translated: boolean
   created_at: string
