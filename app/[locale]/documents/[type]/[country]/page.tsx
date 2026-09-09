@@ -11,7 +11,8 @@ import { Footer } from '@/components/layout/Footer';
 import { Breadcrumb } from '@/components/layout/Breadcrumb';
 import { BackButton } from '@/components/layout/BackButton';
 import { SchemaOrg } from '@/components/seo/SchemaOrg';
-import { generateBreadcrumbSchema } from '@/lib/schema/schemas';
+import { generateBreadcrumbSchema, generateFAQSchema } from '@/lib/schema/schemas';
+import { parseSeoIntro } from '@/lib/documents/parse-seo-intro';
 import TemplateDocumentClient from './client';
 import { RelatedContent } from '@/components/layout/RelatedContent';
 import { localePath, localizedUrl } from '@/lib/i18n/paths'
@@ -118,6 +119,11 @@ export default async function TemplateDocumentPage({
     { name: docType.label, url },
   ]);
 
+  // seo_intro's trailing Q&A block, structured for FAQPage schema —
+  // same parse used to render the FAQ section in client.tsx.
+  const { faqs } = parseSeoIntro(template.seo_intro);
+  const faqSchema = faqs.length > 0 ? generateFAQSchema(faqs) : null;
+
   const breadcrumbItems = [
     { label: 'Home', href: localePath(locale) },
     { label: 'Documents', href: localePath(locale, `/documents`) },
@@ -127,6 +133,7 @@ export default async function TemplateDocumentPage({
   return (
     <>
       <SchemaOrg schema={breadcrumbSchema} />
+      {faqSchema && <SchemaOrg schema={faqSchema} />}
       <Header locale={locale} activePath={localePath(locale, `/documents`)} />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">

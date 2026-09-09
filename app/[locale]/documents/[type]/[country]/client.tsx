@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import Link from 'next/link';
 import { FileCheck2, Wand2, History, PenSquare, ArrowLeft } from 'lucide-react';
 import { DocumentTemplateRow, fillTemplate } from '@/lib/documents/document-templates-fill';
@@ -8,6 +8,7 @@ import { DocumentTypeDef, DocumentCountryDef } from '@/lib/documents/document-ty
 import { GeneratedDocument } from '@/lib/documents/document-format';
 import { saveToHistory } from '@/lib/documents/document-history';
 import { localePath } from '@/lib/i18n/paths';
+import { parseSeoIntro } from '@/lib/documents/parse-seo-intro';
 import DocumentEditor from '@/components/documents/DocumentEditor';
 
 // This is a Client Component scoped to ONLY the interactive slice: the
@@ -56,6 +57,12 @@ export default function TemplateDocumentClient({
   const [values, setValues] = useState<Record<string, string>>({});
   const [usePlaceholders, setUsePlaceholders] = useState(false);
   const [generatedDocument, setGeneratedDocument] = useState<GeneratedDocument | null>(null);
+
+  // seo_intro is flat text (paragraphs + bare headings + a trailing FAQ
+  // block) -- parsed once into real structure instead of dumping it into
+  // a single <p>. See lib/documents/parse-seo-intro.ts for the format
+  // this assumes.
+  const parsedSeo = useMemo(() => parseSeoIntro(template.seo_intro), [template.seo_intro]);
 
   const handleFieldChange = (id: string, value: string) => {
     setValues(v => ({ ...v, [id]: value }));
@@ -125,10 +132,39 @@ export default function TemplateDocumentClient({
           {/* Server-rendered placeholder document preview */}
           {children}
 
-          {/* SEO article content — below the preview, full width */}
-          {template.seo_intro && (
-            <div className="prose-sm text-gray-500 leading-relaxed border-t border-gray-200 pt-6 max-w-3xl">
-              <p>{template.seo_intro}</p>
+          {/* SEO article content — below the preview, full width.
+              Structured from seo_intro: real headings, real paragraph
+              breaks, and a distinct FAQ block instead of one long <p>. */}
+          {parsedSeo.sections.length > 0 && (
+            <div className="max-w-3xl border-t border-gray-200 pt-6 space-y-5">
+              {parsedSeo.sections.map((section, i) => (
+                <div key={i}>
+                  {section.heading && (
+                    <h2 className="text-base font-semibold text-gray-900 mb-2">
+                      {section.heading}
+                    </h2>
+                  )}
+                  {section.paragraphs.map((p, j) => (
+                    <p key={j} className="text-sm text-gray-500 leading-relaxed mb-3 last:mb-0">
+                      {p}
+                    </p>
+                  ))}
+                </div>
+              ))}
+            </div>
+          )}
+
+          {parsedSeo.faqs.length > 0 && (
+            <div className="max-w-3xl space-y-3">
+              <h2 className="text-base font-semibold text-gray-900">
+                Frequently Asked Questions
+              </h2>
+              {parsedSeo.faqs.map((faq, i) => (
+                <div key={i} className="border border-gray-200 rounded-lg p-4">
+                  <p className="text-sm font-medium text-gray-900 mb-1">{faq.question}</p>
+                  <p className="text-sm text-gray-500 leading-relaxed">{faq.answer}</p>
+                </div>
+              ))}
             </div>
           )}
 
