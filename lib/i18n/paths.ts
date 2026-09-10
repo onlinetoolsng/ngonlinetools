@@ -1,6 +1,6 @@
 import { routing } from './routing'
 
-const BASE_URL = 'https://toolbase.com.ng'
+const BASE_URL = 'https://www.toolbase.com.ng'
 
 /**
  * Builds an internal path for a link/href, respecting next-intl's

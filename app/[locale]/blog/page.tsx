@@ -33,7 +33,7 @@ export default async function BlogIndexPage({
   setRequestLocale(locale)
 
   const tNav = await getTranslations({ locale, namespace: 'nav' })
-  const BASE_URL = 'https://toolbase.com.ng'
+  const BASE_URL = 'https://www.toolbase.com.ng'
 
   const articles = await getPublishedArticles(locale, 24)
 

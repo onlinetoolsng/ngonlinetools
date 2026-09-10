@@ -2,7 +2,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
 
-const siteUrl = 'https://toolbase.com.ng'
+const siteUrl = 'https://www.toolbase.com.ng'
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

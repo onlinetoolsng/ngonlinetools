@@ -17,7 +17,7 @@ import TemplateDocumentClient from './client';
 import { RelatedContent } from '@/components/layout/RelatedContent';
 import { localePath, localizedUrl } from '@/lib/i18n/paths'
 
-const BASE_URL = 'https://toolbase.com.ng';
+const BASE_URL = 'https://www.toolbase.com.ng';
 
 // ── Static params (ISR) ───────────────────────────────────────────
 export async function generateStaticParams() {

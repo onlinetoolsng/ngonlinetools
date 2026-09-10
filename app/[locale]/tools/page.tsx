@@ -45,7 +45,7 @@ export default async function ToolsDirectoryPage({ params }: { params: Promise<P
   const tNav = await getTranslations({ locale, namespace: 'nav' })
   const tCat = await getTranslations({ locale, namespace: 'categories' })
 
-  const BASE_URL = 'https://toolbase.com.ng'
+  const BASE_URL = 'https://www.toolbase.com.ng'
 
   const breadcrumbItems = [
     { label: tNav('home'),  href: localePath(locale) },

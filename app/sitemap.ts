@@ -4,7 +4,7 @@
 
 import { MetadataRoute } from 'next'
 
-const BASE_URL = 'https://toolbase.com.ng'
+const BASE_URL = 'https://www.toolbase.com.ng'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [

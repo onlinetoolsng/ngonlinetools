@@ -28,7 +28,7 @@ type Params = { locale: string; slug: string }
 // ISR: rebuild blog pages every hour
 export const revalidate = 3600
 
-const BASE_URL = 'https://toolbase.com.ng'
+const BASE_URL = 'https://www.toolbase.com.ng'
 
 // ─── Metadata ─────────────────────────────────────────────────────────────────
 export async function generateMetadata({ params }: { params: Promise<Params> }) {

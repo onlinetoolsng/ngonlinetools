@@ -33,7 +33,7 @@ export default async function CategoryPage({ params }: { params: Promise<Params>
   const t = await getTranslations({ locale, namespace: `categories.${category}` })
   const tNav = await getTranslations({ locale, namespace: 'nav' })
 
-  const BASE_URL = 'https://toolbase.com.ng'
+  const BASE_URL = 'https://www.toolbase.com.ng'
 
   const breadcrumbItems = [
     { label: tNav('home'),  href: localePath(locale) },

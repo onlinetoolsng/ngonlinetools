@@ -16,7 +16,7 @@ import { localePath, localizedUrl } from '@/lib/i18n/paths'
 
 type Params = { locale: string };
 
-const BASE_URL = 'https://toolbase.com.ng';
+const BASE_URL = 'https://www.toolbase.com.ng';
 
 // Without this, this page can get statically generated once (e.g. during
 // the first build after this feature shipped, possibly before the

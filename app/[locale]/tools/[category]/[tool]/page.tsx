@@ -62,7 +62,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }) 
   }
   if (!toolContent) return {}
 
-  const BASE_URL = 'https://toolbase.com.ng'
+  const BASE_URL = 'https://www.toolbase.com.ng'
   const url      = localizedUrl(locale, `/tools/${category}/${toolSlug}`)
 
   return {
@@ -530,7 +530,7 @@ export default async function ToolPage({ params }: { params: Promise<Params> }) 
   const tCommon = await getTranslations({ locale, namespace: 'common' })
 
   // ── Data ──
-  const BASE_URL     = 'https://toolbase.com.ng'
+  const BASE_URL     = 'https://www.toolbase.com.ng'
   const toolUrl      = localizedUrl(locale, `/tools/${category}/${toolSlug}`)
   const ToolComponent = await loadToolComponent(toolSlug)
   const isRtl         = locale === 'ar'

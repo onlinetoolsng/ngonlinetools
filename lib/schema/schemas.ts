@@ -25,7 +25,7 @@ export function generateToolSchema({
         name: title,
         description,
         inLanguage: 'en',
-        isPartOf: { '@id': 'https://toolbase.com.ng/#website' },
+        isPartOf: { '@id': 'https://www.toolbase.com.ng/#website' },
         breadcrumb: { '@id': `${url}#breadcrumb` },
       },
       {
@@ -117,14 +117,14 @@ export function generateArticleSchema({
     author: {
       '@type': 'Person',
       name: authorName,
-      url: 'https://toolbase.com.ng/about',
+      url: 'https://www.toolbase.com.ng/about',
     },
     publisher: {
       '@type': 'Organization',
       name: 'ToolBase',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://toolbase.com.ng/icons/logo.png',
+        url: 'https://www.toolbase.com.ng/icons/logo.png',
       },
     },
     image: {
@@ -181,22 +181,22 @@ export function generateOrganizationSchema() {
     '@graph': [
       {
         '@type': 'Organization',
-        '@id': 'https://toolbase.com.ng/#organization',
+        '@id': 'https://www.toolbase.com.ng/#organization',
         name: 'ToolBase',
-        url: 'https://toolbase.com.ng',
+        url: 'https://www.toolbase.com.ng',
         logo: {
           '@type': 'ImageObject',
-          url: 'https://toolbase.com.ng/icons/logo.png',
+          url: 'https://www.toolbase.com.ng/icons/logo.png',
         },
         sameAs: [],
       },
       {
         '@type': 'WebSite',
-        '@id': 'https://toolbase.com.ng/#website',
-        url: 'https://toolbase.com.ng',
+        '@id': 'https://www.toolbase.com.ng/#website',
+        url: 'https://www.toolbase.com.ng',
         name: 'ToolBase',
         description: 'Free calculators and tools for Nigeria',
-        publisher: { '@id': 'https://toolbase.com.ng/#organization' },
+        publisher: { '@id': 'https://www.toolbase.com.ng/#organization' },
         potentialAction: {
           '@type': 'SearchAction',
           target: {
@@ -277,7 +277,7 @@ export function generateLocationSchema({
           '@type': 'Country',
           name: countryNameEn,
         },
-        isPartOf: { '@id': 'https://toolbase.com.ng/#website' },
+        isPartOf: { '@id': 'https://www.toolbase.com.ng/#website' },
       },
       {
         '@type': 'ItemList',

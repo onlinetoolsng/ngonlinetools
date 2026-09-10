@@ -9,12 +9,12 @@ export default function robots(): MetadataRoute.Robots {
       disallow: ['/api/', '/_next/'],
     },
     sitemap: [
-      'https://toolbase.com.ng/sitemap.xml',
-      'https://toolbase.com.ng/sitemap-static.xml',
-      'https://toolbase.com.ng/sitemap-categories.xml',
-      'https://toolbase.com.ng/sitemap-tools.xml',
-      'https://toolbase.com.ng/sitemap-documents.xml',
-      'https://toolbase.com.ng/sitemap-blog.xml',
+      'https://www.toolbase.com.ng/sitemap.xml',
+      'https://www.toolbase.com.ng/sitemap-static.xml',
+      'https://www.toolbase.com.ng/sitemap-categories.xml',
+      'https://www.toolbase.com.ng/sitemap-tools.xml',
+      'https://www.toolbase.com.ng/sitemap-documents.xml',
+      'https://www.toolbase.com.ng/sitemap-blog.xml',
     ],
   }
 }
