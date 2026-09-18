@@ -81,6 +81,129 @@ export async function getPublishedArticles(
   }))
 }
 
+// ─── Blog index: search, filter, sort, paginate ────────────────────────────────
+// Powers the /blog index page. Unlike getPublishedArticles above (a flat,
+// unpaginated top-N fetch used elsewhere), this returns a total count and a
+// page slice so the blog index can expose all published articles instead of
+// silently capping the list at N — a thin/undiscoverable blog index is bad
+// for readers and was flagged as a plausible AdSense "low value content" cause.
+
+export type BlogSort = 'newest' | 'oldest' | 'quick-read'
+
+export type BlogSearchParams = {
+  locale: string
+  page?: number
+  perPage?: number
+  q?: string
+  category?: string
+  sort?: BlogSort
+}
+
+export type BlogSearchResult = {
+  articles: ArticleWithTranslation[]
+  total: number
+  page: number
+  perPage: number
+  totalPages: number
+}
+
+export async function searchPublishedArticles({
+  locale,
+  page = 1,
+  perPage = 24,
+  q,
+  category,
+  sort = 'newest',
+}: BlogSearchParams): Promise<BlogSearchResult> {
+  const supabase = createSupabasePublicClient()
+  const safePage = Math.max(1, Math.floor(page) || 1)
+
+  let query = supabase
+    .from('articles')
+    .select(`*, article_translations!inner(*)`, { count: 'exact' })
+    .eq('published', true)
+    .eq('article_translations.locale', locale)
+
+  if (category) {
+    query = query.eq('category_slug', category)
+  }
+
+  const term = q?.trim()
+  if (term) {
+    // Strip characters that are meaningful to the PostgREST filter grammar
+    // (comma separates or() clauses, parens/percent are part of the ilike
+    // pattern syntax) so a stray character in a search box can't break the
+    // query or escape the intended column scope.
+    const safeTerm = term.replace(/[%,()]/g, ' ').trim()
+    if (safeTerm) {
+      query = query.or(
+        `title.ilike.%${safeTerm}%,excerpt.ilike.%${safeTerm}%`,
+        { foreignTable: 'article_translations' }
+      )
+    }
+  }
+
+  if (sort === 'quick-read') {
+    query = query.order('reading_time_minutes', {
+      ascending: true,
+      foreignTable: 'article_translations',
+    })
+  } else {
+    query = query.order('published_at', { ascending: sort === 'oldest' })
+  }
+
+  const from = (safePage - 1) * perPage
+  const to = from + perPage - 1
+  const { data, error, count } = await query.range(from, to)
+
+  if (error) {
+    console.error('searchPublishedArticles error:', error.message)
+    return { articles: [], total: 0, page: safePage, perPage, totalPages: 0 }
+  }
+
+  const articles = (data ?? []).map((row: any) => ({
+    ...row,
+    translation: row.article_translations?.[0] ?? null,
+  }))
+
+  const total = count ?? 0
+  const totalPages = Math.max(1, Math.ceil(total / perPage))
+
+  return { articles, total, page: safePage, perPage, totalPages }
+}
+
+/** Category slugs + counts among published articles, for the blog filter dropdown.
+ *  Derived from live data rather than the CATEGORIES registry, since the two
+ *  have drifted (e.g. DB has 'faith-giving'/'everyday-tools'/'currency', which
+ *  aren't in the static registry) — the filter must offer categories that
+ *  actually have articles. */
+export async function getBlogCategoryCounts(
+  locale: string
+): Promise<{ slug: string; count: number }[]> {
+  const supabase = createSupabasePublicClient()
+
+  const { data, error } = await supabase
+    .from('articles')
+    .select('category_slug, article_translations!inner(locale)')
+    .eq('published', true)
+    .eq('article_translations.locale', locale)
+
+  if (error) {
+    console.error('getBlogCategoryCounts error:', error.message)
+    return []
+  }
+
+  const counts = new Map<string, number>()
+  for (const row of (data ?? []) as any[]) {
+    const slug = row.category_slug as string
+    counts.set(slug, (counts.get(slug) ?? 0) + 1)
+  }
+
+  return Array.from(counts.entries())
+    .map(([slug, count]) => ({ slug, count }))
+    .sort((a, b) => b.count - a.count)
+}
+
 export async function getArticlesByCategory(
   categorySlug: string,
   locale: string,
