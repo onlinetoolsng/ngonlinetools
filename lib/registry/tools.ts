@@ -141,18 +141,6 @@ export const TOOLS: Tool[] = [
     launchDate: '2026-07-22',
   },
   {
-    slug: 'net-worth-calculator',
-    category: 'finance',
-    schema: 'calculator',
-    featured: false,
-    countries: ['nigeria'],
-    relatedTools: ['investment-returns-calculator', 'pension-calculator', 'nigeria-crypto-vs-traditional-comparator', 'nigeria-stock-portfolio-tracker'],
-    relatedArticles: [],
-    hasCountryVariants: false,
-    requiresApi: false,
-    launchDate: '2026-07-19',
-  },
-  {
     slug: 'investment-returns-calculator',
     category: 'finance',
     schema: 'calculator',
@@ -861,18 +849,6 @@ export const TOOLS: Tool[] = [
     launchDate: '2026-07-22',
   },
   {
-    slug: 'south-africa-bond-repayment-calculator',
-    category: 'real-estate',
-    schema: 'calculator',
-    featured: false,
-    countries: ['south-africa'],
-    relatedTools: [],
-    relatedArticles: [],
-    hasCountryVariants: false,
-    requiresApi: false,
-    launchDate: '2026-07-29',
-  },
-  {
     slug: 'kenya-rent-deposit-house-hunting-budget-calculator',
     category: 'real-estate',
     schema: 'calculator',
@@ -1099,6 +1075,42 @@ export const TOOLS: Tool[] = [
     hasCountryVariants: false,
     requiresApi: false,
     launchDate: '2026-08-06',
+  },
+]
+
+// ─── Draft tools (not live) ────────────────────────────────────────────────────
+// Pulled from TOOLS on 2026-09-18: these shipped with a working calculator but
+// zero article_body/explanatory content in Supabase (tool_translations), unlike
+// every other live tool which has a real write-up, FAQ, worked example, and
+// source citation. The 10 VAT calculators in particular are near-identical
+// templates differing mainly by country name/rate — left live, that reads as
+// doorway/auto-generated content to a reviewer. Kept here (not deleted) so the
+// data isn't lost; move an entry back into TOOLS once its tool_translations row
+// has real article_body/FAQ content written for it.
+export const DRAFT_TOOLS: Tool[] = [
+  {
+    slug: 'net-worth-calculator',
+    category: 'finance',
+    schema: 'calculator',
+    featured: false,
+    countries: ['nigeria'],
+    relatedTools: [],
+    relatedArticles: [],
+    hasCountryVariants: false,
+    requiresApi: false,
+    launchDate: '2026-07-19',
+  },
+  {
+    slug: 'south-africa-bond-repayment-calculator',
+    category: 'real-estate',
+    schema: 'calculator',
+    featured: false,
+    countries: ['south-africa'],
+    relatedTools: [],
+    relatedArticles: [],
+    hasCountryVariants: false,
+    requiresApi: false,
+    launchDate: '2026-07-29',
   },
   {
     slug: 'south-africa-vat-calculator',

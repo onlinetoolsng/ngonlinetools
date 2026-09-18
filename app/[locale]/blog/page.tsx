@@ -101,7 +101,7 @@ export default async function BlogIndexPage({
     url: localizedUrl(locale, `/blog`),
     name: isAr ? 'المدونة' : 'Blog',
     description: isAr
-      ? 'أدلة عملية ومقالات حول الرواتب والضرائب وقانون العمل والمال في دول الخليج'
+      ? 'أدلة عملية ومقالات حول التمويل الشخصي والضرائب والمال في نيجيريا'
       : 'Practical guides and articles on personal finance, tax, and money in Nigeria',
     locale,
     articles: articles
@@ -134,7 +134,7 @@ export default async function BlogIndexPage({
           </h1>
           <p className="text-gray-500 text-lg max-w-2xl">
             {isAr
-              ? 'أدلة عملية ومقالات حول الرواتب والضرائب وقانون العمل والمال في دول الخليج'
+              ? 'أدلة عملية ومقالات حول التمويل الشخصي والضرائب والمال في نيجيريا'
               : 'Practical guides and articles on personal finance, tax, and money in Nigeria'}
           </p>
         </header>

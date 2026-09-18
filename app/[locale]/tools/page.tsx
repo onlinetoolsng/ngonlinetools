@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }) 
   return {
     title: locale === 'ar' ? 'جميع الأدوات | ToolBase' : 'All Tools | ToolBase',
     description: locale === 'ar'
-      ? 'تصفح أكثر من 50 أداة مجانية مصممة لدول الخليج'
+      ? 'تصفح أدوات مجانية مصممة للأفراد والشركات في نيجيريا'
       : 'Browse free tools built for individuals and businesses in Nigeria',
   }
 }
