@@ -1,5 +1,6 @@
 // 📁 app/layout.tsx
 import type { Metadata } from 'next'
+import Script from 'next/script'
 import './globals.css'
 
 const siteUrl = 'https://www.toolbase.com.ng'
@@ -112,15 +113,17 @@ export default function RootLayout({
       <body suppressHydrationWarning>
         {children}
 
-        {/* TODO: add your own Google Analytics tracking ID.
-            <Script src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX" strategy="afterInteractive" />
-            <Script id="ga-init" strategy="afterInteractive">
-              {`window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', 'G-XXXXXXXXXX');`}
-            </Script>
-        */}
+        {/* Google tag (gtag.js) */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-D9X2JV4F37"
+          strategy="afterInteractive"
+        />
+        <Script id="ga-init" strategy="afterInteractive">
+          {`window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-D9X2JV4F37');`}
+        </Script>
       </body>
     </html>
   )
