@@ -1,5 +1,6 @@
 // 📁 app/[locale]/blog/page.tsx
 import { Suspense } from 'react'
+import { unstable_cache } from 'next/cache'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import Link from 'next/link'
 import { Header } from '@/components/layout/Header'
@@ -22,6 +23,24 @@ type SearchParams = { q?: string; page?: string; sort?: string; category?: strin
 
 const SORT_VALUES: BlogSort[] = ['newest', 'oldest', 'quick-read']
 const PER_PAGE = 24
+const BLOG_CACHE_REVALIDATE_SECONDS = 86400 // 24h — reading searchParams forces this route to
+// render dynamically on every request regardless of any route-level `revalidate` export, so the
+// actual Supabase queries are cached here instead. Crawler/bot traffic is almost always the bare
+// /blog URL (no filters), so this collapses what would otherwise be a fresh Supabase query per
+// hit down to one query per 24h for that URL — filtered/search combinations each get their own
+// 24h-cached entry the first time they're requested, rather than being cached ahead of time.
+
+const getCachedBlogSearch = unstable_cache(
+  (params: Parameters<typeof searchPublishedArticles>[0]) => searchPublishedArticles(params),
+  ['blog-index-search'],
+  { revalidate: BLOG_CACHE_REVALIDATE_SECONDS, tags: ['blog'] }
+)
+
+const getCachedBlogCategoryCounts = unstable_cache(
+  (locale: string) => getBlogCategoryCounts(locale),
+  ['blog-index-category-counts'],
+  { revalidate: BLOG_CACHE_REVALIDATE_SECONDS, tags: ['blog'] }
+)
 
 export async function generateMetadata({
   params,
@@ -84,8 +103,8 @@ export default async function BlogIndexPage({
   const isFiltered = !!(q || category)
 
   const [{ articles, total, totalPages }, categoryCounts] = await Promise.all([
-    searchPublishedArticles({ locale, page, perPage: PER_PAGE, q, category, sort }),
-    getBlogCategoryCounts(locale),
+    getCachedBlogSearch({ locale, page, perPage: PER_PAGE, q, category, sort }),
+    getCachedBlogCategoryCounts(locale),
   ])
 
   const breadcrumbItems = [
