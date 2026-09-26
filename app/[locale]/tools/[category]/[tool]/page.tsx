@@ -93,6 +93,10 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
   try {
     switch (toolSlug) {
       // ── Add new tool cases here as they are built ──
+      case 'google-content-quality-checker': {
+        const { default: ContentQualityChecker } = await import('@/components/tools/ContentQualityChecker')
+        return ContentQualityChecker
+      }
       case 'ghana-bece-grade-calculator': {
         const { default: GhanaBeceAggregateCalculator } = await import('@/components/tools/GhanaBeceAggregateCalculator')
         return GhanaBeceAggregateCalculator

@@ -21,6 +21,18 @@ export type Tool = {
 
 export const TOOLS: Tool[] = [
   {
+    slug: 'google-content-quality-checker',
+    category: 'business',
+    schema: 'checker',
+    featured: false,
+    countries: ['nigeria'],
+    relatedTools: [],
+    relatedArticles: [],
+    hasCountryVariants: false,
+    requiresApi: true,
+    launchDate: '2026-09-26',
+  },
+  {
     slug: 'salary-calculator',
     category: 'hr-payroll',
     schema: 'calculator',
