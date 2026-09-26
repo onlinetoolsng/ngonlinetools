@@ -9,12 +9,12 @@
 export const CONTENT_QUALITY_SYSTEM_PROMPT = `You are a content-quality evaluator using Google's publicly documented Search and AdSense content-quality guidance (helpful content, E-E-A-T, spam policies). You are NOT Google. Your score is this tool's own analytical score, not an official Google score or ranking prediction. Never claim the content will/won't rank, get indexed, or get AdSense-approved.
 
 INPUT
-Either raw pasted content, or a URL (use url_context to retrieve it). If a URL fails retrieval, say so plainly in "cannotEvaluate" — do not guess at its content.
+You'll receive either plain pasted text, or the page's raw HTML (script/style tags already stripped, but nav, header, footer and ad markup may still be present). When given HTML: read through the markup, identify the actual article/body content using structural cues (title, h1, article tags, heading hierarchy), and evaluate THAT — don't score navigation links, boilerplate footers, or cookie-notice text as if they were the article's own content, but you may note in "cannotEvaluate" if the page structure made this hard to separate cleanly.
 
 RULES
 - Distinguish observed facts, reasonable inferences, and unknowns. Never state an inference as fact ("no visible author" is fine; "the author is unqualified" is not).
 - No universal word-count or keyword-density rules. Judge completeness against what THIS topic and intent actually need.
-- Never call a claim "false" — say "unverified from supplied content" unless url_context contradicts it directly.
+- Never call a claim "false" — say "unverified from supplied content" unless the supplied content directly contradicts it.
 - A single page cannot prove site-wide patterns (duplication, doorway abuse, scaled content). Say "cannot be determined from this page alone."
 - Don't treat AI-generated writing as automatically low quality; flag only the actual generic/formulaic characteristics you observe.
 
@@ -67,6 +67,18 @@ export const GEMINI_PRIMARY_MODEL = 'gemini-3.5-flash'
 export const GEMINI_FALLBACK_MODEL = 'gemini-3.5-flash-lite'
 
 export const MAX_PASTE_CHARS = 25000 // ~4-5k words; generous for a long article, cheap enough per call
+export const MAX_HTML_CHARS = 60000 // raw HTML is noisier than plain text, so a larger cap
+export const FETCH_TIMEOUT_MS = 15000
+
+/** Strips <script>, <style>, HTML comments and truncates. Not content extraction —
+ *  just noise removal. Gemini reads the remaining markup itself (see prompt). */
+export function cleanHtml(html: string): string {
+  return html
+    .replace(/<script[\s\S]*?<\/script>/gi, '')
+    .replace(/<style[\s\S]*?<\/style>/gi, '')
+    .replace(/<!--[\s\S]*?-->/g, '')
+    .slice(0, MAX_HTML_CHARS)
+}
 
 export type ContentQualityScoreBlock = { score: number; max: number; note: string }
 
@@ -100,12 +112,13 @@ export function parseGeminiJson(text: string): ContentQualityResult {
   return JSON.parse(cleaned) as ContentQualityResult
 }
 
-/** Builds the Gemini generateContent request body for either paste or URL mode. */
-export function buildGeminiRequestBody(input: { mode: 'paste' | 'url'; content?: string; url?: string }) {
-  const userText =
-    input.mode === 'url'
-      ? `Analyze the content at this URL: ${input.url}`
-      : `Analyze this content:\n\n${input.content}`
+/** Builds the Gemini generateContent request body. By this point `content` is
+ * always plain text or already-fetched/cleaned HTML — there is no separate
+ * "url mode" at the Gemini-call level, since URL fetching happens before this. */
+export function buildGeminiRequestBody(content: string, sourceUrl?: string) {
+  const userText = sourceUrl
+    ? `Source URL: ${sourceUrl}\n\nPage content (HTML, script/style already stripped):\n\n${content}`
+    : `Analyze this content:\n\n${content}`
 
   return {
     contents: [
@@ -114,7 +127,6 @@ export function buildGeminiRequestBody(input: { mode: 'paste' | 'url'; content?:
         parts: [{ text: `${CONTENT_QUALITY_SYSTEM_PROMPT}\n\n---\n\n${userText}` }],
       },
     ],
-    ...(input.mode === 'url' ? { tools: [{ url_context: {} }] } : {}),
     generationConfig: {
       temperature: 0.2,
       responseMimeType: 'application/json',

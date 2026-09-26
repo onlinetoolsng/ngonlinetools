@@ -33,8 +33,20 @@ const RATING_COLOR: Record<string, string> = {
   Poor: 'text-red-700 bg-red-50',
 }
 
-async function callGeminiDirect(apiKey: string, mode: Mode, content: string, url: string) {
-  const body = buildGeminiRequestBody(mode === 'url' ? { mode, url } : { mode, content })
+/** Browser can't fetch arbitrary third-party sites directly (the target
+ * site's own CORS policy blocks it) — so even in BYOK mode, URL fetching
+ * goes through our public, key-free fetch-url-content function. Only the
+ * Gemini call itself uses the user's own key, and only from the browser. */
+async function fetchUrlHtml(url: string): Promise<{ html: string; finalUrl: string }> {
+  const supabase = createSupabasePublicClient()
+  const { data, error } = await supabase.functions.invoke('fetch-url-content', { body: { url } })
+  if (error) throw new Error(error.message ?? "Couldn't retrieve that page.")
+  if (data?.error) throw new Error(data.error)
+  return data
+}
+
+async function callGeminiDirect(apiKey: string, content: string, sourceUrl?: string) {
+  const body = buildGeminiRequestBody(content, sourceUrl)
 
   async function attempt(model: string) {
     const res = await fetch(
@@ -55,16 +67,6 @@ async function callGeminiDirect(apiKey: string, mode: Mode, content: string, url
     data = await attempt(GEMINI_PRIMARY_MODEL)
   } catch {
     data = await attempt(GEMINI_FALLBACK_MODEL)
-  }
-
-  if (mode === 'url') {
-    const urlMeta = data?.candidates?.[0]?.url_context_metadata?.url_metadata ?? []
-    const succeeded = urlMeta.some(
-      (m: { url_retrieval_status?: string }) => m.url_retrieval_status === 'URL_RETRIEVAL_STATUS_SUCCESS'
-    )
-    if (urlMeta.length > 0 && !succeeded) {
-      throw new Error("We couldn't retrieve that page's content. Please paste the article text instead.")
-    }
   }
 
   const rawText = data?.candidates?.[0]?.content?.parts?.[0]?.text
@@ -95,7 +97,13 @@ export default function ContentQualityChecker() {
 
     try {
       if (useOwnKey) {
-        const data = await callGeminiDirect(ownKey.trim(), mode, content, url.trim())
+        // BYOK: fetch page HTML (key-free, server-side to dodge target-site
+        // CORS) if needed, then call Gemini directly from the browser.
+        const { text, sourceUrl } =
+          mode === 'url'
+            ? await fetchUrlHtml(url.trim()).then((r) => ({ text: r.html, sourceUrl: r.finalUrl }))
+            : { text: content, sourceUrl: undefined }
+        const data = await callGeminiDirect(ownKey.trim(), text, sourceUrl)
         setResult(data)
       } else {
         const supabase = createSupabasePublicClient()

@@ -3,9 +3,10 @@
 // Server-side path for the Google Content Quality Checker tool.
 // - Keeps GEMINI_API_KEY secret (set via `supabase secrets set GEMINI_API_KEY=...`).
 // - Paste mode sends the text straight to Gemini.
-// - URL mode uses Gemini's built-in `url_context` tool so Gemini's own
-//   infrastructure fetches the page — we never scrape HTML ourselves, so
-//   there's no CORS/blocking concern on our end.
+// - URL mode fetches the page's raw HTML ourselves (server-side, so no
+//   CORS issue), strips <script>/<style>/comments only — no content
+//   extraction/readability heuristics — and hands the remaining markup to
+//   Gemini, which reads the page structure itself (see prompt).
 // - Logs a lightweight row per request (no page content, just metadata) for
 //   basic abuse visibility and analytics — not used for caching or blocking
 //   reruns, since users are expected to re-run after editing their content.
@@ -19,17 +20,74 @@ import { createClient } from "jsr:@supabase/supabase-js@2";
 const GEMINI_PRIMARY_MODEL = "gemini-3.5-flash";
 const GEMINI_FALLBACK_MODEL = "gemini-3.5-flash-lite";
 const MAX_PASTE_CHARS = 25000;
+const MAX_HTML_CHARS = 60000;
+const MAX_RESPONSE_BYTES = 5_000_000;
+const FETCH_TIMEOUT_MS = 15000;
 const DAILY_IP_LIMIT = 60;
+
+function cleanHtml(html: string): string {
+  return html
+    .replace(/<script[\s\S]*?<\/script>/gi, "")
+    .replace(/<style[\s\S]*?<\/style>/gi, "")
+    .replace(/<!--[\s\S]*?-->/g, "")
+    .slice(0, MAX_HTML_CHARS);
+}
+
+/** Fetches a page's raw HTML server-side (script/style stripped only, no
+ * extraction) or throws a user-facing message on any failure. */
+async function fetchPageHtml(url: string): Promise<{ html: string; finalUrl: string }> {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+  try {
+    const res = await fetch(url, {
+      redirect: "follow",
+      signal: controller.signal,
+      headers: {
+        "User-Agent":
+          "Mozilla/5.0 (compatible; ContentQualityCheckerBot/1.0; +https://onlinetools.com.ng)",
+        Accept: "text/html,application/xhtml+xml",
+      },
+    });
+    if (!res.ok) {
+      throw new Error(
+        `We couldn't retrieve that page (server responded with ${res.status}). Please paste the article text instead.`,
+      );
+    }
+    const contentType = res.headers.get("content-type") ?? "";
+    if (!contentType.includes("html")) {
+      throw new Error("That URL doesn't appear to be a web page. Please paste the article text instead.");
+    }
+    const buf = await res.arrayBuffer();
+    if (buf.byteLength > MAX_RESPONSE_BYTES) {
+      throw new Error("That page is too large to analyze. Please paste the relevant article text instead.");
+    }
+    const html = new TextDecoder("utf-8").decode(buf);
+    const cleaned = cleanHtml(html);
+    if (cleaned.trim().length < 100) {
+      throw new Error(
+        "We couldn't find readable content on that page (it may be rendered by JavaScript). Please paste the article text instead.",
+      );
+    }
+    return { html: cleaned, finalUrl: res.url };
+  } catch (err) {
+    if (err instanceof Error && err.name === "AbortError") {
+      throw new Error("That page took too long to respond. Please paste the article text instead.");
+    }
+    throw err instanceof Error ? err : new Error("We couldn't retrieve that page. Please paste the article text instead.");
+  } finally {
+    clearTimeout(timeout);
+  }
+}
 
 const SYSTEM_PROMPT = `You are a content-quality evaluator using Google's publicly documented Search and AdSense content-quality guidance (helpful content, E-E-A-T, spam policies). You are NOT Google. Your score is this tool's own analytical score, not an official Google score or ranking prediction. Never claim the content will/won't rank, get indexed, or get AdSense-approved.
 
 INPUT
-Either raw pasted content, or a URL (use url_context to retrieve it). If a URL fails retrieval, say so plainly in "cannotEvaluate" — do not guess at its content.
+You'll receive either plain pasted text, or the page's raw HTML (script/style tags already stripped, but nav, header, footer and ad markup may still be present). When given HTML: read through the markup, identify the actual article/body content using structural cues (title, h1, article tags, heading hierarchy), and evaluate THAT — don't score navigation links, boilerplate footers, or cookie-notice text as if they were the article's own content, but you may note in "cannotEvaluate" if the page structure made this hard to separate cleanly.
 
 RULES
 - Distinguish observed facts, reasonable inferences, and unknowns. Never state an inference as fact ("no visible author" is fine; "the author is unqualified" is not).
 - No universal word-count or keyword-density rules. Judge completeness against what THIS topic and intent actually need.
-- Never call a claim "false" — say "unverified from supplied content" unless url_context contradicts it directly.
+- Never call a claim "false" — say "unverified from supplied content" unless the supplied content directly contradicts it.
 - A single page cannot prove site-wide patterns (duplication, doorway abuse, scaled content). Say "cannot be determined from this page alone."
 - Don't treat AI-generated writing as automatically low quality; flag only the actual generic/formulaic characteristics you observe.
 
@@ -173,14 +231,25 @@ Deno.serve(async (req: Request) => {
     // fail open
   }
 
-  const userText =
-    mode === "url"
-      ? `Analyze the content at this URL: ${payload.url}`
-      : `Analyze this content:\n\n${payload.content}`;
+  let contentToAnalyze = payload.content ?? "";
+  let sourceUrl: string | undefined;
+
+  if (mode === "url") {
+    try {
+      const fetched = await fetchPageHtml(payload.url!);
+      contentToAnalyze = fetched.html;
+      sourceUrl = fetched.finalUrl;
+    } catch (err) {
+      return jsonResponse({ error: err instanceof Error ? err.message : "Couldn't retrieve that page." }, 422);
+    }
+  }
+
+  const userText = sourceUrl
+    ? `Source URL: ${sourceUrl}\n\nPage content (HTML, script/style already stripped):\n\n${contentToAnalyze}`
+    : `Analyze this content:\n\n${contentToAnalyze}`;
 
   const requestBody = {
     contents: [{ role: "user", parts: [{ text: `${SYSTEM_PROMPT}\n\n---\n\n${userText}` }] }],
-    ...(mode === "url" ? { tools: [{ url_context: {} }] } : {}),
     generationConfig: { temperature: 0.2, responseMimeType: "application/json" },
   };
 
@@ -194,24 +263,6 @@ Deno.serve(async (req: Request) => {
       return jsonResponse(
         { error: "Analysis failed. Please try again in a moment.", detail: String(err) },
         502,
-      );
-    }
-  }
-
-  // If URL mode, check retrieval actually succeeded before trusting the result.
-  if (mode === "url") {
-    const urlMeta = data?.candidates?.[0]?.url_context_metadata?.url_metadata ?? [];
-    const succeeded = urlMeta.some(
-      (m: { url_retrieval_status?: string }) =>
-        m.url_retrieval_status === "URL_RETRIEVAL_STATUS_SUCCESS",
-    );
-    if (urlMeta.length > 0 && !succeeded) {
-      return jsonResponse(
-        {
-          error:
-            "We couldn't retrieve that page's content. Please paste the article text instead.",
-        },
-        422,
       );
     }
   }
