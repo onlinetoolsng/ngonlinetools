@@ -1,10 +1,9 @@
 -- 0006_content_quality_checker.sql
 -- Supports the "Google Content Quality Checker" tool.
 --
--- NOTE: I couldn't run this against the live project directly — the
--- Supabase project connected to my tooling doesn't match this site's
--- project. Run this yourself (SQL editor or `supabase db push`) and let
--- me know once it's applied, or share the project ref and I can run it.
+-- Already applied directly to the Online Tools NG project (2026-09-27).
+-- This file exists for version history / local dev setup — running it
+-- again is a no-op thanks to `if not exists` / `on conflict do update`.
 
 -- ─── Logging table ─────────────────────────────────────────────────────────
 -- One row per analysis run. No page content is stored — only enough to do
