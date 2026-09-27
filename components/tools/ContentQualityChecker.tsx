@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { createSupabasePublicClient } from '@/lib/supabase/client'
+import { createSupabaseBrowserClient } from '@/lib/supabase/browser-client'
 import {
   buildGeminiRequestBody,
   parseGeminiJson,
@@ -38,7 +38,7 @@ const RATING_COLOR: Record<string, string> = {
  * goes through our public, key-free fetch-url-content function. Only the
  * Gemini call itself uses the user's own key, and only from the browser. */
 async function fetchUrlHtml(url: string): Promise<{ html: string; finalUrl: string }> {
-  const supabase = createSupabasePublicClient()
+  const supabase = createSupabaseBrowserClient()
   const { data, error } = await supabase.functions.invoke('fetch-url-content', { body: { url } })
   if (error) throw new Error(error.message ?? "Couldn't retrieve that page.")
   if (data?.error) throw new Error(data.error)
@@ -106,7 +106,7 @@ export default function ContentQualityChecker() {
         const data = await callGeminiDirect(ownKey.trim(), text, sourceUrl)
         setResult(data)
       } else {
-        const supabase = createSupabasePublicClient()
+        const supabase = createSupabaseBrowserClient()
         const { data, error: fnError } = await supabase.functions.invoke('content-quality-checker', {
           body: mode === 'url' ? { mode, url: url.trim() } : { mode, content },
         })
