@@ -12,6 +12,9 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Deno edge functions — separate runtime, use jsr: specifiers and
+    // Deno globals that Next's TS/ESLint project doesn't understand.
+    "supabase/functions/**",
   ]),
 ]);
 
