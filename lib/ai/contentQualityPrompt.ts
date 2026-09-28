@@ -67,17 +67,22 @@ export const GEMINI_PRIMARY_MODEL = 'gemini-3.5-flash'
 export const GEMINI_FALLBACK_MODEL = 'gemini-3.5-flash-lite'
 
 export const MAX_PASTE_CHARS = 25000 // ~4-5k words; generous for a long article, cheap enough per call
-export const MAX_HTML_CHARS = 60000 // raw HTML is noisier than plain text, so a larger cap
+export const MAX_HTML_CHARS = 200000 // raw HTML is noisier than plain text; Gemini's context handles this easily
 export const FETCH_TIMEOUT_MS = 15000
 
-/** Strips <script>, <style>, HTML comments and truncates. Not content extraction —
- *  just noise removal. Gemini reads the remaining markup itself (see prompt). */
-export function cleanHtml(html: string): string {
-  return html
+/** Strips <script>, <style>, HTML comments. Not content extraction — just
+ *  noise removal. Gemini reads the remaining markup itself (see prompt).
+ *  Truncation is reported separately so the caller can tell Gemini about it
+ *  (otherwise the model can't distinguish "the source article stops here"
+ *  from "we cut it off," and may wrongly dock completeness for our limit). */
+export function cleanHtml(html: string): { html: string; truncated: boolean } {
+  const cleaned = html
     .replace(/<script[\s\S]*?<\/script>/gi, '')
     .replace(/<style[\s\S]*?<\/style>/gi, '')
     .replace(/<!--[\s\S]*?-->/g, '')
-    .slice(0, MAX_HTML_CHARS)
+
+  if (cleaned.length <= MAX_HTML_CHARS) return { html: cleaned, truncated: false }
+  return { html: cleaned.slice(0, MAX_HTML_CHARS), truncated: true }
 }
 
 export type ContentQualityScoreBlock = { score: number; max: number; note: string }
@@ -115,10 +120,14 @@ export function parseGeminiJson(text: string): ContentQualityResult {
 /** Builds the Gemini generateContent request body. By this point `content` is
  * always plain text or already-fetched/cleaned HTML — there is no separate
  * "url mode" at the Gemini-call level, since URL fetching happens before this. */
-export function buildGeminiRequestBody(content: string, sourceUrl?: string) {
+export function buildGeminiRequestBody(content: string, sourceUrl?: string, truncated?: boolean) {
+  const truncationNote = truncated
+    ? `\n\n[SYSTEM NOTE: This page's HTML was too large and was cut off by our own size limit at this point — it is NOT necessarily where the source article itself ends. Do not penalize completeness/depth for content that may simply be missing due to this cut; instead note in "cannotEvaluate" that the full page couldn't be analyzed.]`
+    : ''
+
   const userText = sourceUrl
-    ? `Source URL: ${sourceUrl}\n\nPage content (HTML, script/style already stripped):\n\n${content}`
-    : `Analyze this content:\n\n${content}`
+    ? `Source URL: ${sourceUrl}\n\nPage content (HTML, script/style already stripped):\n\n${content}${truncationNote}`
+    : `Analyze this content:\n\n${content}${truncationNote}`
 
   return {
     contents: [

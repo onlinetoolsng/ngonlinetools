@@ -14,7 +14,7 @@
 
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 
-const MAX_HTML_CHARS = 60000;
+const MAX_HTML_CHARS = 200000;
 const FETCH_TIMEOUT_MS = 15000;
 const MAX_RESPONSE_BYTES = 5_000_000; // 5MB cap before we even start cleaning
 
@@ -31,12 +31,13 @@ function jsonResponse(body: unknown, status = 200) {
   });
 }
 
-function cleanHtml(html: string): string {
-  return html
+function cleanHtml(html: string): { html: string; truncated: boolean } {
+  const cleaned = html
     .replace(/<script[\s\S]*?<\/script>/gi, "")
     .replace(/<style[\s\S]*?<\/style>/gi, "")
-    .replace(/<!--[\s\S]*?-->/g, "")
-    .slice(0, MAX_HTML_CHARS);
+    .replace(/<!--[\s\S]*?-->/g, "");
+  if (cleaned.length <= MAX_HTML_CHARS) return { html: cleaned, truncated: false };
+  return { html: cleaned.slice(0, MAX_HTML_CHARS), truncated: true };
 }
 
 Deno.serve(async (req: Request) => {
@@ -95,7 +96,7 @@ Deno.serve(async (req: Request) => {
     }
 
     const html = new TextDecoder("utf-8").decode(buf);
-    const cleaned = cleanHtml(html);
+    const { html: cleaned, truncated } = cleanHtml(html);
 
     if (cleaned.trim().length < 100) {
       return jsonResponse(
@@ -107,7 +108,7 @@ Deno.serve(async (req: Request) => {
       );
     }
 
-    return jsonResponse({ html: cleaned, finalUrl: res.url });
+    return jsonResponse({ html: cleaned, finalUrl: res.url, truncated });
   } catch (err) {
     const timedOut = err instanceof Error && err.name === "AbortError";
     return jsonResponse(

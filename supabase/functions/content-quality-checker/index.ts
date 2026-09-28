@@ -20,22 +20,27 @@ import { createClient } from "jsr:@supabase/supabase-js@2";
 const GEMINI_PRIMARY_MODEL = "gemini-3.5-flash";
 const GEMINI_FALLBACK_MODEL = "gemini-3.5-flash-lite";
 const MAX_PASTE_CHARS = 25000;
-const MAX_HTML_CHARS = 60000;
+const MAX_HTML_CHARS = 200000;
 const MAX_RESPONSE_BYTES = 5_000_000;
 const FETCH_TIMEOUT_MS = 15000;
 const DAILY_IP_LIMIT = 60;
 
-function cleanHtml(html: string): string {
-  return html
+/** Strips <script>/<style>/comments only — no content extraction. Reports
+ * truncation separately so callers can tell Gemini about it (otherwise it
+ * can't distinguish "the article ends here" from "we cut it off," and may
+ * wrongly dock completeness for our own size limit). */
+function cleanHtml(html: string): { html: string; truncated: boolean } {
+  const cleaned = html
     .replace(/<script[\s\S]*?<\/script>/gi, "")
     .replace(/<style[\s\S]*?<\/style>/gi, "")
-    .replace(/<!--[\s\S]*?-->/g, "")
-    .slice(0, MAX_HTML_CHARS);
+    .replace(/<!--[\s\S]*?-->/g, "");
+  if (cleaned.length <= MAX_HTML_CHARS) return { html: cleaned, truncated: false };
+  return { html: cleaned.slice(0, MAX_HTML_CHARS), truncated: true };
 }
 
 /** Fetches a page's raw HTML server-side (script/style stripped only, no
  * extraction) or throws a user-facing message on any failure. */
-async function fetchPageHtml(url: string): Promise<{ html: string; finalUrl: string }> {
+async function fetchPageHtml(url: string): Promise<{ html: string; finalUrl: string; truncated: boolean }> {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
   try {
@@ -62,13 +67,13 @@ async function fetchPageHtml(url: string): Promise<{ html: string; finalUrl: str
       throw new Error("That page is too large to analyze. Please paste the relevant article text instead.");
     }
     const html = new TextDecoder("utf-8").decode(buf);
-    const cleaned = cleanHtml(html);
+    const { html: cleaned, truncated } = cleanHtml(html);
     if (cleaned.trim().length < 100) {
       throw new Error(
         "We couldn't find readable content on that page (it may be rendered by JavaScript). Please paste the article text instead.",
       );
     }
-    return { html: cleaned, finalUrl: res.url };
+    return { html: cleaned, finalUrl: res.url, truncated };
   } catch (err) {
     if (err instanceof Error && err.name === "AbortError") {
       throw new Error("That page took too long to respond. Please paste the article text instead.");
@@ -242,19 +247,25 @@ Deno.serve(async (req: Request) => {
 
   let contentToAnalyze = payload.content ?? "";
   let sourceUrl: string | undefined;
+  let wasTruncated = false;
 
   if (mode === "url") {
     try {
       const fetched = await fetchPageHtml(payload.url!);
       contentToAnalyze = fetched.html;
       sourceUrl = fetched.finalUrl;
+      wasTruncated = fetched.truncated;
     } catch (err) {
       return jsonResponse({ error: err instanceof Error ? err.message : "Couldn't retrieve that page." }, 422);
     }
   }
 
+  const truncationNote = wasTruncated
+    ? `\n\n[SYSTEM NOTE: This page's HTML was too large and was cut off by our own size limit at this point — it is NOT necessarily where the source article itself ends. Do not penalize completeness/depth for content that may simply be missing due to this cut; instead note in "cannotEvaluate" that the full page couldn't be analyzed.]`
+    : "";
+
   const userText = sourceUrl
-    ? `Source URL: ${sourceUrl}\n\nPage content (HTML, script/style already stripped):\n\n${contentToAnalyze}`
+    ? `Source URL: ${sourceUrl}\n\nPage content (HTML, script/style already stripped):\n\n${contentToAnalyze}${truncationNote}`
     : `Analyze this content:\n\n${contentToAnalyze}`;
 
   const requestBody = {

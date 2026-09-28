@@ -37,7 +37,7 @@ const RATING_COLOR: Record<string, string> = {
  * site's own CORS policy blocks it) — so even in BYOK mode, URL fetching
  * goes through our public, key-free fetch-url-content function. Only the
  * Gemini call itself uses the user's own key, and only from the browser. */
-async function fetchUrlHtml(url: string): Promise<{ html: string; finalUrl: string }> {
+async function fetchUrlHtml(url: string): Promise<{ html: string; finalUrl: string; truncated: boolean }> {
   const supabase = createSupabaseBrowserClient()
   const { data, error } = await supabase.functions.invoke('fetch-url-content', { body: { url } })
   if (error) throw new Error(error.message ?? "Couldn't retrieve that page.")
@@ -45,8 +45,8 @@ async function fetchUrlHtml(url: string): Promise<{ html: string; finalUrl: stri
   return data
 }
 
-async function callGeminiDirect(apiKey: string, content: string, sourceUrl?: string) {
-  const body = buildGeminiRequestBody(content, sourceUrl)
+async function callGeminiDirect(apiKey: string, content: string, sourceUrl?: string, truncated?: boolean) {
+  const body = buildGeminiRequestBody(content, sourceUrl, truncated)
 
   async function attempt(model: string) {
     const res = await fetch(
@@ -99,11 +99,15 @@ export default function ContentQualityChecker() {
       if (useOwnKey) {
         // BYOK: fetch page HTML (key-free, server-side to dodge target-site
         // CORS) if needed, then call Gemini directly from the browser.
-        const { text, sourceUrl } =
+        const { text, sourceUrl, truncated } =
           mode === 'url'
-            ? await fetchUrlHtml(url.trim()).then((r) => ({ text: r.html, sourceUrl: r.finalUrl }))
-            : { text: content, sourceUrl: undefined }
-        const data = await callGeminiDirect(ownKey.trim(), text, sourceUrl)
+            ? await fetchUrlHtml(url.trim()).then((r) => ({
+                text: r.html,
+                sourceUrl: r.finalUrl,
+                truncated: r.truncated,
+              }))
+            : { text: content, sourceUrl: undefined, truncated: false }
+        const data = await callGeminiDirect(ownKey.trim(), text, sourceUrl, truncated)
         setResult(data)
       } else {
         const supabase = createSupabaseBrowserClient()
