@@ -8,6 +8,9 @@ import { localizedUrl } from '@/lib/i18n/paths'
 
 const locales = ['en'] as const
 
+// Cached for a day instead of running on every crawler hit.
+export const revalidate = 86400
+
 export async function GET() {
   const entries = CATEGORIES.flatMap(category =>
     locales.map(locale => ({

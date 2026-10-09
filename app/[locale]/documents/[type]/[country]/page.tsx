@@ -27,14 +27,10 @@ export async function generateStaticParams() {
   return params.map(p => ({ locale: 'en', type: p.type, country: p.country }));
 }
 
-// TEMPORARY: forces every request to hit Supabase directly with zero caching,
-// so newly-added templates show up immediately without a redeploy. Because
-// this page also uses generateStaticParams, revalidate=0 alone isn't
-// reliable once a page has been statically generated on Vercel — this is
-// the actual override. Remove this line once you're done adding templates
-// regularly and want normal ISR caching back.
-export const revalidate = 0;
-export const dynamic = 'force-dynamic';
+// Cached for a week (ISR). Templates rarely change; new templates still render
+// on first request (dynamicParams defaults to true) and are then cached.
+// To publish an edit sooner, call /api/revalidate?key=<CRON_SECRET>&tag=documents.
+export const revalidate = 604800;
 
 // Supabase is the real source of truth for whether a template page exists —
 // DOCUMENT_TYPES/DOCUMENT_COUNTRIES only enrich a page when the slug happens

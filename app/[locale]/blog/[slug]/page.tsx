@@ -26,7 +26,7 @@ import { localePath, localizedUrl } from '@/lib/i18n/paths'
 type Params = { locale: string; slug: string }
 
 // ISR: rebuild blog pages every hour
-export const revalidate = 3600
+export const revalidate = 86400
 
 const BASE_URL = 'https://www.toolbase.com.ng'
 

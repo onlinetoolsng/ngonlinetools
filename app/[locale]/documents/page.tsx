@@ -18,16 +18,9 @@ type Params = { locale: string };
 
 const BASE_URL = 'https://www.toolbase.com.ng';
 
-// Without this, this page can get statically generated once (e.g. during
-// the first build after this feature shipped, possibly before the
-// document_templates table/migrations existed) and then serve that same
-// cached result — including an empty/error state — on every request
-// after, since nothing here calls a dynamic API to trigger a refetch.
-// Same category of bug as the earlier blog dynamic-rendering fix: force
-// this to run fresh on every request so newly published/edited templates
-// show up immediately.
-export const revalidate = 0;
-export const dynamic = 'force-dynamic';
+// Cached for a day (ISR). The template list itself is also cached for a day
+// (tag 'documents'), so new templates show up within 24h without a redeploy.
+export const revalidate = 86400;
 
 
 export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {

@@ -26,6 +26,9 @@ async function getTranslatedToolSlugs(): Promise<Set<string>> {
   }
 }
 
+// Cached for a day instead of running on every crawler hit.
+export const revalidate = 86400
+
 export async function GET() {
   const translatedSlugs = await getTranslatedToolSlugs()
 

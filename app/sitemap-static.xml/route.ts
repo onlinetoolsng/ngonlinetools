@@ -19,6 +19,9 @@ const STATIC_PATHS = [
   { path: '/disclaimer',changeFrequency: 'monthly'as const, priority: 0.4 },
 ]
 
+// Cached for a day instead of running on every crawler hit.
+export const revalidate = 86400
+
 export async function GET() {
   const entries = STATIC_PATHS.flatMap(({ path, changeFrequency, priority }) =>
     locales.map(locale => ({

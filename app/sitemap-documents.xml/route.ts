@@ -9,11 +9,8 @@ import { localizedUrl } from '@/lib/i18n/paths'
 
 const locales = ['en'] as const
 
-// Route Handlers with a GET can be statically cached by default; force
-// this one dynamic so newly published templates appear in the sitemap
-// without waiting on a redeploy.
-export const revalidate = 0
-export const dynamic = 'force-dynamic'
+// Regenerated at most once a day (the template list behind it is cached too).
+export const revalidate = 86400
 
 export async function GET() {
   const entries = []

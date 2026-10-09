@@ -1,4 +1,29 @@
+import { unstable_cache } from 'next/cache'
 import { createSupabasePublicClient } from './client'
+
+// ─── Caching + payload policy ──────────────────────────────────────────────────
+// List views (homepage, blog index, sidebars, related) only ever show titles,
+// excerpts and badges — never the article body. Pulling `content` for them was
+// the main source of Supabase egress, so list queries select the columns below
+// and fill `content` with ''. Only getArticleBySlug returns the full body.
+// Results are cached for a day and tagged 'blog' so the approve-article cron
+// (which calls revalidateTag('blog')) refreshes them when a new article ships.
+const DAY = 86400
+const LIST_TRANSLATION_COLUMNS =
+  'article_slug, locale, title, excerpt, meta_description, og_image_url, reading_time_minutes, is_translated, created_at'
+const LIST_SELECT = `*, article_translations!inner(${LIST_TRANSLATION_COLUMNS})`
+
+type ListRow = ArticleRow & {
+  article_translations?: Omit<ArticleTranslationRow, 'content'>[]
+}
+
+function toListItem(row: ListRow): ArticleWithTranslation {
+  const t = row.article_translations?.[0]
+  return {
+    ...row,
+    translation: t ? { ...t, content: '' } : null,
+  }
+}
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -56,7 +81,7 @@ export type ToolTranslation = {
 
 // ─── Article queries ──────────────────────────────────────────────────────────
 
-export async function getPublishedArticles(
+async function getPublishedArticlesUncached(
   locale: string,
   limit = 20
 ): Promise<ArticleWithTranslation[]> {
@@ -64,7 +89,7 @@ export async function getPublishedArticles(
 
   const { data, error } = await supabase
     .from('articles')
-    .select(`*, article_translations!inner(*)`)
+    .select(LIST_SELECT)
     .eq('published', true)
     .eq('article_translations.locale', locale)
     .order('published_at', { ascending: false })
@@ -75,10 +100,7 @@ export async function getPublishedArticles(
     return []
   }
 
-  return (data ?? []).map((row: any) => ({
-    ...row,
-    translation: row.article_translations?.[0] ?? null,
-  }))
+  return (data ?? []).map(toListItem)
 }
 
 // ─── Blog index: search, filter, sort, paginate ────────────────────────────────
@@ -120,7 +142,7 @@ export async function searchPublishedArticles({
 
   let query = supabase
     .from('articles')
-    .select(`*, article_translations!inner(*)`, { count: 'exact' })
+    .select(LIST_SELECT, { count: 'exact' })
     .eq('published', true)
     .eq('article_translations.locale', locale)
 
@@ -161,10 +183,7 @@ export async function searchPublishedArticles({
     return { articles: [], total: 0, page: safePage, perPage, totalPages: 0 }
   }
 
-  const articles = (data ?? []).map((row: any) => ({
-    ...row,
-    translation: row.article_translations?.[0] ?? null,
-  }))
+  const articles = (data ?? []).map(toListItem)
 
   const total = count ?? 0
   const totalPages = Math.max(1, Math.ceil(total / perPage))
@@ -204,7 +223,7 @@ export async function getBlogCategoryCounts(
     .sort((a, b) => b.count - a.count)
 }
 
-export async function getArticlesByCategory(
+async function getArticlesByCategoryUncached(
   categorySlug: string,
   locale: string,
   limit = 10
@@ -213,7 +232,7 @@ export async function getArticlesByCategory(
 
   const { data, error } = await supabase
     .from('articles')
-    .select(`*, article_translations!inner(*)`)
+    .select(LIST_SELECT)
     .eq('published', true)
     .eq('category_slug', categorySlug)
     .eq('article_translations.locale', locale)
@@ -225,10 +244,7 @@ export async function getArticlesByCategory(
     return []
   }
 
-  return (data ?? []).map((row: any) => ({
-    ...row,
-    translation: row.article_translations?.[0] ?? null,
-  }))
+  return (data ?? []).map(toListItem)
 }
 
 export async function getArticleBySlug(
@@ -257,7 +273,7 @@ export async function getArticleBySlug(
   }
 }
 
-export async function getArticlesForTool(
+async function getArticlesForToolUncached(
   toolSlug: string,
   locale: string,
   limit = 3
@@ -266,7 +282,7 @@ export async function getArticlesForTool(
 
   const { data, error } = await supabase
     .from('articles')
-    .select(`*, article_translations!inner(*)`)
+    .select(LIST_SELECT)
     .eq('published', true)
     .contains('related_tool_slugs', [toolSlug])
     .eq('article_translations.locale', locale)
@@ -278,10 +294,7 @@ export async function getArticlesForTool(
     return []
   }
 
-  return (data ?? []).map((row: any) => ({
-    ...row,
-    translation: row.article_translations?.[0] ?? null,
-  }))
+  return (data ?? []).map(toListItem)
 }
 
 export async function getAllPublishedArticleSlugs(): Promise<
@@ -327,3 +340,22 @@ export async function getToolTranslation(
 
   return data as ToolTranslation
 }
+
+// ─── Cached exports (daily, tag 'blog') ────────────────────────────────────────
+export const getPublishedArticles = unstable_cache(
+  getPublishedArticlesUncached,
+  ['articles-published'],
+  { revalidate: DAY, tags: ['blog'] }
+)
+
+export const getArticlesByCategory = unstable_cache(
+  getArticlesByCategoryUncached,
+  ['articles-by-category'],
+  { revalidate: DAY, tags: ['blog'] }
+)
+
+export const getArticlesForTool = unstable_cache(
+  getArticlesForToolUncached,
+  ['articles-for-tool'],
+  { revalidate: DAY, tags: ['blog'] }
+)

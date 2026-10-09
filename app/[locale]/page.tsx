@@ -45,6 +45,9 @@ const colorMap: Record<string, string> = {
   zinc:    'bg-zinc-50 text-zinc-700 border-zinc-200 hover:bg-zinc-100',
 }
 
+// Cached for a day; latest articles / featured templates refresh on the next regeneration.
+export const revalidate = 86400
+
 export default async function HomePage({
   params,
 }: {

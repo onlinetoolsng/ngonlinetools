@@ -102,10 +102,21 @@ export default async function BlogIndexPage({
   const q = sp.q || undefined
   const isFiltered = !!(q || category)
 
-  const [{ articles, total, totalPages }, categoryCounts] = await Promise.all([
-    getCachedBlogSearch({ locale, page, perPage: PER_PAGE, q, category, sort }),
-    getCachedBlogCategoryCounts(locale),
-  ])
+  const categoryCounts = await getCachedBlogCategoryCounts(locale)
+
+  // Bots love crawling junk filter combinations; each unique combination used to
+  // create its own cache entry (ISR writes) or hit Supabase. Now:
+  //  - unknown category          -> empty result, no query at all
+  //  - free-text search / deep pages -> query directly, never stored in the cache
+  //  - everything else (bounded)  -> cached for 24h
+  const categoryKnown = !category || categoryCounts.some(c => c.slug === category)
+  const cacheable = !q && page <= 20 && categoryKnown
+
+  const { articles, total, totalPages } = !categoryKnown
+    ? { articles: [], total: 0, totalPages: 0 }
+    : cacheable
+      ? await getCachedBlogSearch({ locale, page, perPage: PER_PAGE, q, category, sort })
+      : await searchPublishedArticles({ locale, page, perPage: PER_PAGE, q, category, sort })
 
   const breadcrumbItems = [
     { label: tNav('home'), href: localePath(locale) },

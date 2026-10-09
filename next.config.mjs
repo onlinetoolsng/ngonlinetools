@@ -50,6 +50,18 @@ const nextConfig = {
         source: '/(.*)',
         headers: securityHeaders,
       },
+      // The blog index reads searchParams, so Next renders it per request. Let
+      // Vercel's CDN cache each URL (incl. query string) so repeat hits and
+      // crawlers don't invoke a function every time.
+      {
+        source: '/blog',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, s-maxage=3600, stale-while-revalidate=86400',
+          },
+        ],
+      },
     ]
   },
 
