@@ -16,6 +16,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { revalidatePath, revalidateTag } from 'next/cache'
 import { createClient } from '@supabase/supabase-js'
 import { timingSafeEqual } from 'crypto'
+import { notifySearchEngines } from '@/lib/seo/ping'
 
 export const dynamic = 'force-dynamic'
 export const maxDuration = 30
@@ -121,10 +122,23 @@ async function handle(request: NextRequest) {
       console.error('approve-article revalidation failed:', err)
     }
 
+    // 5. Tell Google (sitemap resubmit) + IndexNow about the new article.
+    //    Best-effort: never fails the approval.
+    let search_ping: unknown = null
+    try {
+      search_ping = await notifySearchEngines({
+        paths: [`/blog/${slug}`],
+        sitemaps: ['/sitemap-blog.xml'],
+      })
+    } catch (err) {
+      console.error('approve-article search ping failed:', err)
+    }
+
     return NextResponse.json({
       ok: true,
       approved: slug,
       drafts_remaining: drafts.length - 1,
+      search_ping,
     })
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Unknown error'
