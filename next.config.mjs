@@ -51,14 +51,16 @@ const nextConfig = {
         headers: securityHeaders,
       },
       // The blog index reads searchParams, so Next renders it per request. Let
-      // Vercel's CDN cache each URL (incl. query string) so repeat hits and
-      // crawlers don't invoke a function every time.
+      // Vercel's CDN cache each URL (incl. query string) for ~1h so repeat hits and
+      // crawlers don't invoke a function every time. Keep the stale window short:
+      // the CDN copy is NOT purged by revalidateTag, so a long stale-while-revalidate
+      // here is what made new posts look "missing" for a day or more.
       {
         source: '/blog',
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, s-maxage=3600, stale-while-revalidate=86400',
+            value: 'public, max-age=0, s-maxage=3600, stale-while-revalidate=300',
           },
         ],
       },

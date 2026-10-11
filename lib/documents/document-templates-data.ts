@@ -32,10 +32,11 @@ export const getDocumentTemplate = cache(async function getDocumentTemplate(
     .single();
 
   if (error) {
-    if (error.code !== 'PGRST116') {
-      console.error('[document-templates] getDocumentTemplate error:', error.message);
-    }
-    return null;
+    // PGRST116 = no matching row -> genuinely not published (page may 404).
+    if (error.code === 'PGRST116') return null;
+    // Real failure: throw so the weekly ISR cache never stores a 404 for a live template.
+    console.error('[document-templates] getDocumentTemplate error:', error.message);
+    throw new Error(`getDocumentTemplate failed: ${error.message}`);
   }
   return data as DocumentTemplateRow;
 });
@@ -83,11 +84,19 @@ async function fetchPublishedTemplateSummaries(): Promise<DocumentTemplateSummar
 
 const cachedTemplateSummaries = unstable_cache(
   fetchPublishedTemplateSummaries,
-  ['published-template-summaries'],
+  ['published-template-summaries-v2'],
   { revalidate: 86400, tags: ['documents'] }
 );
 
+// Throws if Supabase fails. Pages that are cached (ISR / sitemap) must use this
+// so a transient error is not stored as an empty list.
 export async function getAllPublishedTemplates(): Promise<DocumentTemplateSummary[]> {
+  return cachedTemplateSummaries();
+}
+
+// Best-effort variant for decorative uses (homepage tiles) where an empty list is
+// an acceptable degradation.
+export async function getAllPublishedTemplatesOrEmpty(): Promise<DocumentTemplateSummary[]> {
   try {
     return await cachedTemplateSummaries();
   } catch {

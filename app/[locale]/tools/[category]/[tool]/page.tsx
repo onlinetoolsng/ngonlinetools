@@ -520,12 +520,9 @@ export default async function ToolPage({ params }: { params: Promise<Params> }) 
   const categoryData = CATEGORIES.find(c => c.slug === category)
   if (!categoryData) notFound()
 
-  let toolContent
-  try {
-    toolContent = await getToolTranslation(toolSlug, locale)
-  } catch {
-    notFound()
-  }
+  // null = genuinely no content row; real DB errors throw and are NOT cached (a 404
+  // here would otherwise be baked into the ISR cache for a day).
+  const toolContent = await getToolTranslation(toolSlug, locale)
   if (!toolContent) notFound()
 
   // ── i18n ──

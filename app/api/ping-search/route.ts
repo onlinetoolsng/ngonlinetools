@@ -10,7 +10,7 @@
 // 2) Manual (GET): /api/ping-search?key=<CRON_SECRET>&url=/blog/some-slug&sitemap=/sitemap-blog.xml
 
 import { NextRequest, NextResponse } from 'next/server'
-import { revalidateTag } from 'next/cache'
+import { revalidatePath, revalidateTag } from 'next/cache'
 import { timingSafeEqual } from 'crypto'
 import { notifySearchEngines } from '@/lib/seo/ping'
 import { getToolBySlug } from '@/lib/registry/tools'
@@ -49,6 +49,8 @@ function planFromWebhook(p: WebhookPayload): { paths: string[]; sitemaps: string
     if (!justPublished) return { skip: 'template not newly published' }
     // The cached template list feeds the /documents index, homepage and sitemap.
     revalidateTag('documents', { expire: 0 })
+    revalidatePath('/en/documents')
+    revalidatePath(`/en/documents/${rec.document_type}/${rec.country}`)
     return { paths: [`/documents/${rec.document_type}/${rec.country}`], sitemaps: ['/sitemap-documents.xml'] }
   }
 
@@ -63,6 +65,8 @@ function planFromWebhook(p: WebhookPayload): { paths: string[]; sitemaps: string
     const justPublished = rec.published === true && (p.type === 'INSERT' || old.published !== true)
     if (!justPublished) return { skip: 'article not newly published' }
     revalidateTag('blog', { expire: 0 })
+    revalidatePath('/en/blog')
+    revalidatePath(`/en/blog/${rec.slug}`) // clears any 404 cached before it was published
     return { paths: [`/blog/${rec.slug}`], sitemaps: ['/sitemap-blog.xml'] }
   }
 

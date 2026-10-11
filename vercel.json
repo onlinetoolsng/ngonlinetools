@@ -1,0 +1,5 @@
+{
+  "crons": [
+    { "path": "/api/revalidate?tag=blog,documents", "schedule": "0 3 * * *" }
+  ]
+}

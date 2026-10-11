@@ -115,9 +115,10 @@ async function handle(request: NextRequest) {
 
     // 4. Bust caches so the article appears immediately (best-effort).
     try {
-      revalidateTag('blog', 'max')
+      revalidateTag('blog', { expire: 0 }) // purge now; 'max' would serve the stale list once more
       revalidatePath('/en/blog')
       revalidatePath(`/en/blog/${slug}`)
+      revalidatePath('/en') // homepage 'latest articles'
     } catch (err) {
       console.error('approve-article revalidation failed:', err)
     }

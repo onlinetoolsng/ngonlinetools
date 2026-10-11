@@ -13,7 +13,7 @@ import { generateHomepageMetadata } from '@/lib/utils/seo'
 import { getToolIcon } from '@/lib/utils/toolIcons'
 import { getToolName } from '@/lib/utils/toolNames'
 import { FileCheck2 } from 'lucide-react'
-import { getAllPublishedTemplates } from '@/lib/documents/document-templates-data'
+import { getAllPublishedTemplatesOrEmpty } from '@/lib/documents/document-templates-data'
 import { getDocumentType, getDocumentCountry } from '@/lib/documents/document-types'
 import { getPublishedArticles } from '@/lib/supabase/queries'
 import { getCategoryIcon, getCategoryBadgeClass } from '@/lib/registry/categories'
@@ -64,8 +64,8 @@ export default async function HomePage({
   const featuredTools = getFeaturedTools()
 
   const [allTemplates, latestArticles] = await Promise.all([
-    getAllPublishedTemplates(),
-    getPublishedArticles(locale, 3),
+    getAllPublishedTemplatesOrEmpty(),
+    getPublishedArticles(locale, 3).catch(() => []),
   ])
   const featuredDocuments = allTemplates.slice(0, 4)
 

@@ -8,6 +8,11 @@ import { createSupabasePublicClient } from './client'
 // and fill `content` with ''. Only getArticleBySlug returns the full body.
 // Results are cached for a day and tagged 'blog' so the approve-article cron
 // (which calls revalidateTag('blog')) refreshes them when a new article ships.
+//
+// IMPORTANT: every query that feeds an unstable_cache MUST throw on a Supabase
+// error. If it returns [] instead, unstable_cache stores the empty result for
+// the full 24h and published articles silently vanish from the list. Throwing
+// makes the cache skip storing; callers decide how to degrade.
 const DAY = 86400
 const LIST_TRANSLATION_COLUMNS =
   'article_slug, locale, title, excerpt, meta_description, og_image_url, reading_time_minutes, is_translated, created_at'
@@ -97,7 +102,7 @@ async function getPublishedArticlesUncached(
 
   if (error) {
     console.error('getPublishedArticles error:', error.message)
-    return []
+    throw new Error(`getPublishedArticles failed: ${error.message}`)
   }
 
   return (data ?? []).map(toListItem)
@@ -180,7 +185,7 @@ export async function searchPublishedArticles({
 
   if (error) {
     console.error('searchPublishedArticles error:', error.message)
-    return { articles: [], total: 0, page: safePage, perPage, totalPages: 0 }
+    throw new Error(`searchPublishedArticles failed: ${error.message}`)
   }
 
   const articles = (data ?? []).map(toListItem)
@@ -209,7 +214,7 @@ export async function getBlogCategoryCounts(
 
   if (error) {
     console.error('getBlogCategoryCounts error:', error.message)
-    return []
+    throw new Error(`getBlogCategoryCounts failed: ${error.message}`)
   }
 
   const counts = new Map<string, number>()
@@ -241,7 +246,7 @@ async function getArticlesByCategoryUncached(
 
   if (error) {
     console.error('getArticlesByCategory error:', error.message)
-    return []
+    throw new Error(`getArticlesByCategory failed: ${error.message}`)
   }
 
   return (data ?? []).map(toListItem)
@@ -262,9 +267,16 @@ export async function getArticleBySlug(
     .single()
 
   if (error) {
-    if (locale !== 'en') return getArticleBySlug(slug, 'en')
+    // PGRST116 = no row matched: the article genuinely doesn't exist (or has no
+    // translation in this locale) -> fall back / null so the page can 404.
+    if (error.code === 'PGRST116') {
+      if (locale !== 'en') return getArticleBySlug(slug, 'en')
+      return null
+    }
+    // Anything else (timeout, rate limit, egress cap...) is NOT 'not found'.
+    // Throw so the ISR layer does not cache a 404 for the whole revalidate window.
     console.error('getArticleBySlug error:', error.message)
-    return null
+    throw new Error(`getArticleBySlug failed: ${error.message}`)
   }
 
   return {
@@ -291,7 +303,7 @@ async function getArticlesForToolUncached(
 
   if (error) {
     console.error('getArticlesForTool error:', error.message)
-    return []
+    throw new Error(`getArticlesForTool failed: ${error.message}`)
   }
 
   return (data ?? []).map(toListItem)
@@ -310,7 +322,7 @@ export async function getAllPublishedArticleSlugs(): Promise<
 
   if (error) {
     console.error('getAllPublishedArticleSlugs error:', error.message)
-    return []
+    throw new Error(`getAllPublishedArticleSlugs failed: ${error.message}`)
   }
 
   return data ?? []
@@ -332,10 +344,14 @@ export async function getToolTranslation(
     .single()
 
   if (error) {
-    // Arabic not translated yet — fall back to English
-    if (locale !== 'en') return getToolTranslation(slug, 'en')
+    if (error.code === 'PGRST116') {
+      // No row for this locale yet — fall back to English, else genuinely missing.
+      if (locale !== 'en') return getToolTranslation(slug, 'en')
+      return null
+    }
+    // Real failure: throw so ISR doesn't bake a 404 into a tool page.
     console.error('getToolTranslation error:', error.message)
-    return null
+    throw new Error(`getToolTranslation failed: ${error.message}`)
   }
 
   return data as ToolTranslation
@@ -344,18 +360,18 @@ export async function getToolTranslation(
 // ─── Cached exports (daily, tag 'blog') ────────────────────────────────────────
 export const getPublishedArticles = unstable_cache(
   getPublishedArticlesUncached,
-  ['articles-published'],
+  ['articles-published-v2'],
   { revalidate: DAY, tags: ['blog'] }
 )
 
 export const getArticlesByCategory = unstable_cache(
   getArticlesByCategoryUncached,
-  ['articles-by-category'],
+  ['articles-by-category-v2'],
   { revalidate: DAY, tags: ['blog'] }
 )
 
 export const getArticlesForTool = unstable_cache(
   getArticlesForToolUncached,
-  ['articles-for-tool'],
+  ['articles-for-tool-v2'],
   { revalidate: DAY, tags: ['blog'] }
 )

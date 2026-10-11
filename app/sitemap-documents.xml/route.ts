@@ -41,8 +41,14 @@ export async function GET() {
         })
       }
     }
-  } catch {
-    console.warn('sitemap-documents: could not fetch templates from Supabase')
+  } catch (err) {
+    // Don't serve (and cache for a day) a sitemap missing every URL. 503 isn't cached
+    // and tells crawlers to retry.
+    console.error('sitemap-documents: could not fetch templates from Supabase', err)
+    return new Response('Sitemap temporarily unavailable', {
+      status: 503,
+      headers: { 'Retry-After': '300', 'Cache-Control': 'no-store' },
+    })
   }
 
   return xmlResponse(buildSitemapXml(entries))

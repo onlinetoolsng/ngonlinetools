@@ -25,8 +25,10 @@ import { localePath, localizedUrl } from '@/lib/i18n/paths'
 
 type Params = { locale: string; slug: string }
 
-// ISR: rebuild blog pages every hour
-export const revalidate = 86400
+// ISR: individual article pages are re-checked weekly. The blog LIST is cached daily
+// (see blog/page.tsx). New/edited articles can be pushed out sooner via
+// /api/revalidate or the publish webhook, which revalidate this path directly.
+export const revalidate = 604800
 
 const BASE_URL = 'https://www.toolbase.com.ng'
 
@@ -87,12 +89,10 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
   setRequestLocale(locale)
   const isAr = locale === 'ar'
 
-  let article
-  try {
-    article = await getArticleBySlug(slug, locale)
-  } catch {
-    notFound()
-  }
+  // getArticleBySlug returns null only when the article truly doesn't exist and
+  // THROWS on infrastructure errors. Let those propagate: a thrown render is not
+  // cached, whereas notFound() would be cached for the whole week.
+  const article = await getArticleBySlug(slug, locale)
   if (!article?.translation) notFound()
 
   const t = article.translation

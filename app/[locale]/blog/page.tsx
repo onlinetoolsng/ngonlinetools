@@ -32,13 +32,13 @@ const BLOG_CACHE_REVALIDATE_SECONDS = 86400 // 24h — reading searchParams forc
 
 const getCachedBlogSearch = unstable_cache(
   (params: Parameters<typeof searchPublishedArticles>[0]) => searchPublishedArticles(params),
-  ['blog-index-search'],
+  ['blog-index-search-v2'],
   { revalidate: BLOG_CACHE_REVALIDATE_SECONDS, tags: ['blog'] }
 )
 
 const getCachedBlogCategoryCounts = unstable_cache(
   (locale: string) => getBlogCategoryCounts(locale),
-  ['blog-index-category-counts'],
+  ['blog-index-category-counts-v2'],
   { revalidate: BLOG_CACHE_REVALIDATE_SECONDS, tags: ['blog'] }
 )
 
