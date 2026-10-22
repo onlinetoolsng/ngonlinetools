@@ -33,7 +33,7 @@ type Params = { locale: string; category: string; tool: string }
 
 // ─── Route config ─────────────────────────────────────────────────────────────
 
-export const revalidate = 86400
+export const revalidate = 2592000
 
 // ─── Static params ────────────────────────────────────────────────────────────
 
