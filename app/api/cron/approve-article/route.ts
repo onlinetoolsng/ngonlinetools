@@ -113,6 +113,15 @@ async function handle(request: NextRequest) {
       return NextResponse.json({ ok: true, approved: null, message: 'Article was already approved' })
     }
 
+    // 3b. Rebuild the related-article links (public.article_links) so the new article links
+    //     to, and is linked from, relevant existing articles (best-effort).
+    try {
+      const { error: linksError } = await supabase.rpc('refresh_article_links')
+      if (linksError) console.error('refresh_article_links failed:', linksError.message)
+    } catch (err) {
+      console.error('refresh_article_links threw:', err)
+    }
+
     // 4. Bust caches so the article appears immediately (best-effort).
     try {
       revalidateTag('blog', { expire: 0 }) // purge now; 'max' would serve the stale list once more

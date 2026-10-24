@@ -16,7 +16,7 @@ import {
   generateBreadcrumbSchema,
   generateFAQSchema,
 } from '@/lib/schema/schemas'
-import { getArticleBySlug, getPublishedArticles } from '@/lib/supabase/queries'
+import { getArticleBySlug, getPublishedArticles, getRelatedArticles } from '@/lib/supabase/queries'
 import { getCategoryIcon, getCategoryBadgeClass } from '@/lib/registry/categories'
 import AdUnit from '@/components/ads/AdUnit'
 import { AD_SLOTS } from '@/components/ads/slots'
@@ -102,14 +102,25 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
   const categoryIcon = getCategoryIcon(article.category_slug)
   const badgeColor = getCategoryBadgeClass(article.category_slug)
 
-  // More articles (sidebar)
+  // Related articles (sidebar + "Keep reading" block). Topic-ranked pairs from
+  // public.article_links, so every article links to at least 5 relevant others and
+  // every article receives inbound links. Falls back to the latest articles only if a
+  // brand-new article has no pairs yet.
   let moreArticles: Awaited<ReturnType<typeof getPublishedArticles>> = []
   try {
-    moreArticles = (await getPublishedArticles(locale, 5)).filter(
-      a => a.slug !== slug
-    ).slice(0, 4)
+    moreArticles = await getRelatedArticles(slug, locale, 5)
   } catch (err) {
-    console.error('getPublishedArticles (sidebar) error:', err)
+    console.error('getRelatedArticles error:', err)
+  }
+  if (moreArticles.length < 3) {
+    try {
+      const latest = (await getPublishedArticles(locale, 8)).filter(
+        a => a.slug !== slug && !moreArticles.some(m => m.slug === a.slug)
+      )
+      moreArticles = [...moreArticles, ...latest].slice(0, 5)
+    } catch (err) {
+      console.error('getPublishedArticles (fallback) error:', err)
+    }
   }
 
   // Breadcrumb
@@ -247,6 +258,35 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
               </div>
             )}
 
+            {/* Keep reading: contextual internal links to related articles */}
+            {moreArticles.length >= 3 && (
+              <section className="mt-10 pt-6 border-t border-gray-100" aria-labelledby="keep-reading">
+                <h2 id="keep-reading" className="text-xl font-bold text-gray-900 mb-4">
+                  {isAr ? 'تابع القراءة' : 'Keep reading'}
+                </h2>
+                <ul className="space-y-4">
+                  {moreArticles.map(a => {
+                    if (!a.translation) return null
+                    return (
+                      <li key={a.slug}>
+                        <Link
+                          href={localePath(locale, `/blog/${a.slug}`)}
+                          className="font-semibold text-indigo-700 hover:text-indigo-800 hover:underline"
+                        >
+                          {a.translation.title}
+                        </Link>
+                        {a.translation.excerpt && (
+                          <p className="text-sm text-gray-500 mt-1 line-clamp-2">
+                            {a.translation.excerpt}
+                          </p>
+                        )}
+                      </li>
+                    )
+                  })}
+                </ul>
+              </section>
+            )}
+
             {/* Share strip */}
             <div className="mt-10 pt-6 border-t border-gray-100 flex items-center justify-between gap-4 flex-wrap">
               <p className="text-sm text-gray-400 font-medium">
@@ -292,7 +332,7 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
             {moreArticles.length > 0 && (
               <div className="bg-white border border-gray-100 rounded-2xl p-5">
                 <h3 className="font-bold text-gray-900 mb-4 text-sm uppercase tracking-wide">
-                  {isAr ? 'مقالات أخرى' : 'More Articles'}
+                  {isAr ? 'مقالات ذات صلة' : 'Related Articles'}
                 </h3>
                 <div className="space-y-4">
                   {moreArticles.map(a => {

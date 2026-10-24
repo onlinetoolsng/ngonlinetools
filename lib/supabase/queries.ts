@@ -309,6 +309,53 @@ async function getArticlesForToolUncached(
   return (data ?? []).map(toListItem)
 }
 
+// Contextual related articles for the blog interlinking strategy. The pairs live in
+// public.article_links (rebuilt by the refresh_article_links() SQL function whenever an
+// article is published) and are ranked by topic similarity, shared category/tools/country,
+// with a balancing pass so no article is left without inbound links. Deliberately NOT wrapped
+// in unstable_cache: article pages are already ISR-cached for a week, and an extra data-cache
+// entry per article would just add ISR writes.
+export async function getRelatedArticles(
+  slug: string,
+  locale: string,
+  limit = 5
+): Promise<ArticleWithTranslation[]> {
+  const supabase = createSupabasePublicClient()
+
+  const { data: links, error: linksError } = await supabase
+    .from('article_links')
+    .select('related_slug, rank')
+    .eq('article_slug', slug)
+    .order('rank', { ascending: true })
+    .limit(limit)
+
+  if (linksError) {
+    console.error('getRelatedArticles links error:', linksError.message)
+    throw new Error(`getRelatedArticles failed: ${linksError.message}`)
+  }
+  if (!links || links.length === 0) return []
+
+  const fetchFor = async (loc: string) => {
+    const { data, error } = await supabase
+      .from('articles')
+      .select(LIST_SELECT)
+      .eq('published', true)
+      .in('slug', links.map(l => l.related_slug))
+      .eq('article_translations.locale', loc)
+    if (error) {
+      console.error('getRelatedArticles articles error:', error.message)
+      throw new Error(`getRelatedArticles failed: ${error.message}`)
+    }
+    return (data ?? []).map(toListItem)
+  }
+
+  let items = await fetchFor(locale)
+  if (items.length === 0 && locale !== 'en') items = await fetchFor('en')
+
+  const order = new Map(links.map(l => [l.related_slug, l.rank as number]))
+  return items.sort((a, b) => (order.get(a.slug) ?? 99) - (order.get(b.slug) ?? 99))
+}
+
 export async function getAllPublishedArticleSlugs(): Promise<
   { slug: string; published_at: string }[]
 > {
