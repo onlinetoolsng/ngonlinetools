@@ -41,6 +41,20 @@ const securityHeaders = [
   },
 ]
 
+// Static files in /public that never change between deploys (same file name = same content).
+const staticAssetSources = [
+  '/og/:path*',
+  '/images/:path*',
+  '/logo.png',
+  '/favicon.ico',
+  '/favicon-16x16.png',
+  '/favicon-32x32.png',
+  '/apple-touch-icon.png',
+  '/apple-icon-precomposed.png',
+  '/android-chrome-192x192.png',
+  '/android-chrome-512x512.png',
+]
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // Security headers on all routes
@@ -64,6 +78,17 @@ const nextConfig = {
           },
         ],
       },
+      // Files in /public are served by Vercel with max-age=0 + must-revalidate by default, so every
+      // visit re-checks each logo/icon/social image. Let browsers and the CDN keep them.
+      ...staticAssetSources.map((source) => ({
+        source,
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=86400, s-maxage=604800, stale-while-revalidate=604800',
+          },
+        ],
+      })),
     ]
   },
 
