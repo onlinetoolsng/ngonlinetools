@@ -79,8 +79,11 @@ export async function generateMetadata({
     title,
     description,
     alternates: { canonical: url },
-    openGraph: { title, description, url, type: 'article' },
-    twitter: { card: 'summary_large_image', title, description },
+    openGraph: {
+      title, description, url, type: 'article', siteName: 'ToolBase',
+      images: [{ url: `${BASE_URL}/og/tool-default.png`, width: 1200, height: 630, alt: title }],
+    },
+    twitter: { card: 'summary_large_image', title, description, images: [`${BASE_URL}/og/tool-default.png`] },
   };
 }
 

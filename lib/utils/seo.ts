@@ -24,7 +24,7 @@ export async function generateToolMetadata(
       type: 'website' as const,
       images: [
         {
-          url: `${BASE_URL}/og/tools/${toolSlug}.png`,
+          url: `${BASE_URL}/og/tool-default.png`,
           width: 1200,
           height: 630,
           alt: t('title'),
@@ -35,6 +35,7 @@ export async function generateToolMetadata(
       card: 'summary_large_image' as const,
       title: t('title'),
       description: t('metaDescription'),
+      images: [`${BASE_URL}/og/tool-default.png`],
     },
     robots: {
       index: true,
@@ -71,6 +72,7 @@ export async function generateCategoryMetadata(
       siteName: 'ToolBase',
       locale: 'en_NG',
       type: 'website' as const,
+      images: [{ url: `${BASE_URL}/og/homepage.png`, width: 1200, height: 630, alt: 'ToolBase' }],
     },
     robots: { index: true, follow: true },
   }
@@ -135,6 +137,7 @@ export function generateBlogIndexMetadata(locale: string) {
       card: 'summary_large_image' as const,
       title,
       description,
+      images: [`${BASE_URL}/og/blog-default.png`],
     },
     robots: { index: true, follow: true },
   }

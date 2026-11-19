@@ -69,6 +69,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }) 
       card: 'summary_large_image',
       title: t.title,
       description: t.meta_description ?? t.excerpt ?? '',
+      images: [t.og_image_url ?? `${BASE_URL}/og/blog-default.png`],
     },
     robots: { index: true, follow: true },
   }

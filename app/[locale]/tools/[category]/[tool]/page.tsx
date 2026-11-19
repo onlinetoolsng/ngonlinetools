@@ -78,12 +78,13 @@ export async function generateMetadata({ params }: { params: Promise<Params> }) 
       siteName: 'ToolBase',
       locale:   'en_NG',
       type:     'website' as const,
-      images:   [{ url: `${BASE_URL}/og/tools/${toolSlug}.png`, width: 1200, height: 630 }],
+      images:   [{ url: `${BASE_URL}/og/tool-default.png`, width: 1200, height: 630 }],
     },
     twitter: {
       card:        'summary_large_image' as const,
       title:       toolContent.title,
       description: toolContent.meta_description ?? toolContent.description ?? '',
+      images:      [`${BASE_URL}/og/tool-default.png`],
     },
     robots: { index: true, follow: true },
   }

@@ -124,7 +124,7 @@ export function generateArticleSchema({
       name: 'ToolBase',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://www.toolbase.com.ng/icons/logo.png',
+        url: 'https://www.toolbase.com.ng/logo.png',
       },
     },
     image: {
@@ -186,7 +186,7 @@ export function generateOrganizationSchema() {
         url: 'https://www.toolbase.com.ng',
         logo: {
           '@type': 'ImageObject',
-          url: 'https://www.toolbase.com.ng/icons/logo.png',
+          url: 'https://www.toolbase.com.ng/logo.png',
         },
         sameAs: [],
       },
