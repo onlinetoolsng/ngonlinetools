@@ -1,7 +1,7 @@
 // 📁 app/sitemap-blog/route.ts
 // Covers: blog index + all published article slugs from Supabase.
 // Live — new articles appear in the sitemap without a deploy.
-// Cached at edge for 1 hour (Cache-Control in xmlResponse).
+// Cached at edge for 1 day (Cache-Control in xmlResponse); refreshed immediately when an article is published.
 
 import { buildSitemapXml, xmlResponse } from '@/lib/sitemap/xml'
 import { getAllPublishedArticleSlugs } from '@/lib/supabase/queries'
@@ -51,5 +51,5 @@ export async function GET() {
     })
   }
 
-  return xmlResponse(buildSitemapXml(entries))
+  return xmlResponse(buildSitemapXml(entries), 86400)
 }

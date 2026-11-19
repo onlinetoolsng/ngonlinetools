@@ -64,20 +64,13 @@ const nextConfig = {
         source: '/(.*)',
         headers: securityHeaders,
       },
-      // The blog index reads searchParams, so Next renders it per request. Let
-      // Vercel's CDN cache each URL (incl. query string) for ~1h so repeat hits and
-      // crawlers don't invoke a function every time. Keep the stale window short:
-      // the CDN copy is NOT purged by revalidateTag, so a long stale-while-revalidate
-      // here is what made new posts look "missing" for a day or more.
-      {
+      // /blog is a static page (cached one day). Filtered / searched / paginated URLs serve the same
+      // HTML and load their results in the browser, so keep those variants out of the index.
+      ...['q', 'category', 'page', 'sort'].map((key) => ({
         source: '/blog',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=0, s-maxage=3600, stale-while-revalidate=300',
-          },
-        ],
-      },
+        has: [{ type: 'query', key }],
+        headers: [{ key: 'X-Robots-Tag', value: 'noindex, follow' }],
+      })),
       // Files in /public are served by Vercel with max-age=0 + must-revalidate by default, so every
       // visit re-checks each logo/icon/social image. Let browsers and the CDN keep them.
       ...staticAssetSources.map((source) => ({
@@ -100,6 +93,27 @@ const nextConfig = {
         hostname: '**.supabase.co',
       },
     ],
+  },
+
+  // Locale routing without middleware. The site has one locale ('en', no URL prefix), which is what
+  // next-intl's middleware used to handle on every page view (a middleware invocation each time).
+  // Same behaviour, but done by Vercel's router with no function run:
+  //  - /en and /en/* are redirected to the unprefixed URL
+  //  - unprefixed page URLs are internally rewritten to /en/*
+  async redirects() {
+    return [
+      { source: '/en', destination: '/', permanent: true },
+      { source: '/en/:path*', destination: '/:path*', permanent: true },
+    ]
+  },
+  async rewrites() {
+    return {
+      // afterFiles: files in /public, /api routes, sitemaps, robots etc. are matched first
+      afterFiles: [
+        { source: '/', destination: '/en' },
+        { source: '/:path+', destination: '/en/:path+' },
+      ],
+    }
   },
 
   // Compress responses

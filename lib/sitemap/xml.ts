@@ -45,11 +45,13 @@ export function buildSitemapXml(entries: SitemapEntry[]): string {
   ].join('\n')
 }
 
-export function xmlResponse(xml: string): Response {
+// sMaxAge: how long Vercel's CDN keeps the XML (seconds). Publishing an article calls
+// revalidatePath() on the sitemaps, so they still refresh straight away when content changes.
+export function xmlResponse(xml: string, sMaxAge = 3600): Response {
   return new Response(xml, {
     headers: {
       'Content-Type': 'application/xml; charset=utf-8',
-      'Cache-Control': 'public, max-age=0, s-maxage=300, stale-while-revalidate=60',
+      'Cache-Control': `public, max-age=0, s-maxage=${sMaxAge}, stale-while-revalidate=300`,
     },
   })
 }

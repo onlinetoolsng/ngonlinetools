@@ -422,3 +422,19 @@ export const getArticlesForTool = unstable_cache(
   ['articles-for-tool-v2'],
   { revalidate: DAY, tags: ['blog'] }
 )
+
+
+// ─── Blog index (cached one day, tag 'blog') ─────────────────────────────────
+// Used by the static /blog page and by /api/blog-search. Purged by revalidateTag('blog')
+// whenever an article is published.
+export const getCachedBlogSearch = unstable_cache(
+  (params: BlogSearchParams) => searchPublishedArticles(params),
+  ['blog-index-search-v2'],
+  { revalidate: DAY, tags: ['blog'] }
+)
+
+export const getCachedBlogCategoryCounts = unstable_cache(
+  (locale: string) => getBlogCategoryCounts(locale),
+  ['blog-index-category-counts-v2'],
+  { revalidate: DAY, tags: ['blog'] }
+)

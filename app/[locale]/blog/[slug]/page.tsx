@@ -36,6 +36,7 @@ const BASE_URL = 'https://www.toolbase.com.ng'
 export async function generateMetadata({ params }: { params: Promise<Params> }) {
   const { locale, slug } = await params
   setRequestLocale(locale)
+  if (!/^[a-z0-9-]{1,120}$/.test(slug)) return {}
   let article
   try {
     article = await getArticleBySlug(slug, locale)
@@ -93,6 +94,10 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
   // getArticleBySlug returns null only when the article truly doesn't exist and
   // THROWS on infrastructure errors. Let those propagate: a thrown render is not
   // cached, whereas notFound() would be cached for the whole week.
+  // Bots request junk like /blog/wp-admin.php or /blog/Some%20Thing; slugs here are always
+  // lowercase letters, digits and hyphens, so reject anything else before touching Supabase.
+  if (!/^[a-z0-9-]{1,120}$/.test(slug)) notFound()
+
   const article = await getArticleBySlug(slug, locale)
   if (!article?.translation) notFound()
 
