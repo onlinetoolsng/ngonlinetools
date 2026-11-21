@@ -14,6 +14,9 @@ import { SchemaOrg } from '@/components/seo/SchemaOrg'
 import { Breadcrumb } from '@/components/layout/Breadcrumb'
 import { BackButton } from '@/components/layout/BackButton'
 import { ToolWrapper } from '@/components/tools/ToolWrapper'
+import { ReviewedBy } from '@/components/seo/ReviewedBy'
+import { ContentDisclaimer } from '@/components/seo/ContentDisclaimer'
+import { disclaimerKindForCategory } from '@/lib/site/people'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import AdUnit from '@/components/ads/AdUnit'
@@ -558,6 +561,7 @@ export default async function ToolPage({ params }: { params: Promise<Params> }) 
       url:         toolUrl,
       category,
       locale,
+      lastReviewed: toolContent.last_updated ?? null,
     }),
     ...(faqs.length > 0 ? [generateFAQSchema(faqs)] : []),
     generateBreadcrumbSchema(
@@ -583,7 +587,6 @@ export default async function ToolPage({ params }: { params: Promise<Params> }) 
   const imageUrl: string | null = toolContent.image_url ?? null
   const imageAlt: string | null = toolContent.image_alt ?? toolContent.title
   const lastUpdated: string | null = toolContent.last_updated ?? null
-  const reviewerName: string | null = toolContent.reviewer_name ?? null
   const sourceUrl: string | null = toolContent.source_url ?? null
   const lastUpdatedLabel = lastUpdated
     ? new Date(lastUpdated).toLocaleDateString('en-NG', { year: 'numeric', month: 'long' })
@@ -642,6 +645,12 @@ export default async function ToolPage({ params }: { params: Promise<Params> }) 
               )}
             </ToolWrapper>
 
+            {/* Disclaimer + reviewer on every tool page */}
+            <div className="mt-4 space-y-3">
+              <ContentDisclaimer locale={locale} kind={disclaimerKindForCategory(category)} />
+              <ReviewedBy locale={locale} lastReviewed={lastUpdated} />
+            </div>
+
             {/* Ad — below tool. TEMPORARILY DISABLED, see note above. */}
             {false && (
               <div className="my-6">
@@ -663,14 +672,12 @@ export default async function ToolPage({ params }: { params: Promise<Params> }) 
                   {toolContent.article_title}
                 </h2>
 
-                {(lastUpdatedLabel || reviewerName) && (
+                {(lastUpdatedLabel || sourceUrl) && (
                   <p className="text-sm text-gray-500 mb-5 pb-4 border-b border-gray-100">
                     {lastUpdatedLabel && <span>Last updated: {lastUpdatedLabel}</span>}
-                    {lastUpdatedLabel && reviewerName && <span className="mx-2">·</span>}
-                    {reviewerName && <span>{reviewerName}</span>}
                     {sourceUrl && (
                       <>
-                        <span className="mx-2">·</span>
+                        {lastUpdatedLabel && <span className="mx-2">·</span>}
                         <a href={sourceUrl} target="_blank" rel="noopener noreferrer nofollow" className="text-indigo-700 hover:underline">
                           Source
                         </a>

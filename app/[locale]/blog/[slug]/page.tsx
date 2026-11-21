@@ -2,6 +2,9 @@
 
 
 // 📁 app/[locale]/blog/[slug]/page.tsx
+import { ReviewedBy } from '@/components/seo/ReviewedBy'
+import { ContentDisclaimer } from '@/components/seo/ContentDisclaimer'
+import { EDITORIAL_TEAM_NAME, disclaimerKindForCategory } from '@/lib/site/people'
 import { notFound } from 'next/navigation'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import Link from 'next/link'
@@ -150,7 +153,6 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
     dateModified: article.published_at,
     imageUrl: t.og_image_url ?? `${BASE_URL}/og/blog-default.png`,
     wordCount,
-    authorName: 'Henry Agwu',
   })
 
   const breadcrumbSchema = generateBreadcrumbSchema(
@@ -204,11 +206,10 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
               <span>·</span>
               <span>{t.reading_time_minutes} {isAr ? 'دقائق قراءة' : 'min read'}</span>
               <span>·</span>
-              <span className="flex items-center gap-1">
-                <span>🌐</span>
-                <span>Henry Agwu</span>
-              </span>
+              <span>{EDITORIAL_TEAM_NAME}</span>
             </div>
+
+            <ReviewedBy locale={locale} className="-mt-4 mb-8" />
 
             {/* Excerpt / lead */}
             {t.excerpt && (
@@ -243,6 +244,15 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
     </p>
   </div>
 )}
+
+            <div className="mt-10 space-y-3">
+              <ContentDisclaimer
+                locale={locale}
+                kind={disclaimerKindForCategory(article.category_slug)}
+                reportLabel="Spotted an error? Tell us"
+              />
+              <ReviewedBy locale={locale} />
+            </div>
 
             {/* Ad: mid-article. TEMPORARILY DISABLED, see note above. */}
             {false && (

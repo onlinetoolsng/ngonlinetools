@@ -6,6 +6,9 @@ import { Footer } from '@/components/layout/Footer'
 import { Breadcrumb } from '@/components/layout/Breadcrumb'
 import { BackButton } from '@/components/layout/BackButton'
 import { localePath } from '@/lib/i18n/paths'
+import { TOOLS } from '@/lib/registry/tools'
+import { CATEGORIES } from '@/lib/registry/categories'
+import { REVIEWER, DEVELOPER } from '@/lib/site/people'
 
 type Params = { locale: string }
 
@@ -15,7 +18,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }) 
   return {
     title: 'About Us | ToolBase',
     description:
-      'ToolBase offers practical resources, calculators and guides for everyday finance, tax and business decisions across Nigeria and Africa. Built by software engineer Victor Joshua and reviewed by Henry Agwu, a Chartered Accountant with over 10 years of experience.',
+      'ToolBase offers practical resources, calculators and guides for everyday finance, tax and business decisions across Nigeria and Africa. Built by software engineer Victor Joshua and reviewed by Henry Agwu, an ICAN Chartered Accountant with over 10 years of experience.',
     robots: { index: true, follow: true },
   }
 }
@@ -31,10 +34,10 @@ export default async function AboutPage({ params }: { params: Promise<Params> })
   ]
 
   const stats = [
-    { value: '10',   label: 'Categories' },
-    { value: '100%', label: 'Free' },
-    { value: '🌍',   label: 'Made for Nigeria & Africa' },
-    { value: '0',    label: 'Sign-ups Required' },
+    { value: `${TOOLS.length}`, label: 'Free tools' },
+    { value: `${CATEGORIES.length}`, label: 'Categories' },
+    { value: '100%', label: 'Free to use' },
+    { value: '0', label: 'Sign-ups required' },
   ]
 
   const editorialSteps = [
@@ -44,15 +47,15 @@ export default async function AboutPage({ params }: { params: Promise<Params> })
     },
     {
       title: 'We test the numbers',
-      body: 'Before a tool goes live, its calculations are checked against worked examples and, where relevant, cross-checked against payroll and accounting practice by our reviewer, Henry Agwu.',
+      body: 'Before a tool goes live, its calculations are checked against worked examples and, where relevant, cross-checked against payroll and accounting practice by our reviewer, Henry Agwu, an ICAN Chartered Accountant.',
     },
     {
       title: 'We watch for change',
-      body: 'Nigerian tax and finance rules move — the 2025 Tax Act overhaul is a recent example. When a law, rate, or threshold changes, we update the affected calculators and note the change, rather than leaving stale figures live.',
+      body: 'Nigerian tax and finance rules move — the 2025 Tax Act overhaul is a recent example. When a law, rate, or threshold changes, we update the affected calculators and revise the last-reviewed date shown on the page, rather than leaving stale figures live.',
     },
     {
       title: 'We welcome correction',
-      body: 'If you spot a figure that looks off, we want to hear about it. Every tool page links back to our contact form, and bug or accuracy reports are the enquiries we prioritise first.',
+      body: 'If you spot a figure that looks off, we want to hear about it. Every tool, article and document page carries a disclaimer with a link to our contact form, and accuracy reports are the enquiries we prioritise first.',
     },
   ]
 
@@ -185,16 +188,16 @@ export default async function AboutPage({ params }: { params: Promise<Params> })
             <div className="w-16 h-16 rounded-full bg-indigo-100 flex items-center justify-center text-2xl font-black text-indigo-700 flex-shrink-0">
               HA
             </div>
-            <div>
-              <h3 className="text-lg font-bold text-gray-900 mb-1">Henry Agwu</h3>
+            <div id={REVIEWER.id} className="scroll-mt-24">
+              <h3 className="text-lg font-bold text-gray-900 mb-1">{REVIEWER.name}</h3>
               <p className="text-sm font-semibold text-indigo-700 mb-3">
-                Chartered Accountant, 10+ Years of Professional Experience
+                {REVIEWER.title} · Reviewer · 10+ Years of Professional Experience
               </p>
               <p className="text-gray-600 leading-relaxed mb-3">
-                The tax, payroll, and financial logic behind ToolBase&apos;s calculators is
-                reviewed by Henry Agwu, a Chartered Accountant with over a decade of
+                Henry Agwu is a Chartered Accountant (ICAN) with over a decade of
                 professional experience in Nigerian tax compliance, payroll, and financial
-                reporting. Henry&apos;s work ensures every calculator — from PAYE and pension
+                reporting. He reviews everything published on ToolBase: the calculators, the
+                blog articles and the document templates. Henry&apos;s work ensures every calculator — from PAYE and pension
                 to VAT and company income tax — reflects current Nigerian statutory rates
                 and regulations, so the numbers you see are ones you can rely on for real
                 decisions.
@@ -214,10 +217,10 @@ export default async function AboutPage({ params }: { params: Promise<Params> })
             <div className="w-16 h-16 rounded-full bg-indigo-100 flex items-center justify-center text-2xl font-black text-indigo-700 flex-shrink-0">
               VJ
             </div>
-            <div>
-              <h3 className="text-lg font-bold text-gray-900 mb-1">Victor Joshua</h3>
+            <div id={DEVELOPER.id} className="scroll-mt-24">
+              <h3 className="text-lg font-bold text-gray-900 mb-1">{DEVELOPER.name}</h3>
               <p className="text-sm font-semibold text-indigo-700 mb-3">
-                Software Engineer, BSc Computer Science (Rivers State University, Port Harcourt)
+                {DEVELOPER.title} · Developer · BSc Computer Science (Rivers State University, Port Harcourt)
               </p>
               <p className="text-gray-600 leading-relaxed mb-3">
                 The calculators, converters, and generators on ToolBase are built and

@@ -8,12 +8,14 @@ export function generateToolSchema({
   url,
   category,
   locale,
+  lastReviewed,
 }: {
   title: string
   description: string
   url: string
   category: string
   locale: string
+  lastReviewed?: string | null
 }) {
   return {
     '@context': 'https://schema.org',
@@ -27,6 +29,13 @@ export function generateToolSchema({
         inLanguage: 'en',
         isPartOf: { '@id': 'https://www.toolbase.com.ng/#website' },
         breadcrumb: { '@id': `${url}#breadcrumb` },
+        reviewedBy: {
+          '@type': 'Person',
+          name: 'Henry Agwu',
+          jobTitle: 'Chartered Accountant (ICAN)',
+          url: 'https://www.toolbase.com.ng/about#henry-agwu',
+        },
+        ...(lastReviewed ? { lastReviewed: lastReviewed.slice(0, 10) } : {}),
       },
       {
         '@type': 'SoftwareApplication',
@@ -94,7 +103,7 @@ export function generateArticleSchema({
   dateModified,
   imageUrl,
   wordCount,
-  authorName = 'Henry Agwu',
+  authorName = 'ToolBase Editorial Team',
 }: {
   title: string
   description: string
@@ -114,10 +123,21 @@ export function generateArticleSchema({
     datePublished,
     dateModified,
     ...(wordCount ? { wordCount } : {}),
+    // Written by the editorial team; every article is reviewed by Henry Agwu (ICAN).
     author: {
-      '@type': 'Person',
+      '@type': 'Organization',
       name: authorName,
       url: 'https://www.toolbase.com.ng/about',
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': url,
+      reviewedBy: {
+        '@type': 'Person',
+        name: 'Henry Agwu',
+        jobTitle: 'Chartered Accountant (ICAN)',
+        url: 'https://www.toolbase.com.ng/about#henry-agwu',
+      },
     },
     publisher: {
       '@type': 'Organization',
@@ -132,10 +152,6 @@ export function generateArticleSchema({
       url: imageUrl,
       width: 1200,
       height: 630,
-    },
-    mainEntityOfPage: {
-      '@type': 'WebPage',
-      '@id': url,
     },
   }
 }

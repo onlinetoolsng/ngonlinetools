@@ -1,4 +1,5 @@
 // 📁 app/[locale]/documents/[type]/[country]/page.tsx
+import { ReviewedBy } from '@/components/seo/ReviewedBy';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
@@ -138,6 +139,7 @@ export default async function TemplateDocumentPage({
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
         <div className="no-print">
           <Breadcrumb items={breadcrumbItems} />
+          <ReviewedBy locale={locale} className="mt-2" />
           <div className="mb-2">
             <BackButton fallbackHref={localePath(locale, `/documents`)} />
           </div>
