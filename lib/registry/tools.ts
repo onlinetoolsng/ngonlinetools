@@ -650,7 +650,7 @@ export const TOOLS: Tool[] = [
     schema: 'calculator',
     featured: false,
     countries: ['nigeria'],
-    relatedTools: ['waec-neco-grade-calculator', 'jamb-aggregate-calculator'],
+    relatedTools: ['nigeria-cgpa-degree-class-checker', 'waec-neco-grade-calculator', 'jamb-aggregate-calculator'],
     relatedArticles: [],
     hasCountryVariants: false,
     requiresApi: false,
@@ -1243,6 +1243,18 @@ export const DRAFT_TOOLS: Tool[] = [
     hasCountryVariants: false,
     requiresApi: false,
     launchDate: '2026-08-10',
+  },
+  {
+    slug: 'nigeria-cgpa-degree-class-checker',
+    category: 'education',
+    schema: 'calculator',
+    featured: false,
+    countries: ['nigeria'],
+    relatedTools: ['university-cgpa-tracker', 'waec-neco-grade-calculator'],
+    relatedArticles: [],
+    hasCountryVariants: false,
+    requiresApi: false,
+    launchDate: '2026-11-26',
   },
 ]
 

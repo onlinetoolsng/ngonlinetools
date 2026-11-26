@@ -433,6 +433,10 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
         const { default: NigeriaCGPATracker } = await import('@/components/tools/NigeriaCGPATracker')
         return NigeriaCGPATracker
       }
+      case 'nigeria-cgpa-degree-class-checker': {
+        const { default: NigeriaCgpaDegreeClassChecker } = await import('@/components/tools/NigeriaCgpaDegreeClassChecker')
+        return NigeriaCgpaDegreeClassChecker
+      }
       case 'waec-neco-grade-calculator': {
         const { default: WaecNecoGradeCalculator } = await import('@/components/tools/WaecNecoGradeCalculator')
         return WaecNecoGradeCalculator
