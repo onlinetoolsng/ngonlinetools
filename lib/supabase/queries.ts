@@ -1,5 +1,6 @@
 import { unstable_cache } from 'next/cache'
 import { createSupabasePublicClient } from './client'
+import { getCodeToolContent } from '@/lib/content/tools'
 
 // ─── Caching + payload policy ──────────────────────────────────────────────────
 // List views (homepage, blog index, sidebars, related) only ever show titles,
@@ -381,6 +382,42 @@ export async function getToolTranslation(
   slug: string,
   locale: string
 ): Promise<ToolTranslation | null> {
+  // Code-based content (lib/content/tools). 'replace' entries never touch
+  // Supabase; 'patch' entries override fields on the existing row.
+  const code = getCodeToolContent(slug)
+  if (code && (code.mode ?? 'replace') === 'replace') {
+    const fields = { ...code } as Record<string, unknown>
+    delete fields.mode
+    return {
+      tool_slug: slug,
+      locale,
+      description: null,
+      meta_description: null,
+      article_title: null,
+      article_body: null,
+      content_addition: null,
+      image_url: null,
+      image_alt: null,
+      source_url: null,
+      reviewer_name: null,
+      is_translated: true,
+      created_at: fields.last_updated as string,
+      ...fields,
+    } as ToolTranslation
+  }
+
+  const row = await getToolTranslationFromDb(slug, locale)
+  if (code && code.mode === 'patch' && row) {
+    const overrides = Object.entries(code).filter(([k, v]) => k !== 'mode' && v !== undefined)
+    return { ...row, ...Object.fromEntries(overrides) } as ToolTranslation
+  }
+  return row
+}
+
+async function getToolTranslationFromDb(
+  slug: string,
+  locale: string
+): Promise<ToolTranslation | null> {
   const supabase = createSupabasePublicClient()
 
   const { data, error } = await supabase
@@ -393,7 +430,7 @@ export async function getToolTranslation(
   if (error) {
     if (error.code === 'PGRST116') {
       // No row for this locale yet — fall back to English, else genuinely missing.
-      if (locale !== 'en') return getToolTranslation(slug, 'en')
+      if (locale !== 'en') return getToolTranslationFromDb(slug, 'en')
       return null
     }
     // Real failure: throw so ISR doesn't bake a 404 into a tool page.

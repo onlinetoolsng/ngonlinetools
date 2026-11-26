@@ -7,6 +7,7 @@ import { buildSitemapXml, xmlResponse } from '@/lib/sitemap/xml'
 import { TOOLS } from '@/lib/registry/tools'
 import { createSupabasePublicClient } from '@/lib/supabase/client'
 import { localizedUrl } from '@/lib/i18n/paths'
+import { getCodeToolSlugs } from '@/lib/content/tools'
 
 const locales = ['en'] as const
 
@@ -31,6 +32,8 @@ export const revalidate = 86400
 
 export async function GET() {
   const translatedSlugs = await getTranslatedToolSlugs()
+  // Tools whose SEO content lives in code (lib/content/tools) have no Supabase row.
+  for (const slug of getCodeToolSlugs()) translatedSlugs.add(slug)
 
   const entries = TOOLS
     .filter(tool => translatedSlugs.has(tool.slug))
