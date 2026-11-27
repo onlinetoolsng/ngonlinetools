@@ -445,6 +445,10 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
         const { default: NigeriaFgnSavingsBondCalculator } = await import('@/components/tools/NigeriaFgnSavingsBondCalculator')
         return NigeriaFgnSavingsBondCalculator
       }
+      case 'kenya-kra-pin-registration-checklist': {
+        const { default: KenyaKraPinRegistrationChecklist } = await import('@/components/tools/KenyaKraPinRegistrationChecklist')
+        return KenyaKraPinRegistrationChecklist
+      }
       case 'nigeria-cgpa-degree-class-checker': {
         const { default: NigeriaCgpaDegreeClassChecker } = await import('@/components/tools/NigeriaCgpaDegreeClassChecker')
         return NigeriaCgpaDegreeClassChecker

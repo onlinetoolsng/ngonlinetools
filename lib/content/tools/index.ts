@@ -10,6 +10,7 @@ import nigeriaCgpaDegreeClassChecker from './nigeria-cgpa-degree-class-checker'
 import nigeriaPassportRenewalFeeCalculator from './nigeria-passport-renewal-fee-calculator'
 import nigeriaGrasscutterFarmingCalculator from './nigeria-grasscutter-farming-calculator'
 import nigeriaFgnSavingsBondCalculator from './nigeria-fgn-savings-bond-calculator'
+import kenyaKraPinRegistrationChecklist from './kenya-kra-pin-registration-checklist'
 
 export const CODE_TOOL_CONTENT: Record<string, ToolContent> = {
   'electricity-bill-units-calculator': electricityBillUnitsCalculator,
@@ -21,6 +22,7 @@ export const CODE_TOOL_CONTENT: Record<string, ToolContent> = {
   'nigeria-passport-renewal-fee-calculator': nigeriaPassportRenewalFeeCalculator,
   'nigeria-grasscutter-farming-calculator': nigeriaGrasscutterFarmingCalculator,
   'nigeria-fgn-savings-bond-calculator': nigeriaFgnSavingsBondCalculator,
+  'kenya-kra-pin-registration-checklist': kenyaKraPinRegistrationChecklist,
 }
 
 export function getCodeToolContent(slug: string): ToolContent | undefined {
