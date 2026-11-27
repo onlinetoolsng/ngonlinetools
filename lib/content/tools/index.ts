@@ -10,6 +10,7 @@ import nigeriaCgpaDegreeClassChecker from './nigeria-cgpa-degree-class-checker'
 import nigeriaPassportRenewalFeeCalculator from './nigeria-passport-renewal-fee-calculator'
 import nigeriaGrasscutterFarmingCalculator from './nigeria-grasscutter-farming-calculator'
 import nigeriaFgnSavingsBondCalculator from './nigeria-fgn-savings-bond-calculator'
+import africaTimeZoneConverter from './africa-time-zone-converter'
 import nigeriaApplianceElectricityCostCalculator from './nigeria-appliance-electricity-cost-calculator'
 import nigeriaHaulageTripCostCalculator from './nigeria-haulage-trip-cost-calculator'
 import nigeriaDataPlanCostPerGbComparer from './nigeria-data-plan-cost-per-gb-comparer'
@@ -39,6 +40,7 @@ export const CODE_TOOL_CONTENT: Record<string, ToolContent> = {
   'nigeria-passport-renewal-fee-calculator': nigeriaPassportRenewalFeeCalculator,
   'nigeria-grasscutter-farming-calculator': nigeriaGrasscutterFarmingCalculator,
   'nigeria-fgn-savings-bond-calculator': nigeriaFgnSavingsBondCalculator,
+  'africa-time-zone-converter': africaTimeZoneConverter,
   'nigeria-appliance-electricity-cost-calculator': nigeriaApplianceElectricityCostCalculator,
   'nigeria-haulage-trip-cost-calculator': nigeriaHaulageTripCostCalculator,
   'nigeria-data-plan-cost-per-gb-comparer': nigeriaDataPlanCostPerGbComparer,

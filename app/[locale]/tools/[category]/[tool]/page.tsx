@@ -517,6 +517,10 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
         const { default: NigeriaApplianceElectricityCostCalculator } = await import('@/components/tools/NigeriaApplianceElectricityCostCalculator')
         return NigeriaApplianceElectricityCostCalculator
       }
+      case 'africa-time-zone-converter': {
+        const { default: AfricaTimeZoneConverter } = await import('@/components/tools/AfricaTimeZoneConverter')
+        return AfricaTimeZoneConverter
+      }
       case 'nigeria-cgpa-degree-class-checker': {
         const { default: NigeriaCgpaDegreeClassChecker } = await import('@/components/tools/NigeriaCgpaDegreeClassChecker')
         return NigeriaCgpaDegreeClassChecker
