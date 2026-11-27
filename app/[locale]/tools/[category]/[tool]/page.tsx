@@ -473,6 +473,10 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
         const { default: NigeriaBridePriceListCalculator } = await import('@/components/tools/NigeriaBridePriceListCalculator')
         return NigeriaBridePriceListCalculator
       }
+      case 'bride-price-africa-comparator': {
+        const { default: BridePriceAfricaComparator } = await import('@/components/tools/BridePriceAfricaComparator')
+        return BridePriceAfricaComparator
+      }
       case 'nigeria-cgpa-degree-class-checker': {
         const { default: NigeriaCgpaDegreeClassChecker } = await import('@/components/tools/NigeriaCgpaDegreeClassChecker')
         return NigeriaCgpaDegreeClassChecker

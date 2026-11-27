@@ -1376,6 +1376,18 @@ export const DRAFT_TOOLS: Tool[] = [
     requiresApi: false,
     launchDate: '2026-11-27',
   },
+  {
+    slug: 'bride-price-africa-comparator',
+    category: 'everyday',
+    schema: 'converter',
+    featured: false,
+    countries: ['kenya', 'ghana', 'south-africa', 'tanzania'],
+    relatedTools: ['kenya-bride-price-calculator', 'ghana-bride-price-calculator', 'south-africa-lobola-budget-planner'],
+    relatedArticles: [],
+    hasCountryVariants: false,
+    requiresApi: false,
+    launchDate: '2026-11-27',
+  },
 ]
 
 // ─── Utility Functions ─────────────────────────────────────────────────────────
