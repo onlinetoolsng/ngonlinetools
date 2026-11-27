@@ -1304,6 +1304,18 @@ export const DRAFT_TOOLS: Tool[] = [
     requiresApi: false,
     launchDate: '2026-11-27',
   },
+  {
+    slug: 'zambia-paye-napsa-payslip-calculator',
+    category: 'hr-payroll',
+    schema: 'calculator',
+    featured: false,
+    countries: ['zambia'],
+    relatedTools: ['zambia-vat-calculator', 'nigeria-payslip-generator'],
+    relatedArticles: [],
+    hasCountryVariants: false,
+    requiresApi: false,
+    launchDate: '2026-11-27',
+  },
 ]
 
 // ─── Utility Functions ─────────────────────────────────────────────────────────

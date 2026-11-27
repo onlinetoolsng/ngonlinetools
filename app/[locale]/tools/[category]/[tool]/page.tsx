@@ -449,6 +449,10 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
         const { default: KenyaKraPinRegistrationChecklist } = await import('@/components/tools/KenyaKraPinRegistrationChecklist')
         return KenyaKraPinRegistrationChecklist
       }
+      case 'zambia-paye-napsa-payslip-calculator': {
+        const { default: ZambiaPayeNapsaPayslipCalculator } = await import('@/components/tools/ZambiaPayeNapsaPayslipCalculator')
+        return ZambiaPayeNapsaPayslipCalculator
+      }
       case 'nigeria-cgpa-degree-class-checker': {
         const { default: NigeriaCgpaDegreeClassChecker } = await import('@/components/tools/NigeriaCgpaDegreeClassChecker')
         return NigeriaCgpaDegreeClassChecker
