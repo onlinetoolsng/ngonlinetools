@@ -465,6 +465,10 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
         const { default: SoleProprietorshipVsLimitedCompanySelector } = await import('@/components/tools/SoleProprietorshipVsLimitedCompanySelector')
         return SoleProprietorshipVsLimitedCompanySelector
       }
+      case 'nigeria-disco-tariff-band-lookup': {
+        const { default: NigeriaDiscoTariffBandLookup } = await import('@/components/tools/NigeriaDiscoTariffBandLookup')
+        return NigeriaDiscoTariffBandLookup
+      }
       case 'nigeria-cgpa-degree-class-checker': {
         const { default: NigeriaCgpaDegreeClassChecker } = await import('@/components/tools/NigeriaCgpaDegreeClassChecker')
         return NigeriaCgpaDegreeClassChecker
