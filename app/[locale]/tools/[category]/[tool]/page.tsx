@@ -437,6 +437,10 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
         const { default: NigeriaPassportRenewalFeeCalculator } = await import('@/components/tools/NigeriaPassportRenewalFeeCalculator')
         return NigeriaPassportRenewalFeeCalculator
       }
+      case 'nigeria-grasscutter-farming-calculator': {
+        const { default: NigeriaGrasscutterFarmingCalculator } = await import('@/components/tools/NigeriaGrasscutterFarmingCalculator')
+        return NigeriaGrasscutterFarmingCalculator
+      }
       case 'nigeria-cgpa-degree-class-checker': {
         const { default: NigeriaCgpaDegreeClassChecker } = await import('@/components/tools/NigeriaCgpaDegreeClassChecker')
         return NigeriaCgpaDegreeClassChecker

@@ -1268,6 +1268,18 @@ export const DRAFT_TOOLS: Tool[] = [
     requiresApi: false,
     launchDate: '2026-11-26',
   },
+  {
+    slug: 'nigeria-grasscutter-farming-calculator',
+    category: 'agriculture',
+    schema: 'calculator',
+    featured: false,
+    countries: ['nigeria'],
+    relatedTools: ['poultry-farm-startup-break-even-calculator', 'nigeria-catfish-farming-break-even-calculator'],
+    relatedArticles: [],
+    hasCountryVariants: false,
+    requiresApi: false,
+    launchDate: '2026-11-26',
+  },
 ]
 
 // ─── Utility Functions ─────────────────────────────────────────────────────────
