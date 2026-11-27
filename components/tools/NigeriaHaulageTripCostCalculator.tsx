@@ -16,7 +16,6 @@ export default function NigeriaHaulageTripCostCalculator({ locale }: { locale: s
   const [other, setOther] = useState('20000');
   const [loadTonnes, setLoadTonnes] = useState('20');
   const [rate, setRate] = useState('1200000');
-  const [returnLoad, setReturnLoad] = useState(false);
 
   const r = useMemo(() => {
     const km = toNum(distance) * 2; // round trip
@@ -45,10 +44,7 @@ export default function NigeriaHaulageTripCostCalculator({ locale }: { locale: s
           <Field id="ht-t" label="Load (tonnes)" value={loadTonnes} onChange={setLoadTonnes} />
           <Field id="ht-r" label="Freight you charge (₦)" value={rate} onChange={setRate} step="10000" />
         </div>
-        <label className="flex items-center gap-2 text-sm text-gray-700">
-          <input type="checkbox" checked={returnLoad} onChange={(e) => setReturnLoad(e.target.checked)} />
-          I will carry a paid return load (costs are the same, so add its income to freight above)
-        </label>
+        <p className="text-xs text-gray-500">Carrying a paid return load? Add its income to the freight you charge.</p>
       </Card>
       <Card>
         <div className="grid grid-cols-2 gap-3">
