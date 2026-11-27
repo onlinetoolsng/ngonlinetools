@@ -10,6 +10,7 @@ import nigeriaCgpaDegreeClassChecker from './nigeria-cgpa-degree-class-checker'
 import nigeriaPassportRenewalFeeCalculator from './nigeria-passport-renewal-fee-calculator'
 import nigeriaGrasscutterFarmingCalculator from './nigeria-grasscutter-farming-calculator'
 import nigeriaFgnSavingsBondCalculator from './nigeria-fgn-savings-bond-calculator'
+import profitMarginMarkupCalculator from './profit-margin-markup-calculator'
 import savingsChallengeCalculator from './savings-challenge-calculator'
 import scorePercentageGradeCalculator from './score-percentage-grade-calculator'
 import nigeriaBusinessBankAccountChecker from './nigeria-business-bank-account-checker'
@@ -34,6 +35,7 @@ export const CODE_TOOL_CONTENT: Record<string, ToolContent> = {
   'nigeria-passport-renewal-fee-calculator': nigeriaPassportRenewalFeeCalculator,
   'nigeria-grasscutter-farming-calculator': nigeriaGrasscutterFarmingCalculator,
   'nigeria-fgn-savings-bond-calculator': nigeriaFgnSavingsBondCalculator,
+  'profit-margin-markup-calculator': profitMarginMarkupCalculator,
   'savings-challenge-calculator': savingsChallengeCalculator,
   'score-percentage-grade-calculator': scorePercentageGradeCalculator,
   'nigeria-business-bank-account-checker': nigeriaBusinessBankAccountChecker,
