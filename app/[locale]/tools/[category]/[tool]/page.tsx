@@ -529,6 +529,10 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
         const { default: UsdNgnCurrencyConverter } = await import('@/components/tools/UsdNgnCurrencyConverter')
         return UsdNgnCurrencyConverter
       }
+      case 'nigeria-treasury-bill-calculator': {
+        const { default: NigeriaTreasuryBillCalculator } = await import('@/components/tools/NigeriaTreasuryBillCalculator')
+        return NigeriaTreasuryBillCalculator
+      }
       case 'nigeria-cgpa-degree-class-checker': {
         const { default: NigeriaCgpaDegreeClassChecker } = await import('@/components/tools/NigeriaCgpaDegreeClassChecker')
         return NigeriaCgpaDegreeClassChecker
