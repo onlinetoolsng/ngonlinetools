@@ -545,6 +545,10 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
         const { default: NigeriaDevelopmentLevyCalculator } = await import('@/components/tools/NigeriaDevelopmentLevyCalculator')
         return NigeriaDevelopmentLevyCalculator
       }
+      case 'nigeria-crypto-tax-calculator': {
+        const { default: NigeriaCryptoTaxCalculator } = await import('@/components/tools/NigeriaCryptoTaxCalculator')
+        return NigeriaCryptoTaxCalculator
+      }
       case 'nigeria-cgpa-degree-class-checker': {
         const { default: NigeriaCgpaDegreeClassChecker } = await import('@/components/tools/NigeriaCgpaDegreeClassChecker')
         return NigeriaCgpaDegreeClassChecker

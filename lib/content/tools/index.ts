@@ -10,6 +10,7 @@ import nigeriaCgpaDegreeClassChecker from './nigeria-cgpa-degree-class-checker'
 import nigeriaPassportRenewalFeeCalculator from './nigeria-passport-renewal-fee-calculator'
 import nigeriaGrasscutterFarmingCalculator from './nigeria-grasscutter-farming-calculator'
 import nigeriaFgnSavingsBondCalculator from './nigeria-fgn-savings-bond-calculator'
+import nigeriaCryptoTaxCalculator from './nigeria-crypto-tax-calculator'
 import nigeriaDevelopmentLevyCalculator from './nigeria-development-levy-calculator'
 import nigeriaMultiStatePayeAllocator from './nigeria-multi-state-paye-allocator'
 import nigeriaBonusTaxCalculator from './nigeria-bonus-tax-calculator'
@@ -46,6 +47,7 @@ export const CODE_TOOL_CONTENT: Record<string, ToolContent> = {
   'nigeria-passport-renewal-fee-calculator': nigeriaPassportRenewalFeeCalculator,
   'nigeria-grasscutter-farming-calculator': nigeriaGrasscutterFarmingCalculator,
   'nigeria-fgn-savings-bond-calculator': nigeriaFgnSavingsBondCalculator,
+  'nigeria-crypto-tax-calculator': nigeriaCryptoTaxCalculator,
   'nigeria-development-levy-calculator': nigeriaDevelopmentLevyCalculator,
   'nigeria-multi-state-paye-allocator': nigeriaMultiStatePayeAllocator,
   'nigeria-bonus-tax-calculator': nigeriaBonusTaxCalculator,
