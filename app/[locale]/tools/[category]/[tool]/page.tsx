@@ -485,6 +485,10 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
         const { default: NigeriaNhisCoverageChecker } = await import('@/components/tools/NigeriaNhisCoverageChecker')
         return NigeriaNhisCoverageChecker
       }
+      case 'nigeria-business-bank-account-checker': {
+        const { default: NigeriaBusinessBankAccountChecker } = await import('@/components/tools/NigeriaBusinessBankAccountChecker')
+        return NigeriaBusinessBankAccountChecker
+      }
       case 'nigeria-cgpa-degree-class-checker': {
         const { default: NigeriaCgpaDegreeClassChecker } = await import('@/components/tools/NigeriaCgpaDegreeClassChecker')
         return NigeriaCgpaDegreeClassChecker

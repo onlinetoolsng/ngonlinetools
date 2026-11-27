@@ -1412,6 +1412,18 @@ export const DRAFT_TOOLS: Tool[] = [
     requiresApi: false,
     launchDate: '2026-11-27',
   },
+  {
+    slug: 'nigeria-business-bank-account-checker',
+    category: 'business',
+    schema: 'checker',
+    featured: false,
+    countries: ['nigeria'],
+    relatedTools: ['nigeria-freelancer-sme-tax-estimator'],
+    relatedArticles: [],
+    hasCountryVariants: false,
+    requiresApi: false,
+    launchDate: '2026-11-27',
+  },
 ]
 
 // ─── Utility Functions ─────────────────────────────────────────────────────────
