@@ -525,6 +525,10 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
         const { default: GpaPercentageScaleConverter } = await import('@/components/tools/GpaPercentageScaleConverter')
         return GpaPercentageScaleConverter
       }
+      case 'usd-ngn-currency-converter': {
+        const { default: UsdNgnCurrencyConverter } = await import('@/components/tools/UsdNgnCurrencyConverter')
+        return UsdNgnCurrencyConverter
+      }
       case 'nigeria-cgpa-degree-class-checker': {
         const { default: NigeriaCgpaDegreeClassChecker } = await import('@/components/tools/NigeriaCgpaDegreeClassChecker')
         return NigeriaCgpaDegreeClassChecker
