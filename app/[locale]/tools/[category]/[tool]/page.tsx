@@ -509,6 +509,10 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
         const { default: NigeriaDataPlanCostPerGbComparer } = await import('@/components/tools/NigeriaDataPlanCostPerGbComparer')
         return NigeriaDataPlanCostPerGbComparer
       }
+      case 'nigeria-haulage-trip-cost-calculator': {
+        const { default: NigeriaHaulageTripCostCalculator } = await import('@/components/tools/NigeriaHaulageTripCostCalculator')
+        return NigeriaHaulageTripCostCalculator
+      }
       case 'nigeria-cgpa-degree-class-checker': {
         const { default: NigeriaCgpaDegreeClassChecker } = await import('@/components/tools/NigeriaCgpaDegreeClassChecker')
         return NigeriaCgpaDegreeClassChecker
