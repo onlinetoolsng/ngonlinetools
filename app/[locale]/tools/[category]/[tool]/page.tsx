@@ -521,6 +521,10 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
         const { default: AfricaTimeZoneConverter } = await import('@/components/tools/AfricaTimeZoneConverter')
         return AfricaTimeZoneConverter
       }
+      case 'gpa-percentage-scale-converter': {
+        const { default: GpaPercentageScaleConverter } = await import('@/components/tools/GpaPercentageScaleConverter')
+        return GpaPercentageScaleConverter
+      }
       case 'nigeria-cgpa-degree-class-checker': {
         const { default: NigeriaCgpaDegreeClassChecker } = await import('@/components/tools/NigeriaCgpaDegreeClassChecker')
         return NigeriaCgpaDegreeClassChecker

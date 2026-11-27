@@ -1520,6 +1520,18 @@ export const DRAFT_TOOLS: Tool[] = [
     requiresApi: false,
     launchDate: '2026-11-27',
   },
+  {
+    slug: 'gpa-percentage-scale-converter',
+    category: 'education',
+    schema: 'converter',
+    featured: false,
+    countries: ['nigeria', 'ghana', 'kenya'],
+    relatedTools: ['nigeria-cgpa-degree-class-checker', 'university-cgpa-tracker'],
+    relatedArticles: [],
+    hasCountryVariants: false,
+    requiresApi: false,
+    launchDate: '2026-11-27',
+  },
 ]
 
 // ─── Utility Functions ─────────────────────────────────────────────────────────
