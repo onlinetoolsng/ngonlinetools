@@ -493,6 +493,10 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
         const { default: ScorePercentageGradeCalculator } = await import('@/components/tools/ScorePercentageGradeCalculator')
         return ScorePercentageGradeCalculator
       }
+      case 'savings-challenge-calculator': {
+        const { default: SavingsChallengeCalculator } = await import('@/components/tools/SavingsChallengeCalculator')
+        return SavingsChallengeCalculator
+      }
       case 'nigeria-cgpa-degree-class-checker': {
         const { default: NigeriaCgpaDegreeClassChecker } = await import('@/components/tools/NigeriaCgpaDegreeClassChecker')
         return NigeriaCgpaDegreeClassChecker
