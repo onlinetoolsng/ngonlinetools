@@ -461,6 +461,10 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
         const { default: FuelPriceLitresCalculator } = await import('@/components/tools/FuelPriceLitresCalculator')
         return FuelPriceLitresCalculator
       }
+      case 'sole-proprietorship-vs-limited-company-selector': {
+        const { default: SoleProprietorshipVsLimitedCompanySelector } = await import('@/components/tools/SoleProprietorshipVsLimitedCompanySelector')
+        return SoleProprietorshipVsLimitedCompanySelector
+      }
       case 'nigeria-cgpa-degree-class-checker': {
         const { default: NigeriaCgpaDegreeClassChecker } = await import('@/components/tools/NigeriaCgpaDegreeClassChecker')
         return NigeriaCgpaDegreeClassChecker
