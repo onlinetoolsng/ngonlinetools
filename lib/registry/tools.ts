@@ -1580,6 +1580,18 @@ export const DRAFT_TOOLS: Tool[] = [
     requiresApi: false,
     launchDate: '2026-11-27',
   },
+  {
+    slug: 'nigeria-development-levy-calculator',
+    category: 'tax',
+    schema: 'calculator',
+    featured: false,
+    countries: ['nigeria'],
+    relatedTools: ['company-income-tax-calculator', 'nigeria-wht-rate-checker'],
+    relatedArticles: [],
+    hasCountryVariants: false,
+    requiresApi: false,
+    launchDate: '2026-11-27',
+  },
 ]
 
 // ─── Utility Functions ─────────────────────────────────────────────────────────
