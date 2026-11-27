@@ -56,6 +56,7 @@ export const TOOL_NAMES: Record<string, { en: string; ar: string }> = {
   'jamb-aggregate-calculator': { en: 'JAMB Aggregate Calculator', ar: '' },
   'university-cgpa-tracker': { en: 'University CGPA Tracker', ar: '' },
   'nigeria-cgpa-degree-class-checker': { en: 'Degree Class & CGPA Checker', ar: '' },
+  'nigeria-passport-renewal-fee-calculator': { en: 'Nigeria Passport Fee & Timeline Calculator', ar: '' },
   'waec-neco-grade-calculator': { en: 'WAEC/NECO Grade Calculator', ar: '' },
   'nigeria-school-fees-true-cost-calculator': { en: 'School Fees True Cost Calculator', ar: '' },
   'nigeria-student-loan-repayment-estimator': { en: 'Student Loan Repayment Estimator', ar: '' },

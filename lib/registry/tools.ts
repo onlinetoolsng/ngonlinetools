@@ -1256,6 +1256,18 @@ export const DRAFT_TOOLS: Tool[] = [
     requiresApi: false,
     launchDate: '2026-11-26',
   },
+  {
+    slug: 'nigeria-passport-renewal-fee-calculator',
+    category: 'everyday',
+    schema: 'calculator',
+    featured: false,
+    countries: ['nigeria'],
+    relatedTools: ['nigeria-trip-fuel-cost-calculator', 'electricity-bill-units-calculator'],
+    relatedArticles: [],
+    hasCountryVariants: false,
+    requiresApi: false,
+    launchDate: '2026-11-26',
+  },
 ]
 
 // ─── Utility Functions ─────────────────────────────────────────────────────────

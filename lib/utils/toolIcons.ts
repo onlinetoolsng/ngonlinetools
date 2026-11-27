@@ -75,6 +75,7 @@ export const TOOL_ICON_MAP: Record<string, string> = {
   'jamb-aggregate-calculator': '📝',
   'university-cgpa-tracker': '🎓',
   'nigeria-cgpa-degree-class-checker': '🎓',
+  'nigeria-passport-renewal-fee-calculator': '🛂',
   'waec-neco-grade-calculator': '📚',
   'nigeria-school-fees-true-cost-calculator': '🏫',
   'nigeria-student-loan-repayment-estimator': '🎒',

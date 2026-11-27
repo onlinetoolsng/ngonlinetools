@@ -7,6 +7,7 @@ import ghanaLandSizeConverter from './ghana-land-size-converter'
 import kenyaLandSizeConverter from './kenya-land-size-converter'
 import nigeriaPayslipGenerator from './nigeria-payslip-generator'
 import nigeriaCgpaDegreeClassChecker from './nigeria-cgpa-degree-class-checker'
+import nigeriaPassportRenewalFeeCalculator from './nigeria-passport-renewal-fee-calculator'
 
 export const CODE_TOOL_CONTENT: Record<string, ToolContent> = {
   'electricity-bill-units-calculator': electricityBillUnitsCalculator,
@@ -15,6 +16,7 @@ export const CODE_TOOL_CONTENT: Record<string, ToolContent> = {
   'kenya-land-size-converter': kenyaLandSizeConverter,
   'nigeria-payslip-generator': nigeriaPayslipGenerator,
   'nigeria-cgpa-degree-class-checker': nigeriaCgpaDegreeClassChecker,
+  'nigeria-passport-renewal-fee-calculator': nigeriaPassportRenewalFeeCalculator,
 }
 
 export function getCodeToolContent(slug: string): ToolContent | undefined {
