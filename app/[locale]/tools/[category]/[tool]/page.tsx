@@ -501,6 +501,10 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
         const { default: ProfitMarginMarkupCalculator } = await import('@/components/tools/ProfitMarginMarkupCalculator')
         return ProfitMarginMarkupCalculator
       }
+      case 'nigeria-pos-business-profit-calculator': {
+        const { default: NigeriaPosBusinessProfitCalculator } = await import('@/components/tools/NigeriaPosBusinessProfitCalculator')
+        return NigeriaPosBusinessProfitCalculator
+      }
       case 'nigeria-cgpa-degree-class-checker': {
         const { default: NigeriaCgpaDegreeClassChecker } = await import('@/components/tools/NigeriaCgpaDegreeClassChecker')
         return NigeriaCgpaDegreeClassChecker
