@@ -1328,6 +1328,18 @@ export const DRAFT_TOOLS: Tool[] = [
     requiresApi: false,
     launchDate: '2026-11-27',
   },
+  {
+    slug: 'fuel-price-litres-calculator',
+    category: 'everyday',
+    schema: 'converter',
+    featured: false,
+    countries: ['nigeria'],
+    relatedTools: ['nigeria-trip-fuel-cost-calculator', 'generator-fuel-vs-solar-payback-calculator'],
+    relatedArticles: [],
+    hasCountryVariants: false,
+    requiresApi: false,
+    launchDate: '2026-11-27',
+  },
 ]
 
 // ─── Utility Functions ─────────────────────────────────────────────────────────

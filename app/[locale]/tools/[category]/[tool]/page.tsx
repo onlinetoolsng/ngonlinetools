@@ -457,6 +457,10 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
         const { default: NigeriaRsaContributionTaxBenefitCalculator } = await import('@/components/tools/NigeriaRsaContributionTaxBenefitCalculator')
         return NigeriaRsaContributionTaxBenefitCalculator
       }
+      case 'fuel-price-litres-calculator': {
+        const { default: FuelPriceLitresCalculator } = await import('@/components/tools/FuelPriceLitresCalculator')
+        return FuelPriceLitresCalculator
+      }
       case 'nigeria-cgpa-degree-class-checker': {
         const { default: NigeriaCgpaDegreeClassChecker } = await import('@/components/tools/NigeriaCgpaDegreeClassChecker')
         return NigeriaCgpaDegreeClassChecker
