@@ -1388,6 +1388,18 @@ export const DRAFT_TOOLS: Tool[] = [
     requiresApi: false,
     launchDate: '2026-11-27',
   },
+  {
+    slug: 'south-africa-hospital-plan-vs-medical-aid',
+    category: 'health',
+    schema: 'calculator',
+    featured: false,
+    countries: ['south-africa'],
+    relatedTools: ['hospital-bill-cost-estimator', 'south-africa-paye-tax-calculator'],
+    relatedArticles: [],
+    hasCountryVariants: false,
+    requiresApi: false,
+    launchDate: '2026-11-27',
+  },
 ]
 
 // ─── Utility Functions ─────────────────────────────────────────────────────────

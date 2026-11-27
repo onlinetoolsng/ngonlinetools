@@ -477,6 +477,10 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
         const { default: BridePriceAfricaComparator } = await import('@/components/tools/BridePriceAfricaComparator')
         return BridePriceAfricaComparator
       }
+      case 'south-africa-hospital-plan-vs-medical-aid': {
+        const { default: SouthAfricaHospitalPlanVsMedicalAid } = await import('@/components/tools/SouthAfricaHospitalPlanVsMedicalAid')
+        return SouthAfricaHospitalPlanVsMedicalAid
+      }
       case 'nigeria-cgpa-degree-class-checker': {
         const { default: NigeriaCgpaDegreeClassChecker } = await import('@/components/tools/NigeriaCgpaDegreeClassChecker')
         return NigeriaCgpaDegreeClassChecker
