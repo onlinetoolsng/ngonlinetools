@@ -59,6 +59,7 @@ export const TOOL_NAMES: Record<string, { en: string; ar: string }> = {
   'nigeria-passport-renewal-fee-calculator': { en: 'Nigeria Passport Fee & Timeline Calculator', ar: '' },
   'nigeria-grasscutter-farming-calculator': { en: 'Grasscutter Farming Startup & Profit Calculator', ar: '' },
   'nigeria-fgn-savings-bond-calculator': { en: 'FGN Savings Bond Calculator', ar: '' },
+  'nigeria-non-resident-tax-calculator': { en: 'Non-Resident Tax Calculator', ar: '' },
   'nigeria-crypto-tax-calculator': { en: 'Crypto Tax Calculator', ar: '' },
   'nigeria-development-levy-calculator': { en: 'Development Levy Calculator', ar: '' },
   'nigeria-multi-state-paye-allocator': { en: 'Multi-State PAYE Remittance Calculator', ar: '' },
