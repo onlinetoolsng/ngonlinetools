@@ -23,7 +23,7 @@ The true yield is always higher than the discount rate because you earn the gain
 
 ## Example with an assumed rate
 
-At a discount rate of 18% on a 364-day bill, the price per ₦100 is 100 × (1 − 0.18 × 364 ÷ 365) = ₦82.05, and the true yield is about 21.9%. So ₦1,000,000 invested returns about ₦1,218,700 at maturity. The 18% is only an example, not the current rate.
+At a discount rate of 18% on a 364-day bill, the price per ₦100 is 100 × (1 − 0.18 × 364 ÷ 365) = ₦82.05, and the true yield is about 21.9%. So ₦1,000,000 invested returns about ₦1,218,800 at maturity. The 18% is only an example, not the current rate.
 
 ## Tenors
 
@@ -47,7 +47,7 @@ Tax treatment and any fees depend on your bank or broker and on current rules. T
     },
     {
       q: 'How much does ₦1 million earn in a 364-day T-bill?',
-      a: 'It depends on the stop rate at the auction. At an example 18% discount rate it returns about ₦1,218,700. Enter the latest rate in the calculator.',
+      a: 'It depends on the stop rate at the auction. At an example 18% discount rate it returns about ₦1,218,800. Enter the latest rate in the calculator.',
     },
     {
       q: 'Where do I find the current treasury bill rate?',
