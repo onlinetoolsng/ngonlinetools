@@ -58,6 +58,7 @@ export const TOOL_NAMES: Record<string, { en: string; ar: string }> = {
   'nigeria-cgpa-degree-class-checker': { en: 'Degree Class & CGPA Checker', ar: '' },
   'nigeria-passport-renewal-fee-calculator': { en: 'Nigeria Passport Fee & Timeline Calculator', ar: '' },
   'nigeria-grasscutter-farming-calculator': { en: 'Grasscutter Farming Startup & Profit Calculator', ar: '' },
+  'nigeria-fgn-savings-bond-calculator': { en: 'FGN Savings Bond Calculator', ar: '' },
   'waec-neco-grade-calculator': { en: 'WAEC/NECO Grade Calculator', ar: '' },
   'nigeria-school-fees-true-cost-calculator': { en: 'School Fees True Cost Calculator', ar: '' },
   'nigeria-student-loan-repayment-estimator': { en: 'Student Loan Repayment Estimator', ar: '' },

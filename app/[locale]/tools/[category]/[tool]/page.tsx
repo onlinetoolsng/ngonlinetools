@@ -441,6 +441,10 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
         const { default: NigeriaGrasscutterFarmingCalculator } = await import('@/components/tools/NigeriaGrasscutterFarmingCalculator')
         return NigeriaGrasscutterFarmingCalculator
       }
+      case 'nigeria-fgn-savings-bond-calculator': {
+        const { default: NigeriaFgnSavingsBondCalculator } = await import('@/components/tools/NigeriaFgnSavingsBondCalculator')
+        return NigeriaFgnSavingsBondCalculator
+      }
       case 'nigeria-cgpa-degree-class-checker': {
         const { default: NigeriaCgpaDegreeClassChecker } = await import('@/components/tools/NigeriaCgpaDegreeClassChecker')
         return NigeriaCgpaDegreeClassChecker
