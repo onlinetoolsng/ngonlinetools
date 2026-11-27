@@ -489,6 +489,10 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
         const { default: NigeriaBusinessBankAccountChecker } = await import('@/components/tools/NigeriaBusinessBankAccountChecker')
         return NigeriaBusinessBankAccountChecker
       }
+      case 'score-percentage-grade-calculator': {
+        const { default: ScorePercentageGradeCalculator } = await import('@/components/tools/ScorePercentageGradeCalculator')
+        return ScorePercentageGradeCalculator
+      }
       case 'nigeria-cgpa-degree-class-checker': {
         const { default: NigeriaCgpaDegreeClassChecker } = await import('@/components/tools/NigeriaCgpaDegreeClassChecker')
         return NigeriaCgpaDegreeClassChecker
