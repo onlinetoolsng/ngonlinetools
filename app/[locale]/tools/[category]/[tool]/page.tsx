@@ -453,6 +453,10 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
         const { default: ZambiaPayeNapsaPayslipCalculator } = await import('@/components/tools/ZambiaPayeNapsaPayslipCalculator')
         return ZambiaPayeNapsaPayslipCalculator
       }
+      case 'nigeria-rsa-contribution-tax-benefit-calculator': {
+        const { default: NigeriaRsaContributionTaxBenefitCalculator } = await import('@/components/tools/NigeriaRsaContributionTaxBenefitCalculator')
+        return NigeriaRsaContributionTaxBenefitCalculator
+      }
       case 'nigeria-cgpa-degree-class-checker': {
         const { default: NigeriaCgpaDegreeClassChecker } = await import('@/components/tools/NigeriaCgpaDegreeClassChecker')
         return NigeriaCgpaDegreeClassChecker
