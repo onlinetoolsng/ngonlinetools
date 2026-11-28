@@ -557,6 +557,10 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
         const { default: NigeriaNhfContributionCalculator } = await import('@/components/tools/NigeriaNhfContributionCalculator')
         return NigeriaNhfContributionCalculator
       }
+      case 'kenya-nssf-contribution-calculator': {
+        const { default: KenyaNssfContributionCalculator } = await import('@/components/tools/KenyaNssfContributionCalculator')
+        return KenyaNssfContributionCalculator
+      }
       case 'nigeria-cgpa-degree-class-checker': {
         const { default: NigeriaCgpaDegreeClassChecker } = await import('@/components/tools/NigeriaCgpaDegreeClassChecker')
         return NigeriaCgpaDegreeClassChecker
