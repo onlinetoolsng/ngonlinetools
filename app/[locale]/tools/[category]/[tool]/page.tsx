@@ -585,6 +585,10 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
         const { default: UgandaPayeNssfCalculator } = await import('@/components/tools/UgandaPayeNssfCalculator')
         return UgandaPayeNssfCalculator
       }
+      case 'sadaki-mahr-calculator': {
+        const { default: SadakiMahrCalculator } = await import('@/components/tools/SadakiMahrCalculator')
+        return SadakiMahrCalculator
+      }
       case 'nigeria-cgpa-degree-class-checker': {
         const { default: NigeriaCgpaDegreeClassChecker } = await import('@/components/tools/NigeriaCgpaDegreeClassChecker')
         return NigeriaCgpaDegreeClassChecker
