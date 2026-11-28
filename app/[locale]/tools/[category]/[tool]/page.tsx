@@ -573,6 +573,10 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
         const { default: SouthAfricaSrdGrantEligibilityChecker } = await import('@/components/tools/SouthAfricaSrdGrantEligibilityChecker')
         return SouthAfricaSrdGrantEligibilityChecker
       }
+      case 'south-africa-nsfas-eligibility-checker': {
+        const { default: SouthAfricaNsfasEligibilityChecker } = await import('@/components/tools/SouthAfricaNsfasEligibilityChecker')
+        return SouthAfricaNsfasEligibilityChecker
+      }
       case 'nigeria-cgpa-degree-class-checker': {
         const { default: NigeriaCgpaDegreeClassChecker } = await import('@/components/tools/NigeriaCgpaDegreeClassChecker')
         return NigeriaCgpaDegreeClassChecker

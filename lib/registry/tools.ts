@@ -1676,6 +1676,18 @@ export const DRAFT_TOOLS: Tool[] = [
     requiresApi: false,
     launchDate: '2026-11-27',
   },
+  {
+    slug: 'south-africa-nsfas-eligibility-checker',
+    category: 'education',
+    schema: 'checker',
+    featured: false,
+    countries: ['south-africa'],
+    relatedTools: ['south-africa-srd-grant-eligibility-checker', 'nigeria-scholarship-eligibility-matcher'],
+    relatedArticles: [],
+    hasCountryVariants: false,
+    requiresApi: false,
+    launchDate: '2026-11-27',
+  },
 ]
 
 // ─── Utility Functions ─────────────────────────────────────────────────────────
