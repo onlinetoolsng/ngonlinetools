@@ -569,6 +569,10 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
         const { default: PublicHolidayDoublePayCalculator } = await import('@/components/tools/PublicHolidayDoublePayCalculator')
         return PublicHolidayDoublePayCalculator
       }
+      case 'south-africa-srd-grant-eligibility-checker': {
+        const { default: SouthAfricaSrdGrantEligibilityChecker } = await import('@/components/tools/SouthAfricaSrdGrantEligibilityChecker')
+        return SouthAfricaSrdGrantEligibilityChecker
+      }
       case 'nigeria-cgpa-degree-class-checker': {
         const { default: NigeriaCgpaDegreeClassChecker } = await import('@/components/tools/NigeriaCgpaDegreeClassChecker')
         return NigeriaCgpaDegreeClassChecker
