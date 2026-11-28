@@ -1640,6 +1640,18 @@ export const DRAFT_TOOLS: Tool[] = [
     requiresApi: false,
     launchDate: '2026-11-27',
   },
+  {
+    slug: 'maternity-leave-pay-calculator',
+    category: 'hr-payroll',
+    schema: 'calculator',
+    featured: false,
+    countries: ['kenya', 'nigeria', 'ghana'],
+    relatedTools: ['nigeria-payslip-generator', 'kenya-nssf-contribution-calculator'],
+    relatedArticles: [],
+    hasCountryVariants: false,
+    requiresApi: false,
+    launchDate: '2026-11-27',
+  },
 ]
 
 // ─── Utility Functions ─────────────────────────────────────────────────────────

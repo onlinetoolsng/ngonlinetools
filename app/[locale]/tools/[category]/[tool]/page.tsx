@@ -561,6 +561,10 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
         const { default: KenyaNssfContributionCalculator } = await import('@/components/tools/KenyaNssfContributionCalculator')
         return KenyaNssfContributionCalculator
       }
+      case 'maternity-leave-pay-calculator': {
+        const { default: MaternityLeavePayCalculator } = await import('@/components/tools/MaternityLeavePayCalculator')
+        return MaternityLeavePayCalculator
+      }
       case 'nigeria-cgpa-degree-class-checker': {
         const { default: NigeriaCgpaDegreeClassChecker } = await import('@/components/tools/NigeriaCgpaDegreeClassChecker')
         return NigeriaCgpaDegreeClassChecker

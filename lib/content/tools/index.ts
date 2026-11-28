@@ -10,6 +10,7 @@ import nigeriaCgpaDegreeClassChecker from './nigeria-cgpa-degree-class-checker'
 import nigeriaPassportRenewalFeeCalculator from './nigeria-passport-renewal-fee-calculator'
 import nigeriaGrasscutterFarmingCalculator from './nigeria-grasscutter-farming-calculator'
 import nigeriaFgnSavingsBondCalculator from './nigeria-fgn-savings-bond-calculator'
+import maternityLeavePayCalculator from './maternity-leave-pay-calculator'
 import kenyaNssfContributionCalculator from './kenya-nssf-contribution-calculator'
 import nigeriaNhfContributionCalculator from './nigeria-nhf-contribution-calculator'
 import nigeriaNonResidentTaxCalculator from './nigeria-non-resident-tax-calculator'
@@ -50,6 +51,7 @@ export const CODE_TOOL_CONTENT: Record<string, ToolContent> = {
   'nigeria-passport-renewal-fee-calculator': nigeriaPassportRenewalFeeCalculator,
   'nigeria-grasscutter-farming-calculator': nigeriaGrasscutterFarmingCalculator,
   'nigeria-fgn-savings-bond-calculator': nigeriaFgnSavingsBondCalculator,
+  'maternity-leave-pay-calculator': maternityLeavePayCalculator,
   'kenya-nssf-contribution-calculator': kenyaNssfContributionCalculator,
   'nigeria-nhf-contribution-calculator': nigeriaNhfContributionCalculator,
   'nigeria-non-resident-tax-calculator': nigeriaNonResidentTaxCalculator,
