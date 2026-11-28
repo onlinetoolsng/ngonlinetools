@@ -78,6 +78,7 @@ export const TOOL_ICON_MAP: Record<string, string> = {
   'nigeria-passport-renewal-fee-calculator': '🛂',
   'nigeria-grasscutter-farming-calculator': '🐀',
   'nigeria-fgn-savings-bond-calculator': '🏦',
+  'uganda-paye-nssf-calculator': '🇺🇬',
   'nigeria-nelfund-eligibility-checker': '🎓',
   'south-africa-nsfas-eligibility-checker': '🎓',
   'south-africa-srd-grant-eligibility-checker': '🇿🇦',

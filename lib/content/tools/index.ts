@@ -10,6 +10,7 @@ import nigeriaCgpaDegreeClassChecker from './nigeria-cgpa-degree-class-checker'
 import nigeriaPassportRenewalFeeCalculator from './nigeria-passport-renewal-fee-calculator'
 import nigeriaGrasscutterFarmingCalculator from './nigeria-grasscutter-farming-calculator'
 import nigeriaFgnSavingsBondCalculator from './nigeria-fgn-savings-bond-calculator'
+import ugandaPayeNssfCalculator from './uganda-paye-nssf-calculator'
 import nigeriaNelfundEligibilityChecker from './nigeria-nelfund-eligibility-checker'
 import southAfricaNsfasEligibilityChecker from './south-africa-nsfas-eligibility-checker'
 import southAfricaSrdGrantEligibilityChecker from './south-africa-srd-grant-eligibility-checker'
@@ -55,6 +56,7 @@ export const CODE_TOOL_CONTENT: Record<string, ToolContent> = {
   'nigeria-passport-renewal-fee-calculator': nigeriaPassportRenewalFeeCalculator,
   'nigeria-grasscutter-farming-calculator': nigeriaGrasscutterFarmingCalculator,
   'nigeria-fgn-savings-bond-calculator': nigeriaFgnSavingsBondCalculator,
+  'uganda-paye-nssf-calculator': ugandaPayeNssfCalculator,
   'nigeria-nelfund-eligibility-checker': nigeriaNelfundEligibilityChecker,
   'south-africa-nsfas-eligibility-checker': southAfricaNsfasEligibilityChecker,
   'south-africa-srd-grant-eligibility-checker': southAfricaSrdGrantEligibilityChecker,

@@ -1700,6 +1700,18 @@ export const DRAFT_TOOLS: Tool[] = [
     requiresApi: false,
     launchDate: '2026-11-27',
   },
+  {
+    slug: 'uganda-paye-nssf-calculator',
+    category: 'tax',
+    schema: 'calculator',
+    featured: false,
+    countries: ['uganda'],
+    relatedTools: ['uganda-vat-calculator'],
+    relatedArticles: [],
+    hasCountryVariants: false,
+    requiresApi: false,
+    launchDate: '2026-11-27',
+  },
 ]
 
 // ─── Utility Functions ─────────────────────────────────────────────────────────
