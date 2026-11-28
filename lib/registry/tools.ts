@@ -1688,6 +1688,18 @@ export const DRAFT_TOOLS: Tool[] = [
     requiresApi: false,
     launchDate: '2026-11-27',
   },
+  {
+    slug: 'nigeria-nelfund-eligibility-checker',
+    category: 'education',
+    schema: 'checker',
+    featured: false,
+    countries: ['nigeria'],
+    relatedTools: ['nigeria-student-loan-repayment-estimator', 'nigeria-scholarship-eligibility-matcher'],
+    relatedArticles: [],
+    hasCountryVariants: false,
+    requiresApi: false,
+    launchDate: '2026-11-27',
+  },
 ]
 
 // ─── Utility Functions ─────────────────────────────────────────────────────────
