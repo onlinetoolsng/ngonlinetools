@@ -589,6 +589,10 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
         const { default: SadakiMahrCalculator } = await import('@/components/tools/SadakiMahrCalculator')
         return SadakiMahrCalculator
       }
+      case 'diyya-amount-calculator': {
+        const { default: DiyyaAmountCalculator } = await import('@/components/tools/DiyyaAmountCalculator')
+        return DiyyaAmountCalculator
+      }
       case 'nigeria-cgpa-degree-class-checker': {
         const { default: NigeriaCgpaDegreeClassChecker } = await import('@/components/tools/NigeriaCgpaDegreeClassChecker')
         return NigeriaCgpaDegreeClassChecker
