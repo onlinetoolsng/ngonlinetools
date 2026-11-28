@@ -593,6 +593,10 @@ async function loadToolComponent(toolSlug: string): Promise<ComponentType<{ loca
         const { default: DiyyaAmountCalculator } = await import('@/components/tools/DiyyaAmountCalculator')
         return DiyyaAmountCalculator
       }
+      case 'nigeria-drivers-licence-renewal-calculator': {
+        const { default: NigeriaDriversLicenceRenewalCalculator } = await import('@/components/tools/NigeriaDriversLicenceRenewalCalculator')
+        return NigeriaDriversLicenceRenewalCalculator
+      }
       case 'nigeria-cgpa-degree-class-checker': {
         const { default: NigeriaCgpaDegreeClassChecker } = await import('@/components/tools/NigeriaCgpaDegreeClassChecker')
         return NigeriaCgpaDegreeClassChecker

@@ -1736,6 +1736,18 @@ export const DRAFT_TOOLS: Tool[] = [
     requiresApi: false,
     launchDate: '2026-11-27',
   },
+  {
+    slug: 'nigeria-drivers-licence-renewal-calculator',
+    category: 'everyday',
+    schema: 'calculator',
+    featured: false,
+    countries: ['nigeria'],
+    relatedTools: ['nigeria-passport-renewal-fee-calculator', 'nigeria-trip-fuel-cost-calculator'],
+    relatedArticles: [],
+    hasCountryVariants: false,
+    requiresApi: false,
+    launchDate: '2026-11-27',
+  },
 ]
 
 // ─── Utility Functions ─────────────────────────────────────────────────────────
